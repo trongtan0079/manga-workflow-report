@@ -1,0 +1,50 @@
+% ====================================
+% PHỤ LỤC: TÀI LIỆU API
+% ====================================
+
+\chapter{Tài liệu API}
+\label{app:api}
+
+% Mô tả chi tiết các API endpoint
+
+\section{Xác thực (Authentication)}
+
+\begin{table}[H]
+    \centering
+    \caption{API Đăng nhập}
+    \label{tab:api_login}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Endpoint} & \code{POST /api/auth/login} \\
+        \hline
+        \textbf{Mô tả} & Xác thực người dùng và trả về token \\
+        \hline
+        \textbf{Request Body} & \code{\{"username": "string", "password": "string"\}} \\
+        \hline
+        \textbf{Response 200} & \code{\{"token": "string", "user": \{...\}\}} \\
+        \hline
+        \textbf{Response 401} & \code{\{"error": "Invalid credentials"\}} \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\section{Quản lý Workflow}
+
+% Thêm các API endpoint khác tại đây
+
+\begin{table}[H]
+    \centering
+    \caption{API Lấy danh sách workflow}
+    \label{tab:api_workflows}
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Endpoint} & \code{GET /api/workflows} \\
+        \hline
+        \textbf{Mô tả} & Lấy danh sách tất cả workflow \\
+        \hline
+        \textbf{Headers} & \code{Authorization: Bearer <token>} \\
+        \hline
+        \textbf{Response 200} & \code{\{"data": [...], "total": 0\}} \\
+        \hline
+    \end{tabularx}
+\end{table}

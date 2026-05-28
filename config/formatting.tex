@@ -1,0 +1,79 @@
+% ====================================
+% FORMATTING - Định dạng tài liệu
+% ====================================
+
+% Thiết lập lề trang
+\geometry{
+    a4paper,
+    left=3cm,
+    right=2cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Giãn dòng 1.5
+\onehalfspacing
+
+% Thiết lập header và footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Định dạng tiêu đề chương
+\titleformat{\chapter}[display]
+    {\normalfont\Large\bfseries\centering}
+    {\chaptertitlename\ \thechapter}{10pt}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+% Định dạng tiêu đề mục
+\titleformat{\section}
+    {\normalfont\large\bfseries}
+    {\thesection}{1em}{}
+
+\titleformat{\subsection}
+    {\normalfont\normalsize\bfseries}
+    {\thesubsection}{1em}{}
+
+% Độ sâu mục lục
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+% Thiết lập hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=green,
+    pdftitle={Báo cáo đồ án},
+    pdfauthor={Tác giả},
+    bookmarks=true
+}
+
+% Thiết lập listings cho mã nguồn
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% Thiết lập caption
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    justification=centering
+}
+
+% Định dạng đường dẫn hình ảnh
+\graphicspath{{assets/images/}{assets/diagrams/}}

@@ -1,0 +1,62 @@
+% ====================================
+% MAIN.TEX - File chính của báo cáo
+% Hệ thống quản lý quy trình sản xuất Manga
+% ====================================
+
+\documentclass[a4paper, 12pt]{report}
+
+% --- Nạp cấu hình ---
+\input{config/packages}
+\input{config/formatting}
+\input{config/commands}
+
+% ====================================
+% BẮT ĐẦU TÀI LIỆU
+% ====================================
+\begin{document}
+
+% --- Trang bìa ---
+\input{sections/bia}
+
+% --- Lời cảm ơn ---
+\input{sections/loi_cam_on}
+
+% --- Tóm tắt ---
+\input{sections/tom_tat}
+
+% --- Thuật ngữ và viết tắt ---
+\input{sections/thuat_ngu}
+
+% --- Mục lục ---
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ====================================
+% CÁC CHƯƠNG NỘI DUNG
+% ====================================
+
+\input{chapters/01_gioi_thieu}
+\input{chapters/02_phan_tich_yeu_cau}
+\input{chapters/03_phan_tich_nghiep_vu}
+\input{chapters/04_thiet_ke_he_thong}
+\input{chapters/05_thiet_ke_co_so_du_lieu}
+\input{chapters/06_cai_dat_he_thong}
+\input{chapters/07_kiem_thu_he_thong}
+\input{chapters/08_ket_luan}
+
+% ====================================
+% TÀI LIỆU THAM KHẢO
+% ====================================
+\bibliographystyle{plain}
+\bibliography{references}
+
+% ====================================
+% PHỤ LỤC
+% ====================================
+\appendix
+
+\input{appendix/testcase}
+\input{appendix/api}
+
+\end{document}

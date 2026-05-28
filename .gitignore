@@ -427,3 +427,35 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# ====================================
+# LaTeX build artifacts
+# ====================================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.synctex(busy)
+*.pdfsync
+*.nav
+*.snm
+*.vrb
+*.ind
+*.idx
+*.ilg
+*.glo
+*.gls
+*.glg
+*.ist
+*.acn
+*.acr
+*.alg
+*.run.xml
+*-blx.bib
+*.bcf

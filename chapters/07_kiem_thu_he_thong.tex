@@ -1,0 +1,46 @@
+% ====================================
+% CHƯƠNG 7: KIỂM THỬ HỆ THỐNG
+% ====================================
+
+\chapter{Kiểm thử hệ thống}
+\label{chap:kiem_thu}
+
+\section{Kế hoạch kiểm thử}
+\label{sec:ke_hoach_kiem_thu}
+
+% Trình bày kế hoạch và phương pháp kiểm thử
+
+
+\section{Kiểm thử chức năng}
+\label{sec:kiem_thu_chuc_nang}
+
+% Bảng test case cho các chức năng chính
+
+\begin{table}[H]
+    \centering
+    \caption{Test case -- Chức năng đăng nhập}
+    \label{tab:tc_dang_nhap}
+    \begin{tabularx}{\textwidth}{|c|X|X|X|c|}
+        \hline
+        \textbf{TC} & \textbf{Mô tả} & \textbf{Đầu vào} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+        \hline
+        TC01 & Đăng nhập thành công & Username, password hợp lệ & Chuyển đến trang chủ & Đạt \\
+        \hline
+        TC02 & Đăng nhập thất bại & Password sai & Hiển thị thông báo lỗi & Đạt \\
+        \hline
+        TC03 & Để trống thông tin & Không nhập gì & Hiển thị cảnh báo & Đạt \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+
+\section{Kiểm thử phi chức năng}
+\label{sec:kiem_thu_phi_chuc_nang}
+
+% Kiểm thử hiệu năng, bảo mật, khả năng tương thích
+
+
+\section{Kết quả kiểm thử}
+\label{sec:ket_qua_kiem_thu}
+
+% Tổng hợp kết quả kiểm thử
