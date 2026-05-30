@@ -3,35 +3,88 @@
 % ====================================
 
 \begin{titlepage}
+    % Thiết lập lề đối xứng cho trang bìa để căn giữa hoàn hảo
+    \newgeometry{left=2.5cm, right=2.5cm, top=2cm, bottom=2cm}
+    
+    \begin{tikzpicture}[remember picture, overlay]
+        % Định nghĩa màu xanh Navy đậm
+        \definecolor{navyblue}{RGB}{0, 0, 128}
+        
+        % Tọa độ cho khung viền ngoài đối xứng (cách đều các lề 2cm)
+        \coordinate (TL) at ([shift={(2cm,-2cm)}]current page.north west);
+        \coordinate (TR) at ([shift={(-2cm,-2cm)}]current page.north east);
+        \coordinate (BL) at ([shift={(2cm,2cm)}]current page.south west);
+        \coordinate (BR) at ([shift={(-2cm,2cm)}]current page.south east);
+        
+        \def\eps{4mm}  % Độ nhô ra của góc giao nhau
+        \def\gap{2mm}  % Khoảng cách giữa 2 khung viền
+        
+        % Khung viền ngoài (nét mảnh 0.8pt)
+        \draw[line width=0.8pt, navyblue] ([xshift=-\eps]TL) -- ([xshift=\eps]TR);
+        \draw[line width=0.8pt, navyblue] ([xshift=-\eps]BL) -- ([xshift=\eps]BR);
+        \draw[line width=0.8pt, navyblue] ([yshift=\eps]TL) -- ([yshift=-\eps]BL);
+        \draw[line width=0.8pt, navyblue] ([yshift=\eps]TR) -- ([yshift=-\eps]BR);
+        
+        % Khung viền trong (nét dày 2.5pt)
+        \coordinate (iTL) at ([shift={(\gap,-\gap)}]TL);
+        \coordinate (iTR) at ([shift={(-\gap,-\gap)}]TR);
+        \coordinate (iBL) at ([shift={(\gap,\gap)}]BL);
+        \coordinate (iBR) at ([shift={(-\gap,\gap)}]BR);
+        
+        \draw[line width=2.5pt, navyblue] ([xshift=-\eps]iTL) -- ([xshift=\eps]iTR);
+        \draw[line width=2.5pt, navyblue] ([xshift=-\eps]iBL) -- ([xshift=\eps]iBR);
+        \draw[line width=2.5pt, navyblue] ([yshift=\eps]iTL) -- ([yshift=-\eps]iBL);
+        \draw[line width=2.5pt, navyblue] ([yshift=\eps]iTR) -- ([yshift=-\eps]iBR);
+    \end{tikzpicture}
+
     \begin{center}
-        \textbf{\large \tentruong} \\[0.3cm]
-        \textbf{\large \tenkhoa} \\[0.5cm]
-
-        \HRule \\[0.8cm]
-
-        {\Huge \bfseries \tendoan}
-
-        \HRule \\[1cm]
-
-        \textbf{Môn học:} \tenmonhoc \\[1.5cm]
-
-        \begin{minipage}{0.45\textwidth}
-            \begin{flushleft}
-                \textbf{Sinh viên thực hiện:} \\
-                \tensinhvien \\
-                MSSV: \mssv
-            \end{flushleft}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.45\textwidth}
-            \begin{flushright}
-                \textbf{Giảng viên hướng dẫn:} \\
-                \tengvhd
-            \end{flushright}
-        \end{minipage}
-
+        \vspace*{0.5cm}
+        
+        {\fontsize{18pt}{24pt}\selectfont \bfseries TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI} \\
+        \vspace*{0.2cm}
+        {\fontsize{18pt}{24pt}\selectfont \bfseries THÀNH PHỐ HỒ CHÍ MINH} \\
+        
+        \vspace*{1.5cm}
+        
+        % Logo trường UTH
+        \includegraphics[width=8.0cm, height=3.0cm]{logo_full} \\
+        
+        \vspace*{1.5cm}
+        
+        % Tên đề tài/báo cáo
+        {\fontsize{14pt}{18pt}\selectfont \bfseries HỆ THỐNG QUẢN LÝ QUY TRÌNH SÁNG TÁC} \\
+        \vspace*{0.3cm}
+        {\fontsize{14pt}{18pt}\selectfont \bfseries VÀ XUẤT BẢN MANGA} \\
+        
+        \vspace*{1.6cm}
+        
+        % Thông tin lớp học phần (căn giữa từng dòng riêng biệt giống ảnh mẫu)
+        {\fontsize{13pt}{16pt}\selectfont \textbf{Môn học} : Công nghệ Phần mềm} \\
+        \vspace*{0.3cm}
+        {\fontsize{13pt}{16pt}\selectfont \textbf{Mã lớp học phần} : 012012210510} \\
+        \vspace*{0.3cm}
+        {\fontsize{13pt}{16pt}\selectfont \textbf{Giảng viên hướng dẫn} : Ths.Nguyễn Văn Chiến} \\
+        
+        \vspace*{1.2cm}
+        
+        % Bảng sinh viên thực hiện
+        \renewcommand{\arraystretch}{1.45}
+        {\fontsize{12pt}{15pt}\selectfont
+        \begin{tabular}{|>{\centering\arraybackslash}p{7.2cm}|>{\centering\arraybackslash}p{4.3cm}|}
+            \hline
+            \textbf{Sinh viên thực hiện} & \textbf{MSSV} \\ \hline
+            Trương Trọng Tấn & 060205001895 \\ \hline
+            Giang Thị Ngọc Hân & 083305000710 \\ \hline
+            Nguyễn Thanh Thảo & 068306000130 \\ \hline
+            Dương Kim Ngân & 079305012135\\ \hline
+            Phan Thị Hạnh & 066306016401 \\ \hline
+            Nguyễn Thị Trúc Ngân & 089304010539 \\ \hline
+        \end{tabular}}
+        
         \vfill
-
-        {\large Năm học \namhoc}
+        
+        {\fontsize{13pt}{16pt}\selectfont Thành phố Hồ Chí Minh, tháng 6 năm 2026}
     \end{center}
+    
+    \restoregeometry
 \end{titlepage}
