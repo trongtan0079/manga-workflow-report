@@ -28,8 +28,9 @@
 % Thiết lập header và footer
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\itshape\color{navyblue}\leftmark}
-\fancyhead[R]{\bfseries\color{navyblue}\thepage}
+\fancyhead[L]{\small\color{navyblue} Hệ thống quản lý quy trình sáng tác và xuất bản Manga}
+\fancyhead[R]{\small\color{navyblue} Software Engineering}
+\fancyfoot[C]{\small\color{navyblue}\thepage}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\headrule}{{\color{navyblue}\hrule width\headwidth height\headrulewidth\hfill}}
 \renewcommand{\footrulewidth}{0pt}
@@ -67,6 +68,15 @@
 % Độ sâu mục lục
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
+
+% Cấu hình hiển thị tiền tố "Hình" và "Bảng" trong Danh sách hình vẽ & Danh sách bảng
+\renewcommand{\cftfigpresnum}{Hình~}
+\renewcommand{\cftfigaftersnum}{:}
+\setlength{\cftfignumwidth}{5.0em}
+
+\renewcommand{\cfttabpresnum}{Bảng~}
+\renewcommand{\cfttabaftersnum}{:}
+\setlength{\cfttabnumwidth}{5.0em}
 
 % Thiết lập hyperref
 \hypersetup{
