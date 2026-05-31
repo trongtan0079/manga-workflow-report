@@ -2,6 +2,14 @@
 % FORMATTING - Định dạng tài liệu
 % ====================================
 
+% Định nghĩa bảng màu chuyên nghiệp
+\definecolor{navyblue}{RGB}{27, 54, 93}      % Xanh Navy đậm, học thuật
+\definecolor{charcoal}{RGB}{51, 51, 51}      % Xám đậm cho chữ chính
+\definecolor{lightgray}{RGB}{245, 247, 250}   % Nền xám nhạt cho code
+\definecolor{bordergray}{RGB}{220, 224, 230}  % Màu viền cho bảng/code
+\definecolor{linkblue}{RGB}{20, 80, 160}      % Màu xanh nhã nhặn cho link
+\definecolor{citegreen}{RGB}{40, 120, 40}     % Màu xanh lá cây đậm cho trích dẫn
+
 % Thiết lập lề trang
 \geometry{
     a4paper,
@@ -14,28 +22,47 @@
 % Giãn dòng 1.5
 \onehalfspacing
 
+% Chiều cao header tránh cảnh báo lỗi
+\setlength{\headheight}{15pt}
+
 % Thiết lập header và footer
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\leftmark}
-\fancyhead[R]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\itshape\color{navyblue}\leftmark}
+\fancyhead[R]{\bfseries\color{navyblue}\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{{\color{navyblue}\hrule width\headwidth height\headrulewidth\hfill}}
 \renewcommand{\footrulewidth}{0pt}
 
-% Định dạng tiêu đề chương
-\titleformat{\chapter}[display]
-    {\normalfont\Large\bfseries\centering}
-    {\chaptertitlename\ \thechapter}{10pt}{\LARGE}
-\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+% Định nghĩa viết hoa cho tên chương và phụ lục
+\addto\captionsvietnamese{%
+  \renewcommand{\chaptername}{CHƯƠNG}%
+  \renewcommand{\appendixname}{PHỤ LỤC}%
+}
+
+% Định dạng tiêu đề chương trên 1 hàng, viết hoa toàn bộ
+\titleformat{\chapter}[hang]
+    {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}\centering}
+    {\chaptertitlename~\thechapter.~}
+    {0em}
+    {\MakeTextUppercase}
+\titlespacing*{\chapter}{0pt}{-10pt}{30pt}
 
 % Định dạng tiêu đề mục
 \titleformat{\section}
-    {\normalfont\large\bfseries}
+    {\normalfont\fontsize{14pt}{18pt}\selectfont\bfseries\color{navyblue}}
     {\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{18pt}{10pt}
 
 \titleformat{\subsection}
-    {\normalfont\normalsize\bfseries}
+    {\normalfont\fontsize{13pt}{16.5pt}\selectfont\bfseries\color{navyblue}}
     {\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+
+\titleformat{\subsubsection}
+    {\normalfont\fontsize{12pt}{15pt}\selectfont\bfseries\color{navyblue}}
+    {\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
 
 % Độ sâu mục lục
 \setcounter{tocdepth}{3}
@@ -44,10 +71,10 @@
 % Thiết lập hyperref
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
+    linkcolor=linkblue,
     filecolor=magenta,
-    urlcolor=cyan,
-    citecolor=green,
+    urlcolor=linkblue,
+    citecolor=citegreen,
     pdftitle={Báo cáo đồ án},
     pdfauthor={Tác giả},
     bookmarks=true
@@ -55,17 +82,21 @@
 
 % Thiết lập listings cho mã nguồn
 \lstset{
-    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{lightgray},
+    basicstyle=\ttfamily\small\color{charcoal},
+    breakatwhitespace=false,
     breaklines=true,
+    captionpos=b,
+    commentstyle=\color{citegreen}\itshape,
     frame=single,
+    rulecolor=\color{bordergray},
     numbers=left,
     numberstyle=\tiny\color{gray},
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black}\itshape,
-    stringstyle=\color{red},
+    keywordstyle=\color{navyblue}\bfseries,
+    stringstyle=\color{red!70!black},
     showstringspaces=false,
     tabsize=4,
-    captionpos=b
+    keepspaces=true
 }
 
 % Thiết lập caption

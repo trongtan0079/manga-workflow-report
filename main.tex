@@ -15,26 +15,40 @@
 % ====================================
 \begin{document}
 
+\pagenumbering{alph} % Trang bìa là trang 'a' để tránh trùng lặp anchor page 1 với Chương 1
+
 % --- Trang bìa ---
 \input{sections/bia}
 
+\pagenumbering{arabic} % Đánh số trang bằng chữ số Ả Rập (1, 2, 3, ...) từ phần mở đầu
+\pagestyle{plain}
+
 % --- Lời cảm ơn ---
 \input{sections/loi_cam_on}
+\clearpage
 
 % --- Tóm tắt ---
 \input{sections/tom_tat}
+\clearpage
 
 % --- Thuật ngữ và viết tắt ---
 \input{sections/thuat_ngu}
+\clearpage
 
 % --- Mục lục ---
 \tableofcontents
+\clearpage
+
 \listoffigures
+\clearpage
+
 \listoftables
+\clearpage
 
 % ====================================
 % CÁC CHƯƠNG NỘI DUNG
 % ====================================
+\pagestyle{fancy}
 
 \input{chapters/01_gioi_thieu}
 \input{chapters/02_phan_tich_yeu_cau}
