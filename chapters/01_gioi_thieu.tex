@@ -1,6 +1,5 @@
 % ====================================
 % CHƯƠNG I: GIỚI THIỆU DỰ ÁN
-% Người phụ trách: Người 1
 % ====================================
 \chapter{Giới thiệu dự án}
 \label{chap:gioi_thieu_du_an}
@@ -11,9 +10,52 @@
 \subsection{Thông tin dự án}
 \label{subsec:thong_tin_du_an}
 
+\textbf{Tên dự án:} Manga Creation Workflow and Publishing Management System (Hệ thống Quản lý Quy trình Sáng tác và Xuất bản Manga).
+
+\textbf{Mô tả dự án:} \\
+Manga Creation Workflow and Publishing Management System là hệ thống được xây dựng nhằm hỗ trợ quản lý toàn bộ quy trình sáng tác và xuất bản Manga từ giai đoạn quản lý Series, Chapter, Page, phân công công việc cho các trợ lý, quản lý quá trình nộp bài và kiểm duyệt nội dung, đến việc theo dõi kết quả bình chọn, xếp hạng các Series và quản lý lịch phát hành.
+
+Hệ thống hỗ trợ các vai trò tham gia trong quy trình xuất bản Manga bao gồm Mangaka, Assistant, Tantou Editor và Editorial Board. Thông qua việc số hóa quy trình làm việc, hệ thống giúp nâng cao hiệu quả quản lý, tăng khả năng theo dõi tiến độ thực hiện, hỗ trợ phối hợp giữa các thành viên và cung cấp dữ liệu phục vụ cho việc ra quyết định xuất bản.
+
+\textbf{Mục tiêu dự án:}
+\begin{itemize}
+    \item Quản lý thông tin Series, Chapter và Page Manga.
+    \item Hỗ trợ phân công, theo dõi và quản lý công việc của Assistant.
+    \item Quản lý quá trình nộp bài (Submission) và kiểm duyệt nội dung (Review).
+    \item Theo dõi kết quả bình chọn và xếp hạng các Series.
+    \item Hỗ trợ quản lý lịch phát hành và tiến độ xuất bản.
+    \item Cung cấp hệ thống thông báo phục vụ trao đổi thông tin giữa các thành viên.
+    \item Xây dựng cơ sở dữ liệu tập trung nhằm lưu trữ và quản lý thông tin một cách hiệu quả.
+\end{itemize}
+
 \subsection{Nhóm thực hiện}
 \label{subsec:nhom_thuc_hien}
 
+Dưới đây là thông tin chi tiết về các thành viên và vai trò trong nhóm thực hiện dự án:
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|c|p{4cm}|p{3.5cm}|X|}
+        \hline
+        \textbf{STT} & \textbf{Họ và tên} & \textbf{Vai trò} & \textbf{Email} \\
+        \hline
+        1 & Trương Trọng Tấn & Trưởng nhóm (Leader) & \href{mailto:tr.tan0079@gmail.com}{tr.tan0079@gmail.com} \\
+        \hline
+        2 & Giang Thị Ngọc Hân & Thành viên & \href{mailto:hangtn0710@ut.edu.vn}{hangtn0710@ut.edu.vn} \\
+        \hline
+        3 & Dương Kim Ngân & Thành viên & \href{mailto:ngandk2135@ut.edu.vn}{ngandk2135@ut.edu.vn} \\
+        \hline
+        4 & Nguyễn Thanh Thảo & Thành viên & \href{mailto:thaont013@ut.edu.vn}{thaont013@ut.edu.vn} \\
+        \hline
+        5 & Nguyễn Thị Trúc Ngân & Thành viên & \href{mailto:nguyenthitrngan@gmail.com}{nguyenthitrngan@gmail.com} \\
+        \hline
+        6 & Phan Thị Hạnh & Thành viên & \href{mailto:hanhpt6401@ut.edu.vn}{hanhpt6401@ut.edu.vn} \\
+        \hline
+    \end{tabularx}
+    \caption{Nhóm thực hiện dự án}
+    \label{tab:nhom_thuc_hien}
+\end{table}
 
 \section{Bối cảnh đề tài}
 \label{sec:boi_canh}
@@ -21,12 +63,26 @@
 \subsection{Thực trạng hiện nay}
 \label{subsec:thuc_trang_hien_nay}
 
+Ngành công nghiệp Manga ngày càng phát triển mạnh mẽ với số lượng tác phẩm và đội ngũ tham gia sáng tác ngày càng tăng. Trong quá trình sản xuất và xuất bản Manga, nhiều vai trò khác nhau cùng tham gia như Mangaka, Assistant, Tantou Editor và Editorial Board. Mỗi vai trò đảm nhận các nhiệm vụ riêng biệt nhưng có mối liên hệ chặt chẽ với nhau trong toàn bộ quy trình làm việc.
+
+Tuy nhiên, tại nhiều nhóm sáng tác hoặc đơn vị xuất bản, việc quản lý quy trình vẫn được thực hiện thông qua các công cụ rời rạc như bảng tính, email, tin nhắn hoặc các tài liệu thủ công. Điều này gây khó khăn trong việc theo dõi tiến độ, quản lý công việc, kiểm soát phiên bản nội dung và tổng hợp thông tin phục vụ cho quá trình đánh giá, xét duyệt và xuất bản.
+
+Bên cạnh đó, việc quản lý kết quả bình chọn của độc giả, theo dõi thứ hạng các Series và lập kế hoạch phát hành thường chưa được tích hợp trong một hệ thống thống nhất, dẫn đến việc xử lý dữ liệu mất nhiều thời gian và dễ phát sinh sai sót.
+
 \subsection{Vấn đề cần giải quyết}
 \label{subsec:van_de_can_giai_quyet}
 
-\subsection{Lý do lựa chọn đề tài}
-\label{subsec:ly_do_chon_de_tai}
-
+Từ thực trạng trên, có thể nhận thấy một số vấn đề chính cần được giải quyết như sau:
+\begin{itemize}
+    \item Thiếu một hệ thống tập trung để quản lý toàn bộ quy trình sáng tác và xuất bản Manga.
+    \item Khó khăn trong việc phân công, theo dõi và kiểm soát tiến độ thực hiện công việc của các thành viên.
+    \item Việc nộp bài, kiểm duyệt và phản hồi nội dung chưa được quản lý một cách thống nhất.
+    \item Khó theo dõi trạng thái của Series, Chapter và các công việc liên quan.
+    \item Dữ liệu bình chọn và xếp hạng Series chưa được tổng hợp và quản lý hiệu quả.
+    \item Quá trình lập lịch phát hành và theo dõi tiến độ xuất bản còn mang tính thủ công.
+    \item Thiếu cơ chế thông báo tập trung giúp các thành viên cập nhật thông tin kịp thời.
+\end{itemize}
+Những vấn đề trên làm giảm hiệu quả quản lý, gia tăng nguy cơ sai sót và ảnh hưởng đến tiến độ sản xuất cũng như chất lượng xuất bản Manga.
 
 \section{Tầm nhìn hệ thống}
 \label{sec:tam_nhin}
@@ -34,31 +90,47 @@
 \subsection{Mục tiêu hệ thống}
 \label{subsec:muc_tieu_he_thong}
 
+Mục tiêu của hệ thống Manga Creation Workflow and Publishing Management System là xây dựng một nền tảng quản lý tập trung hỗ trợ toàn bộ quy trình sáng tác và xuất bản Manga. Hệ thống giúp kết nối các vai trò tham gia trong quy trình sản xuất bao gồm Mangaka, Assistant, Tantou Editor và Editorial Board thông qua một môi trường làm việc thống nhất.
+
+Hệ thống hướng đến việc số hóa các hoạt động quản lý Series, Chapter, Page, phân công công việc, quản lý Submission, kiểm duyệt nội dung, theo dõi kết quả bình chọn và hỗ trợ đưa ra quyết định xuất bản. Qua đó nâng cao hiệu quả quản lý, giảm thiểu sai sót và tăng khả năng phối hợp giữa các thành viên trong nhóm sáng tác và xuất bản.
+
 \subsection{Giá trị mang lại}
 \label{subsec:gia_tri_mang_lai}
 
-\subsection{Định hướng phát triển}
-\label{subsec:dinh_huong_phat_trien}
-
+Việc triển khai hệ thống mang lại nhiều lợi ích cho quá trình sáng tác và xuất bản Manga, bao gồm:
+\begin{itemize}
+    \item Tập trung hóa dữ liệu và thông tin liên quan đến Series, Chapter và Page Manga.
+    \item Hỗ trợ quản lý công việc hiệu quả thông qua cơ chế phân công và theo dõi tiến độ thực hiện.
+    \item Nâng cao hiệu quả kiểm duyệt và phản hồi nội dung giữa các bên liên quan.
+    \item Hỗ trợ theo dõi kết quả bình chọn và xếp hạng các Series một cách trực quan và chính xác.
+    \item Giúp Editorial Board có cơ sở dữ liệu để đưa ra quyết định xuất bản hoặc ngừng phát hành Series.
+    \item Tăng khả năng phối hợp giữa Mangaka, Assistant, Tantou Editor và Editorial Board.
+    \item Giảm thời gian xử lý thủ công và hạn chế các sai sót trong quá trình quản lý.
+    \item Cung cấp hệ thống thông báo giúp các thành viên cập nhật thông tin kịp thời.
+\end{itemize}
 
 \section{Đối tượng sử dụng}
 \label{sec:doi_tuong}
 
 \subsection{Admin}
 \label{subsec:actor_admin}
+Admin là người quản trị hệ thống, chịu trách nhiệm quản lý người dùng, phân quyền truy cập và đảm bảo hệ thống hoạt động ổn định. Admin có quyền kiểm soát các chức năng quản trị và theo dõi hoạt động chung của hệ thống.
 
 \subsection{Mangaka}
 \label{subsec:actor_mangaka}
+Mangaka là tác giả chính của tác phẩm Manga, chịu trách nhiệm xây dựng nội dung, quản lý quá trình sáng tác và phối hợp với các Assistant để hoàn thiện tác phẩm trước khi gửi kiểm duyệt.
 
 \subsection{Assistant}
 \label{subsec:actor_assistant}
+Assistant là người hỗ trợ Mangaka thực hiện các công việc được phân công trong quá trình hoàn thiện Manga. Các công việc có thể bao gồm xử lý artwork, chỉnh sửa nội dung hoặc các nhiệm vụ khác do Mangaka giao.
 
 \subsection{Tantou Editor}
 \label{subsec:actor_tantou}
+Tantou Editor là biên tập viên trực tiếp theo dõi quá trình phát triển của các Series Manga. Vai trò này chịu trách nhiệm kiểm duyệt nội dung, đưa ra nhận xét và hỗ trợ Mangaka nâng cao chất lượng tác phẩm trước khi xuất bản.
 
 \subsection{Editorial Board}
 \label{subsec:actor_editorial_board}
-
+Editorial Board là hội đồng biên tập chịu trách nhiệm đánh giá hiệu quả hoạt động của các Series Manga dựa trên dữ liệu bình chọn và kết quả phát hành. Hội đồng đưa ra các quyết định liên quan đến việc tiếp tục xuất bản, thay đổi lịch phát hành hoặc ngừng phát hành Series.
 
 \section{Phạm vi và giới hạn dự án}
 \label{sec:pham_vi_gioi_han}
@@ -66,24 +138,183 @@
 \subsection{Phạm vi dự án}
 \label{subsec:pham_vi_du_an}
 
+Dự án tập trung xây dựng hệ thống hỗ trợ quản lý quy trình sáng tác và xuất bản Manga trong môi trường làm việc cộng tác giữa nhiều vai trò khác nhau. Hệ thống hỗ trợ quản lý thông tin Series, Chapter, Page, công việc được giao cho Assistant, quá trình nộp bài và kiểm duyệt nội dung, đồng thời hỗ trợ theo dõi kết quả bình chọn và xếp hạng Series phục vụ cho việc ra quyết định xuất bản.
+
+Hệ thống được thiết kế phục vụ các đối tượng sử dụng gồm Admin, Mangaka, Assistant, Tantou Editor và Editorial Board.
+
 \subsection{Chức năng chính}
 \label{subsec:chuc_nang_chinh}
 
-% Liệt kê các chức năng chính dưới dạng danh sách để tránh làm quá sâu mục lục
-\begin{itemize}
-    \item \textbf{Chức năng dành cho Admin:}
-    \item \textbf{Chức năng dành cho Mangaka:}
-    \item \textbf{Chức năng dành cho Assistant:}
-    \item \textbf{Chức năng dành cho Tantou Editor:}
-    \item \textbf{Chức năng dành cho Editorial Board:}
-\end{itemize}
+Hệ thống được phân chia chức năng theo từng đối tượng sử dụng cụ thể nhằm đảm bảo tính phân quyền và tối ưu quy trình làm việc. Chi tiết chức năng của các vai trò được thể hiện qua các bảng dưới đây.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|l|p{4.5cm}|X|}
+        \hline
+        \textbf{Đối tượng} & \textbf{Mô tả} & \textbf{Chức năng} \\
+        \hline
+        \multirow{5}{*}{\textbf{Admin}} & \multirow{5}{4.5cm}{Quản trị và giám sát hoạt động của toàn bộ hệ thống.} & Quản lý tài khoản người dùng. \\
+        \cline{3-3}
+        & & Quản lý vai trò và phân quyền. \\
+        \cline{3-3}
+        & & Theo dõi hoạt động hệ thống. \\
+        \cline{3-3}
+        & & Xem thông báo hệ thống. \\
+        \cline{3-3}
+        & & Xem báo cáo và thống kê tổng hợp. \\
+        \hline
+    \end{tabularx}
+    \caption{Mô tả chức năng của Admin}
+    \label{tab:chuc_nang_admin}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|l|p{4.5cm}|X|}
+        \hline
+        \textbf{Đối tượng} & \textbf{Mô tả} & \textbf{Chức năng} \\
+        \hline
+        \multirow{8}{*}{\textbf{Mangaka}} & \multirow{8}{4.5cm}{Tác giả chính chịu trách nhiệm sáng tác và quản lý tác phẩm Manga.} & Tạo hồ sơ giới thiệu Series mới và nộp bản thảo sơ bộ để trình lên Hội đồng xét duyệt. \\
+        \cline{3-3}
+        & & Quản lý thông tin Series và Chapter. \\
+        \cline{3-3}
+        & & Phân chia công việc trên từng trang Manga và giao việc cho Assistant. \\
+        \cline{3-3}
+        & & Theo dõi tiến độ thực hiện công việc của Assistant. \\
+        \cline{3-3}
+        & & Kiểm duyệt kết quả công việc do Assistant gửi lên. \\
+        \cline{3-3}
+        & & Chỉnh sửa và hoàn thiện nội dung Chapter theo phản hồi từ Tantou Editor. \\
+        \cline{3-3}
+        & & Theo dõi kết quả bình chọn và thứ hạng của Series. \\
+        \cline{3-3}
+        & & Theo dõi các thông báo liên quan đến tình trạng xuất bản của Series. \\
+        \hline
+    \end{tabularx}
+    \caption{Mô tả chức năng của Mangaka}
+    \label{tab:chuc_nang_mangaka}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|l|p{4.5cm}|X|}
+        \hline
+        \textbf{Đối tượng} & \textbf{Mô tả} & \textbf{Chức năng} \\
+        \hline
+        \multirow{8}{*}{\textbf{Assistant}} & \multirow{8}{4.5cm}{Người hỗ trợ Mangaka thực hiện các công việc được phân công nhằm hoàn thiện tác phẩm.} & Xem danh sách công việc được giao. \\
+        \cline{3-3}
+        & & Tải trang Manga và các tài nguyên liên quan phục vụ công việc. \\
+        \cline{3-3}
+        & & Thực hiện các nhiệm vụ được phân công (vẽ nền, tô màu, chỉnh sửa hình ảnh, bổ sung chi tiết, ...). \\
+        \cline{3-3}
+        & & Nộp Submission sau khi hoàn thành công việc. \\
+        \cline{3-3}
+        & & Theo dõi trạng thái Task và Submission. \\
+        \cline{3-3}
+        & & Tiếp nhận phản hồi từ Mangaka hoặc Tantou Editor. \\
+        \cline{3-3}
+        & & Theo dõi số trang đã được duyệt. \\
+        \cline{3-3}
+        & & Theo dõi các thông báo liên quan đến công việc được giao. \\
+        \hline
+    \end{tabularx}
+    \caption{Mô tả chức năng của Assistant}
+    \label{tab:chuc_nang_assistant}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|l|p{4.5cm}|X|}
+        \hline
+        \textbf{Đối tượng} & \textbf{Mô tả} & \textbf{Chức năng} \\
+        \hline
+        \multirow{5}{*}{\textbf{Tantou Editor}} & \multirow{5}{4.5cm}{Biên tập viên chịu trách nhiệm theo dõi và kiểm duyệt nội dung Manga trước khi phát hành.} & Review bản thảo Series và Chapter. \\
+        \cline{3-3}
+        & & Đưa ra nhận xét và đề xuất chỉnh sửa nội dung. \\
+        \cline{3-3}
+        & & Theo dõi tiến độ thực hiện và thời hạn (Deadline) của Series. \\
+        \cline{3-3}
+        & & Quản lý hồ sơ Series trong quá trình kiểm duyệt. \\
+        \cline{3-3}
+        & & Theo dõi các thông báo liên quan đến quá trình kiểm duyệt. \\
+        \hline
+    \end{tabularx}
+    \caption{Mô tả chức năng của Tantou Editor}
+    \label{tab:chuc_nang_tantou}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|l|p{4.5cm}|X|}
+        \hline
+        \textbf{Đối tượng} & \textbf{Mô tả} & \textbf{Chức năng} \\
+        \hline
+        \multirow{7}{*}{\textbf{Editorial Board}} & \multirow{7}{4.5cm}{Hội đồng biên tập chịu trách nhiệm đánh giá hiệu quả phát hành và đưa ra các quyết định liên quan đến xuất bản Manga.} & Đánh giá hồ sơ giới thiệu Series mới. \\
+        \cline{3-3}
+        & & Bỏ phiếu xét duyệt các Series trước khi phát hành. \\
+        \cline{3-3}
+        & & Nhập dữ liệu bình chọn của độc giả. \\
+        \cline{3-3}
+        & & Theo dõi bảng xếp hạng các Series. \\
+        \cline{3-3}
+        & & Xem báo cáo thống kê kết quả phát hành. \\
+        \cline{3-3}
+        & & Đưa ra quyết định tiếp tục xuất bản hoặc ngừng phát hành Series. \\
+        \cline{3-3}
+        & & Theo dõi các thông báo liên quan đến hoạt động xuất bản. \\
+        \hline
+    \end{tabularx}
+    \caption{Mô tả chức năng của Editorial Board}
+    \label{tab:chuc_nang_editorial_board}
+\end{table}
 
 \subsection{Giới hạn hệ thống}
 \label{subsec:gioi_han_he_thong}
 
+Trong phạm vi đồ án, hệ thống tập trung hỗ trợ quản lý quy trình sáng tác và xuất bản Manga giữa các vai trò nội bộ gồm Admin, Mangaka, Assistant, Tantou Editor và Editorial Board.
+
+Hệ thống chưa hỗ trợ các chức năng sau:
+\begin{itemize}
+    \item Bình chọn trực tuyến dành cho độc giả.
+    \item Thu thập dữ liệu bình chọn tự động từ các nền tảng phát hành Manga.
+    \item Quản lý bản quyền và doanh thu từ hoạt động phát hành Manga.
+    \item Hỗ trợ phát hành Manga trên nhiều nền tảng hoặc nhiều đơn vị xuất bản khác nhau.
+    \item Tích hợp các công cụ trao đổi và cộng tác thời gian thực giữa các thành viên.
+    \item Phân tích dữ liệu nâng cao và dự báo xu hướng phát hành dựa trên dữ liệu bình chọn.
+\end{itemize}
+
+Ngoài ra, dữ liệu bình chọn của độc giả được giả định là được Editorial Board nhập thủ công vào hệ thống sau mỗi kỳ phát hành để phục vụ việc tổng hợp và xếp hạng Series.
+
 \subsection{Các giả định và ràng buộc}
 \label{subsec:gia_dinh_rang_buoc}
 
+\textbf{Các giả định:}
+\begin{itemize}
+    \item Mỗi người dùng chỉ được gán một vai trò tại một thời điểm.
+    \item Mỗi Series thuộc quyền quản lý của một Mangaka.
+    \item Mỗi Chapter thuộc về một Series.
+    \item Mỗi Page thuộc về một Chapter.
+    \item Mỗi Task được giao cho một Assistant cụ thể.
+    \item Mỗi Submission chỉ thuộc về một Task.
+    \item Mỗi Review được thực hiện trên một Submission.
+    \item Dữ liệu bình chọn được Editorial Board nhập vào hệ thống sau mỗi kỳ phát hành.
+\end{itemize}
+
+\textbf{Các ràng buộc:}
+\begin{itemize}
+    \item Người dùng chỉ được truy cập các chức năng phù hợp với vai trò được phân quyền.
+    \item Mangaka chỉ được quản lý các Series do mình tạo.
+    \item Assistant chỉ được thực hiện các Task được giao.
+    \item Tantou Editor chỉ được thực hiện chức năng kiểm duyệt và phản hồi nội dung.
+    \item Editorial Board chỉ được thực hiện các chức năng liên quan đến đánh giá, xếp hạng và quyết định xuất bản.
+    \item Mọi thay đổi dữ liệu phải được lưu trữ và quản lý trong cơ sở dữ liệu của hệ thống.
+\end{itemize}
 
 \section{Kết luận chương}
 \label{sec:ket_luan_chap1}
+Chương I đã giới thiệu tổng quan về dự án xây dựng hệ thống quản lý quy trình sáng tác và xuất bản Manga, bao gồm bối cảnh thực hiện đề tài, thực trạng và các vấn đề cần giải quyết. Chương cũng đã xác định rõ mục tiêu hệ thống, giá trị mang lại, các đối tượng sử dụng chính cùng với phạm vi, giới hạn và các giả định, ràng buộc của dự án. Đây là cơ sở quan trọng để tiến hành phân tích chi tiết yêu cầu của hệ thống ở chương tiếp theo.
