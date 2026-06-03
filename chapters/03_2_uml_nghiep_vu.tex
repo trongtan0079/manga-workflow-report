@@ -8,12 +8,35 @@
 
 \subsection{Danh sách Actor}
 \label{subsec:actor_list}
+Hệ thống bao gồm các tác nhân (Actor) tham gia tương tác như sau:
 
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|l|p{8cm}|}
+\hline
+\textbf{STT} & \textbf{Actor} & \textbf{Mô tả} \\ \hline
+1 & Admin & Quản trị hệ thống, quản lý người dùng và phân quyền \\ \hline
+2 & Mangaka & Tác giả Manga, quản lý quá trình sáng tác và cộng tác \\ \hline
+3 & Assistant & Trợ lý hỗ trợ thực hiện các công việc được giao \\ \hline
+4 & Tantou Editor & Biên tập viên kiểm duyệt và phản hồi nội dung \\ \hline
+5 & Editorial Board & Hội đồng biên tập đánh giá và quyết định xuất bản \\ \hline
+\end{tabular}
+\caption{Danh sách Actor}
+\label{tab:danh_sach_actor}
+\end{table}
 \subsection{Use Case Diagram tổng thể}
 \label{subsec:use_case_tong_the}
+Use Case Diagram tổng thể mô tả toàn bộ các chức năng chính của hệ thống và mối quan hệ tương tác giữa các Actor với hệ thống.
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/use_case_tong_the.png} % Thay đổi đường dẫn ảnh thực tế của bạn tại đây
+    \caption{Use Case Diagram tổng thể của hệ thống}
+    \label{fig:use_case_tong_the}
+\end{figure}
 
 \subsection{Use Case Diagram chi tiết}
 \label{subsec:use_case_chi_tiet}
+Để làm rõ chức năng của từng nhóm người dùng, hệ thống được phân tách thành các Use Case Diagram chi tiết tương ứng với từng Actor.
 
 % Sử dụng danh sách liệt kê để làm gọn mục lục
 Các Actor chính bao gồm:
