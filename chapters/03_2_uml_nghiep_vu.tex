@@ -10,26 +10,28 @@
 \label{subsec:actor_list}
 Hệ thống bao gồm các tác nhân (Actor) tham gia tương tác như sau:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\begin{tabular}{|c|l|p{8cm}|}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|l|>{\raggedright\arraybackslash}X|}
 \hline
-\textbf{STT} & \textbf{Actor} & \textbf{Mô tả} \\ \hline
+\rowcolor{tableheader}
+\textbf{STT} & \textbf{Actor} & \textbf{Mô tả} \rule[-1.2ex]{0pt}{4ex} \\ \hline
 1 & Admin & Quản trị hệ thống, quản lý người dùng và phân quyền \\ \hline
 2 & Mangaka & Tác giả Manga, quản lý quá trình sáng tác và cộng tác \\ \hline
 3 & Assistant & Trợ lý hỗ trợ thực hiện các công việc được giao \\ \hline
 4 & Tantou Editor & Biên tập viên kiểm duyệt và phản hồi nội dung \\ \hline
 5 & Editorial Board & Hội đồng biên tập đánh giá và quyết định xuất bản \\ \hline
-\end{tabular}
+\end{tabularx}
 \caption{Danh sách Actor}
 \label{tab:danh_sach_actor}
 \end{table}
 \subsection{Use Case Diagram tổng thể}
 \label{subsec:use_case_tong_the}
 Use Case Diagram tổng thể mô tả toàn bộ các chức năng chính của hệ thống và mối quan hệ tương tác giữa các Actor với hệ thống.
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.9\textwidth]{images/use_case_tong_the.png} % Thay đổi đường dẫn ảnh thực tế của bạn tại đây
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/Use_case_tong_quat .png}
     \caption{Use Case Diagram tổng thể của hệ thống}
     \label{fig:use_case_tong_the}
 \end{figure}
