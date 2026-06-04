@@ -9,17 +9,62 @@
 \subsection{Đăng nhập hệ thống}
 \label{subsec:seq_dang_nhap}
 
+Sequence Diagram mô tả quá trình người dùng đăng nhập vào hệ thống. Hệ thống xác thực thông tin tài khoản và cấp quyền truy cập nếu hợp lệ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_dang_nhap_he_thong.png}
+    \caption{Sequence Diagram Đăng nhập hệ thống}
+    \label{fig:seq_dang_nhap}
+\end{figure}
+
 \subsection{Phân công Task}
 \label{subsec:seq_giao_task}
+
+Sequence Diagram mô tả quá trình Manager tạo và phân công công việc cho Assistant. Sau khi Task được tạo, hệ thống lưu thông tin và gửi thông báo đến Assistant.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_manga_task_assignment.png}
+    \caption{Sequence Diagram Phân công Task}
+    \label{fig:seq_giao_task}
+\end{figure}
 
 \subsection{Nộp Submission}
 \label{subsec:seq_nop_submission}
 
+Sequence Diagram mô tả quá trình Assistant nộp kết quả thực hiện Task. Hệ thống lưu Submission và cập nhật trạng thái công việc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_quy_trinh_nop_submission.png}
+    \caption{Sequence Diagram Nộp Submission}
+    \label{fig:seq_nop_submission}
+\end{figure}
+
 \subsection{Review Chapter}
 \label{subsec:seq_review_chapter}
 
+Sequence Diagram mô tả quá trình Manager đánh giá Submission. Nếu đạt yêu cầu, hệ thống cập nhật tiến độ Chapter; ngược lại hệ thống gửi yêu cầu chỉnh sửa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_review_chapter.png}
+    \caption{Sequence Diagram Review Chapter}
+    \label{fig:seq_review_chapter}
+\end{figure}
+
 \subsection{Xuất bản Manga}
 \label{subsec:seq_xuat_ban}
+
+Sequence Diagram mô tả quá trình Editor xuất bản Chapter sau khi hoàn thành kiểm duyệt. Chapter được chuyển sang trạng thái Published và hiển thị cho người đọc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_manga_series_publishing.png}
+    \caption{Sequence Diagram Xuất bản Manga}
+    \label{fig:seq_xuat_ban}
+\end{figure}
 
 \section{Thiết kế Class Diagram}
 \label{sec:thiet_ke_class_diagram}
