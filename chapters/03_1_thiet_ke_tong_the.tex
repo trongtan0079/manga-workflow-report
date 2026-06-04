@@ -1,19 +1,40 @@
 % ====================================
-% CHƯƠNG III - PHẦN 1: THIẾT KẾ TỔNG THỂ HỆ THỐNG
+% CHƯƠNG III - PHẦN 1: THIẾT KẾ KIẾN TRÚC HỆ THỐNG
 % Người phụ trách: Người 5
 % ====================================
 
-\section{Thiết kế tổng thể hệ thống}
-\label{sec:thiet_ke_tong_the_he_thong}
+\section{Thiết kế kiến trúc hệ thống}
+\label{sec:thiet_ke_kien_truc_he_thong}
 
 \subsection{Kiến trúc hệ thống}
 \label{subsec:kien_truc_he_thong}
 
-\subsection{Các thành phần chính của hệ thống}
-\label{subsec:thanh_phan_chinh}
-
-\subsection{Luồng xử lý tổng quát}
-\label{subsec:luong_xu_ly_tong_quat}
+Hệ thống Manga Creation Workflow and Publishing Management System được thiết kế theo mô hình kiến trúc ba lớp (Three-Tier Architecture), bao gồm:
+\begin{itemize}
+    \item \textbf{Lớp giao diện người dùng (Presentation Layer):} Cung cấp giao diện tương tác cho các đối tượng sử dụng như Admin, Mangaka, Assistant, Tantou Editor và Editorial Board.
+    \item \textbf{Lớp xử lý nghiệp vụ (Business Logic Layer):} Thực hiện các chức năng xử lý nghiệp vụ của hệ thống như quản lý Series, Chapter, Task, Submission, Review, Ranking và Notification.
+    \item \textbf{Lớp dữ liệu (Data Layer):} Quản lý việc lưu trữ, truy xuất và cập nhật dữ liệu trong cơ sở dữ liệu.
+\end{itemize}
+Mô hình kiến trúc ba lớp giúp hệ thống dễ bảo trì, dễ mở rộng và nâng cao khả năng tái sử dụng các thành phần chức năng.
 
 \subsection{Kiến trúc triển khai hệ thống}
 \label{subsec:kien_truc_trien_khai}
+
+Hệ thống được triển khai theo mô hình Client -- Server.
+
+Trong mô hình này, người dùng truy cập hệ thống thông qua trình duyệt Web trên thiết bị cá nhân. Các yêu cầu từ người dùng được gửi đến máy chủ ứng dụng để xử lý và trao đổi dữ liệu với cơ sở dữ liệu.
+
+Kiến trúc triển khai bao gồm các thành phần chính:
+\begin{itemize}
+    \item \textbf{Client:} Là thiết bị của người dùng sử dụng trình duyệt Web để truy cập hệ thống.
+    \item \textbf{Application Server:} Tiếp nhận và xử lý các yêu cầu từ Client, thực hiện các nghiệp vụ của hệ thống và trao đổi dữ liệu với cơ sở dữ liệu.
+    \item \textbf{Database Server:} Lưu trữ toàn bộ dữ liệu của hệ thống bao gồm dữ liệu người dùng, Series, Chapter, Page, Task, Submission, Review, Ranking và Notification.
+\end{itemize}
+Kiến trúc Client -- Server giúp tập trung quản lý dữ liệu, tăng khả năng mở rộng hệ thống và hỗ trợ nhiều người dùng truy cập đồng thời.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/kien_truc_trien_khai_he_thong.png}
+    \caption{Kiến trúc triển khai hệ thống}
+    \label{fig:kien_truc_trien_khai_he_thong}
+\end{figure}
