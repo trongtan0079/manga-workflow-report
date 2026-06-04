@@ -25,20 +25,82 @@ Hệ thống bao gồm các tác nhân (Actor) tham gia tương tác như sau:
 \end{tabularx}
 \caption{Danh sách Actor}
 \label{tab:danh_sach_actor}
+
 \end{table}
 \subsection{Use Case Diagram tổng thể}
 \label{subsec:use_case_tong_the}
 Use Case Diagram tổng thể mô tả toàn bộ các chức năng chính của hệ thống và mối quan hệ tương tác giữa các Actor với hệ thống.
 \begin{figure}[H]
     \centering
+<<<<<<< HEAD
     \includegraphics[width=\textwidth]{Chapter3_IMAGE/Use_case_tong_quat .png}
+=======
+    \includegraphics[width=0.9\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_tong_quat .png} 
+>>>>>>> c921788 (commit 03_2)
     \caption{Use Case Diagram tổng thể của hệ thống}
-    \label{fig:use_case_tong_the}
+    \label{fig:Use_case_tong_quat}
 \end{figure}
 
+\FloatBarrier
 \subsection{Use Case Diagram chi tiết}
 \label{subsec:use_case_chi_tiet}
 Để làm rõ chức năng của từng nhóm người dùng, hệ thống được phân tách thành các Use Case Diagram chi tiết tương ứng với từng Actor.
+
+\subsection{Use Case Diagram của Admin}
+\label{subsec:use_case_diagram_cua_admin}
+Use Case Diagram của Admin mô tả các chức năng quản trị hệ thống, quản lý người dùng, phân quyền và theo dõi hoạt động hệ thống.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_Admin.png}
+    \caption{Use Case Diagram của Admin}
+    \label{fig:Use_case_Admin}
+\end{figure}
+
+\FloatBarrier
+\subsection{Use Case Diagram của Mangaka}
+\label{subsec:use_case_diagram_cua_mangaka}
+Use Case Diagram của Mangaka mô tả các chức năng liên quan đến quản lý Series, Chapter, giao việc cho Assistant và theo dõi quá trình sáng tác Manga.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_Magaka.png}
+    \caption{Use Case Diagram của Mangaka}
+    \label{fig:Use_case_Magaka}
+\end{figure}
+
+\FloatBarrier
+\subsection{Use Case Diagram của Assistant}
+\label{subsec:use_case_diagram_cua_Assistant}
+Use Case Diagram của Assistant mô tả các chức năng nhận nhiệm vụ, thực hiện công việc, nộp Submission và theo dõi kết quả xử lý công việc.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_Assistant.png}
+    \caption{Use Case Diagram của Assistant}
+    \label{fig:use_case_Assistant}    
+\end{figure}
+
+\FloatBarrier
+\subsection{Use Case Diagram của Tantou Editor}
+\label{subsec:use_case_diagram_cua_Tantou_Editor}
+Use Case Diagram của Tantou Editor mô tả các chức năng kiểm duyệt nội dung, theo dõi tiến độ phát triển Series và gửi phản hồi cho Mangaka.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_Assistant.png}
+    \caption{Use Case Diagram của Assistant}
+    \label{fig:use_case_Assistant}    
+\end{figure}
+
+\FloatBarrier
+\subsection{Use Case Diagram của Editorial Board}
+\label{subsec:use_case_diagram_cua_Editorial_Board}
+Use Case Diagram của Editorial Board mô tả các chức năng xét duyệt Series, nhập dữ liệu bình chọn, đánh giá xếp hạng và đưa ra quyết định xuất bản.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/diagrams/Chapter3_IMAGE/Use_case_Editorial_board.png}
+    \caption{Use Case Diagram của Assistant}
+    \label{fig:use_case_Editorial_board}    
+\end{figure}
+
+\FloatBarrier
 % Sử dụng danh sách liệt kê để làm gọn mục lục
 Các Actor chính bao gồm:
 \begin{itemize}
@@ -49,6 +111,7 @@ Các Actor chính bao gồm:
     \item \textbf{Editorial Board}
 \end{itemize}
 
+\FloatBarrier
 \subsection{Đặc tả Use Case}
 \label{subsec:dac_ta_use_case}
 
