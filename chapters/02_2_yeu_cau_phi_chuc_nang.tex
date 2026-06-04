@@ -8,21 +8,49 @@
 
 \subsection{Hiệu năng}
 \label{subsec:hieu_nang}
+\begin{itemize}
+    \item Hệ thống phải đảm bảo thời gian phản hồi phù hợp đối với các thao tác thông thường như đăng nhập, tra cứu dữ liệu, cập nhật thông tin và gửi bài.
+    \item Hệ thống phải hỗ trợ nhiều người dùng truy cập đồng thời mà không ảnh hưởng đáng kể đến hiệu năng xử lý.
+\end{itemize}
 
 \subsection{Bảo mật}
 \label{subsec:bao_mat}
+\begin{itemize}
+    \item Hệ thống phải yêu cầu người dùng đăng nhập trước khi truy cập các chức năng nghiệp vụ.
+    \item Thông tin tài khoản và mật khẩu phải được lưu trữ an toàn trong cơ sở dữ liệu.
+    \item Hệ thống phải áp dụng cơ chế phân quyền để đảm bảo mỗi người dùng chỉ được truy cập các chức năng phù hợp với vai trò được cấp.
+\end{itemize}
 
 \subsection{Khả năng mở rộng}
 \label{subsec:kha_nang_mo_rong}
+\begin{itemize}
+    \item Hệ thống phải được thiết kế theo hướng dễ dàng mở rộng khi số lượng người dùng, Series Manga hoặc dữ liệu phát sinh tăng lên.
+    \item Cấu trúc hệ thống cần hỗ trợ bổ sung các chức năng mới trong tương lai mà không làm ảnh hưởng đáng kể đến các chức năng hiện có.
+\end{itemize}
 
 \subsection{Tính sẵn sàng}
 \label{subsec:tinh_san_sang}
+\begin{itemize}
+    \item Hệ thống phải đảm bảo khả năng hoạt động ổn định trong quá trình sử dụng.
+    \item Người dùng có thể truy cập và sử dụng hệ thống trong điều kiện kết nối mạng bình thường.
+    \item Hệ thống cần hạn chế tối đa các lỗi gây gián đoạn quá trình làm việc.
+\end{itemize}
 
 \subsection{Khả năng sử dụng}
 \label{subsec:kha_nang_su_dung}
+\begin{itemize}
+    \item Giao diện hệ thống phải đơn giản, trực quan và dễ sử dụng đối với các nhóm người dùng khác nhau.
+    \item Các chức năng cần được bố trí hợp lý nhằm giúp người dùng dễ dàng thao tác và tìm kiếm thông tin.
+    \item Hệ thống cần cung cấp các thông báo và hướng dẫn cần thiết trong quá trình sử dụng.
+\end{itemize}
 
 \subsection{Khả năng bảo trì}
 \label{subsec:kha_nang_bao_tri}
+\begin{itemize}
+    \item Hệ thống phải được xây dựng với cấu trúc rõ ràng, dễ quản lý và dễ nâng cấp.
+    \item Mã nguồn cần được tổ chức hợp lý nhằm hỗ trợ việc sửa lỗi, bảo trì và phát triển thêm các chức năng mới trong tương lai.
+    \item Cơ sở dữ liệu phải được thiết kế nhất quán nhằm đảm bảo thuận lợi cho việc quản lý và cập nhật dữ liệu.
+\end{itemize}
 
 
 \section{Quy tắc nghiệp vụ}
@@ -31,13 +59,73 @@
 % Sử dụng danh sách liệt kê để làm gọn mục lục
 \begin{itemize}
     \item \textbf{Quy tắc quản lý Series}
+    \begin{itemize}
+        \item Mỗi Series chỉ thuộc quyền quản lý của một Mangaka.
+        \item Một Mangaka có thể quản lý nhiều Series khác nhau.
+        \item Series mới phải được Editorial Board xét duyệt trước khi được đưa vào kế hoạch phát triển và xuất bản.
+        \item Mỗi Series phải có trạng thái hoạt động để phản ánh tình trạng hiện tại trong quá trình sản xuất và phát hành.
+        \item Một Series có thể bao gồm nhiều Chapter.
+    \end{itemize}
     \item \textbf{Quy tắc quản lý Chapter}
+    \begin{itemize}
+        \item Mỗi Chapter phải thuộc về một Series duy nhất.
+        \item Một Series có thể bao gồm nhiều Chapter.
+        \item Mỗi Chapter phải có số thứ tự riêng trong cùng một Series.
+        \item Chapter chỉ được phép phát hành sau khi hoàn tất quá trình kiểm duyệt nội dung.
+        \item Mỗi Chapter có thể chứa nhiều Page Manga.
+    \end{itemize}
     \item \textbf{Quy tắc quản lý Task}
+    \begin{itemize}
+        \item Mỗi Task phải được tạo bởi một Mangaka.
+        \item Mỗi Task chỉ được giao cho một Assistant tại một thời điểm.
+        \item Một Assistant có thể được giao nhiều Task khác nhau.
+        \item Mỗi Task phải có thời hạn hoàn thành và trạng thái xử lý.
+        \item Chỉ Mangaka mới có quyền tạo, cập nhật hoặc hủy Task.
+        \item Tiến độ thực hiện của Task phải được cập nhật và theo dõi trong hệ thống.
+    \end{itemize}
     \item \textbf{Quy tắc quản lý Submission}
+    \begin{itemize}
+        \item Mỗi Submission phải thuộc về một Task cụ thể.
+        \item Chỉ Assistant được giao Task mới có quyền gửi Submission tương ứng.
+        \item Một Task có thể phát sinh nhiều Submission trong trường hợp cần chỉnh sửa hoặc bổ sung nội dung.
+        \item Submission phải được xem xét và đánh giá trước khi được chấp nhận hoàn thành.
+        \item Toàn bộ lịch sử Submission phải được lưu trữ trong hệ thống.
+    \end{itemize}
     \item \textbf{Quy tắc quản lý Review}
+    \begin{itemize}
+        \item Mỗi Review phải được thực hiện trên một Submission cụ thể.
+        \item Review được thực hiện bởi Tantou Editor.
+        \item Nội dung Review phải bao gồm nhận xét, đánh giá hoặc yêu cầu chỉnh sửa.
+        \item Kết quả Review là cơ sở để chấp nhận hoặc yêu cầu chỉnh sửa Submission.
+        \item Toàn bộ lịch sử Review phải được lưu trữ phục vụ cho việc theo dõi và đánh giá chất lượng nội dung.
+    \end{itemize}
     \item \textbf{Quy tắc xuất bản}
+    \begin{itemize}
+        \item Series mới phải được Editorial Board xét duyệt trước khi đưa vào kế hoạch phát hành.
+        \item Chapter chỉ được phát hành sau khi hoàn tất quá trình kiểm duyệt nội dung.
+        \item Editorial Board có quyền quyết định tiếp tục hoặc ngừng phát hành một Series.
+        \item Thông tin phát hành phải được cập nhật và lưu trữ trong hệ thống.
+        \item Các quyết định liên quan đến xuất bản phải dựa trên kết quả đánh giá và dữ liệu hoạt động của Series.
+    \end{itemize}
     \item \textbf{Quy tắc xếp hạng}
+    \begin{itemize}
+        \item Kết quả xếp hạng được xác định dựa trên dữ liệu bình chọn của độc giả.
+        \item Mỗi Series chỉ có một vị trí xếp hạng trong cùng một kỳ đánh giá.
+        \item Dữ liệu xếp hạng phải được cập nhật theo từng kỳ phát hành hoặc đánh giá.
+        \item Kết quả xếp hạng là một trong những căn cứ để Editorial Board đánh giá hiệu quả hoạt động của Series.
+        \item Lịch sử xếp hạng phải được lưu trữ để phục vụ công tác thống kê và báo cáo.
+    \end{itemize}
     \item \textbf{Quy tắc phân quyền}
+    \begin{itemize}
+        \item Mỗi người dùng chỉ được gán một vai trò tại một thời điểm.
+        \item Mọi thao tác trên hệ thống phải được xác thực thông qua tài khoản người dùng hợp lệ.
+        \item Người dùng chỉ được truy cập các chức năng phù hợp với vai trò được cấp.
+        \item Admin có quyền quản lý tài khoản người dùng và phân quyền hệ thống.
+        \item Mangaka chỉ được quản lý các Series do mình phụ trách.
+        \item Assistant chỉ được thực hiện các Task được giao.
+        \item Tantou Editor chỉ được thực hiện các chức năng liên quan đến kiểm duyệt và phản hồi nội dung.
+        \item Editorial Board chỉ được thực hiện các chức năng liên quan đến xét duyệt, đánh giá, xếp hạng và quyết định xuất bản.
+    \end{itemize}
 \end{itemize}
 
 
