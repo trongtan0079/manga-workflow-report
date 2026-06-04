@@ -69,24 +69,41 @@ Sequence Diagram mô tả quá trình Editor xuất bản Chapter sau khi hoàn 
 \section{Thiết kế Class Diagram}
 \label{sec:thiet_ke_class_diagram}
 
+Class Diagram mô tả cấu trúc tĩnh của hệ thống, bao gồm các lớp chính, thuộc tính, phương thức và mối quan hệ giữa các lớp trong hệ thống quản lý quy trình sản xuất Manga.
+
 \subsection{Class Diagram tổng thể}
 \label{subsec:class_diagram_tong_the}
+
+Class Diagram tổng thể thể hiện toàn bộ các lớp cốt lõi của hệ thống cùng các mối quan hệ liên kết, kế thừa và phụ thuộc giữa chúng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/class_diagram.png}
+    \caption{Class Diagram tổng thể}
+    \label{fig:class_diagram_tong_the}
+\end{figure}
 
 \subsection{Mô tả các lớp chính}
 \label{subsec:mo_ta_lop_chinh}
 
-% Sử dụng danh sách liệt kê để làm gọn mục lục
-Các lớp dữ liệu chính bao gồm:
-\begin{itemize}
-    \item \textbf{User}: Lưu trữ thông tin người dùng.
-    \item \textbf{Role}: Quản lý vai trò và phân quyền.
-    \item \textbf{Series}: Lưu trữ thông tin bộ truyện Manga.
-    \item \textbf{Chapter}: Quản lý các chương truyện của bộ truyện.
-    \item \textbf{Page}: Quản lý các trang bản thảo vẽ trong một chương.
-    \item \textbf{Task}: Thông tin các công việc được giao trong quy trình.
-    \item \textbf{Submission}: Quản lý các bài nộp, bản thảo được tải lên.
-    \item \textbf{Review}: Đánh giá và nhận xét của Tantou Editor hoặc Editorial Board.
-    \item \textbf{Vote}: Ghi nhận lượt bình chọn từ phía người đọc.
-    \item \textbf{Ranking}: Quản lý bảng xếp hạng độ phổ biến của các bộ truyện.
-    \item \textbf{Notification}: Thông báo hệ thống cho các bên liên quan.
-\end{itemize}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{STT} & \textbf{Lớp} & \textbf{Mô tả} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+1 & User & Lưu trữ thông tin tài khoản người dùng và quản lý hoạt động đăng nhập, phân quyền trong hệ thống. \\ \hline
+2 & Role & Định nghĩa các vai trò người dùng như Admin, Manager, Assistant, Editor và các quyền tương ứng. \\ \hline
+3 & Series & Quản lý thông tin của một bộ Manga, bao gồm tiêu đề, mô tả, trạng thái và các Chapter liên quan. \\ \hline
+4 & Chapter & Quản lý thông tin từng chương thuộc một Series, bao gồm nội dung, trạng thái và tiến độ thực hiện. \\ \hline
+5 & Page & Lưu trữ thông tin từng trang truyện thuộc một Chapter. \\ \hline
+6 & Task & Quản lý các công việc được giao cho thành viên trong quá trình sản xuất Manga. \\ \hline
+7 & Submission & Lưu trữ kết quả thực hiện Task được gửi bởi người thực hiện để chờ kiểm duyệt. \\ \hline
+8 & Review & Quản lý các nhận xét, đánh giá và yêu cầu chỉnh sửa đối với Submission hoặc Chapter. \\ \hline
+9 & Ranking & Quản lý dữ liệu xếp hạng và thống kê hiệu suất của các Series trên hệ thống. \\ \hline
+10 & Notification & Quản lý việc gửi và lưu trữ các thông báo liên quan đến Task, Review và các hoạt động khác trong hệ thống. \\ \hline
+\end{tabularx}
+\caption{Mô tả các lớp chính}
+\label{tab:mo_ta_cac_lop_chinh}
+\end{table}
