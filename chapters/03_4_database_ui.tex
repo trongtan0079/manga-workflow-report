@@ -18,7 +18,49 @@ Sơ đồ mối quan hệ thực thể (ERD) thể hiện cấu trúc cơ sở d
 
 \subsection{Mô tả các mối quan hệ}
 \label{subsec:mo_ta_quan_he}
+\begin{itemize}
+\item \textbf{User - Role}(1-N): Một người dùng nhiều vai trò, nhưng một vai trò chỉ thuộc về một người dùng
+\item \textbf{User - Series}(1-N): Một người dùng có thể tạo nhiều series, nhưng mỗi series chỉ thuộc về một người dùng
+\item \textbf{User - Tasks}(1-N): Một người dùng có thể có nhiều task, nhưng mỗi task chỉ thuộc về một người dùng
+\item \textbf{Series - Chapter}(1-N): Một series có nhiều chapter, nhưng mỗi chapter chỉ thuộc về một series
+\item \textbf{Chapter - Tasks}(1-N): Mõi chapter có nhiều task, nhưng mỗi task chỉ thuộc về một chapter
+\item \textbf{User - Submission}(1-N): Một User có thể có nhiều submission, nhưng mỗi submission chỉ thuộc về một user
+\end{itemize}
 
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2.5cm}|c|p{2.5cm}|p{8cm}|}
+\hline
+\textbf{Thực thể 1} & \textbf{Quan hệ} & \textbf{Thực thể 2} & \textbf{Ý nghĩa} \\
+\hline
+Role & 1-N & User & Một vai trò có thể được gán cho nhiều người dùng. \\
+\hline
+User & 1-N & Series & Một người dùng có thể quản lý nhiều Series. \\
+\hline
+Series & 1-N & Chapter & Một Series bao gồm nhiều Chapter. \\
+\hline
+Chapter & 1-N & Page & Một Chapter bao gồm nhiều Page. \\
+\hline
+Page & 1-N & Task & Một Page có thể phát sinh nhiều công việc xử lý. \\
+\hline
+User & 1-N & Task & Một người dùng có thể phân công nhiều Task. \\
+\hline
+Task & 1-N & Submission & Một Task có thể có nhiều lần nộp kết quả. \\
+\hline
+User & 1-N & Submission & Một người dùng có thể gửi nhiều Submission. \\
+\hline
+Submission & 1-N & Review & Một Submission có thể được đánh giá nhiều lần. \\
+\hline
+User & 1-N & Review & Một người dùng có thể thực hiện nhiều Review. \\
+\hline
+Series & 1-N & Ranking & Một Series có thể có nhiều bản ghi xếp hạng theo từng thời kỳ. \\
+\hline
+User & 1-N & Notification & Một người dùng có thể nhận nhiều thông báo. \\
+\hline
+\end{tabular}
+\caption{Mối quan hệ giữa các thực thể}
+\end{table}
 
 \section{Thiết kế giao diện}
 \label{sec:thiet_ke_giao_dien}
