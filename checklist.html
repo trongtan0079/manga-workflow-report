@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Creation Workflow - Document Checklist</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-glow: rgba(139, 92, 246, 0.15);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.15);
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --border-radius-lg: 16px;
+            --border-radius-md: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid var(--primary-light);
+            color: var(--primary-light);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #a78bfa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Sticky Dashboard Summary */
+        .dashboard-summary {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-summary {
+                grid-template-columns: 1fr;
+                position: relative;
+                top: 0;
+                gap: 1rem;
+            }
+        }
+
+        .progress-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .progress-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .progress-percent {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .progress-bar-outer {
+            background: rgba(255, 255, 255, 0.05);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .progress-bar-inner {
+            background: linear-gradient(to right, var(--primary), var(--success));
+            height: 100%;
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius-md);
+            padding: 0.75rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-val {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-light);
+        }
+
+        .stat-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Controls Block */
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex-grow: 1;
+            max-width: 450px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border-radius: var(--border-radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all var(--transition-speed);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 0.75rem 1.2rem;
+            border-radius: var(--border-radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .btn-active:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+        }
+
+        .btn-danger {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        /* Stages Accordions */
+        .stage-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform var(--transition-speed);
+        }
+
+        .stage-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .stage-header {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--card-border);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .stage-header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+        }
+
+        .stage-icon {
+            background: var(--primary-glow);
+            color: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .stage-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stage-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .stage-progress-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .stage-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .stage-badge {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .stage-badge.completed {
+            background: var(--success-glow);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .chevron {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            transition: transform var(--transition-speed);
+        }
+
+        .stage-section.collapsed .chevron {
+            transform: rotate(-90deg);
+        }
+
+        .stage-body {
+            max-height: 2000px;
+            transition: max-height 0.4s ease-out;
+            overflow: hidden;
+        }
+
+        .stage-section.collapsed .stage-body {
+            max-height: 0;
+        }
+
+        .stage-content {
+            padding: 1.5rem;
+        }
+
+        /* Subsections Grid */
+        .subsection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .subsection-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .subsection-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: background var(--transition-speed);
+        }
+
+        .subsection-card:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .subsection-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subsection-count {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Tasks Checklist */
+        .task-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        /* Custom Checkbox Wrapper */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .task-item:hover .checkbox-container {
+            border-color: var(--primary-light);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .task-item.checked .checkbox-container {
+            background: var(--success);
+            border-color: var(--success);
+            box-shadow: 0 0 8px var(--success-glow);
+        }
+
+        .checkbox-container i {
+            color: white;
+            font-size: 0.7rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .task-item.checked .checkbox-container i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Task Label */
+        .task-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
+        }
+
+        .task-item.checked .task-label {
+            color: var(--text-secondary);
+            text-decoration: line-through rgba(156, 163, 175, 0.5);
+        }
+
+        /* Canvas for confetti celebrations */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-light);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        
+        <header>
+            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Graduation Thesis</span>
+            <h1>PROJECT DOCUMENT CHECKLIST</h1>
+            <p class="subtitle">Manga Creation Workflow and Publishing Management System</p>
+        </header>
+
+        <!-- Sticky Dashboard Status -->
+        <div class="dashboard-summary">
+            <div class="progress-box">
+                <div class="progress-label-container">
+                    <span class="progress-title"><i class="fa-solid fa-chart-line"></i> Tiến độ tổng thể tài liệu</span>
+                    <span class="progress-percent" id="total-percent">0%</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" id="total-progress-bar"></div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <span class="stat-val" id="stat-completed">0/0</span>
+                <span class="stat-desc">Đã hoàn thành</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-val" id="stat-left">0</span>
+                <span class="stat-desc">Task còn lại</span>
+            </div>
+        </div>
+
+        <!-- Toolbar controls -->
+        <div class="controls-row">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" id="search-box" placeholder="Tìm kiếm đầu mục công việc...">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-active" id="filter-all"><i class="fa-solid fa-list"></i> Tất cả</button>
+                <button class="btn" id="filter-pending"><i class="fa-solid fa-circle-notch"></i> Chưa xong</button>
+                <button class="btn" id="filter-done"><i class="fa-solid fa-circle-check"></i> Đã xong</button>
+                <button class="btn btn-danger" id="reset-btn"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+        </div>
+
+        <div class="empty-state" id="empty-message">
+            <i class="fa-regular fa-folder-open"></i>
+            <p>Không tìm thấy mục công việc nào khớp với từ khóa tìm kiếm.</p>
+        </div>
+
+        <!-- Checklist Stages Container -->
+        <div id="stages-container"></div>
+
+    </div>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Full Structured Checklist Data
+        const checklistData = [
+            {
+                stageTitle: "Giai đoạn 1: Khảo sát đề tài và thu thập yêu cầu",
+                stageId: "g1",
+                icon: "fa-solid fa-compass",
+                subsections: [
+                    {
+                        title: "1. Tổng quan đề tài",
+                        tasks: [
+                            { id: "g1-t1-1", text: "Xác định tên đề tài" },
+                            { id: "g1-t1-2", text: "Viết mô tả dự án" },
+                            { id: "g1-t1-3", text: "Xác định mục tiêu hệ thống" },
+                            { id: "g1-t1-4", text: "Xác định phạm vi hệ thống" },
+                            { id: "g1-t1-5", text: "Xác định giá trị thực tiễn của đề tài" }
+                        ]
+                    },
+                    {
+                        title: "2. Nhóm thực hiện",
+                        tasks: [
+                            { id: "g1-t2-1", text: "Liệt kê thành viên nhóm" },
+                            { id: "g1-t2-2", text: "Phân chia vai trò" },
+                            { id: "g1-t2-3", text: "Phân chia công việc" },
+                            { id: "g1-t2-4", text: "Kiểm tra thông tin liên hệ" }
+                        ]
+                    },
+                    {
+                        title: "3. Bối cảnh đề tài",
+                        tasks: [
+                            { id: "g1-t3-1", text: "Phân tích thực trạng hiện nay" },
+                            { id: "g1-t3-2", text: "Xác định các vấn đề tồn tại" },
+                            { id: "g1-t3-3", text: "Phân tích nhu cầu quản lý" },
+                            { id: "g1-t3-4", text: "Xác định bài toán thực tế" }
+                        ]
+                    },
+                    {
+                        title: "4. Tầm nhìn hệ thống",
+                        tasks: [
+                            { id: "g1-t4-1", text: "Xác định mục tiêu hệ thống" },
+                            { id: "g1-t4-2", text: "Xác định định hướng phát triển" },
+                            { id: "g1-t4-3", text: "Xác định giá trị hệ thống mang lại" },
+                            { id: "g1-t4-4", text: "Xác định lợi ích cho người dùng" }
+                        ]
+                    },
+                    {
+                        title: "5. Đối tượng sử dụng (Actors)",
+                        tasks: [
+                            { id: "g1-t5-1", text: "Xác định Actor của hệ thống" },
+                            { id: "g1-t5-2", text: "Mô tả vai trò Admin" },
+                            { id: "g1-t5-3", text: "Mô tả vai trò Mangaka" },
+                            { id: "g1-t5-4", text: "Mô tả vai trò Assistant" },
+                            { id: "g1-t5-5", text: "Mô tả vai trò Tantou Editor" },
+                            { id: "g1-t5-6", text: "Mô tả vai trò Editorial Board" }
+                        ]
+                    },
+                    {
+                        title: "6. Phạm vi và giới hạn hệ thống",
+                        tasks: [
+                            { id: "g1-t6-1", text: "Xác định phạm vi dự án" },
+                            { id: "g1-t6-2", text: "Liệt kê chức năng chính" },
+                            { id: "g1-t6-3", text: "Xác định giới hạn hệ thống" },
+                            { id: "g1-t6-4", text: "Xác định giả định hệ thống" },
+                            { id: "g1-t6-5", text: "Xác định ràng buộc hệ thống" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 1",
+                        tasks: [
+                            { id: "g1-out-1", text: "Hoàn thiện Chương I" },
+                            { id: "g1-out-2", text: "Hoàn thiện mô tả bài toán" },
+                            { id: "g1-out-3", text: "Xác định rõ phạm vi hệ thống" },
+                            { id: "g1-out-4", text: "Xác định đầy đủ Actor và nghiệp vụ" }
+                        ]
+                    }
+                ]
+            },
+            {
+                stageTitle: "Giai đoạn 2: Phân tích chi tiết yêu cầu hệ thống",
+                stageId: "g2",
+                icon: "fa-solid fa-magnifying-glass-chart",
+                subsections: [
+                    {
+                        title: "1. Tổng quan hệ thống",
+                        tasks: [
+                            { id: "g2-t1-1", text: "Viết mô tả hệ thống" },
+                            { id: "g2-t1-2", text: "Xác định các bên liên quan" },
+                            { id: "g2-t1-3", text: "Mô tả quy trình nghiệp vụ tổng quát" }
+                        ]
+                    },
+                    {
+                        title: "2. Yêu cầu người dùng (User Requirements)",
+                        tasks: [
+                            { id: "g2-t2-1", text: "Phân tích yêu cầu Admin" },
+                            { id: "g2-t2-2", text: "Phân tích yêu cầu Mangaka" },
+                            { id: "g2-t2-3", text: "Phân tích yêu cầu Assistant" },
+                            { id: "g2-t2-4", text: "Phân tích yêu cầu Tantou Editor" },
+                            { id: "g2-t2-5", text: "Phân tích yêu cầu Editorial Board" }
+                        ]
+                    },
+                    {
+                        title: "3. Yêu cầu chức năng",
+                        tasks: [
+                            { id: "g2-t3-1", text: "Quản lý người dùng và phân quyền" },
+                            { id: "g2-t3-2", text: "Quản lý Series" },
+                            { id: "g2-t3-3", text: "Quản lý Chapter" },
+                            { id: "g2-t3-4", text: "Quản lý Page" },
+                            { id: "g2-t3-5", text: "Quản lý Task" },
+                            { id: "g2-t3-6", text: "Quản lý Submission" },
+                            { id: "g2-t3-7", text: "Quản lý Review" },
+                            { id: "g2-t3-8", text: "Quản lý phát hành" },
+                            { id: "g2-t3-9", text: "Quản lý Ranking" },
+                            { id: "g2-t3-10", text: "Quản lý Notification" }
+                        ]
+                    },
+                    {
+                        title: "4. Yêu cầu phi chức năng",
+                        tasks: [
+                            { id: "g2-t4-1", text: "Hiệu năng" },
+                            { id: "g2-t4-2", text: "Bảo mật" },
+                            { id: "g2-t4-3", text: "Khả năng mở rộng" },
+                            { id: "g2-t4-4", text: "Tính sẵn sàng" },
+                            { id: "g2-t4-5", text: "Khả năng sử dụng" },
+                            { id: "g2-t4-6", text: "Khả năng bảo trì" }
+                        ]
+                    },
+                    {
+                        title: "5. Quy tắc nghiệp vụ (Business Rules)",
+                        tasks: [
+                            { id: "g2-t5-1", text: "Quy tắc quản lý Series" },
+                            { id: "g2-t5-2", text: "Quy tắc quản lý Chapter" },
+                            { id: "g2-t5-3", text: "Quy tắc quản lý Task" },
+                            { id: "g2-t5-4", text: "Quy tắc quản lý Submission" },
+                            { id: "g2-t5-5", text: "Quy tắc quản lý Review" },
+                            { id: "g2-t5-6", text: "Quy tắc xuất bản" },
+                            { id: "g2-t5-7", text: "Quy tắc xếp hạng" },
+                            { id: "g2-t5-8", text: "Quy tắc phân quyền" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 2",
+                        tasks: [
+                            { id: "g2-out-1", text: "Hoàn thiện Chương II" },
+                            { id: "g2-out-2", text: "Hoàn thiện yêu cầu chức năng" },
+                            { id: "g2-out-3", text: "Hoàn thiện yêu cầu phi chức năng" },
+                            { id: "g2-out-4", text: "Hoàn thiện Business Rules" },
+                            { id: "g2-out-5", text: "Kiểm tra consistency giữa yêu cầu và nghiệp vụ" }
+                        ]
+                    }
+                ]
+            },
+            {
+                stageTitle: "Giai đoạn 3: Thiết kế sơ đồ UML & Quy trình nghiệp vụ",
+                stageId: "g3",
+                icon: "fa-solid fa-bezier-curve",
+                subsections: [
+                    {
+                        title: "1. Thiết kế kiến trúc hệ thống",
+                        tasks: [
+                            { id: "g3-t1-1", text: "Thiết kế Three-Tier Architecture" },
+                            { id: "g3-t1-2", text: "Thiết kế Client-Server Architecture" },
+                            { id: "g3-t1-3", text: "Thiết kế mô hình triển khai hệ thống" },
+                            { id: "g3-t1-4", text: "Kiểm tra tính mở rộng kiến trúc" }
+                        ]
+                    },
+                    {
+                        title: "2. Thiết kế Use Case Diagram",
+                        tasks: [
+                            { id: "g3-t2-1", text: "Xây dựng Danh sách Actor" },
+                            { id: "g3-t2-2", text: "Thiết kế Use Case Diagram tổng thể" },
+                            { id: "g3-t2-3", text: "Thiết kế Use Case Admin" },
+                            { id: "g3-t2-4", text: "Thiết kế Use Case Mangaka" },
+                            { id: "g3-t2-5", text: "Thiết kế Use Case Assistant" },
+                            { id: "g3-t2-6", text: "Thiết kế Use Case Tantou Editor" },
+                            { id: "g3-t2-7", text: "Thiết kế Use Case Editorial Board" }
+                        ]
+                    },
+                    {
+                        title: "3. Thiết kế quy trình nghiệp vụ",
+                        tasks: [
+                            { id: "g3-t3-1", text: "Vẽ Swimlane Diagram tổng quát" },
+                            { id: "g3-t3-2", text: "Activity Diagram: Quy trình giao Task" },
+                            { id: "g3-t3-3", text: "Activity Diagram: Quy trình thực hiện Task" },
+                            { id: "g3-t3-4", text: "Activity Diagram: Quy trình Review Chapter" },
+                            { id: "g3-t3-5", text: "Activity Diagram: Quy trình xuất bản Manga" }
+                        ]
+                    },
+                    {
+                        title: "4. Thiết kế Sequence Diagram",
+                        tasks: [
+                            { id: "g3-t4-1", text: "Sequence Login" },
+                            { id: "g3-t4-2", text: "Sequence Assign Task" },
+                            { id: "g3-t4-3", text: "Sequence Submit Submission" },
+                            { id: "g3-t4-4", text: "Sequence Review Chapter" },
+                            { id: "g3-t4-5", text: "Sequence Publish Manga" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 3",
+                        tasks: [
+                            { id: "g3-out-1", text: "Hoàn thiện toàn bộ UML nghiệp vụ" },
+                            { id: "g3-out-2", text: "Hoàn thiện Use Case Diagram" },
+                            { id: "g3-out-3", text: "Hoàn thiện Activity Diagram" },
+                            { id: "g3-out-4", text: "Hoàn thiện Sequence Diagram" },
+                            { id: "g3-out-5", text: "Kiểm tra consistency giữa UML và yêu cầu hệ thống" }
+                        ]
+                    }
+                ]
+            },
+            {
+                stageTitle: "Giai đoạn 4: Thiết kế Class Diagram & Cơ sở dữ liệu",
+                stageId: "g4",
+                icon: "fa-solid fa-database",
+                subsections: [
+                    {
+                        title: "1. Thiết kế Class Diagram",
+                        tasks: [
+                            { id: "g4-t1-1", text: "Thiết kế Class Diagram tổng thể" },
+                            { id: "g4-t1-2", text: "Mô tả lớp User & lớp Role" },
+                            { id: "g4-t1-3", text: "Mô tả lớp Series & lớp Chapter" },
+                            { id: "g4-t1-4", text: "Mô tả lớp Page & lớp Task" },
+                            { id: "g4-t1-5", text: "Mô tả lớp Submission & lớp Review" },
+                            { id: "g4-t1-6", text: "Mô tả lớp Ranking & lớp Notification" }
+                        ]
+                    },
+                    {
+                        title: "2. Thiết kế cơ sở dữ liệu",
+                        tasks: [
+                            { id: "g4-t2-1", text: "Thiết kế sơ đồ ERD" },
+                            { id: "g4-t2-2", text: "Xác định Primary Key & Foreign Key" },
+                            { id: "g4-t2-3", text: "Chuẩn hóa dữ liệu (Normal Forms)" },
+                            { id: "g4-t2-4", text: "Kiểm tra ràng buộc dữ liệu (Constraints)" }
+                        ]
+                    },
+                    {
+                        title: "3. Mô tả quan hệ dữ liệu",
+                        tasks: [
+                            { id: "g4-t3-1", text: "Quan hệ Role - User" },
+                            { id: "g4-t3-2", text: "Quan hệ User - Series" },
+                            { id: "g4-t3-3", text: "Quan hệ Series - Chapter" },
+                            { id: "g4-t3-4", text: "Quan hệ Chapter - Page" },
+                            { id: "g4-t3-5", text: "Quan hệ Page - Task" },
+                            { id: "g4-t3-6", text: "Quan hệ Task - Submission" },
+                            { id: "g4-t3-7", text: "Quan hệ Submission - Review" },
+                            { id: "g4-t3-8", text: "Quan hệ Series - Ranking" },
+                            { id: "g4-t3-9", text: "Quan hệ User - Notification" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 4",
+                        tasks: [
+                            { id: "g4-out-1", text: "Hoàn thiện Class Diagram" },
+                            { id: "g4-out-2", text: "Hoàn thiện ERD" },
+                            { id: "g4-out-3", text: "Hoàn thiện Database Design" },
+                            { id: "g4-out-4", text: "Kiểm tra consistency giữa Database và UML" }
+                        ]
+                    }
+                ]
+            },
+            {
+                stageTitle: "Giai đoạn 5: Tổng hợp, biên soạn và chuẩn hóa tài liệu",
+                stageId: "g5",
+                icon: "fa-solid fa-file-code",
+                subsections: [
+                    {
+                        title: "1. Tổng hợp tài liệu",
+                        tasks: [
+                            { id: "g5-t1-1", text: "Tổng hợp Chương I" },
+                            { id: "g5-t1-2", text: "Tổng hợp Chương II" },
+                            { id: "g5-t1-3", text: "Tổng hợp Chương III" },
+                            { id: "g5-t1-4", text: "Đồng bộ nội dung giữa các chương" }
+                        ]
+                    },
+                    {
+                        title: "2. Chuẩn hóa LaTeX",
+                        tasks: [
+                            { id: "g5-t2-1", text: "Kiểm tra format tiêu đề" },
+                            { id: "g5-t2-2", text: "Kiểm tra numbering (đánh số)" },
+                            { id: "g5-t2-3", text: "Kiểm tra mục lục (Table of Contents)" },
+                            { id: "g5-t2-4", text: "Kiểm tra danh sách hình (List of Figures)" },
+                            { id: "g5-t2-5", text: "Kiểm tra danh sách bảng (List of Tables)" },
+                            { id: "g5-t2-6", text: "Kiểm tra font chữ, căn lề và spacing" }
+                        ]
+                    },
+                    {
+                        title: "3. Kiểm tra Diagram",
+                        tasks: [
+                            { id: "g5-t3-1", text: "Kiểm tra chất lượng hình ảnh sơ đồ" },
+                            { id: "g5-t3-2", text: "Kiểm tra tên hình và mô tả hình" },
+                            { id: "g5-t3-3", text: "Kiểm tra numbering Diagram" },
+                            { id: "g5-t3-4", text: "Kiểm tra tính nhất quán UML" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 5",
+                        tasks: [
+                            { id: "g5-out-1", text: "Hoàn thiện tài liệu LaTeX" },
+                            { id: "g5-out-2", text: "Biên dịch (Build) file PDF thành công" },
+                            { id: "g5-out-3", text: "Không có lỗi định dạng (formatting)" },
+                            { id: "g5-out-4", text: "Không có lỗi đánh số tự động" }
+                        ]
+                    }
+                ]
+            },
+            {
+                stageTitle: "Giai đoạn 6: Kiểm tra, tối ưu hóa và hoàn thiện cuối cùng",
+                stageId: "g6",
+                icon: "fa-solid fa-flag-checkered",
+                subsections: [
+                    {
+                        title: "1. Review nội dung",
+                        tasks: [
+                            { id: "g6-t1-1", text: "Kiểm tra lỗi chính tả & ngữ pháp" },
+                            { id: "g6-t1-2", text: "Kiểm tra đồng bộ các thuật ngữ sử dụng" },
+                            { id: "g6-t1-3", text: "Kiểm tra tính nhất quán nội dung báo cáo" },
+                            { id: "g6-t1-4", text: "Kiểm tra logic quy trình nghiệp vụ" }
+                        ]
+                    },
+                    {
+                        title: "2. Review kỹ thuật",
+                        tasks: [
+                            { id: "g6-t2-1", text: "Kiểm tra UML consistency" },
+                            { id: "g6-t2-2", text: "Kiểm tra Database consistency" },
+                            { id: "g6-t2-3", text: "Kiểm tra Use Case consistency" },
+                            { id: "g6-t2-4", text: "Kiểm tra Business Rule consistency" }
+                        ]
+                    },
+                    {
+                        title: "3. Chuẩn bị bảo vệ đồ án",
+                        tasks: [
+                            { id: "g6-t3-1", text: "Chuẩn bị Slide thuyết trình" },
+                            { id: "g6-t3-2", text: "Chuẩn bị Script (kịch bản) nói" },
+                            { id: "g6-t3-3", text: "Chuẩn bị Demo hệ thống thực tế" },
+                            { id: "g6-t3-4", text: "Chuẩn bị danh sách câu hỏi Q&A có thể gặp" }
+                        ]
+                    },
+                    {
+                        title: "4. Nộp bài chính thức (Final Submission)",
+                        tasks: [
+                            { id: "g6-t4-1", text: "Kiểm tra file PDF cuối cùng" },
+                            { id: "g6-t4-2", text: "Kiểm tra và nén source code, source LaTeX" },
+                            { id: "g6-t4-3", text: "Push code & Backup toàn bộ lên GitHub" },
+                            { id: "g6-t4-4", text: "Kiểm tra thư mục nộp bài" },
+                            { id: "g6-t4-5", text: "Nộp tài liệu đồ án chính thức" }
+                        ]
+                    },
+                    {
+                        title: "🎯 Kết quả đầu ra Giai đoạn 6",
+                        tasks: [
+                            { id: "g6-out-1", text: "Hoàn thiện tài liệu cuối cùng" },
+                            { id: "g6-out-2", text: "Hoàn thiện slide bảo vệ" },
+                            { id: "g6-out-3", text: "Sẵn sàng demo hệ thống" },
+                            { id: "g6-out-4", text: "Sẵn sàng bảo vệ đồ án trước Hội đồng" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Storage helpers
+        const STORAGE_KEY = 'manga_checklist_states';
+        let checkedStates = {};
+
+        function loadStates() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (data) {
+                try {
+                    checkedStates = JSON.parse(data);
+                } catch(e) {
+                    checkedStates = {};
+                }
+            }
+        }
+
+        function saveStates() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedStates));
+        }
+
+        // Global statistics counters
+        let totalTasksCount = 0;
+        let activeFilter = 'all'; // 'all', 'pending', 'done'
+        let searchQuery = '';
+
+        // Calculate and count total items
+        function initStats() {
+            totalTasksCount = 0;
+            checklistData.forEach(stage => {
+                stage.subsections.forEach(sub => {
+                    totalTasksCount += sub.tasks.length;
+                });
+            });
+        }
+
+        // Celebrate completion
+        let confettiInterval = null;
+        function triggerConfetti() {
+            const canvas = document.getElementById("confetti-canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ["#8b5cf6", "#a78bfa", "#10b981", "#3b82f6", "#f59e0b", "#ef4444"];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            if (confettiInterval) clearInterval(confettiInterval);
+
+            let animationFrame;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let remaining = false;
+                
+                particles.forEach((p, idx) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - idx/3) * 15;
+
+                    if (p.y < canvas.height) remaining = true;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r/2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r/2);
+                    ctx.stroke();
+                });
+
+                if (remaining) {
+                    animationFrame = requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            draw();
+            
+            // Adjust on resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Render checklist UI
+        function renderChecklist() {
+            const container = document.getElementById('stages-container');
+            container.innerHTML = '';
+            let visibleStagesCount = 0;
+
+            let overallCompleted = 0;
+
+            // Compute overall stats first
+            checklistData.forEach(stage => {
+                stage.subsections.forEach(sub => {
+                    sub.tasks.forEach(task => {
+                        if (checkedStates[task.id]) {
+                            overallCompleted++;
+                        }
+                    });
+                });
+            });
+
+            // Update Header progress
+            const totalPercent = totalTasksCount > 0 ? Math.round((overallCompleted / totalTasksCount) * 100) : 0;
+            document.getElementById('total-percent').textContent = totalPercent + '%';
+            document.getElementById('total-progress-bar').style.width = totalPercent + '%';
+            document.getElementById('stat-completed').textContent = `${overallCompleted}/${totalTasksCount}`;
+            document.getElementById('stat-left').textContent = totalTasksCount - overallCompleted;
+
+            // Trigger celebration if 100% just hit
+            if (overallCompleted === totalTasksCount && totalTasksCount > 0) {
+                // Check if already celebrated to prevent infinite loop
+                if (localStorage.getItem('celebrated') !== 'true') {
+                    triggerConfetti();
+                    localStorage.setItem('celebrated', 'true');
+                }
+            } else {
+                localStorage.removeItem('celebrated');
+            }
+
+            // Draw stages
+            checklistData.forEach((stage, sIdx) => {
+                // Calculate stage progress
+                let stageTotal = 0;
+                let stageCompleted = 0;
+                let hasVisibleTasks = false;
+
+                // Pre-filter check to see if we render this stage
+                stage.subsections.forEach(sub => {
+                    sub.tasks.forEach(task => {
+                        stageTotal++;
+                        const isChecked = !!checkedStates[task.id];
+                        if (isChecked) stageCompleted++;
+
+                        // Filtering logic
+                        const matchesSearch = task.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                              sub.title.toLowerCase().includes(searchQuery.toLowerCase());
+                        const matchesFilter = (activeFilter === 'all') ||
+                                              (activeFilter === 'done' && isChecked) ||
+                                              (activeFilter === 'pending' && !isChecked);
+
+                        if (matchesSearch && matchesFilter) {
+                            hasVisibleTasks = true;
+                        }
+                    });
+                });
+
+                if (!hasVisibleTasks) return; // Skip rendering empty stage based on filter/search
+
+                visibleStagesCount++;
+
+                const stageProgressPercent = stageTotal > 0 ? Math.round((stageCompleted / stageTotal) * 100) : 0;
+                const isFullyDone = stageProgressPercent === 100;
+
+                const stageEl = document.createElement('div');
+                stageEl.className = 'stage-section';
+                stageEl.id = `stage-section-${stage.stageId}`;
+
+                // Header
+                const headerEl = document.createElement('div');
+                headerEl.className = 'stage-header';
+                headerEl.innerHTML = `
+                    <div class="stage-header-title">
+                        <div class="stage-icon"><i class="${stage.icon}"></i></div>
+                        <div class="stage-meta">
+                            <span class="stage-name">${stage.stageTitle}</span>
+                            <span class="stage-progress-text">${stageCompleted}/${stageTotal} công việc hoàn thành (${stageProgressPercent}%)</span>
+                        </div>
+                    </div>
+                    <div class="stage-header-actions">
+                        <span class="stage-badge ${isFullyDone ? 'completed' : ''}">
+                            ${isFullyDone ? '<i class="fa-solid fa-check-double"></i> Đã xong' : 'Đang chạy'}
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </div>
+                `;
+
+                headerEl.addEventListener('click', () => {
+                    stageEl.classList.toggle('collapsed');
+                });
+
+                // Content
+                const bodyEl = document.createElement('div');
+                bodyEl.className = 'stage-body';
+
+                const contentEl = document.createElement('div');
+                contentEl.className = 'stage-content';
+
+                const gridEl = document.createElement('div');
+                gridEl.className = 'subsection-grid';
+
+                // Render Subsections
+                stage.subsections.forEach(sub => {
+                    let subTasksHtml = '';
+                    let subVisibleCount = 0;
+
+                    sub.tasks.forEach(task => {
+                        const isChecked = !!checkedStates[task.id];
+                        const matchesSearch = task.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                              sub.title.toLowerCase().includes(searchQuery.toLowerCase());
+                        const matchesFilter = (activeFilter === 'all') ||
+                                              (activeFilter === 'done' && isChecked) ||
+                                              (activeFilter === 'pending' && !isChecked);
+
+                        if (!matchesSearch || !matchesFilter) return;
+                        
+                        subVisibleCount++;
+                        subTasksHtml += `
+                            <li class="task-item ${isChecked ? 'checked' : ''}" data-id="${task.id}">
+                                <div class="checkbox-container">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <span class="task-label">${task.text}</span>
+                            </li>
+                        `;
+                    });
+
+                    if (subVisibleCount === 0) return; // Skip empty subsections
+
+                    const subCard = document.createElement('div');
+                    subCard.className = 'subsection-card';
+                    subCard.innerHTML = `
+                        <div class="subsection-title">
+                            <span>${sub.title}</span>
+                            <span class="subsection-count">${sub.tasks.filter(t => checkedStates[t.id]).length}/${sub.tasks.length}</span>
+                        </div>
+                        <ul class="task-list">
+                            ${subTasksHtml}
+                        </ul>
+                    `;
+
+                    // Bind click events on task items
+                    subCard.querySelectorAll('.task-item').forEach(item => {
+                        item.addEventListener('click', (e) => {
+                            const taskId = item.getAttribute('data-id');
+                            checkedStates[taskId] = !checkedStates[taskId];
+                            saveStates();
+                            
+                            // Visual trigger
+                            item.classList.toggle('checked');
+                            
+                            // Re-render to update counters and progress bars
+                            renderChecklist();
+                        });
+                    });
+
+                    gridEl.appendChild(subCard);
+                });
+
+                contentEl.appendChild(gridEl);
+                bodyEl.appendChild(contentEl);
+                stageEl.appendChild(headerEl);
+                stageEl.appendChild(bodyEl);
+                container.appendChild(stageEl);
+            });
+
+            // Display empty message if no results
+            const emptyMsg = document.getElementById('empty-message');
+            if (visibleStagesCount === 0) {
+                emptyMsg.style.display = 'block';
+            } else {
+                emptyMsg.style.display = 'none';
+            }
+        }
+
+        // Filter button controller
+        function setupFilters() {
+            const filters = [
+                { btn: document.getElementById('filter-all'), val: 'all' },
+                { btn: document.getElementById('filter-pending'), val: 'pending' },
+                { btn: document.getElementById('filter-done'), val: 'done' }
+            ];
+
+            filters.forEach(f => {
+                f.btn.addEventListener('click', () => {
+                    filters.forEach(x => x.btn.classList.remove('btn-active'));
+                    f.btn.classList.add('btn-active');
+                    activeFilter = f.val;
+                    renderChecklist();
+                });
+            });
+
+            // Search Filter
+            document.getElementById('search-box').addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderChecklist();
+            });
+
+            // Reset controller
+            document.getElementById('reset-btn').addEventListener('click', () => {
+                if (confirm('Bạn có chắc chắn muốn xóa toàn bộ tiến trình checklist này không?')) {
+                    checkedStates = {};
+                    saveStates();
+                    renderChecklist();
+                }
+            });
+        }
+
+        // Initial launch
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStates();
+            initStats();
+            setupFilters();
+            renderChecklist();
+        });
+    </script>
+</body>
+</html>
