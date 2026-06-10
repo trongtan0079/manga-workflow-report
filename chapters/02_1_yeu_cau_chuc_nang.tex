@@ -8,45 +8,86 @@
 
 \subsection{Mô tả hệ thống}
 \label{subsec:mo_ta_he_thong}
+Manga Creation Workflow and Publishing Management System là hệ thống hỗ trợ quản lý tập trung toàn bộ quy trình sáng tác và xuất bản Manga. Hệ thống cho phép quản lý thông tin Series, Chapter, Page, phân công công việc cho Assistant, quản lý quá trình nộp bài (Submission), kiểm duyệt nội dung (Review), theo dõi kết quả bình chọn và xếp hạng Series, đồng thời hỗ trợ quản lý hoạt động phát hành. Hệ thống được xây dựng nhằm hỗ trợ sự phối hợp giữa các vai trò tham gia trong quy trình sản xuất và xuất bản Manga bao gồm Mangaka, Assistant, Tantou Editor, Editorial Board và Admin. Việc số hóa quy trình làm việc giúp nâng cao hiệu quả quản lý, tăng khả năng theo dõi tiến độ thực hiện công việc, đảm bảo tính nhất quán của dữ liệu và hỗ trợ quá trình ra quyết định xuất bản.
 
 \subsection{Các bên liên quan}
 \label{subsec:cac_ben_lien_quan}
+Các bên liên quan tham gia vào hệ thống bao gồm:
+\begin{itemize}
+    \item Admin
+    \item Mangaka
+    \item Assistant
+    \item Tantou Editor
+    \item Editorial Board
+\end{itemize}
 
 \subsection{Quy trình nghiệp vụ tổng quát}
 \label{subsec:quy_trinh_nghiep_vu_tong_quat}
+Quy trình nghiệp vụ tổng quát của hệ thống được thực hiện theo các bước sau:
+\begin{enumerate}
+    \item \textbf{Bước 1:} Mangaka đề xuất Series mới và gửi hồ sơ giới thiệu đến Editorial Board.
+    \item \textbf{Bước 2:} Editorial Board xem xét hồ sơ, đánh giá và thực hiện xét duyệt Series.
+    \item \textbf{Bước 3:} Sau khi được phê duyệt, Mangaka tiến hành xây dựng nội dung Series, tạo các Chapter và các trang Manga tương ứng.
+    \item \textbf{Bước 4:} Mangaka phân chia công việc trên từng trang Manga và giao Task cho Assistant thực hiện.
+    \item \textbf{Bước 5:} Assistant thực hiện các nhiệm vụ được giao và gửi Submission lên hệ thống sau khi hoàn thành.
+    \item \textbf{Bước 6:} Mangaka và Tantou Editor tiến hành kiểm tra, đánh giá Submission và đưa ra phản hồi chỉnh sửa nếu cần thiết.
+    \item \textbf{Bước 7:} Sau khi nội dung đạt yêu cầu, Chapter được hoàn thiện và đưa vào kế hoạch phát hành.
+    \item \textbf{Bước 8:} Editorial Board cập nhật dữ liệu bình chọn của độc giả, theo dõi kết quả xếp hạng và đánh giá hiệu quả hoạt động của Series.
+    \item \textbf{Bước 9:} Dựa trên kết quả đánh giá, Editorial Board đưa ra quyết định tiếp tục xuất bản, điều chỉnh kế hoạch phát hành hoặc ngừng phát hành Series.
+\end{enumerate}
 
 \section{Yêu cầu người dùng}
 \label{sec:yeu_cau_nguoi_dung}
 
 \subsection{Yêu cầu của Admin}
 \label{subsec:yeu_cau_admin}
+Admin mong muốn có một hệ thống hỗ trợ quản lý tập trung toàn bộ người dùng và hoạt động của hệ thống. Hệ thống cần cho phép Admin quản lý tài khoản, phân quyền truy cập, theo dõi hoạt động của các thành viên và giám sát tình trạng vận hành chung. Ngoài ra, Admin cần có khả năng xem báo cáo thống kê để hỗ trợ công tác quản trị và đưa ra các quyết định quản lý phù hợp.
 
 \subsection{Yêu cầu của Mangaka}
 \label{subsec:yeu_cau_mangaka}
+Mangaka mong muốn có một môi trường làm việc hỗ trợ quản lý hiệu quả quá trình sáng tác Manga. Hệ thống cần cho phép quản lý Series, Chapter và các trang Manga, đồng thời hỗ trợ phân công công việc cho Assistant và theo dõi tiến độ thực hiện. Bên cạnh đó, Mangaka cần nhận được phản hồi từ Tantou Editor, theo dõi kết quả bình chọn của độc giả và tình trạng xuất bản của các Series đang quản lý.
 
 \subsection{Yêu cầu của Assistant}
 \label{subsec:yeu_cau_assistant}
+Assistant mong muốn có một hệ thống giúp tiếp nhận và thực hiện các công việc được giao một cách thuận tiện. Hệ thống cần hỗ trợ theo dõi danh sách công việc, cập nhật trạng thái thực hiện, gửi kết quả công việc và nhận phản hồi từ Mangaka hoặc Tantou Editor. Ngoài ra, Assistant cần được thông báo kịp thời về các thay đổi liên quan đến nhiệm vụ được giao.
 
 \subsection{Yêu cầu của Tantou Editor}
 \label{subsec:yeu_cau_tantou}
+Tantou Editor mong muốn có công cụ hỗ trợ theo dõi và kiểm duyệt nội dung Manga trước khi phát hành. Hệ thống cần cho phép xem thông tin Series, Chapter và Submission, thực hiện đánh giá nội dung, gửi nhận xét chỉnh sửa và theo dõi tiến độ phát triển của các tác phẩm. Đồng thời, Tantou Editor cần có khả năng trao đổi thông tin với Mangaka nhằm đảm bảo chất lượng nội dung trước khi xuất bản.
 
 \subsection{Yêu cầu của Editorial Board}
 \label{subsec:yeu_cau_editorial_board}
-
+Editorial Board mong muốn có một hệ thống hỗ trợ đánh giá hiệu quả hoạt động của các Series Manga dựa trên dữ liệu phát hành và kết quả bình chọn của độc giả. Hệ thống cần hỗ trợ theo dõi bảng xếp hạng, xem báo cáo thống kê, đánh giá các Series mới và đưa ra quyết định liên quan đến việc tiếp tục hoặc ngừng xuất bản. Ngoài ra, hệ thống cần cung cấp đầy đủ dữ liệu phục vụ cho quá trình hoạch định kế hoạch phát hành.
 
 \section{Yêu cầu chức năng}
 \label{sec:yeu_cau_chuc_nang}
 
-% Sử dụng danh sách liệt kê để làm gọn mục lục theo yêu cầu
-\begin{enumerate}
-    \item \textbf{Quản lý người dùng và phân quyền}
-    \item \textbf{Quản lý Series}
-    \item \textbf{Quản lý Chapter}
-    \item \textbf{Quản lý Page}
-    \item \textbf{Quản lý Task}
-    \item \textbf{Quản lý Submission}
-    \item \textbf{Quản lý Review}
-    \item \textbf{Quản lý xuất bản}
-    \item \textbf{Quản lý xếp hạng}
-    \item \textbf{Quản lý thông báo}
-\end{enumerate}
+\subsection{Quản lý người dùng và phân quyền}
+Hệ thống phải hỗ trợ quản lý thông tin người dùng và phân quyền truy cập theo vai trò. Mỗi người dùng được cấp một tài khoản đăng nhập và được gán quyền phù hợp với chức năng, nhiệm vụ của mình trong hệ thống. Hệ thống phải cho phép tạo mới, cập nhật, khóa hoặc vô hiệu hóa tài khoản người dùng. Đồng thời, hệ thống phải hỗ trợ quản lý vai trò và đảm bảo người dùng chỉ được truy cập các chức năng thuộc phạm vi quyền hạn được cấp.
+
+\subsection{Quản lý Series}
+Hệ thống phải hỗ trợ quản lý toàn bộ vòng đời của một Series Manga từ khi được đề xuất, xét duyệt, phát triển cho đến khi kết thúc xuất bản. Mỗi Series phải được lưu trữ các thông tin cơ bản như tên Series, mô tả, trạng thái hoạt động, lịch phát hành và ngày tạo. Hệ thống phải hỗ trợ theo dõi tình trạng phát triển và xuất bản của từng Series.
+
+\subsection{Quản lý Chapter}
+Hệ thống phải hỗ trợ quản lý các Chapter thuộc từng Series Manga. Mỗi Chapter phải được liên kết với một Series cụ thể và được quản lý thông qua các thông tin như số thứ tự Chapter, tiêu đề, trạng thái xử lý và thời gian cập nhật. Hệ thống phải hỗ trợ theo dõi tiến độ hoàn thiện của từng Chapter trước khi phát hành.
+
+\subsection{Quản lý Page}
+Hệ thống phải hỗ trợ quản lý các trang Manga thuộc từng Chapter. Mỗi Page phải được lưu trữ và quản lý theo thứ tự xuất hiện trong Chapter. Hệ thống phải hỗ trợ cập nhật trạng thái hoàn thành của từng Page và làm cơ sở cho việc phân chia công việc giữa các thành viên tham gia sáng tác.
+
+\subsection{Quản lý Task}
+Hệ thống phải hỗ trợ phân công, theo dõi và quản lý các công việc được giao trong quá trình sản xuất Manga. Mỗi Task phải được quản lý thông qua các thông tin như loại công việc, người giao việc, người thực hiện, thời hạn hoàn thành và trạng thái xử lý. Hệ thống phải hỗ trợ theo dõi tiến độ thực hiện và lịch sử xử lý của từng Task.
+
+\subsection{Quản lý Submission}
+Hệ thống phải hỗ trợ quản lý các kết quả công việc được gửi lên bởi Assistant hoặc các thành viên tham gia thực hiện nhiệm vụ. Mỗi Submission phải được liên kết với một Task tương ứng và lưu trữ đầy đủ thông tin về nội dung nộp, thời gian nộp và trạng thái xử lý. Hệ thống phải hỗ trợ theo dõi lịch sử nộp bài và các lần chỉnh sửa bổ sung.
+
+\subsection{Quản lý Review}
+Hệ thống phải hỗ trợ quá trình kiểm duyệt và đánh giá nội dung trước khi phát hành. Mỗi Review phải được lưu trữ cùng với nhận xét, kết quả đánh giá và thời gian thực hiện. Hệ thống phải hỗ trợ trao đổi phản hồi giữa Mangaka, Assistant và Tantou Editor nhằm nâng cao chất lượng nội dung trước khi xuất bản.
+
+\subsection{Quản lý phát hành và đánh giá Series}
+Hệ thống phải hỗ trợ quản lý hoạt động phát hành Manga sau khi nội dung được phê duyệt. Hệ thống phải cho phép quản lý lịch phát hành, theo dõi trạng thái phát hành của từng Chapter và hỗ trợ lưu trữ thông tin liên quan đến quá trình xuất bản. Đồng thời, hệ thống phải hỗ trợ Editorial Board đánh giá hiệu quả hoạt động của các Series và đưa ra quyết định tiếp tục hoặc ngừng phát hành.
+
+\subsection{Quản lý xếp hạng}
+Hệ thống phải hỗ trợ quản lý dữ liệu bình chọn và xếp hạng các Series Manga. Hệ thống phải cho phép lưu trữ dữ liệu bình chọn, tổng hợp kết quả, cập nhật thứ hạng và theo dõi sự thay đổi vị trí của các Series theo từng giai đoạn. Các dữ liệu này được sử dụng làm cơ sở cho hoạt động đánh giá và ra quyết định của Editorial Board.
+
+\subsection{Quản lý thông báo}
+Hệ thống phải hỗ trợ tạo và quản lý các thông báo liên quan đến hoạt động của hệ thống. Thông báo phải được gửi đến đúng đối tượng sử dụng và hỗ trợ theo dõi trạng thái đã đọc hoặc chưa đọc. Hệ thống phải đảm bảo các thành viên nhận được thông tin kịp thời về công việc, quá trình kiểm duyệt, kết quả đánh giá và các hoạt động xuất bản liên quan.
