@@ -15,12 +15,12 @@
 ---
 
 ## 👥 2. Thành viên & Vai trò chính
-* 👑 **Trương Trọng Tấn (Leader):** Tổng hợp, quản lý dự án, viết Lời cảm ơn, Thuật ngữ, Chương I, Chương VII và Phụ lục. Quản trị GitHub.
-* 📝 **Giang Thị Ngọc Hân:** Phân tích yêu cầu chức năng, đặc tả Use Case (Module 1).
-* 🔍 **Dương Kim Ngân:** Phân tích yêu cầu phi chức năng (NFR), Quy tắc nghiệp vụ (BR) và Kịch bản kiểm thử (Testing).
-* 🎨 **Nguyễn Thanh Thảo:** Thiết kế Use Case, đặc tả Use Case (Module 2).
-* 📐 **Nguyễn Thị Trúc Ngân:** Thiết kế kiến trúc tổng thể, UML hệ thống, kịch bản SPMP.
-* 💾 **Phan Thị Hạnh:** Thiết kế Cơ sở dữ liệu (Database), Giao diện (UI) và Hướng dẫn sử dụng.
+* 👑 **Trương Trọng Tấn (Leader):** Tổng hợp, quản lý dự án, chuẩn bị mẫu nội dung báo cáo cho cả nhóm, biên soạn Lời cảm ơn, Thuật ngữ, Chương I, Chương VII và Phụ lục. Quản trị GitHub.
+* 📝 **Giang Thị Ngọc Hân:** Đảm nhiệm đưa phần nội dung phân tích yêu cầu chức năng và đặc tả Use Case (Module 1) vào LaTeX.
+* 🔍 **Dương Kim Ngân:** Đảm nhiệm đưa phần nội dung yêu cầu phi chức năng (NFR), Quy tắc nghiệp vụ (BR) và Kịch bản kiểm thử (Testing) vào LaTeX.
+* 🎨 **Nguyễn Thanh Thảo:** Đảm nhiệm đưa phần nội dung Use Case và đặc tả Use Case (Module 2) vào LaTeX.
+* 📐 **Nguyễn Thị Trúc Ngân:** Đảm nhiệm đưa phần nội dung kiến trúc tổng thể, sơ đồ UML hệ thống (Class Diagram do cả nhóm cùng vẽ) và kịch bản SPMP vào LaTeX.
+* 💾 **Phan Thị Hạnh:** Đảm nhiệm đưa phần nội dung Cơ sở dữ liệu (Database - ERD do cả nhóm cùng vẽ), Giao diện (UI) và Hướng dẫn sử dụng vào LaTeX.
 
 ---
 
