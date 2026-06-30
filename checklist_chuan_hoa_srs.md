@@ -10,8 +10,8 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 ### 🛠️ Việc cấu trúc & Cấu hình (Trương Trọng Tấn)
 - [x] **[P1-01]** Tạo các file `.tex` mới với cấu trúc rỗng (chỉ có lệnh `\chapter`, `\section`, `\label`).
 - [x] **[P1-02]** Cập nhật file `main.tex` để import đúng thứ tự các chương con thông qua lệnh `\input`.
-- [ ] **[P1-03]** Sửa lỗi trùng lặp nghiêm trọng trong file `chapters/03_3_uml_thiet_ke.tex` (xóa đoạn code bị lặp ở dòng 68-134).
-- [ ] **[P1-04]** Dọn dẹp tài nguyên thừa: Xóa file hình ảnh `Class_Diagram_pt.pdf` bị trùng lặp với `Class_Diagram.pdf`.
+- [x] **[P1-03]** Sửa lỗi trùng lặp nghiêm trọng trong file `chapters/03_3_uml_thiet_ke.tex` (xóa đoạn code bị lặp ở dòng 68-134).
+- [x] **[P1-04]** Dọn dẹp tài nguyên thừa: Xóa file hình ảnh `Class_Diagram_pt.pdf` bị trùng lặp với `Class_Diagram.pdf`.
 - [x] **[P1-05]** Chuẩn hóa lại định dạng bảng thuật ngữ trong `sections/thuat_ngu.tex`.
 - [x] **[P1-06]** Build thử nghiệm PDF của khung sườn mới để đảm bảo không gặp lỗi biên dịch (compile error).
 
