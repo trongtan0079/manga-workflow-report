@@ -466,7 +466,7 @@ FodyWeavers.xsd
 .gemini/
 
 # Output PDFs
-main.pdf
-Ke_hoach_Chuan_hoa_Bao_cao_Manga_Workflow.pdf
-implementation_plan.pdf
-Quy_trinh_Git_va_Ke_hoach_Manga_Workflow.pdf
+/main.pdf
+/Ke_hoach_Chuan_hoa_Bao_cao_Manga_Workflow.pdf
+/implementation_plan.pdf
+/Quy_trinh_Git_va_Ke_hoach_Manga_Workflow.pdf
