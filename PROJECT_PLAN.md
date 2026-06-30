@@ -25,61 +25,61 @@
 *   **Vai trò:** Tổng hợp & Quản lý dự án
 *   **File LaTeX đảm nhận:** `01_gioi_thieu.tex`
 *   **Danh sách công việc:**
-    *   [ ] Viết Lời cảm ơn, Thuật ngữ và từ viết tắt.
-    *   [ ] Thực hiện **Chương I: Giới thiệu dự án**.
+    *   [x] Viết Lời cảm ơn, Thuật ngữ và từ viết tắt.
+    *   [/] Thực hiện **Chương I: Giới thiệu dự án**.
     *   [ ] Tổng hợp toàn bộ nội dung báo cáo đồ án.
     *   [ ] Kiểm tra định dạng (format) tài liệu LaTeX.
-    *   [ ] Quản lý GitHub Repository (Kiểm soát lỗi trình bày, duyệt và merge code/tài liệu).
+    *   [/] Quản lý GitHub Repository (Kiểm soát lỗi trình bày, duyệt và merge code/tài liệu).
     *   [ ] Đảm bảo tính đồng bộ nội dung giữa các chương.
 
 ### 📝 2.2 Giang Thị Ngọc Hân
 *   **Vai trò:** Phân tích yêu cầu chức năng
 *   **File LaTeX đảm nhận:** `02_1_yeu_cau_chuc_nang.tex`
 *   **Danh sách công việc:**
-    *   [ ] Viết **Chương II: Tổng quan hệ thống**.
-    *   [ ] Thu thập và phân tích yêu cầu từ phía người dùng.
-    *   [ ] Phân tích và đặc tả yêu cầu chức năng.
-    *   [ ] Mô tả chi tiết vai trò và chức năng của từng Actor.
-    *   [ ] Hoàn thiện tài liệu đặc tả chức năng hệ thống.
+    *   [x] Viết **Chương II: Tổng quan hệ thống**.
+    *   [x] Thu thập và phân tích yêu cầu từ phía người dùng.
+    *   [x] Phân tích và đặc tả yêu cầu chức năng.
+    *   [x] Mô tả chi tiết vai trò và chức năng của từng Actor.
+    *   [x] Hoàn thiện tài liệu đặc tả chức năng hệ thống.
 
 ### 🔍 2.3. Dương Kim Ngân
 *   **Vai trò:** Phân tích yêu cầu phi chức năng & Nghiệp vụ
 *   **File LaTeX đảm nhận:** `02_2_yeu_cau_phi_chuc_nang.tex`
 *   **Danh sách công việc:**
-    *   [ ] Phân tích và soạn thảo các yêu cầu phi chức năng.
-    *   [ ] Xây dựng quy tắc nghiệp vụ hệ thống (Business Rules).
-    *   [ ] Xác định các ràng buộc kỹ thuật và vận hành của hệ thống.
-    *   [ ] Hoàn thiện phần giả định hệ thống.
-    *   [ ] Viết phần kết luận cho Chương II.
+    *   [x] Phân tích và soạn thảo các yêu cầu phi chức năng.
+    *   [x] Xây dựng quy tắc nghiệp vụ hệ thống (Business Rules).
+    *   [x] Xác định các ràng buộc kỹ thuật và vận hành của hệ thống.
+    *   [x] Hoàn thiện phần giả định hệ thống.
+    *   [x] Viết phần kết luận cho Chương II.
 
 ### 🎨 2.4. Nguyễn Thanh Thảo
 *   **Vai trò:** Thiết kế Use Case & Quy trình nghiệp vụ
 *   **File LaTeX đảm nhận:** `03_2_uml_nghiep_vu.tex`
 *   **Danh sách công việc:**
-    *   [ ] Thiết lập danh sách và mô tả các Actor.
-    *   [ ] Thiết kế Use Case Diagram tổng thể và chi tiết.
-    *   [ ] Thiết kế Swimlane Diagram và Activity Diagram cho các quy trình nghiệp vụ.
-    *   [ ] Viết mô tả nghiệp vụ chi tiết cho từng sơ đồ thiết kế.
+    *   [x] Thiết lập danh sách và mô tả các Actor.
+    *   [x] Thiết kế Use Case Diagram tổng thể và chi tiết.
+    *   [x] Thiết kế Swimlane Diagram và Activity Diagram cho các quy trình nghiệp vụ.
+    *   [x] Viết mô tả nghiệp vụ chi tiết cho từng sơ đồ thiết kế.
 
 ### 📐 2.5. Nguyễn Thị Trúc Ngân
 *   **Vai trò:** Thiết kế Kiến trúc & UML hệ thống
 *   **File LaTeX đảm nhận:** `03_1_thiet_ke_tong_the.tex` và `03_3_uml_thiet_ke.tex`
 *   **Danh sách công việc:**
-    *   [ ] Thiết kế kiến trúc tổng thể của hệ thống.
-    *   [ ] Thiết kế mô hình triển khai hệ thống (Deployment Diagram).
-    *   [ ] Thiết kế Sequence Diagram cho các luồng xử lý chính.
-    *   [ ] Thiết kế Class Diagram chi tiết của hệ thống.
-    *   [ ] Mô tả cấu trúc các lớp chính và chuẩn hóa mối quan hệ giữa chúng.
+    *   [x] Thiết kế kiến trúc tổng thể của hệ thống.
+    *   [x] Thiết kế mô hình triển khai hệ thống (Deployment Diagram).
+    *   [x] Thiết kế Sequence Diagram cho các luồng xử lý chính.
+    *   [x] Thiết kế Class Diagram chi tiết của hệ thống.
+    *   [x] Mô tả cấu trúc các lớp chính và chuẩn hóa mối quan hệ giữa chúng.
 
 ### 💾 2.6. Phan Thị Hạnh
 *   **Vai trò:** Thiết kế Cơ sở dữ liệu (Database)
 *   **File LaTeX đảm nhận:** `03_4_database_ui.tex`
 *   **Danh sách công việc:**
-    *   [ ] Thiết kế lược đồ cơ sở dữ liệu hệ thống (Database Schema).
-    *   [ ] Thiết kế sơ đồ quan hệ thực thể (ERD).
-    *   [ ] Xây dựng Từ điển dữ liệu (Data Dictionary) chi tiết cho các bảng.
-    *   [ ] Định nghĩa các thuộc tính, khóa chính, khóa ngoại và ràng buộc dữ liệu.
-    *   [ ] Kiểm tra và tối ưu hóa tính toàn vẹn dữ liệu.
+    *   [x] Thiết kế lược đồ cơ sở dữ liệu hệ thống (Database Schema).
+    *   [x] Thiết kế sơ đồ quan hệ thực thể (ERD).
+    *   [x] Xây dựng Từ điển dữ liệu (Data Dictionary) chi tiết cho các bảng.
+    *   [x] Định nghĩa các thuộc tính, khóa chính, khóa ngoại và ràng buộc dữ liệu.
+    *   [x] Kiểm tra và tối ưu hóa tính toàn vẹn dữ liệu.
 
 ---
 
