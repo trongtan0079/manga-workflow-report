@@ -38,7 +38,7 @@
 ## 📝 2. GIANG THỊ NGỌC HÂN
 
 ### ✅ Công việc đã hoàn thành
-- [x] **[OLD-03]** Biên soạn nội dung phân tích yêu cầu chức năng (Chương II bản cũ).
+- [x] **[OLD-03]** Đưa nội dung phân tích yêu cầu chức năng vào LaTeX (Chương II bản cũ).
 - [x] **[OLD-04]** Đưa nội dung thu thập và phân tích yêu cầu từ người dùng vào LaTeX.
 - [x] **[OLD-05]** Đưa nội dung mô tả chi tiết vai trò và chức năng của từng Actor vào LaTeX.
 
@@ -61,9 +61,9 @@
 ## 🎨 3. NGUYỄN THANH THẢO
 
 ### ✅ Công việc đã hoàn thành
-- [x] **[OLD-06]** Thiết lập sơ đồ Use Case Diagram tổng thể và chi tiết.
-- [x] **[OLD-07]** Thiết kế sơ đồ Swimlane Diagram và Activity Diagram cho các quy trình nghiệp vụ.
-- [x] **[OLD-08]** Viết mô tả nghiệp vụ chi tiết cho từng sơ đồ vào tài liệu.
+- [x] **[OLD-06]** Đưa sơ đồ Use Case Diagram tổng thể và chi tiết vào LaTeX.
+- [x] **[OLD-07]** Đưa sơ đồ Swimlane Diagram và Activity Diagram cho các quy trình nghiệp vụ vào LaTeX.
+- [x] **[OLD-08]** Đưa mô tả nghiệp vụ chi tiết cho từng sơ đồ vào LaTeX.
 
 ### 📋 Task phân công Jira tiếp theo
 - [ ] **[Phase 2 - Thảo]** Di chuyển nội dung SRS (Yêu cầu phi chức năng NFR):
@@ -84,9 +84,9 @@
 ## 📐 4. NGUYỄN THỊ TRÚC NGÂN
 
 ### ✅ Công việc đã hoàn thành
-- [x] **[OLD-09]** Biên soạn kiến trúc tổng thể, mô hình triển khai của hệ thống.
-- [x] **[OLD-10]** Biên soạn Sequence Diagram cho các luồng xử lý chính.
-- [x] **[OLD-11]** Vẽ Class Diagram (Sơ đồ do cả nhóm cùng vẽ) và đưa vào LaTeX.
+- [x] **[OLD-09]** Đưa nội dung mô tả kiến trúc tổng thể và sơ đồ triển khai của hệ thống vào LaTeX.
+- [x] **[OLD-10]** Đưa sơ đồ Sequence Diagram cho các luồng xử lý chính vào LaTeX.
+- [x] **[OLD-11]** Đưa sơ đồ Class Diagram chi tiết của hệ thống (Sơ đồ do cả nhóm cùng vẽ) vào LaTeX.
 
 ### 📋 Task phân công Jira tiếp theo
 - [ ] **[Phase 2 - Trúc Ngân]** Di chuyển nội dung SDD (Kiến trúc & Class Diagram):
@@ -108,9 +108,9 @@
 ## 💾 5. PHAN THỊ HẠNH
 
 ### ✅ Công việc đã hoàn thành
-- [x] **[OLD-12]** Thiết kế lược đồ cơ sở dữ liệu hệ thống (Database Schema).
-- [x] **[OLD-13]** Vẽ sơ đồ quan hệ thực thể (ERD - Sơ đồ do cả nhóm cùng vẽ).
-- [x] **[OLD-14]** Xây dựng Từ điển dữ liệu (Data Dictionary) chi tiết cho các bảng.
+- [x] **[OLD-12]** Đưa lược đồ cơ sở dữ liệu hệ thống (Database Schema) vào LaTeX.
+- [x] **[OLD-13]** Đưa sơ đồ quan hệ thực thể (ERD - Sơ đồ do cả nhóm cùng vẽ) vào LaTeX.
+- [x] **[OLD-14]** Đưa danh sách Từ điển dữ liệu (Data Dictionary) chi tiết cho các bảng vào LaTeX.
 
 ### 📋 Task phân công Jira tiếp theo
 - [ ] **[Phase 2 - Hạnh]** Di chuyển nội dung SDD (CSDL & UML hành vi):
@@ -129,9 +129,9 @@
 ## 🔍 6. DƯƠNG KIM NGÂN
 
 ### ✅ Công việc đã hoàn thành
-- [x] **[OLD-15]** Biên soạn các yêu cầu phi chức năng (NFR) cho báo cáo.
-- [x] **[OLD-16]** Xây dựng quy tắc nghiệp vụ hệ thống (Business Rules).
-- [x] **[OLD-17]** Xác định các ràng buộc kỹ thuật và vận hành của hệ thống.
+- [x] **[OLD-15]** Đưa nội dung phân tích các yêu cầu phi chức năng (NFR) vào LaTeX.
+- [x] **[OLD-16]** Đưa nội dung các quy tắc nghiệp vụ hệ thống (Business Rules) vào LaTeX.
+- [x] **[OLD-17]** Đưa các ràng buộc kỹ thuật và vận hành của hệ thống vào LaTeX.
 
 ### 📋 Task phân công Jira tiếp theo
 - [ ] **[Phase 3 - Kim Ngân]** Chuẩn hóa NFR & Soạn thảo nội dung kiểm thử:
