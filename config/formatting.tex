@@ -42,10 +42,16 @@
   \renewcommand{\appendixname}{PHỤ LỤC}%
 }
 
-% Định dạng tiêu đề chương trên 1 hàng, viết hoa toàn bộ
+% Đánh số Chương bằng La Mã (I, II, III...) nhưng mục bên trong dùng số thường (1.1, 1.2...)
+\renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+% Định dạng tiêu đề chương trên 1 hàng, viết hoa toàn bộ (Không hiển thị chữ "CHƯƠNG")
 \titleformat{\chapter}[hang]
     {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}\centering}
-    {\chaptertitlename~\thechapter.~}
+    {\thechapter.~}
     {0em}
     {\MakeTextUppercase}
 \titlespacing*{\chapter}{0pt}{-10pt}{30pt}
