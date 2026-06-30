@@ -58,8 +58,8 @@ Dưới đây là thông tin chi tiết về các thành viên và vai trò tron
     \label{tab:nhom_thuc_hien}
 \end{table}
 
-\section{Bối cảnh đề tài}
-\label{sec:boi_canh}
+\section{Bối cảnh sản phẩm}
+\label{sec:boi_canh_san_pham}
 
 \subsection{Thực trạng hiện nay}
 \label{subsec:thuc_trang_hien_nay}
@@ -85,8 +85,71 @@ Từ thực trạng trên, có thể nhận thấy một số vấn đề chính
 \end{itemize}
 Những vấn đề trên làm giảm hiệu quả quản lý, gia tăng nguy cơ sai sót và ảnh hưởng đến tiến độ sản xuất cũng như chất lượng xuất bản Manga.
 
-\section{Tầm nhìn hệ thống}
-\label{sec:tam_nhin}
+\section{Hệ thống hiện có}
+\label{sec:he_thong_hien_co}
+
+\subsection{Phân tích hệ thống quản lý thủ công}
+\label{subsec:quan_ly_thu_cong}
+Trong mô hình sáng tác và xuất bản truyện tranh truyền thống, quá trình tương tác và trao đổi công việc giữa tác giả chính (Mangaka), các trợ lý (Assistant) và biên tập viên phụ trách trực tiếp (Tantou Editor) chủ yếu dựa trên các phương thức thủ công và công cụ liên lạc thông thường. Mangaka thực hiện phân công các công việc vẽ nền (background), đi nét (inking), tô âm ảnh (screentone) hay thêm hiệu ứng ánh sáng cho các Assistant bằng cách bàn giao các bản vẽ giấy trực tiếp tại studio hoặc quét (scan) các trang truyện thô rồi gửi tệp tin hình ảnh qua các ứng dụng nhắn tin và trò chuyện phổ biến như Zalo, Messenger, Line hoặc Discord. Việc kiểm duyệt kết quả công việc, đưa ra phản hồi và yêu cầu sửa đổi (revision) cũng diễn ra rời rạc dưới dạng tin nhắn văn bản, ghi chú viết tay trên ảnh hoặc thông qua các cuộc gọi trao đổi trực tiếp.
+
+Quy trình quản lý mang tính thủ công này bộc lộ những hạn chế và rủi ro nghiêm trọng:
+\begin{itemize}
+    \item \textbf{Thất lạc và hao hụt tài nguyên dữ liệu:} Các tệp tin hình ảnh có dung lượng lớn khi truyền tải qua các ứng dụng chat thường bị nén làm giảm chất lượng (lossy compression) hoặc tự động xóa sau một khoảng thời gian nhất định (như chính sách lưu trữ của Zalo), gây mất mát dữ liệu và buộc các thành viên phải gửi lại nhiều lần.
+    \item \textbf{Khó khăn trong kiểm soát phiên bản (Version Control):} Trong quá trình sửa đổi bản thảo vẽ, việc lưu trữ nhiều phiên bản chỉnh sửa khác nhau dưới dạng các file độc lập (ví dụ: \texttt{page01\_v1.psd}, \texttt{page01\_v2.psd}, \texttt{page01\_final.psd}) trên các máy tính cá nhân dễ dẫn đến việc nhầm lẫn phiên bản cũ/mới, thậm chí ghi đè dữ liệu vẽ của nhau làm lãng phí công sức làm việc.
+    \item \textbf{Thiếu tính trực quan và kiểm soát tiến độ thời gian thực:} Mangaka không có một bảng giám sát (dashboard) tập trung để theo dõi trạng thái hiện tại của từng trang truyện (Page) trong một chương (Chapter). Thay vào đó, tác giả phải liên hệ thủ công với từng trợ lý để hỏi tiến độ, dẫn đến việc khó dự báo thời gian hoàn thành chương và tăng nguy cơ chậm trễ tiến độ nộp bài (Submission) cho nhà xuất bản.
+    \item \textbf{Rủi ro rò rỉ tác quyền và bảo mật thông tin:} Việc truyền tải các file bản vẽ thô chứa nội dung cốt truyện chưa phát hành qua các dịch vụ chat công cộng tiềm ẩn nguy cơ cao về việc rò rỉ thông tin tác phẩm ra ngoài trước thời điểm phát hành chính thức, gây ảnh hưởng nghiêm trọng đến bản quyền và doanh thu.
+\end{itemize}
+
+Sự chậm trễ và thiếu sót thông tin từ luồng quản lý thủ công này trực tiếp tác động tiêu cực đến Tantou Editor khi không thể nắm bắt được tiến độ vẽ của studio nhằm chuẩn bị trước cho lịch trình dàn trang, dịch thuật hay in ấn định kỳ của nhà xuất bản.
+
+\subsection{Phân tích công cụ quản lý dự án phổ biến}
+\label{subsec:cong_cu_pho_bien}
+Để khắc phục các nhược điểm của quy trình quản lý thủ công, một số nhóm sáng tác hoặc studio manga hiện đại đã ứng dụng các công cụ quản lý công việc và dự án phổ biến như Trello, Notion hay Jira nhằm số hóa một phần luồng làm việc. Mặc dù các công cụ này mang lại một số cải tiến về mặt giao diện trực quan hóa nhiệm vụ thông qua bảng Kanban hoặc danh sách (checklist), chúng vẫn gặp phải nhiều rào cản lớn và không thể đáp ứng tối ưu cho quy trình xuất bản truyện tranh đặc thù do các nguyên nhân sau:
+\begin{itemize}
+    \item \textbf{Thiếu cấu trúc dữ liệu đặc thù và phân cấp nghiêm ngặt:} Các hệ thống đa dụng chỉ cung cấp các đối tượng chung chung như thẻ công việc (cards/tasks) hoặc trang tài liệu (pages/databases). Trong khi đó, quy trình sáng tác manga đòi hỏi một cấu trúc dữ liệu phân cấp hình cây rất chặt chẽ và đặc thù bao gồm: Bộ truyện (Series) $\rightarrow$ Chương truyện (Chapter) $\rightarrow$ Trang truyện (Page) $\rightarrow$ Công việc vẽ (Task). Việc tự cấu hình cấu trúc này trên các công cụ chung thường phức tạp, dễ xảy ra sai sót khi nhân bản và không thể ràng buộc dữ liệu tự động giữa các cấp.
+    \item \textbf{Không hỗ trợ luồng kiểm duyệt đa cấp và chuyên biệt:} Quy trình xuất bản manga yêu cầu một luồng kiểm duyệt và phê duyệt có tính tuần tự và phân cấp rõ ràng. Cụ thể: Trợ lý hoàn thành và nộp trang vẽ $\rightarrow$ Mangaka duyệt trang vẽ $\rightarrow$ Mangaka nộp bản thảo chương truyện $\rightarrow$ Tantou Editor phê duyệt hoặc phản hồi chỉnh sửa $\rightarrow$ Hội đồng biên tập (Editorial Board) xét duyệt xuất bản dựa trên kết quả tổng thể. Các công cụ quản lý dự án thông thường chỉ hỗ trợ kéo thả trạng thái công việc đơn giản và không thể tự động hóa hay cưỡng chế thực hiện luồng duyệt phức tạp và đặc thù này.
+    \item \textbf{Không tích hợp quản lý bình chọn độc giả:} Một phần cốt lõi trong hoạt động xuất bản manga (đặc biệt là mô hình tạp chí tuần san/nguyệt san tại Nhật Bản và các nước châu Á) là việc thu thập phiếu bình chọn (votes) từ độc giả để xếp hạng định kỳ các bộ truyện. Kết quả xếp hạng này là cơ sở sống còn để Editorial Board ra quyết định tiếp tục xuất bản, thay đổi lịch trình hay ngừng phát hành (khai tử) một bộ truyện. Các công cụ quản lý dự án thông thường hoàn toàn không có tính năng lưu trữ dữ liệu bình chọn, tự động tính điểm và kết xuất bảng xếp hạng, buộc ban biên tập phải thực hiện thủ công trên Excel, rất dễ gây sai sót dữ liệu và mất nhiều thời gian tổng hợp.
+    \item \textbf{Hạn chế về phân quyền truy cập chuyên sâu:} Việc bảo mật dữ liệu bản vẽ yêu cầu cơ chế phân quyền rất chi tiết theo vai trò của từng thành viên (ví dụ: Assistant chỉ được thấy và tải trang vẽ thuộc Task được giao; Tantou Editor chỉ được xem và đánh dấu nhận xét trên Chapter của bộ truyện mình phụ trách). Các công cụ phổ biến thường chỉ phân quyền ở mức độ toàn dự án hoặc bảng công việc (board level), dẫn đến việc khó kiểm soát quyền tiếp cận tài nguyên bản thảo nội bộ.
+\end{itemize}
+
+Để làm rõ hơn sự khác biệt và hạn chế của các giải pháp hiện tại so với hệ thống chuyên dụng đề xuất, dưới đây là bảng so sánh chi tiết các tiêu chí kỹ thuật và nghiệp vụ đặc thù của quy trình xuất bản Manga:
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+        \hline
+        \rowcolor{tableheader}
+        \textbf{Tiêu chí so sánh} & \textbf{Quản lý thủ công} & \textbf{Công cụ đa dụng (Trello/Notion/Jira)} & \textbf{Hệ thống chuyên dụng đề xuất} \rule[-1.2ex]{0pt}{4ex} \\
+        \hline
+        \textbf{Quản lý phân cấp Series - Chapter - Page} & Không hỗ trợ, lưu trữ rời rạc trên folder hoặc chat. & Hỗ trợ hạn chế qua việc tự cấu hình thẻ/nhãn, không có tính ràng buộc chặt chẽ. & Tích hợp sẵn cấu trúc dữ liệu phân cấp chuyên biệt cho truyện tranh. \\
+        \hline
+        \textbf{Luồng kiểm duyệt đa cấp đặc thù} & Trao đổi miệng hoặc nhắn tin chat, không có ghi nhận chính thức. & Chỉ kéo thả trạng thái đơn giản (To Do -> Done), không tự động hóa luồng duyệt. & Tự động điều phối luồng duyệt: Assistant $\rightarrow$ Mangaka $\rightarrow$ Editor $\rightarrow$ Board. \\
+        \hline
+        \textbf{Quản lý bình chọn độc giả \& BXH} & Tính toán thủ công bằng Excel, mất nhiều thời gian và dễ nhầm lẫn. & Không hỗ trợ, phải sử dụng công cụ tính toán bên ngoài. & Editorial Board nhập số liệu trực tiếp, tự động tính điểm và cập nhật bảng xếp hạng theo kỳ. \\
+        \hline
+        \textbf{Bảo mật tác quyền \& Phân quyền} & Rất thấp, dễ rò rỉ bản vẽ thô khi chia sẻ qua các ứng dụng chat công cộng. & Phân quyền ở cấp độ toàn dự án/bảng, khó giới hạn chi tiết theo từng nhiệm vụ cụ thể. & Phân quyền chặt chẽ theo 5 vai trò; kiểm soát chi tiết quyền xem/sửa file vẽ của từng Actor. \\
+        \hline
+        \textbf{Theo dõi tiến độ vẽ thực tế} & Dựa trên báo cáo thủ công qua tin nhắn, thiếu tính trực quan. & Có ngày hạn chót (due date) nhưng không phản ánh chi tiết tiến độ từng trang vẽ thực tế. & Cập nhật tiến độ theo tỷ lệ phần trăm số trang đã hoàn thành trong chương, hiển thị trực quan. \\
+        \hline
+    \end{tabularx}
+    \caption{Bảng so sánh các giải pháp quản lý quy trình sáng tác và xuất bản Manga}
+    \label{tab:so_sanh_he_thong}
+\end{table}
+
+\section{Cơ hội phát triển}
+\label{sec:co_hoi_phat_trien}
+
+Nhận thấy những hạn chế và rào cản lớn từ các phương thức quản lý hiện tại, việc nghiên cứu và xây dựng một hệ thống phần mềm chuyên dụng như \textit{Manga Creation Workflow and Publishing Management System} mang lại cơ hội to lớn để tối ưu hóa toàn diện hiệu quả hoạt động sáng tác và nâng cao năng lực cạnh tranh trong xuất bản truyện tranh:
+
+\begin{itemize}
+    \item \textbf{Số hóa và tự động hóa toàn bộ luồng quy trình làm việc:} Hệ thống tạo ra một không gian làm việc số tập trung, nơi tất cả các quy trình từ đề xuất Series mới, tạo Chapter, phân chia trang vẽ (Page) thành các Task cụ thể cho Assistant, nộp kết quả công việc (Submission), kiểm duyệt (Review), cho đến việc nộp bản thảo và phê duyệt in ấn được thực hiện nhất quán trên một nền tảng. Việc tự động hóa giúp giảm thiểu thời gian chờ đợi giữa các bước, loại bỏ các thủ tục trung gian phiền hà và giảm thiểu tối đa sai sót do con người gây ra.
+    \item \textbf{Minh bạch hóa tiến độ và nâng cao hiệu suất cộng tác:} Nhờ cơ chế cập nhật trạng thái chi tiết của từng trang truyện theo thời gian thực, Mangaka có thể nắm bắt chính xác khối lượng công việc đã hoàn thành của từng trợ lý, kịp thời phát hiện các điểm nghẽn (bottlenecks) để điều phối nguồn lực nhằm đảm bảo đúng tiến độ. Ở cấp độ quản lý vĩ mô, các Tantou Editor và Editorial Board có thể dễ dàng giám sát lịch phát hành của toàn bộ các bộ truyện đang quản lý qua bảng Dashboard tổng hợp, từ đó chủ động trong việc lập lịch sản xuất và phân phối sản phẩm ra thị trường.
+    \item \textbf{Hỗ trợ ra quyết định xuất bản dựa trên dữ liệu chuẩn xác:} Hệ thống thay thế quy trình quản lý điểm bình chọn độc giả mang tính thủ công bằng việc cung cấp công cụ nhập liệu số hóa và tự động tính toán, kết xuất bảng xếp hạng các bộ truyện theo thời gian thực sau mỗi kỳ phát hành. Điều này cung cấp cho Editorial Board một hệ cơ sở dữ liệu thống kê trực quan, đáng tin cậy và tức thời để đưa ra các quyết định kinh doanh chiến lược như tiếp tục đầu tư xuất bản, thay đổi hình thức phát hành (ví dụ: chuyển từ tạp chí giấy sang ứng dụng đọc truyện trực tuyến) hoặc dừng bản thảo đối với các tác phẩm có hiệu quả thấp nhằm tối ưu hóa chi phí và doanh thu cho nhà xuất bản.
+\end{itemize}
+
+\section{Tầm nhìn sản phẩm}
+\label{sec:tam_nhin_san_pham}
 
 \subsection{Mục tiêu hệ thống}
 \label{subsec:muc_tieu_he_thong}
@@ -296,7 +359,7 @@ Hệ thống chưa hỗ trợ các chức năng sau:
 
 Ngoài ra, dữ liệu bình chọn của độc giả được giả định là được Editorial Board nhập thủ công vào hệ thống sau mỗi kỳ phát hành để phục vụ việc tổng hợp và xếp hạng Series.
 
-\subsection{Các giả định và ràng buộc}
+\subsection{Giả định và ràng buộc}
 \label{subsec:gia_dinh_rang_buoc}
 
 \textbf{Các giả định:}
@@ -321,6 +384,4 @@ Ngoài ra, dữ liệu bình chọn của độc giả được giả định l�
     \item Mọi thay đổi dữ liệu phải được lưu trữ và quản lý trong cơ sở dữ liệu của hệ thống.
 \end{itemize}
 
-\section{Kết luận chương}
-\label{sec:ket_luan_chap1}
-Chương I đã giới thiệu tổng quan về dự án xây dựng hệ thống quản lý quy trình sáng tác và xuất bản Manga, bao gồm bối cảnh thực hiện đề tài, thực trạng và các vấn đề cần giải quyết. Chương cũng đã xác định rõ mục tiêu hệ thống, giá trị mang lại, các đối tượng sử dụng chính cùng với phạm vi, giới hạn và các giả định, ràng buộc của dự án. Đây là cơ sở quan trọng để tiến hành phân tích chi tiết yêu cầu của hệ thống ở chương tiếp theo.
+
