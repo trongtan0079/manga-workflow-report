@@ -1,0 +1,32 @@
+@startuml Context_Diagram
+title Sơ đồ ngữ cảnh (Context Diagram) - Manga Creation Workflow & Publishing Management System
+
+skinparam componentStyle uml2
+skinparam ActorBorderColor black
+skinparam ActorBackgroundColor #E8F0FE
+skinparam ComponentBorderColor #1A73E8
+skinparam ComponentBackgroundColor #F1F3F4
+
+actor "Admin" as admin
+actor "Mangaka" as mangaka
+actor "Assistant" as assistant
+actor "Tantou Editor" as editor
+actor "Editorial Board" as board
+
+component "Hệ thống Quản lý Quy trình\nSáng tác và Xuất bản Manga" as system
+
+admin --> system : Yêu cầu quản lý tài khoản, phân quyền
+system --> admin : Nhật ký hoạt động, báo cáo hệ thống
+
+mangaka --> system : Đề xuất Series mới, tạo Chapter/Page,\nphân công Task, duyệt Submission, phản hồi review
+system --> mangaka : Báo cáo tiến độ Task, phản hồi của Editor,\nbảng xếp hạng, thông báo hệ thống
+
+assistant --> system : Cập nhật tiến độ Task, nộp Submission
+system --> assistant : Nhiệm vụ được giao, phản hồi từ Mangaka, thông báo
+
+editor --> system : Xem và đánh dấu nhận xét Chapter/Series,\ngửi yêu cầu chỉnh sửa
+system --> editor : Bản thảo cần duyệt, báo cáo tiến độ studio, thông báo
+
+board --> system : Đánh giá hồ sơ Series, bỏ phiếu duyệt,\nnhập dữ liệu bình chọn độc giả, quyết định xuất bản/ngừng
+system --> board : Hồ sơ đề xuất Series, bảng xếp hạng, báo cáo phát hành
+@enduml

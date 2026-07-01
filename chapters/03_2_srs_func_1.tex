@@ -4,41 +4,354 @@
 \subsection{Tổng quan chức năng hệ thống}
 \label{subsec:srs_functional_overview}
 
+Phần này mô tả cấu trúc tổng quan các chức năng của hệ thống Manga Creation Workflow and Publishing Management System thông qua luồng đi giữa các màn hình giao diện (Screens Flow), đặc tả chi tiết của từng màn hình (Screen Descriptions) và ma trận phân quyền truy cập giữa các Actor (Screen Authorization).
+
+\subsubsection{Luồng đi giữa các màn hình (Screens Flow)}
+Sơ đồ dưới đây mô tả luồng điều hướng của người dùng sau khi đăng nhập thành công vào hệ thống. Tùy thuộc vào vai trò (Actor) được phân quyền, hệ thống sẽ chuyển hướng người dùng đến các trang Dashboard và các màn hình chức năng chuyên biệt.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.2cm and 1.8cm,
+        font=\sffamily\scriptsize,
+        screen/.style={rectangle, draw=navyblue, fill=blue!5, thick, rounded corners=2pt, minimum width=2.6cm, minimum height=1.0cm, align=center, text width=2.4cm},
+        arrow/.style={-latex, thick, draw=black!60}
+    ]
+        % Nodes
+        \node[screen] (login) {SCR-01: Màn hình\\Đăng nhập};
+        \node[screen, right=of login] (dash) {SCR-02~06: Dashboard\\theo vai trò};
+        
+        \node[screen, above left=of dash] (admin) {SCR-07: Quản lý\\người dùng (Admin)};
+        \node[screen, above=of dash] (series) {SCR-08: Danh sách\\Series};
+        \node[screen, above right=of dash] (ranking) {SCR-14: Xếp hạng\\\& Xuất bản};
+        
+        \node[screen, right=of series] (chapter) {SCR-09: Chi tiết\\Series \& Chapter};
+        \node[screen, right=of chapter] (page) {SCR-10: Chi tiết\\Chapter \& Trang truyện};
+        
+        \node[screen, below=of page, yshift=-0.5cm] (task) {SCR-11: Bảng công việc\\(Task Board)};
+        \node[screen, left=of task] (submit) {SCR-12: Chi tiết Task\\\& Nộp Submission};
+        
+        \node[screen, below=of dash, yshift=-0.5cm] (review) {SCR-13: Giao diện\\Kiểm duyệt \& Review};
+        \node[screen, below left=of dash, yshift=-0.5cm] (notify) {SCR-15: Trung tâm\\Thông báo};
+        
+        % Connections
+        \draw[arrow] (login) -- (dash);
+        \draw[arrow] (dash) -- (admin);
+        \draw[arrow] (dash) -- (series);
+        \draw[arrow] (dash) -- (ranking);
+        \draw[arrow] (dash) -- (notify);
+        \draw[arrow] (dash) -- (review);
+        
+        \draw[arrow] (series) -- (chapter);
+        \draw[arrow] (chapter) -- (page);
+        
+        \draw[arrow] (page) -- (task);
+        \draw[arrow] (task) -- (submit);
+        \draw[arrow] (submit) -- (review);
+        \draw[arrow] (review) -- (notify);
+        
+        % Back flow
+        \draw[arrow, dashed] (dash) to[bend left=20] (login);
+
+    \end{tikzpicture}
+    \caption{Sơ đồ luồng đi giữa các màn hình chính (Screens Flow)}
+    \label{fig:screens_flow}
+\end{figure}
+
+\subsubsection{Bảng mô tả màn hình (Screen Descriptions)}
+Hệ thống được thiết kế bao gồm 15 màn hình giao diện chính nhằm đáp ứng các yêu cầu quản lý và cộng tác sản xuất Manga:
+
+\begin{longtable}{|p{1.5cm}|p{3.5cm}|p{3.0cm}|p{6.5cm}|}
+    \hline
+    \rowcolor{tableheader}
+    \textbf{Mã MH} & \textbf{Tên màn hình} & \textbf{Quyền truy cập chính} & \textbf{Mô tả chức năng chính} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+    \endfirsthead
+    \hline
+    \rowcolor{tableheader}
+    \textbf{Mã MH} & \textbf{Tên màn hình} & \textbf{Quyền truy cập chính} & \textbf{Mô tả chức năng chính} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+    \endhead
+    SCR-01 & Màn hình Đăng nhập & Tất cả các Actor & Cho phép người dùng nhập Email và Mật khẩu để xác thực quyền truy cập vào hệ thống. \\ \hline
+    SCR-02 & Dashboard Admin & Admin & Hiển thị tổng quan số lượng người dùng, hoạt động hệ thống gần đây, biểu đồ hệ thống và lối tắt quản lý tài khoản. \\ \hline
+    SCR-03 & Dashboard Mangaka & Mangaka & Hiển thị danh sách các Series đang sáng tác, trạng thái Task của Assistant, thông báo phản hồi từ Editor và lối tắt tạo Chapter/Series. \\ \hline
+    SCR-04 & Dashboard Assistant & Assistant & Hiển thị danh sách Task được giao, tiến độ công việc cá nhân, thống kê thu nhập/số trang hoàn thành và các thông báo mới từ Mangaka. \\ \hline
+    SCR-05 & Dashboard Editor & Tantou Editor & Hiển thị danh sách Series được phân công theo dõi, danh sách Chapter cần duyệt, tiến độ các studio và lối tắt gửi review. \\ \hline
+    SCR-06 & Dashboard Board & Editorial Board & Hiển thị danh sách Series đề xuất cần duyệt, bảng xếp hạng các Series, các báo cáo phân tích phát hành và quyết định xuất bản. \\ \hline
+    SCR-07 & Quản lý người dùng & Admin & Cung cấp các công cụ xem danh sách, tạo mới, chỉnh sửa thông tin, phân quyền và khóa/mở khóa tài khoản người dùng. \\ \hline
+    SCR-08 & Danh sách Series & Tất cả các Actor & Hiển thị danh sách các bộ truyện Manga trên hệ thống kèm thông tin giới thiệu, ảnh bìa và trạng thái. \\ \hline
+    SCR-09 & Chi tiết Series \& Chapter & Mangaka, Editor, Board & Xem thông tin chi tiết một Series và danh sách các Chapter thuộc Series đó; cho phép Mangaka tạo Chapter mới. \\ \hline
+    SCR-10 & Chi tiết Chapter \& Trang & Mangaka, Assistant, Editor & Hiển thị danh sách các trang truyện (Pages) của Chapter, cho phép quản lý Page và tải các tài nguyên đồ họa tương ứng. \\ \hline
+    SCR-11 & Bảng công việc (Task Board) & Mangaka, Assistant & Giao diện Kanban hiển thị trạng thái các Task phân chia theo từng trang vẽ (Chưa thực hiện, Đang làm, Đã nộp, Hoàn thành). \\ \hline
+    SCR-12 & Chi tiết Task \& Nộp bài & Assistant, Mangaka & Hiển thị chi tiết yêu cầu công việc; cho phép Assistant tải lên file bản vẽ (Submission) và ghi chú báo cáo kết quả. \\ \hline
+    SCR-13 & Giao diện Review & Mangaka, Tantou Editor & Cho phép xem bản vẽ, khoanh vùng vị trí cần sửa, viết nhận xét chỉnh sửa và chọn kết quả đánh giá (Đạt / Yêu cầu chỉnh sửa). \\ \hline
+    SCR-14 & Quản lý xuất bản \& BXH & Board, Mangaka, Editor & Giao diện cho phép nhập điểm bình chọn độc giả (chỉ dành cho Board) và hiển thị bảng xếp hạng Series cập nhật định kỳ. \\ \hline
+    SCR-15 & Trung tâm thông báo & Tất cả các Actor & Hiển thị tất cả thông báo hệ thống liên quan đến công việc giao nhận, kết quả kiểm duyệt, và cập nhật tình trạng xuất bản. \\ \hline
+\end{longtable}
+
+\subsubsection{Ma trận phân quyền màn hình theo Actor (Screen Authorization)}
+Ma trận dưới đây biểu diễn quyền truy cập chi tiết của từng Actor đối với 15 màn hình giao diện chính trong hệ thống ($\checkmark$: Có quyền truy cập, Khoảng trống: Không có quyền truy cập):
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|l|l|c|c|c|c|c|}
+\hline
+\rowcolor{tableheader}
+\textbf{Mã MH} & \textbf{Tên màn hình} & \textbf{Admin} & \textbf{Mangaka} & \textbf{Assistant} & \textbf{Editor} & \textbf{Board} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+SCR-01 & Màn hình Đăng nhập & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-02 & Dashboard Admin & $\checkmark$ & & & & \\ \hline
+SCR-03 & Dashboard Mangaka & & $\checkmark$ & & & \\ \hline
+SCR-04 & Dashboard Assistant & & & $\checkmark$ & & \\ \hline
+SCR-05 & Dashboard Editor & & & & $\checkmark$ & \\ \hline
+SCR-06 & Dashboard Board & & & & & $\checkmark$ \\ \hline
+SCR-07 & Quản lý người dùng & $\checkmark$ & & & & \\ \hline
+SCR-08 & Danh sách Series & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-09 & Chi tiết Series \& Chapter & & $\checkmark$ & & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-10 & Chi tiết Chapter \& Trang & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\ \hline
+SCR-11 & Bảng công việc (Task Board) & & $\checkmark$ & $\checkmark$ & & \\ \hline
+SCR-12 & Chi tiết Task \& Nộp bài & & $\checkmark$ & $\checkmark$ & & \\ \hline
+SCR-13 & Giao diện Review & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\ \hline
+SCR-14 & Quản lý xuất bản \& BXH & & $\checkmark$ & & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-15 & Trung tâm thông báo & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
+\end{tabularx}
+\caption{Ma trận phân quyền màn hình theo Actor}
+\label{tab:screen_authorization}
+\end{table}
+
+\subsubsection{Các chức năng nền (Non-Screen Functions)}
+Ngoài các chức năng tương tác qua màn hình giao diện, hệ thống còn thực hiện một số chức năng chạy ngầm tự động nhằm đảm bảo luồng công việc diễn ra thông suốt:
+\begin{itemize}
+    \item \textbf{Tự động gửi thông báo:} Hệ thống tự động kích hoạt gửi thông báo đến các Actor tương ứng khi có sự kiện thay đổi trạng thái (ví dụ: Mangaka giao Task mới $\rightarrow$ thông báo đến Assistant; Assistant nộp Submission $\rightarrow$ thông báo đến Mangaka; Chapter hoàn thành $\rightarrow$ thông báo đến Editor).
+    \item \textbf{Tự động tính toán xếp hạng:} Sau khi Editorial Board nhập dữ liệu bình chọn của độc giả cho một kỳ phát hành, hệ thống tự động chạy ngầm thuật toán cộng dồn điểm, sắp xếp thứ hạng của các Series và kết xuất dữ liệu bảng xếp hạng mới.
+    \item \textbf{Ghi nhật ký hoạt động hệ thống (System Audit Logs):} Hệ thống tự động ghi lại lịch sử thao tác của các tài khoản (đăng nhập, cập nhật dữ liệu, xóa dữ liệu) để phục vụ công tác giám sát hệ thống của Admin.
+\end{itemize}
+
 \subsection{Xác thực (Authentication)}
 \label{subsec:srs_auth}
 
 \subsubsection{UC-01: Đăng nhập hệ thống}
 \label{subsubsec:uc01_login}
+\begin{itemize}
+    \item \textbf{Actor chính:} Tất cả các Actor (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board).
+    \item \textbf{Mô tả ngắn gọn:} Cho phép người dùng xác thực danh tính để đăng nhập vào hệ thống và bắt đầu phiên làm việc.
+    \item \textbf{Tiền điều kiện:} Người dùng đã được cấp tài khoản và tài khoản đang ở trạng thái hoạt động (không bị khóa).
+    \item \textbf{Hậu điều kiện:} Người dùng đăng nhập thành công, phiên làm việc (session) được thiết lập và hệ thống chuyển hướng người dùng đến Dashboard phù hợp với vai trò.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Người dùng truy cập vào trang đăng nhập của hệ thống (SCR-01).
+            \item Hệ thống hiển thị form đăng nhập yêu cầu nhập Email và Mật khẩu.
+            \item Người dùng nhập chính xác Email, Mật khẩu và nhấn nút "Đăng nhập".
+            \item Hệ thống thực hiện mã hóa mật khẩu, kiểm tra định dạng và đối chiếu cơ sở dữ liệu để xác thực tài khoản.
+            \item Hệ thống ghi nhận đăng nhập thành công, khởi tạo Token phiên làm việc và xác định vai trò của người dùng.
+            \item Hệ thống chuyển hướng người dùng đến Dashboard tương ứng (SCR-02 đến SCR-06).
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Sai Email hoặc Mật khẩu:} Hệ thống hiển thị thông báo lỗi "Email hoặc mật khẩu không chính xác" và giữ người dùng ở lại màn hình đăng nhập để nhập lại.
+            \item \textbf{Tài khoản bị khóa:} Nếu tài khoản khớp thông tin nhưng trạng thái là "Bị khóa", hệ thống hiển thị thông báo "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để được hỗ trợ" và từ chối đăng nhập.
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-02: Đăng xuất}
 \label{subsubsec:uc02_logout}
+\begin{itemize}
+    \item \textbf{Actor chính:} Tất cả các Actor.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép người dùng hủy phiên làm việc hiện tại và thoát khỏi hệ thống một cách an toàn.
+    \item \textbf{Tiền điều kiện:} Người dùng đang ở trạng thái đăng nhập trên hệ thống.
+    \item \textbf{Hậu điều kiện:} Phiên làm việc bị xóa bỏ, người dùng không thể thực hiện các chức năng yêu cầu quyền truy cập và hệ thống đưa người dùng quay lại màn hình Đăng nhập (SCR-01).
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Người dùng nhấn vào biểu tượng cá nhân ở góc phải màn hình và chọn "Đăng xuất".
+            \item Hệ thống hiển thị hộp thoại yêu cầu xác nhận việc đăng xuất.
+            \item Người dùng chọn "Xác nhận".
+            \item Hệ thống thực hiện thu hồi Token phiên làm việc, xóa toàn bộ session lưu trữ trên trình duyệt.
+            \item Hệ thống chuyển hướng người dùng về màn hình đăng nhập (SCR-01).
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):} Không có.
+\end{itemize}
 
 \subsection{Quản lý người dùng (User Management)}
 \label{subsec:srs_user_mgmt}
 
 \subsubsection{UC-03: Xem danh sách người dùng}
 \label{subsubsec:uc03_view_users}
+\begin{itemize}
+    \item \textbf{Actor chính:} Admin.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép Admin theo dõi, tìm kiếm và lọc danh sách toàn bộ các tài khoản có trong hệ thống.
+    \item \textbf{Tiền điều kiện:} Admin đã đăng nhập thành công vào hệ thống.
+    \item \textbf{Hậu điều kiện:} Hệ thống hiển thị danh sách người dùng đầy đủ và chính xác trên màn hình SCR-07.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Admin nhấn chọn menu "Quản lý người dùng" trên thanh điều hướng.
+            \item Hệ thống thực hiện truy vấn cơ sở dữ liệu lấy thông tin tất cả các tài khoản người dùng hiện có.
+            \item Hệ thống kết xuất dữ liệu và hiển thị lên màn hình (SCR-07) dưới dạng bảng gồm các cột: STT, Họ và tên, Email, Vai trò, Trạng thái (Hoạt động/Bị khóa) và Ngày tạo.
+            \item Admin có thể nhập từ khóa tìm kiếm (theo tên hoặc email) hoặc chọn bộ lọc (theo vai trò, trạng thái) để lọc danh sách.
+            \item Hệ thống tự động lọc và hiển thị danh sách kết quả phù hợp theo bộ lọc của Admin.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Lỗi kết nối CSDL:} Hệ thống không thể tải dữ liệu, hiển thị thông báo lỗi "Kết nối đến máy chủ thất bại. Vui lòng tải lại trang".
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-04: Tạo tài khoản}
 \label{subsubsec:uc04_create_user}
+\begin{itemize}
+    \item \textbf{Actor chính:} Admin.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép Admin khởi tạo tài khoản mới cho các nhân sự tham gia vào hệ thống (Mangaka, Assistant, Editor...).
+    \item \textbf{Tiền điều kiện:} Admin đã đăng nhập thành công.
+    \item \textbf{Hậu điều kiện:} Tài khoản mới được thêm vào CSDL và hệ thống gửi thông báo thông tin đăng nhập đến email của người dùng mới.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Tại màn hình Quản lý người dùng (SCR-07), Admin nhấn chọn nút "Tạo tài khoản".
+            \item Hệ thống hiển thị một form tạo mới yêu cầu nhập: Họ và tên, Email, Mật khẩu ban đầu và chọn Vai trò (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board).
+            \item Admin điền đầy đủ các thông tin cần thiết, chọn vai trò phù hợp và nhấn nút "Lưu".
+            \item Hệ thống kiểm tra các ràng buộc dữ liệu: Email phải đúng định dạng, mật khẩu tối thiểu 8 ký tự, các trường bắt buộc không được để trống và Email không được trùng lặp trong hệ thống.
+            \item Hệ thống thực hiện mã hóa mật khẩu, ghi nhận thông tin tài khoản mới vào cơ sở dữ liệu với trạng thái mặc định là "Hoạt động".
+            \item Hệ thống hiển thị thông báo "Tạo tài khoản thành công" và cập nhật lại bảng danh sách người dùng.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Email bị trùng lặp:} Hệ thống báo lỗi "Email này đã được sử dụng bởi một tài khoản khác trong hệ thống" và yêu cầu nhập lại email khác.
+            \item \textbf{Dữ liệu đầu vào không hợp lệ:} Hệ thống hiển thị các dòng cảnh báo màu đỏ bên dưới các trường nhập liệu sai quy định và không cho phép lưu tài khoản.
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-05: Cập nhật thông tin người dùng}
 \label{subsubsec:uc05_update_user}
+\begin{itemize}
+    \item \textbf{Actor chính:} Admin.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép Admin thay đổi thông tin cá nhân hoặc vai trò của các người dùng trong hệ thống.
+    \item \textbf{Tiền điều kiện:} Admin đã đăng nhập thành công.
+    \item \textbf{Hậu điều kiện:} Các thông tin chỉnh sửa của người dùng được lưu trữ và cập nhật thành công vào cơ sở dữ liệu.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Trên bảng danh sách ở màn hình SCR-07, Admin tìm kiếm tài khoản cần sửa và nhấn nút "Sửa" ở cột thao tác.
+            \item Hệ thống hiển thị form chỉnh sửa thông tin điền sẵn dữ liệu hiện tại của người dùng.
+            \item Admin thực hiện chỉnh sửa các thông tin cần thiết (Họ tên, Vai trò) và nhấn nút "Cập nhật".
+            \item Hệ thống kiểm tra tính hợp lệ của dữ liệu mới nhập.
+            \item Hệ thống cập nhật các thay đổi vào cơ sở dữ liệu và hiển thị thông báo "Cập nhật thông tin người dùng thành công".
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Dữ liệu trống:} Admin xóa hết thông tin ở các trường bắt buộc và nhấn Cập nhật. Hệ thống hiển thị thông báo nhắc nhở "Thông tin không được để trống" và giữ nguyên form.
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-06: Khóa / Mở khóa tài khoản}
 \label{subsubsec:uc06_toggle_user}
+\begin{itemize}
+    \item \textbf{Actor chính:} Admin.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép Admin vô hiệu hóa (khóa) hoặc kích hoạt lại (mở khóa) quyền truy cập hệ thống của một tài khoản.
+    \item \textbf{Tiền điều kiện:} Admin đã đăng nhập thành công.
+    \item \textbf{Hậu điều kiện:} Trạng thái tài khoản được cập nhật trong CSDL; người dùng có tài khoản bị khóa sẽ không thể đăng nhập ở phiên sau.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Admin tìm kiếm tài khoản cần thay đổi trạng thái hoạt động trên màn hình SCR-07.
+            \item Admin nhấn vào nút "Khóa" (nếu tài khoản đang Hoạt động) hoặc nút "Mở khóa" (nếu tài khoản đang Bị khóa) ở cột thao tác.
+            \item Hệ thống hiển thị một hộp thoại thông báo yêu cầu xác nhận hành động: "Bạn có chắc chắn muốn khóa/mở khóa tài khoản của [Tên người dùng]?".
+            \item Admin chọn "Đồng ý".
+            \item Hệ thống cập nhật trạng thái hoạt động của tài khoản trong CSDL và đổi nhãn hiển thị trạng thái trên màn hình thành "Bị khóa" hoặc "Hoạt động".
+            \item Hệ thống hiển thị thông báo xác nhận thành công.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Tự khóa tài khoản của chính mình:} Admin cố tình chọn khóa tài khoản của chính mình đang dùng để đăng nhập. Hệ thống phát hiện và hiển thị thông báo lỗi "Không thể tự khóa tài khoản của chính mình" để ngăn chặn sai sót hành vi.
+        \end{itemize}
+\end{itemize}
 
 \subsection{Quản lý Series (Manga Series Management)}
 \label{subsec:srs_series_mgmt}
 
 \subsubsection{UC-07: Tạo hồ sơ Series mới}
 \label{subsubsec:uc07_create_series}
+\begin{itemize}
+    \item \textbf{Actor chính:} Mangaka.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép Mangaka khởi tạo đề xuất Series Manga mới cùng với các thông tin tóm tắt và ảnh bìa để gửi lên Hội đồng biên tập duyệt.
+    \item \textbf{Tiền điều kiện:} Mangaka đã đăng nhập thành công vào hệ thống.
+    \item \textbf{Hậu điều kiện:} Hồ sơ Series được lưu trong CSDL với trạng thái ban đầu là "Đang đề xuất" và thông báo xét duyệt được gửi tới Editorial Board.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Mangaka truy cập màn hình Danh sách Series (SCR-08) và nhấn nút "Đề xuất Series mới".
+            \item Hệ thống hiển thị form nhập thông tin hồ sơ Series bao gồm: Tên Series, Mô tả nội dung, Thể loại, Tần suất phát hành đề xuất và tải lên ảnh bìa (Cover Image).
+            \item Mangaka điền đầy đủ các thông tin, tải lên file hình ảnh bìa và nhấn nút "Gửi đề xuất".
+            \item Hệ thống kiểm tra dữ liệu đầu vào: Tên Series không được trùng lặp và file ảnh bìa phải đúng định dạng (.png, .jpg, .webp).
+            \item Hệ thống lưu Series vào CSDL, gán quyền sở hữu (Creator) cho Mangaka hiện tại và đặt trạng thái là "Đang đề xuất".
+            \item Hệ thống hiển thị thông báo thành công và gửi thông báo hệ thống đến cho các thành viên của Editorial Board.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Trùng tên bộ truyện:} Hệ thống phát hiện tên Series trùng với một bộ truyện đã có, hiển thị thông báo "Tên Series này đã tồn tại trong hệ thống. Vui lòng chọn tên khác".
+            \item \textbf{Ảnh bìa không hợp lệ:} Định dạng file không đúng hoặc dung lượng ảnh vượt quá giới hạn (ví dụ: >5MB). Hệ thống báo lỗi file ảnh bìa và yêu cầu tải lên tệp tin hợp lệ.
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-08: Xem danh sách Series}
 \label{subsubsec:uc08_view_series}
+\begin{itemize}
+    \item \textbf{Actor chính:} Tất cả các Actor.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép người dùng theo dõi và tìm kiếm các Series Manga trên hệ thống dựa trên vai trò của mình.
+    \item \textbf{Tiền điều kiện:} Người dùng đã đăng nhập thành công.
+    \item \textbf{Hậu điều kiện:} Hệ thống hiển thị danh sách Series chính xác với quyền hạn của Actor trên màn hình SCR-08.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Người dùng chọn mục "Danh sách Series" trên menu chính.
+            \item Hệ thống kiểm tra vai trò của người dùng để thực hiện bộ lọc dữ liệu tự động bảo mật:
+                \begin{itemize}
+                    \item \textbf{Admin / Editorial Board:} Hệ thống hiển thị toàn bộ Series trên hệ thống (bao gồm cả "Đang đề xuất" và "Ngừng phát hành").
+                    \item \textbf{Tantou Editor:} Hệ thống hiển thị các Series được phân công biên tập viên phụ trách.
+                    \item \textbf{Mangaka:} Hệ thống hiển thị toàn bộ các Series do Mangaka này tạo ra.
+                    \item \textbf{Assistant:} Hệ thống hiển thị các Series mà Assistant đã được giao ít nhất một nhiệm vụ (Task) vẽ trang.
+                \end{itemize}
+            \item Hệ thống hiển thị danh sách các Series lên màn hình kèm ảnh bìa, tên Series, lịch phát hành và nhãn trạng thái hiện tại.
+            \item Người dùng có thể tìm kiếm Series bằng cách gõ từ khóa tên truyện vào ô tìm kiếm.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Không có dữ liệu hiển thị:} Hệ thống hiển thị thông báo "Không tìm thấy bộ truyện nào phù hợp".
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-09: Cập nhật thông tin Series}
 \label{subsubsec:uc09_update_series}
+\begin{itemize}
+    \item \textbf{Actor chính:} Mangaka.
+    \item \textbf{Mô tả ngắn gọn:} Cho phép tác giả cập nhật lại thông tin giới thiệu, mô tả hoặc thay đổi ảnh bìa của bộ truyện do mình sáng tác.
+    \item \textbf{Tiền điều kiện:} Mangaka đã đăng nhập thành công và Series cần sửa phải thuộc quyền quản lý của Mangaka này.
+    \item \textbf{Hậu điều kiện:} Các thông tin chỉnh sửa được lưu vào CSDL và cập nhật hiển thị chi tiết Series.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Mangaka truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện mình sở hữu.
+            \item Mangaka nhấn vào nút "Chỉnh sửa hồ sơ".
+            \item Hệ thống hiển thị form nhập liệu chứa thông tin hiện tại của Series.
+            \item Mangaka thay đổi các thông tin (Mô tả, Thể loại, Tải ảnh bìa mới) và nhấn nút "Lưu thay đổi".
+            \item Hệ thống kiểm tra tính hợp lệ và cập nhật thông tin mới vào CSDL, đồng thời ghi lại vết chỉnh sửa.
+            \item Hệ thống hiển thị thông báo "Cập nhật thông tin Series thành công" và hiển thị lại trang chi tiết đã cập nhật.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
+        \begin{itemize}
+            \item \textbf{Truy cập trái phép chỉnh sửa:} Mangaka cố ý sửa Series của người khác (bằng cách thay đổi ID trên URL). Hệ thống phát hiện quyền sở hữu không hợp lệ, từ chối quyền truy cập và hiển thị màn hình báo lỗi phân quyền "Bạn không có quyền thực hiện hành động này".
+            \item \textbf{Series đã ngừng phát hành:} Nếu bộ truyện đã ở trạng thái "Ngừng phát hành", hệ thống sẽ khóa chức năng chỉnh sửa và thông báo "Series đã ngừng phát hành, không thể chỉnh sửa thông tin".
+        \end{itemize}
+\end{itemize}
 
 \subsubsection{UC-10: Theo dõi trạng thái Series}
 \label{subsubsec:uc10_track_series}
+\begin{itemize}
+    \item \textbf{Actor chính:} Mangaka, Tantou Editor, Editorial Board.
+    \item \textbf{Mô tả ngắn gọn:} Giúp các vai trò quản lý theo dõi sát sao tình trạng hoạt động và tiến trình phát triển thực tế của bộ truyện.
+    \item \textbf{Tiền điều kiện:} Người dùng đã đăng nhập thành công.
+    \item \textbf{Hậu điều kiện:} Hệ thống hiển thị trạng thái và tiến độ tổng quát của Series trên giao diện.
+    \item \textbf{Luồng sự kiện chính (Basic Flow):}
+        \begin{enumerate}
+            \item Người dùng truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện.
+            \item Hệ thống hiển thị thông tin chung và nhãn trạng thái vận hành hiện tại của bộ truyện:
+                \begin{itemize}
+                    \item \textbf{Đang đề xuất:} Đang chờ Editorial Board xét duyệt và bỏ phiếu thông qua.
+                    \item \textbf{Đang tiến hành:} Đang sáng tác tích cực, được phép tạo Chapter và giao Task.
+                    \item \textbf{Tạm ngưng:} Tạm dừng sáng tác, giữ nguyên trạng thái dữ liệu.
+                    \item \textbf{Ngừng phát hành:} Đã hoàn thành hoặc bị huỷ bỏ, khoá toàn bộ các thao tác chỉnh sửa/sáng tác mới.
+                \end{itemize}
+            \item Hệ thống đồng thời tính toán hiển thị tiến độ tổng thể của Series (Tỷ lệ \% Chapter đã hoàn thành và xuất bản so với kế hoạch ban đầu) để người quản lý theo dõi.
+        \end{enumerate}
+    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):} Không có.
+\end{itemize}
