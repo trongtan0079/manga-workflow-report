@@ -17,12 +17,9 @@
 - [x] **[P1-04]** Dọn dẹp tài nguyên thừa: Xóa file hình ảnh `Class_Diagram_pt.pdf` bị trùng lặp.
 - [x] **[P1-05]** Chuẩn hóa lại định dạng bảng thuật ngữ trong `sections/thuat_ngu.tex`.
 - [x] **[P1-06]** Biên dịch (compile) thử nghiệm PDF của khung sườn mới thành công không lỗi.
+- [x] **[P3-01/02/03]** Soạn thảo bổ sung nội dung Chương I (Hệ thống hiện có, cơ hội phát triển, loại bỏ phần kết luận).
 
 ### 📋 Task phân công Jira tiếp theo
-- [ ] **[Phase 3 - Tấn]** Soạn thảo bổ sung nội dung Chương I:
-  * Viết mục **1.3 Hệ thống hiện có** (§1.3.1 Quản lý thủ công, §1.3.2 Nhược điểm của Trello/Notion).
-  * Viết mục **1.4 Cơ hội phát triển** (Lý do xây dựng, cơ hội tối ưu).
-  * Loại bỏ phần Kết luận chương ở cuối Chương I.
 - [ ] **[Phase 3 - Tấn]** Soạn thảo Chương VII & Phụ lục:
   * Viết phần **Kết luận & Hướng phát triển** ở chương cuối (`chapters/07_ket_luan.tex`).
   * Soạn thảo tài liệu API trong Phụ lục A (mô tả ít nhất 5-10 endpoint thực tế).

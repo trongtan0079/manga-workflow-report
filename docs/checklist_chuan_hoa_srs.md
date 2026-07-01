@@ -45,9 +45,9 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 *Mục tiêu: Triển khai viết mới các chương, các sơ đồ UML và chi tiết kịch bản sử dụng còn thiếu.*
 
 ### ✍️ Chương I: Giới thiệu dự án (Trương Trọng Tấn)
-- [ ] **[P3-01]** Viết mục **1.3 Hệ thống hiện có** (§1.3.1 Quản lý thủ công, §1.3.2 Công cụ Trello/Notion và nhược điểm).
-- [ ] **[P3-02]** Viết mục **1.4 Cơ hội phát triển** (Lý do xây dựng, cơ hội tối ưu quy trình manga).
-- [ ] **[P3-03]** Xem xét loại bỏ phần Kết luận chương ở cuối Chương 1 theo đúng mẫu.
+- [x] **[P3-01]** Viết mục **1.3 Hệ thống hiện có** (§1.3.1 Quản lý thủ công, §1.3.2 Công cụ Trello/Notion và nhược điểm).
+- [x] **[P3-02]** Viết mục **1.4 Cơ hội phát triển** (Lý do xây dựng, cơ hội tối ưu quy trình manga).
+- [x] **[P3-03]** Xem xét loại bỏ phần Kết luận chương ở cuối Chương 1 theo đúng mẫu.
 
 ### ✍️ Chương II: Kế hoạch quản lý dự án - SPMP (Nguyễn Thị Trúc Ngân)
 - [ ] **[P3-04]** Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
