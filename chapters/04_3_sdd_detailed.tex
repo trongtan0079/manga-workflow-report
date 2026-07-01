@@ -6,33 +6,113 @@
 
 \subsubsection{Swimlane — Quy trình sáng tác \& xuất bản}
 \label{subsubsec:swim_publishing}
+Swimlane Diagram được sử dụng nhằm mô tả tổng quan quy trình sáng tác và xuất bản Manga, đồng thời thể hiện sự tương tác giữa các đối tượng tham gia trong hệ thống gồm Mangaka, Assistant, Tantou Editor và Editorial Board.\\
+\indent Quy trình bắt đầu từ giai đoạn đề xuất và xét duyệt Series, tiếp tục với quá trình sáng tác, phân công công việc, kiểm duyệt nội dung và kết thúc bằng việc đánh giá kết quả phát hành để đưa ra quyết định tiếp tục hoặc ngừng xuất bản Series. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.75\textheight, width=\textwidth, keepaspectratio]{Chapter3_IMAGE/Swimlane_tong_quat_quy_trinh_sang_tac_maga.png}
+    \caption{Swimlane Diagram tổng quát quy trình sáng tác và xuất bản Manga}
+    \label{fig:swimlane_manga}
+\end{figure}
+
+\FloatBarrier
 
 \subsubsection{Activity Diagram — Giao và thực hiện Task}
 \label{subsubsec:act_task}
+Activity Diagram này mô tả quy trình phân công và thực hiện công việc giữa Mangaka và Assistant.\\
+\indent Quy trình bắt đầu khi Mangaka tạo Task và giao cho Assistant. Sau khi nhận nhiệm vụ, Assistant thực hiện công việc, gửi Submission lên hệ thống và chờ kết quả kiểm duyệt. Trong trường hợp Submission chưa đạt yêu cầu, Assistant sẽ tiếp tục chỉnh sửa và gửi lại cho đến khi được chấp thuận.
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.75\textheight, width=0.8\textwidth, keepaspectratio]{Chapter3_IMAGE/Activity_Diagram_quy_trình_giao_và_thực_hiện_Task.png}
+    \caption{Activity Diagram quy trình giao và thực hiện Task}
+    \label{fig:activity_task}
+\end{figure}
+
+\FloatBarrier
 
 \subsubsection{Activity Diagram — Review Chapter}
 \label{subsubsec:act_review}
+Activity Diagram này mô tả quy trình kiểm duyệt nội dung Manga giữa Mangaka và Tantou Editor.\\
+\indent Sau khi Chapter được hoàn thiện, Tantou Editor tiến hành xem xét nội dung và đưa ra phản hồi. Nếu Chapter chưa đạt yêu cầu, Mangaka sẽ thực hiện chỉnh sửa theo nhận xét. Quy trình được lặp lại cho đến khi Chapter được phê duyệt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.75\textheight, width=0.8\textwidth, keepaspectratio]{Chapter3_IMAGE/Activity_Diagram_quy trình_Review_Chapter.png}
+    \caption{Activity Diagram quy trình Review Chapter}
+    \label{fig:activity_review}
+\end{figure}
+
+\FloatBarrier
 
 \subsubsection{Activity Diagram — Xuất bản Manga}
 \label{subsubsec:act_publish}
+Activity Diagram này mô tả quá trình đánh giá và ra quyết định xuất bản đối với một Series Manga.\\
+\indent Editorial Board thực hiện cập nhật dữ liệu bình chọn, theo dõi thứ hạng Series và đánh giá hiệu quả phát hành. Dựa trên kết quả đánh giá, hội đồng đưa ra quyết định tiếp tục xuất bản, điều chỉnh kế hoạch phát hành hoặc ngừng phát hành Series.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[height=0.75\textheight, width=0.8\textwidth, keepaspectratio]{Chapter3_IMAGE/Activity_Diagram_quy_trình_xuất_bản_Manga.png}
+    \caption{Activity Diagram quy trình xuất bản Manga}
+    \label{fig:activity_xuat_ban}
+\end{figure}
+
+\FloatBarrier
 
 \subsection{Thiết kế Sequence Diagram}
 \label{subsec:sdd_sequence_diagrams}
 
 \subsubsection{Sequence — Đăng nhập hệ thống}
 \label{subsubsec:seq_login}
+Sequence Diagram mô tả quá trình người dùng đăng nhập vào hệ thống. Hệ thống xác thực thông tin tài khoản và cấp quyền truy cập nếu hợp lệ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_dang_nhap_he_thong.png}
+    \caption{Sequence Diagram Đăng nhập hệ thống}
+    \label{fig:seq_dang_nhap}
+\end{figure}
 
 \subsubsection{Sequence — Phân công Task}
 \label{subsubsec:seq_task}
+Sequence Diagram mô tả quá trình Manager tạo và phân công công việc cho Assistant. Sau khi Task được tạo, hệ thống lưu thông tin và gửi thông báo đến Assistant.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_manga_task_assignment.png}
+    \caption{Sequence Diagram Phân công Task}
+    \label{fig:seq_giao_task}
+\end{figure}
 
 \subsubsection{Sequence — Nộp Submission}
 \label{subsubsec:seq_submission}
+Sequence Diagram mô tả quá trình Assistant nộp kết quả thực hiện Task. Hệ thống lưu Submission và cập nhật trạng thái công việc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_quy_trình_nop_submission.png}
+    \caption{Sequence Diagram Nộp Submission}
+    \label{fig:seq_nop_submission}
+\end{figure}
 
 \subsubsection{Sequence — Review Chapter}
 \label{subsubsec:seq_review}
+Sequence Diagram mô tả quá trình Manager đánh giá Submission. Nếu đạt yêu cầu, hệ thống cập nhật tiến độ Chapter; ngược lại hệ thống gửi yêu cầu chỉnh sửa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_review_chapter.png}
+    \caption{Sequence Diagram Review Chapter}
+    \label{fig:seq_review_chapter}
+\end{figure}
 
 \subsubsection{Sequence — Xuất bản Manga}
 \label{subsubsec:seq_publish}
+Sequence Diagram mô tả quá trình Editor xuất bản Chapter sau khi hoàn thành kiểm duyệt. Chapter được chuyển sang trạng thái Published và hiển thị cho người đọc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_manga_series_publishing.png}
+    \caption{Sequence Diagram Xuất bản Manga}
+    \label{fig:seq_xuat_ban}
+\end{figure}
 
 \subsection{Thiết kế Class Diagram}
 \label{subsec:sdd_class_diagram}
@@ -40,11 +120,232 @@
 \subsubsection{Chi tiết các lớp trong hệ thống}
 \label{subsubsec:class_details}
 
+Class Diagram mô tả cấu trúc tĩnh của hệ thống, bao gồm các lớp chính, thuộc tính, phương thức và mối quan hệ giữa các lớp trong hệ thống quản lý quy trình sản xuất Manga.
+
+\paragraph{Lớp Role}
+\textit{Mô tả:} Quản lý thông tin vai trò của người dùng trong hệ thống.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+roleId & int & Mã vai trò \\ \hline
+roleName & string & Tên vai trò \\ \hline
+description & string & Mô tả vai trò \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Role}
+\label{tab:class_role}
+\end{table}
+
+\paragraph{Lớp User}
+\textit{Mô tả:} Quản lý thông tin tài khoản người dùng.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+userId & int & Mã người dùng \\ \hline
+username & string & Tên đăng nhập \\ \hline
+fullName & string & Họ và tên \\ \hline
+email & string & Địa chỉ email \\ \hline
+passwordHash & string & Mật khẩu đã mã hóa \\ \hline
+status & string & Trạng thái tài khoản \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp User}
+\label{tab:class_user}
+\end{table}
+
+\paragraph{Lớp Series}
+\textit{Mô tả:} Quản lý thông tin bộ truyện Manga.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+seriesId & int & Mã bộ truyện \\ \hline
+title & string & Tên bộ truyện \\ \hline
+description & string & Mô tả nội dung \\ \hline
+status & string & Trạng thái bộ truyện \\ \hline
+coverImage & string & Ảnh bìa bộ truyện \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Series}
+\label{tab:class_series}
+\end{table}
+
+\paragraph{Lớp Chapter}
+\textit{Mô tả:} Quản lý thông tin chương truyện.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+chapterId & int & Mã chương \\ \hline
+chapterNumber & int & Số thứ tự chương \\ \hline
+title & string & Tên chương \\ \hline
+status & string & Trạng thái chương \\ \hline
+publishedAt & datetime & Ngày xuất bản \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Chapter}
+\label{tab:class_chapter}
+\end{table}
+
+\paragraph{Lớp Page}
+\textit{Mô tả:} Quản lý các trang truyện thuộc Chapter.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+pageId & int & Mã trang \\ \hline
+pageNumber & int & Số thứ tự trang \\ \hline
+imageUrl & string & Đường dẫn ảnh \\ \hline
+status & string & Trạng thái hoàn thành \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Page}
+\label{tab:class_page}
+\end{table}
+
+\paragraph{Lớp Task}
+\textit{Mô tả:} Quản lý công việc được giao cho Assistant.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+taskId & int & Mã công việc \\ \hline
+title & string & Tên công việc \\ \hline
+description & string & Mô tả công việc \\ \hline
+priority & string & Mức độ ưu tiên \\ \hline
+status & string & Trạng thái công việc \\ \hline
+dueDate & datetime & Hạn hoàn thành \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Task}
+\label{tab:class_task}
+\end{table}
+
+\paragraph{Lớp Submission}
+\textit{Mô tả:} Quản lý các sản phẩm được nộp lên hệ thống.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+submissionId & int & Mã bài nộp \\ \hline
+fileUrl & string & Đường dẫn tập tin \\ \hline
+notes & string & Ghi chú bổ sung \\ \hline
+status & string & Trạng thái bài nộp \\ \hline
+submittedAt & datetime & Thời gian nộp \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Submission}
+\label{tab:class_submission}
+\end{table}
+
+\paragraph{Lớp Review}
+\textit{Mô tả:} Quản lý các đánh giá và phản hồi đối với Submission.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+reviewId & int & Mã đánh giá \\ \hline
+comments & string & Nội dung nhận xét \\ \hline
+rating & int & Điểm đánh giá \\ \hline
+createdAt & datetime & Thời gian đánh giá \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Review}
+\label{tab:class_review}
+\end{table}
+
+\paragraph{Lớp SeriesRanking}
+\textit{Mô tả:} Quản lý thông tin xếp hạng của các bộ truyện.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+rankingId & int & Mã xếp hạng \\ \hline
+rankPosition & int & Thứ hạng \\ \hline
+score & decimal & Điểm đánh giá \\ \hline
+periodStartDate & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp SeriesRanking}
+\label{tab:class_seriesranking}
+\end{table}
+
+\paragraph{Lớp Notification}
+\textit{Mô tả:} Quản lý thông báo gửi đến người dùng.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+notificationId & int & Mã thông báo \\ \hline
+type & string & Loại thông báo \\ \hline
+message & string & Nội dung thông báo \\ \hline
+isRead & boolean & Trạng thái đã đọc \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp Notification}
+\label{tab:class_notification}
+\end{table}
+
 \subsubsection{Bổ sung phương thức (Methods)}
 \label{subsubsec:class_methods}
+Các phương thức cụ thể của lớp sẽ được định nghĩa chi tiết trong giai đoạn xây dựng mã nguồn.
 
 \subsubsection{Class Diagram tổng thể}
 \label{subsubsec:class_overview}
+Class Diagram tổng thể thể hiện toàn bộ các lớp cốt lõi của hệ thống cùng các mối quan hệ liên kết, kế thừa và phụ thuộc giữa chúng.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/Class_Diagram.pdf}
+    \caption{Class Diagram tổng thể}
+    \label{fig:class_diagram_tong_the}
+\end{figure}
 
 \subsubsection{Mô tả các mối quan hệ}
 \label{subsubsec:class_relationships}
+Các mối quan hệ (Association/Multiplicity) giữa các lớp trong Class Diagram thể hiện luồng nghiệp vụ và tương tác dữ liệu cốt lõi của hệ thống, bao gồm:
+
+\begin{itemize}
+    \item \textbf{Role (1) - (*) User:} Một vai trò (VD: Admin, Manager, Assistant, Editor) có thể được gán cho nhiều người dùng. Mỗi người dùng bắt buộc thuộc về một vai trò nhất định để phân quyền hệ thống.
+    \item \textbf{User (1) - (*) Series:} Một tác giả (Mangaka) có thể sáng tác và quản lý nhiều bộ truyện (Series) khác nhau.
+    \item \textbf{Series (1) - (*) Chapter:} Một bộ truyện bao gồm nhiều chương (Chapter) nối tiếp nhau.
+    \item \textbf{Chapter (1) - (*) Page:} Mỗi chương truyện bao gồm nhiều trang (Page) cụ thể chứa hình ảnh nội dung truyện.
+    \item \textbf{User (1) - (*) Task:} Người dùng đóng vai trò giao việc (Manager/Mangaka) có thể phân công nhiều công việc (Task). Đồng thời, người dùng đóng vai trò nhận việc (Assistant) có thể tiếp nhận và thực hiện nhiều Task.
+    \item \textbf{Task (1) - (*) Submission:} Một công việc được giao có thể tạo ra nhiều bản nộp (Submission) khác nhau nếu yêu cầu phải nộp lại nhiều lần.
+    \item \textbf{Submission (1) - (*) Review:} Mỗi bản nộp của Assistant có thể nhận được nhiều lượt đánh giá, phản hồi (Review) từ cấp trên để chỉnh sửa cho hoàn thiện.
+    \item \textbf{Series (1) - (*) SeriesRanking:} Mỗi bộ truyện sẽ được đánh giá và lưu lịch sử qua nhiều kỳ xếp hạng (SeriesRanking) khác nhau dựa trên điểm số (score) thu thập được.
+    \item \textbf{User (1) - (*) SeriesRanking:} Ban biên tập (User) là những người thực hiện đánh giá và cập nhật xếp hạng cho các bộ truyện.
+    \item \textbf{User (1) - (*) Notification:} Mỗi người dùng sẽ có hộp thư chứa nhiều thông báo (Notification) từ hệ thống để cập nhật tiến độ công việc hoặc kết quả duyệt bài.
+\end{itemize}
