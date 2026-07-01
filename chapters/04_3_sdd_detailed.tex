@@ -349,78 +349,78 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
 \begin{itemize}
     \item \textbf{Lớp Role:}
     \begin{itemize}
-        \item \texttt{getRoleName(): string}: Trả về tên của vai trò (VD: Admin, Assistant...). Không nhận tham số.
-        \item \texttt{getDescription(): string}: Trả về chuỗi mô tả nhiệm vụ của vai trò. Không nhận tham số.
+        \item \texttt{getRoleName(\allowbreak\allowbreak):} \allowbreak\ \texttt{string}: Trả về tên của vai trò (VD: Admin, Assistant...). Không nhận tham số.
+        \item \texttt{getDescription(\allowbreak\allowbreak):} \allowbreak\ \texttt{string}: Trả về chuỗi mô tả nhiệm vụ của vai trò. Không nhận tham số.
     \end{itemize}
     
     \item \textbf{Lớp User:}
     \begin{itemize}
-        \item \texttt{login(username: string, passwordHash: string): boolean}: Xác thực tài khoản người dùng đăng nhập hệ thống. Trả về \texttt{true} nếu đăng nhập thành công.
-        \item \texttt{logout(): boolean}: Hủy phiên làm việc (Session) của tài khoản hiện tại. Trả về \texttt{true} nếu đăng xuất thành công.
-        \item \texttt{updateProfile(fullName: string, email: string): boolean}: Cập nhật họ tên và email mới của người dùng. Trả về \texttt{true} nếu lưu thành công.
-        \item \texttt{changePassword(oldHash: string, newHash: string): boolean}: Thay đổi mật khẩu tài khoản. Trả về \texttt{true} nếu mật khẩu cũ chính xác và cập nhật mật khẩu mới thành công.
-        \item \texttt{deactivateAccount(): boolean}: Vô hiệu hóa tài khoản người dùng (đặt trạng thái thành inactive). Trả về \texttt{true} nếu thực hiện thành công.
+        \item \texttt{login(\allowbreak\texttt{username: string,} \allowbreak\ \texttt{passwordHash: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Xác thực tài khoản người dùng đăng nhập hệ thống. Trả về \texttt{true} nếu đăng nhập thành công.
+        \item \texttt{logout(\allowbreak\allowbreak):} \allowbreak\ \texttt{boolean}: Hủy phiên làm việc (Session) của tài khoản hiện tại. Trả về \texttt{true} nếu đăng xuất thành công.
+        \item \texttt{updateProfile(\allowbreak\texttt{fullName: string,} \allowbreak\ \texttt{email: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Cập nhật họ tên và email mới của người dùng. Trả về \texttt{true} nếu lưu thành công.
+        \item \texttt{changePassword(\allowbreak\texttt{oldHash: string,} \allowbreak\ \texttt{newHash: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Thay đổi mật khẩu tài khoản. Trả về \texttt{true} nếu mật khẩu cũ chính xác và cập nhật mật khẩu mới thành công.
+        \item \texttt{deactivateAccount(\allowbreak\allowbreak):} \allowbreak\ \texttt{boolean}: Vô hiệu hóa tài khoản người dùng (đặt trạng thái thành inactive). Trả về \texttt{true} nếu thực hiện thành công.
     \end{itemize}
 
     \item \textbf{Lớp Series:}
     \begin{itemize}
-        \item \texttt{createSeries(title: string, description: string, coverImage: string, userId: int): boolean}: Khởi tạo một bộ truyện mới do tác giả có mã \texttt{userId} sáng tác. Trả về \texttt{true} nếu tạo thành công.
-        \item \texttt{updateSeries(seriesId: int, title: string, description: string, status: string, coverImage: string): boolean}: Cập nhật thông tin chi tiết hoặc ảnh bìa của bộ truyện. Trả về \texttt{true} nếu cập nhật thành công.
-        \item \texttt{deleteSeries(seriesId: int): boolean}: Xóa bộ truyện khỏi hệ thống. Trả về \texttt{true} nếu thực hiện thành công.
-        \item \texttt{publishSeries(seriesId: int): boolean}: Đổi trạng thái bộ truyện thành công bố rộng rãi. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getChapters(seriesId: int): List<Chapter>}: Lấy toàn bộ danh sách các chương thuộc về bộ truyện có mã \texttt{seriesId}.
+        \item \texttt{createSeries(\allowbreak\texttt{title: string,} \allowbreak\ \texttt{description: string,} \allowbreak\ \texttt{coverImage: string,} \allowbreak\ \texttt{userId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Khởi tạo một bộ truyện mới do tác giả có mã \texttt{userId} sáng tác. Trả về \texttt{true} nếu tạo thành công.
+        \item \texttt{updateSeries(\allowbreak\texttt{seriesId: int,} \allowbreak\ \texttt{title: string,} \allowbreak\ \texttt{description: string,} \allowbreak\ \texttt{status: string,} \allowbreak\ \texttt{coverImage: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Cập nhật thông tin chi tiết hoặc ảnh bìa của bộ truyện. Trả về \texttt{true} nếu cập nhật thành công.
+        \item \texttt{deleteSeries(\allowbreak\texttt{seriesId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Xóa bộ truyện khỏi hệ thống. Trả về \texttt{true} nếu thực hiện thành công.
+        \item \texttt{publishSeries(\allowbreak\texttt{seriesId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Đổi trạng thái bộ truyện thành công bố rộng rãi. Trả về \texttt{true} nếu thành công.
+        \item \texttt{getChapters(\allowbreak\texttt{seriesId: int}\allowbreak):} \allowbreak\ \texttt{List<Chapter>}: Lấy toàn bộ danh sách các chương thuộc về bộ truyện có mã \texttt{seriesId}.
     \end{itemize}
 
     \item \textbf{Lớp Chapter:}
     \begin{itemize}
-        \item \texttt{createChapter(chapterNumber: int, title: string, seriesId: int): boolean}: Tạo một chương mới thuộc bộ truyện \texttt{seriesId}. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateChapter(chapterId: int, chapterNumber: int, title: string, status: string): boolean}: Sửa đổi số thứ tự hoặc tiêu đề chương. Trả về \texttt{true} nếu thành công.
-        \item \texttt{publishChapter(chapterId: int): boolean}: Xuất bản chương truyện công khai cho độc giả. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getPages(chapterId: int): List<Page>}: Lấy toàn bộ danh sách các trang vẽ thuộc chương truyện có mã \texttt{chapterId}.
+        \item \texttt{createChapter(\allowbreak\texttt{chapterNumber: int,} \allowbreak\ \texttt{title: string,} \allowbreak\ \texttt{seriesId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Tạo một chương mới thuộc bộ truyện \texttt{seriesId}. Trả về \texttt{true} nếu thành công.
+        \item \texttt{updateChapter(\allowbreak\texttt{chapterId: int,} \allowbreak\ \texttt{chapterNumber: int,} \allowbreak\ \texttt{title: string,} \allowbreak\ \texttt{status: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Sửa đổi số thứ tự hoặc tiêu đề chương. Trả về \texttt{true} nếu thành công.
+        \item \texttt{publishChapter(\allowbreak\texttt{chapterId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Xuất bản chương truyện công khai cho độc giả. Trả về \texttt{true} nếu thành công.
+        \item \texttt{getPages(\allowbreak\texttt{chapterId: int}\allowbreak):} \allowbreak\ \texttt{List<Page>}: Lấy toàn bộ danh sách các trang vẽ thuộc chương truyện có mã \texttt{chapterId}.
     \end{itemize}
 
     \item \textbf{Lớp Page:}
     \begin{itemize}
-        \item \texttt{addPage(pageNumber: int, imageUrl: string, chapterId: int): boolean}: Thêm một trang ảnh mới vào chương truyện. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updatePage(pageId: int, pageNumber: int, imageUrl: string, status: string): boolean}: Cập nhật lại đường dẫn hình ảnh hoặc thay đổi trạng thái trang vẽ. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deletePage(pageId: int): boolean}: Xóa bỏ trang vẽ khỏi chương truyện. Trả về \texttt{true} nếu thành công.
+        \item \texttt{addPage(\allowbreak\texttt{pageNumber: int,} \allowbreak\ \texttt{imageUrl: string,} \allowbreak\ \texttt{chapterId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Thêm một trang ảnh mới vào chương truyện. Trả về \texttt{true} nếu thành công.
+        \item \texttt{updatePage(\allowbreak\texttt{pageId: int,} \allowbreak\ \texttt{pageNumber: int,} \allowbreak\ \texttt{imageUrl: string,} \allowbreak\ \texttt{status: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Cập nhật lại đường dẫn hình ảnh hoặc thay đổi trạng thái trang vẽ. Trả về \texttt{true} nếu thành công.
+        \item \texttt{deletePage(\allowbreak\texttt{pageId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Xóa bỏ trang vẽ khỏi chương truyện. Trả về \texttt{true} nếu thành công.
     \end{itemize}
 
     \item \textbf{Lớp Task:}
     \begin{itemize}
-        \item \texttt{createTask(title: string, description: string, priority: string, dueDate: datetime, chapterId: int, creatorId: int): boolean}: Tạo công việc mới liên quan đến chương truyện và gán mã người giao. Trả về \texttt{true} nếu thành công.
-        \item \texttt{assignTask(taskId: int, assigneeId: int): boolean}: Chỉ định trợ lý (Assistant) chịu trách nhiệm thực hiện công việc. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateTaskStatus(taskId: int, status: string): boolean}: Cập nhật tiến độ của công việc (VD: to-do, in-progress, completed). Trả về \texttt{true} nếu thành công.
-        \item \texttt{cancelTask(taskId: int): boolean}: Hủy bỏ công việc đã giao. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getSubmissions(taskId: int): List<Submission>}: Lấy danh sách toàn bộ các bản nộp tiến độ của công việc này.
+        \item \texttt{createTask(\allowbreak\texttt{title: string,} \allowbreak\ \texttt{description: string,} \allowbreak\ \texttt{priority: string,} \allowbreak\ \texttt{dueDate: datetime,} \allowbreak\ \texttt{chapterId: int,} \allowbreak\ \texttt{creatorId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Tạo công việc mới liên quan đến chương truyện và gán mã người giao. Trả về \texttt{true} nếu thành công.
+        \item \texttt{assignTask(\allowbreak\texttt{taskId: int,} \allowbreak\ \texttt{assigneeId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Chỉ định trợ lý (Assistant) chịu trách nhiệm thực hiện công việc. Trả về \texttt{true} nếu thành công.
+        \item \texttt{updateTaskStatus(\allowbreak\texttt{taskId: int,} \allowbreak\ \texttt{status: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Cập nhật tiến độ của công việc (VD: to-do, in-progress, completed). Trả về \texttt{true} nếu thành công.
+        \item \texttt{cancelTask(\allowbreak\texttt{taskId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Hủy bỏ công việc đã giao. Trả về \texttt{true} nếu thành công.
+        \item \texttt{getSubmissions(\allowbreak\texttt{taskId: int}\allowbreak):} \allowbreak\ \texttt{List<Submission>}: Lấy danh sách toàn bộ các bản nộp tiến độ của công việc này.
     \end{itemize}
 
     \item \textbf{Lớp Submission:}
     \begin{itemize}
-        \item \texttt{submitWork(fileUrl: string, notes: string, taskId: int, userId: int): boolean}: Trợ lý thực hiện nộp sản phẩm vẽ kèm theo ghi chú lên hệ thống. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateSubmission(submissionId: int, fileUrl: string, notes: string): boolean}: Cập nhật lại bản vẽ sửa đổi hoặc ghi chú mới. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deleteSubmission(submissionId: int): boolean}: Hủy bỏ bản nộp sản phẩm vẽ. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getReviews(submissionId: int): List<Review>}: Lấy danh sách các nhận xét và phản hồi liên quan đến bản nộp này.
+        \item \texttt{submitWork(\allowbreak\texttt{fileUrl: string,} \allowbreak\ \texttt{notes: string,} \allowbreak\ \texttt{taskId: int,} \allowbreak\ \texttt{userId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Trợ lý thực hiện nộp sản phẩm vẽ kèm theo ghi chú lên hệ thống. Trả về \texttt{true} nếu thành công.
+        \item \texttt{updateSubmission(\allowbreak\texttt{submissionId: int,} \allowbreak\ \texttt{fileUrl: string,} \allowbreak\ \texttt{notes: string}\allowbreak):} \allowbreak\ \texttt{boolean}: Cập nhật lại bản vẽ sửa đổi hoặc ghi chú mới. Trả về \texttt{true} nếu thành công.
+        \item \texttt{deleteSubmission(\allowbreak\texttt{submissionId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Hủy bỏ bản nộp sản phẩm vẽ. Trả về \texttt{true} nếu thành công.
+        \item \texttt{getReviews(\allowbreak\texttt{submissionId: int}\allowbreak):} \allowbreak\ \texttt{List<Review>}: Lấy danh sách các nhận xét và phản hồi liên quan đến bản nộp này.
     \end{itemize}
 
     \item \textbf{Lớp Review:}
     \begin{itemize}
-        \item \texttt{createReview(comments: string, rating: int, submissionId: int, userId: int): boolean}: Biên tập viên hoặc tác giả tạo nhận xét và cho điểm đánh giá cho bài nộp. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateReview(reviewId: int, comments: string, rating: int): boolean}: Sửa đổi lại nội dung nhận xét hoặc điểm số đã đánh giá. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getReviewDetails(reviewId: int): Review}: Trả về đối tượng chứa thông tin đánh giá chi tiết của mã \texttt{reviewId}.
+        \item \texttt{createReview(\allowbreak\texttt{comments: string,} \allowbreak\ \texttt{rating: int,} \allowbreak\ \texttt{submissionId: int,} \allowbreak\ \texttt{userId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Biên tập viên hoặc tác giả tạo nhận xét và cho điểm đánh giá cho bài nộp. Trả về \texttt{true} nếu thành công.
+        \item \texttt{updateReview(\allowbreak\texttt{reviewId: int,} \allowbreak\ \texttt{comments: string,} \allowbreak\ \texttt{rating: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Sửa đổi lại nội dung nhận xét hoặc điểm số đã đánh giá. Trả về \texttt{true} nếu thành công.
+        \item \texttt{getReviewDetails(\allowbreak\texttt{reviewId: int}\allowbreak):} \allowbreak\ \texttt{Review}: Trả về đối tượng chứa thông tin đánh giá chi tiết của mã \texttt{reviewId}.
     \end{itemize}
 
     \item \textbf{Lớp SeriesRanking:}
     \begin{itemize}
-        \item \texttt{updateRank(seriesId: int, score: decimal, rankPosition: int, periodStartDate: date): boolean}: Ghi nhận điểm số và vị trí xếp hạng mới của bộ truyện trong kỳ đánh giá. Trả về \texttt{true} nếu cập nhật thành công.
-        \item \texttt{getRankingHistory(seriesId: int): List<SeriesRanking>}: Lấy lịch sử biến động xếp hạng qua các kỳ của bộ truyện.
+        \item \texttt{updateRank(\allowbreak\texttt{seriesId: int,} \allowbreak\ \texttt{score: decimal,} \allowbreak\ \texttt{rankPosition: int,} \allowbreak\ \texttt{periodStartDate: date}\allowbreak):} \allowbreak\ \texttt{boolean}: Ghi nhận điểm số và vị trí xếp hạng mới của bộ truyện trong kỳ đánh giá. Trả về \texttt{true} nếu cập nhật thành công.
+        \item \texttt{getRankingHistory(\allowbreak\texttt{seriesId: int}\allowbreak):} \allowbreak\ \texttt{List<SeriesRanking>}: Lấy lịch sử biến động xếp hạng qua các kỳ của bộ truyện.
     \end{itemize}
 
     \item \textbf{Lớp Notification:}
     \begin{itemize}
-        \item \texttt{createNotification(type: string, message: string, userId: int): boolean}: Khởi tạo thông báo mới gửi tới người dùng có mã \texttt{userId}. Trả về \texttt{true} nếu thành công.
-        \item \texttt{markAsRead(notificationId: int): boolean}: Đổi trạng thái thông báo thành đã đọc. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deleteNotification(notificationId: int): boolean}: Xóa thông báo khỏi hộp thư người dùng. Trả về \texttt{true} nếu thành công.
+        \item \texttt{createNotification(\allowbreak\texttt{type: string,} \allowbreak\ \texttt{message: string,} \allowbreak\ \texttt{userId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Khởi tạo thông báo mới gửi tới người dùng có mã \texttt{userId}. Trả về \texttt{true} nếu thành công.
+        \item \texttt{markAsRead(\allowbreak\texttt{notificationId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Đổi trạng thái thông báo thành đã đọc. Trả về \texttt{true} nếu thành công.
+        \item \texttt{deleteNotification(\allowbreak\texttt{notificationId: int}\allowbreak):} \allowbreak\ \texttt{boolean}: Xóa thông báo khỏi hộp thư người dùng. Trả về \texttt{true} nếu thành công.
     \end{itemize}
 \end{itemize}
 

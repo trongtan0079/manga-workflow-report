@@ -9,7 +9,7 @@ Dự án phát triển hệ thống "Manga Creation Workflow and Publishing Mana
 \subsection{Phạm vi và ước lượng (Scope \& Estimation)}
 \label{subsec:spmp_scope_estimation}
 
-Dự án bao gồm toàn bộ các hoạt động khảo sát, phân tích yêu cầu (SRS), thiết kế hệ thống (SDD), xây dựng kịch bản kiểm thử, tài liệu hướng dẫn và gói phát hành sản phẩm. Dựa trên phân tích cấu trúc phân tách công việc (WBS), tổng nỗ lực của dự án được ước lượng khoảng 98 Man-days (công làm việc của một người trong một ngày).
+Dự án bao gồm toàn bộ các hoạt động khảo sát, phân tích yêu cầu (SRS), thiết kế hệ thống (SDD), lập trình phát triển (Coding), xây dựng kịch bản kiểm thử, tài liệu hướng dẫn và gói phát hành sản phẩm. Dựa trên phân tích cấu trúc phân tách công việc (WBS), tổng nỗ lực của dự án được ước lượng khoảng 98 Man-days (công làm việc của một người trong một ngày).
 
 Dưới đây là bảng phân tách công việc WBS chi tiết cùng ước lượng nỗ lực:
 
@@ -20,33 +20,31 @@ Dưới đây là bảng phân tách công việc WBS chi tiết cùng ước l�
 \hline
 \rowcolor{tableheader}
 \textbf{Mã WBS} & \textbf{Tên công việc / Hạng mục} & \textbf{Người phụ trách} & \textbf{Nỗ lực (Man-days)} \\ \hline
-\textbf{WBS 1} & \textbf{Phase 1: Khóa cấu trúc \& Dọn dẹp} & Trương Trọng Tấn & \textbf{8} \\ \hline
-WBS 1.1 & Tạo khung sườn và cấu trúc rỗng các file & Trương Trọng Tấn & 2 \\ \hline
-WBS 1.2 & Cấu hình file main.tex và packages & Trương Trọng Tấn & 3 \\ \hline
-WBS 1.3 & Dọn dẹp tài nguyên và kiểm tra lỗi biên dịch & Trương Trọng Tấn & 3 \\ \hline
-\textbf{WBS 2} & \textbf{Phase 2: Di chuyển nội dung cũ} & Cả nhóm & \textbf{20} \\ \hline
-WBS 2.1 & Di chuyển nội dung phân tích chức năng (SRS) & Giang Thị Ngọc Hân & 5 \\ \hline
-WBS 2.2 & Di chuyển Use Case và nghiệp vụ & Nguyễn Thanh Thảo & 5 \\ \hline
-WBS 2.3 & Di chuyển kiến trúc, UML và Class Diagram (SDD) & Nguyễn Thị Trúc Ngân & 5 \\ \hline
-WBS 2.4 & Di chuyển CSDL và Giao diện (UI) & Phan Thị Hạnh & 5 \\ \hline
-\textbf{WBS 3} & \textbf{Phase 3: Viết mới \& Hoàn thiện thiếu} & Cả nhóm & \textbf{60} \\ \hline
-WBS 3.1 & Lập kế hoạch quản lý dự án (SPMP) & Nguyễn Thị Trúc Ngân & 6 \\ \hline
-WBS 3.2 & Vẽ sơ đồ thành phần, tech stack và phương thức & Nguyễn Thị Trúc Ngân & 6 \\ \hline
-WBS 3.3 & Đặc tả chi tiết Use Cases & Ngọc Hân, Thanh Thảo & 16 \\ \hline
-WBS 3.4 & Thiết kế UI Mockups chi tiết & Phan Thị Hạnh & 8 \\ \hline
-WBS 3.5 & Xây dựng kịch bản kiểm thử (Test Cases) & Dương Kim Ngân & 8 \\ \hline
-WBS 3.6 & Viết hướng dẫn sử dụng & Phan Thị Hạnh & 4 \\ \hline
-WBS 3.7 & Viết mới và hoàn thiện Chương I (Giới thiệu) & Trương Trọng Tấn & 4 \\ \hline
-WBS 3.8 & Viết mới Chương VII và Phụ lục (API) & Trương Trọng Tấn & 8 \\ \hline
-\textbf{WBS 4} & \textbf{Phase 4: Review \& Đồng bộ định dạng} & Trương Trọng Tấn & \textbf{10} \\ \hline
-WBS 4.1 & Đồng bộ font chữ, lề trang và khoảng cách dòng & Trương Trọng Tấn & 4 \\ \hline
-WBS 4.2 & Đồng bộ bảng biểu, chú thích hình vẽ & Trương Trọng Tấn & 3 \\ \hline
-WBS 4.3 & Kiểm tra chính tả, biên dịch PDF chính thức & Trương Trọng Tấn & 3 \\ \hline
+\textbf{WBS 1} & \textbf{Phase 1: Khảo sát \& Phân tích yêu cầu (SRS)} & Cả nhóm & \textbf{28} \\ \hline
+WBS 1.1 & Khảo sát thực trạng, bối cảnh và mục tiêu dự án & Trương Trọng Tấn & 4 \\ \hline
+WBS 1.2 & Phân tích các Actor, luồng màn hình và Use Case tổng quát & Giang Thị Ngọc Hân & 6 \\ \hline
+WBS 1.3 & Đặc tả chi tiết Use Case chức năng Module 1 & Giang Thị Ngọc Hân & 8 \\ \hline
+WBS 1.4 & Đặc tả chi tiết Use Case chức năng Module 2 & Nguyễn Thanh Thảo & 10 \\ \hline
+\textbf{WBS 2} & \textbf{Phase 2: Thiết kế hệ thống \& Cơ sở dữ liệu (SDD)} & Cả nhóm & \textbf{24} \\ \hline
+WBS 2.1 & Thiết kế kiến trúc, mô hình triển khai và Component diagram & Nguyễn Thị Trúc Ngân & 6 \\ \hline
+WBS 2.2 & Thiết kế Class Diagram chi tiết và các phương thức & Nguyễn Thị Trúc Ngân & 6 \\ \hline
+WBS 2.3 & Thiết kế CSDL vật lý, sơ đồ ERD và Data Dictionary & Phan Thị Hạnh & 6 \\ \hline
+WBS 2.4 & Thiết kế giao diện UI Mockup và Wireframes & Phan Thị Hạnh & 6 \\ \hline
+\textbf{WBS 3} & \textbf{Phase 3: Phát triển \& Lập trình ứng dụng (Coding)} & Cả nhóm & \textbf{30} \\ \hline
+WBS 3.1 & Lập trình module Đăng nhập, Quản lý tài khoản và Phân quyền & Giang Thị Ngọc Hân & 8 \\ \hline
+WBS 3.2 & Lập trình module Quản lý Series và Chapter & Nguyễn Thanh Thảo & 6 \\ \hline
+WBS 3.3 & Lập trình module Quản lý Task, Submission và Review & Phan Thị Hạnh & 8 \\ \hline
+WBS 3.4 & Lập trình module Bình chọn, Xếp hạng và Thông báo & Nguyễn Thị Trúc Ngân & 8 \\ \hline
+\textbf{WBS 4} & \textbf{Phase 4: Kiểm thử, tài liệu \& Bàn giao (QA \& Deployment)} & Cả nhóm & \textbf{16} \\ \hline
+WBS 4.1 & Chuẩn hóa yêu cầu phi chức năng (NFR) và kịch bản kiểm thử & Dương Kim Ngân & 6 \\ \hline
+WBS 4.2 & Thực hiện chạy thử nghiệm, log lỗi và lập Báo cáo kiểm thử & Dương Kim Ngân & 4 \\ \hline
+WBS 4.3 & Viết tài liệu hướng dẫn cài đặt, sử dụng và đóng gói sản phẩm & Phan Thị Hạnh & 4 \\ \hline
+WBS 4.4 & Nghiệm thu dự án, tổng kết kết quả và hướng phát triển & Trương Trọng Tấn & 2 \\ \hline
 \hline
 \rowcolor{tableheader}
 \multicolumn{3}{|r|}{\textbf{Tổng cộng nỗ lực ước lượng}} & \textbf{98 Man-days} \\ \hline
 \end{tabularx}
-\caption{Cấu trúc phân tách công việc WBS và ước lượng nỗ lực}
+\caption{Cấu trúc phân tách công việc WBS và ước lượng nỗ lực của dự án}
 \label{tab:spmp_wbs}
 \end{table}
 
@@ -91,11 +89,11 @@ Dự án áp dụng mô hình quản lý linh hoạt kết hợp với các quy 
 
 Nhóm áp dụng quy trình phát triển theo mô hình Agile/Scrum rút gọn với các Sprint kéo dài 1 tuần. Lộ trình thực hiện dự án được chia làm 5 Sprint cụ thể:
 \begin{itemize}
-    \item \textbf{Sprint 1 (Tuần 1 - Khóa cấu trúc):} Leader thiết lập khung sườn thư mục LaTeX mới, dọn dẹp các tài nguyên thừa, sửa các lỗi biên dịch ban đầu.
-    \item \textbf{Sprint 2 (Tuần 2 - Di chuyển nội dung):} Các thành viên thực hiện di chuyển toàn bộ nội dung báo cáo cũ sang cấu trúc file mới và giải quyết các lỗi liên kết chéo ban đầu.
-    \item \textbf{Sprint 3 (Tuần 3 - Viết mới SRS \& SPMP):} Biên soạn Chương I (Giới thiệu chung), Chương II (Kế hoạch SPMP) và phần tổng quan Chương III (SRS). Vẽ sơ đồ ngữ cảnh hệ thống (Context Diagram).
-    \item \textbf{Sprint 4 (Tuần 4 - Thiết kế SDD \& UI):} Hoàn thiện thiết kế sơ đồ thành phần (Component Diagram), đặc tả chi tiết lớp học (Class Diagram), thiết kế cơ sở dữ liệu và vẽ 9 giao diện chính (UI Mockup).
-    \item \textbf{Sprint 5 (Tuần 5-6 - Kiểm thử \& Đóng gói):} Viết 15 kịch bản kiểm thử chi tiết, lập báo cáo kết quả kiểm thử, viết hướng dẫn sử dụng cho các Actor, biên tập toàn bộ tài liệu và xuất bản PDF chính thức.
+    \item \textbf{Sprint 1 (Tuần 1 - Khảo sát \& Phân tích):} Khảo sát thực trạng quản lý thủ công, thu thập yêu cầu người dùng, phân tích vai trò Actor, thiết lập luồng màn hình tổng quát và xây dựng Use Case Diagram tổng thể. Hoàn thiện tài liệu đặc tả yêu cầu SRS.
+    \item \textbf{Sprint 2 (Tuần 2 - Thiết kế hệ thống):} Thiết kế kiến trúc Three-Tier, kiến trúc triển khai, vẽ sơ đồ lớp chi tiết (Class Diagram), sơ đồ mối quan hệ thực thể (ERD) và lập từ điển dữ liệu (Data Dictionary). Hoàn thiện tài liệu SDD.
+    \item \textbf{Sprint 3 (Tuần 3 - Phát triển chức năng cốt lõi):} Thiết lập cơ sở dữ liệu vật lý MySQL, lập trình module Đăng nhập/Đăng xuất, quản lý tài khoản người dùng, phân quyền truy cập và quản lý hồ sơ các Series truyện Manga.
+    \item \textbf{Sprint 4 (Tuần 4 - Phát triển chức năng quy trình):} Lập trình module quản lý Chapter, phân chia công việc (Task) cho trợ lý, nộp sản phẩm vẽ (Submission), kiểm duyệt nội dung (Review), Bình chọn, Xếp hạng và hệ thống gửi Thông báo tự động.
+    \item \textbf{Sprint 5 (Tuần 5-6 - Kiểm thử \& Đóng gói):} Xây dựng 15 kịch bản kiểm thử (Test Cases), chạy thử nghiệm hệ thống để phát hiện và khắc phục lỗi, viết hướng dẫn cài đặt và sử dụng cho từng Actor, đóng gói sản phẩm phát hành.
 \end{itemize}
 
 \subsection{Quản lý chất lượng (Quality Management)}
@@ -138,17 +136,17 @@ Các sản phẩm bàn giao chính thức của dự án khi kết thúc bao g�
 \hline
 \rowcolor{tableheader}
 \textbf{Hạng mục / Nhiệm vụ chính} & \textbf{Tấn} & \textbf{Hân} & \textbf{K. Ngân} & \textbf{Thảo} & \textbf{T. Ngân} & \textbf{Hạnh} \\ \hline
-Quản trị dự án \& Git Workflow & A & I & I & I & R & I \\ \hline
-Biên soạn Chương I (Giới thiệu) & R, A & I & I & I & I & I \\ \hline
-Biên soạn Chương II (SPMP) & C & I & I & I & R, A & I \\ \hline
-Đặc tả yêu cầu chức năng (SRS) & C & R, A & C & R & C & C \\ \hline
-Đặc tả yêu cầu phi chức năng & C & C & R, A & C & C & C \\ \hline
-Thiết kế kiến trúc hệ thống (SDD) & C & I & I & I & R, A & I \\ \hline
-Thiết kế chi tiết lớp học \& CSDL & C & I & I & I & R & R, A \\ \hline
-Thiết kế giao diện (UI Mockups) & C & C & I & C & C & R, A \\ \hline
-Xây dựng Kịch bản kiểm thử (Testing) & C & I & R, A & I & C & I \\ \hline
-Tài liệu hướng dẫn \& Đóng gói & A & I & I & I & I & R \\ \hline
-Review \& Đồng bộ hóa LaTeX toàn bài & R, A & C & C & C & C & C \\ \hline
+Quản trị dự án \& Lập kế hoạch & R, A & I & I & I & C & I \\ \hline
+Khảo sát \& Phân tích yêu cầu & R & R, A & C & R & C & C \\ \hline
+Đặc tả yêu cầu chức năng (SRS) & C & R, A & I & R & I & I \\ \hline
+Đặc tả yêu cầu phi chức năng & I & I & R, A & I & I & I \\ \hline
+Thiết kế kiến trúc hệ thống & C & I & I & I & R, A & I \\ \hline
+Thiết kế Cơ sở dữ liệu & C & I & I & I & R & R, A \\ \hline
+Thiết kế giao diện (UI Mockups) & I & C & I & C & C & R, A \\ \hline
+Lập trình ứng dụng (Coding) & C & R & I & R & R & R \\ \hline
+Kịch bản \& Thực hiện kiểm thử & C & I & R, A & I & C & I \\ \hline
+Đóng gói \& Hướng dẫn sử dụng & C & I & I & I & I & R, A \\ \hline
+Nghiệm thu \& Tổng kết kết quả & R, A & C & C & C & C & C \\ \hline
 \end{tabularx}
 \caption{Ma trận trách nhiệm RACI của dự án}
 \label{tab:spmp_raci}
