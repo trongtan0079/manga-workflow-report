@@ -88,7 +88,7 @@
     \begin{enumerate}[leftmargin=*]
         \item Người dùng chọn Chapter cần theo dõi.
         \item Người dùng chọn 'Tiến độ'.
-        \item Hệ thống tính toán và hiển thị % hoàn thành dựa trên số Task/Page đã chuyển sang trạng thái 'Completed'.
+        \item Hệ thống tính toán và hiển thị \% hoàn thành dựa trên số Task/Page đã chuyển sang trạng thái 'Completed'.
         \item Hiển thị danh sách các trang đang thực hiện, đang chờ duyệt bằng biểu đồ trực quan.
     \end{enumerate}
 \end{minipage} \\ \hline
@@ -115,16 +115,16 @@
 \multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Tạo Page}} \\ \hline
 \textbf{Mã Use Case} & UC-14 \\ \hline
 \textbf{Tên Use Case} & Tạo Page \\ \hline
-\textbf{Actor chính} & Mangaka, Assistant \\ \hline
-\textbf{Mô tả} & Tạo các trang trống (Page) để chuẩn bị cho quá trình vẽ và phân công công việc. \\ \hline
-\textbf{Tiền điều kiện (Pre-conditions)} & Chapter đã được tạo thành công và người dùng được cấp quyền biên tập nội dung. \\ \hline
+\textbf{Actor chính} & Mangaka \\ \hline
+\textbf{Mô tả} & Cho phép Mangaka tạo các trang trống (Page) trong Chapter để chuẩn bị phân công công việc cho Assistant. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Mangaka đăng nhập sở hữu bộ truyện chứa Chapter tương ứng. \\ \hline
 \textbf{Luồng sự kiện chính (Basic Flow)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Người dùng vào giao diện chi tiết Chapter.
-        \item Người dùng chọn 'Thêm Page'.
+        \item Mangaka vào giao diện chi tiết Chapter.
+        \item Mangaka chọn 'Thêm Page'.
         \item Hệ thống tự động sinh số thứ tự trang tiếp theo hoặc cho phép nhập số trang hàng loạt (Batch create).
-        \item Người dùng nhấn 'Lưu'.
+        \item Mangaka nhấn 'Lưu'.
         \item Hệ thống tạo các bản ghi Page tương ứng trong cơ sở dữ liệu.
     \end{enumerate}
 \end{minipage} \\ \hline
@@ -445,7 +445,7 @@
         \item \textbf{A1}: Mất kết nối mạng khi đang khoanh vùng lỗi. Hệ thống tự động lưu nháp (Auto-save) vào LocalStorage của trình duyệt và cảnh báo 'Đang ngoại tuyến'.
     \end{itemize}
 \end{minipage} \\ \hline
-\textbf{Hậu điều kiện (Post-conditions)} & Tọa độ Annotation và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng. \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Tọa độ Annotation (được lưu trữ tại cột \texttt{annotations} trong cơ sở dữ liệu) và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng. \\ \hline
 \end{tabularx}
 \caption{Đặc tả UC-23: Tạo Review cho Submission}
 \label{tab:uc23}
