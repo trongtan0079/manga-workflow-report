@@ -64,7 +64,7 @@ entity pages {
 entity tasks {
   *task_id : int <<PK>>
   --
-  chapter_id : int <<FK>>
+  page_id : int <<FK>>
   mangaka_id : int <<FK>>
   assistant_id : int <<FK>>
   title : varchar
@@ -95,6 +95,7 @@ entity reviews {
   submission_id : int <<FK>>
   reviewer_id : int <<FK>>
   comments : text
+  annotations : text
   rating : int
   created_at : timestamp
 }
@@ -133,7 +134,7 @@ series ||--o{ chapters : contains
 series ||--o{ series_rankings : ranked
 
 chapters ||--o{ pages : contains
-chapters ||--o{ tasks : requires
+pages ||--o{ tasks : requires
 chapters ||--o{ submissions : submitted
 
 tasks ||--o{ submissions : generates

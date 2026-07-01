@@ -105,12 +105,12 @@ SCR-05 & Dashboard Editor & & & & $\checkmark$ & \\ \hline
 SCR-06 & Dashboard Board & & & & & $\checkmark$ \\ \hline
 SCR-07 & Quản lý người dùng & $\checkmark$ & & & & \\ \hline
 SCR-08 & Danh sách Series & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
-SCR-09 & Chi tiết Series \& Chapter & & $\checkmark$ & & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-09 & Chi tiết Series \& Chapter & & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
 SCR-10 & Chi tiết Chapter \& Trang & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\ \hline
 SCR-11 & Bảng công việc (Task Board) & & $\checkmark$ & $\checkmark$ & & \\ \hline
 SCR-12 & Chi tiết Task \& Nộp bài & & $\checkmark$ & $\checkmark$ & & \\ \hline
 SCR-13 & Giao diện Review & & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\ \hline
-SCR-14 & Quản lý xuất bản \& BXH & & $\checkmark$ & & $\checkmark$ & $\checkmark$ \\ \hline
+SCR-14 & Quản lý xuất bản \& BXH & $\checkmark$ & $\checkmark$ & & $\checkmark$ & $\checkmark$ \\ \hline
 SCR-15 & Trung tâm thông báo & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
 \end{tabularx}
 \caption{Ma trận phân quyền màn hình theo Actor}
@@ -133,21 +133,22 @@ Ngoài các chức năng tương tác qua màn hình giao diện, hệ thống c
 \begin{itemize}
     \item \textbf{Actor chính:} Tất cả các Actor (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board).
     \item \textbf{Mô tả ngắn gọn:} Cho phép người dùng xác thực danh tính để đăng nhập vào hệ thống và bắt đầu phiên làm việc.
-    \item \textbf{Tiền điều kiện:} Người dùng đã được cấp tài khoản và tài khoản đang ở trạng thái hoạt động (không bị khóa).
+    \item \textbf{Tiền điều kiện:} Người dùng đã được cấp tài khoản và tài khoản đang ở trạng thái hoạt động (active).
     \item \textbf{Hậu điều kiện:} Người dùng đăng nhập thành công, phiên làm việc (session) được thiết lập và hệ thống chuyển hướng người dùng đến Dashboard phù hợp với vai trò.
     \item \textbf{Luồng sự kiện chính (Basic Flow):}
         \begin{enumerate}
             \item Người dùng truy cập vào trang đăng nhập của hệ thống (SCR-01).
-            \item Hệ thống hiển thị form đăng nhập yêu cầu nhập Email và Mật khẩu.
-            \item Người dùng nhập chính xác Email, Mật khẩu và nhấn nút "Đăng nhập".
-            \item Hệ thống thực hiện mã hóa mật khẩu, kiểm tra định dạng và đối chiếu cơ sở dữ liệu để xác thực tài khoản.
-            \item Hệ thống ghi nhận đăng nhập thành công, khởi tạo Token phiên làm việc và xác định vai trò của người dùng.
-            \item Hệ thống chuyển hướng người dùng đến Dashboard tương ứng (SCR-02 đến SCR-06).
+            \item Hệ thống hiển thị form đăng nhập yêu cầu nhập Email hoặc Tên đăng nhập (Username) và Mật khẩu.
+            \item Người dùng nhập chính xác Email hoặc Username, nhập Mật khẩu và nhấn nút "Đăng nhập".
+            \item Hệ thống kiểm tra dữ liệu đầu vào. Nếu là Email (chứa ký tự '@'), hệ thống truy vấn tài khoản theo Email, ngược lại truy vấn theo Username.
+            \item Hệ thống thực hiện băm mật khẩu và đối chiếu bằng hàm \texttt{password\_verify()} với cơ sở dữ liệu để xác thực tài khoản.
+            \item Hệ thống ghi nhận đăng nhập thành công, thiết lập thông tin người dùng vào Session (gồm \texttt{user\_id}, \texttt{username}, \texttt{full\_name}, \texttt{role\_id}, \texttt{role\_name}) và tái tạo Session ID để chống tấn công Session Fixation.
+            \item Hệ thống chuyển hướng người dùng đến Dashboard tương ứng với vai trò (SCR-02 đến SCR-06).
         \end{enumerate}
     \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
         \begin{itemize}
-            \item \textbf{Sai Email hoặc Mật khẩu:} Hệ thống hiển thị thông báo lỗi "Email hoặc mật khẩu không chính xác" và giữ người dùng ở lại màn hình đăng nhập để nhập lại.
-            \item \textbf{Tài khoản bị khóa:} Nếu tài khoản khớp thông tin nhưng trạng thái là "Bị khóa", hệ thống hiển thị thông báo "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin để được hỗ trợ" và từ chối đăng nhập.
+            \item \textbf{Sai thông tin hoặc Mật khẩu:} Hệ thống hiển thị thông báo lỗi "Tên đăng nhập/email hoặc mật khẩu không chính xác." và giữ người dùng ở lại màn hình đăng nhập.
+            \item \textbf{Tài khoản bị khóa hoặc chưa kích hoạt:} Nếu tài khoản khớp thông tin nhưng trạng thái khác "active" (ví dụ: "inactive" hoặc "banned"), hệ thống hiển thị thông báo "Tài khoản của bạn đã bị khóa hoặc chưa được kích hoạt." và từ chối đăng nhập.
         \end{itemize}
 \end{itemize}
 
@@ -262,96 +263,154 @@ Ngoài các chức năng tương tác qua màn hình giao diện, hệ thống c
 \subsection{Quản lý Series (Manga Series Management)}
 \label{subsec:srs_series_mgmt}
 
-\subsubsection{UC-07: Tạo hồ sơ Series mới}
-\label{subsubsec:uc07_create_series}
-\begin{itemize}
-    \item \textbf{Actor chính:} Mangaka.
-    \item \textbf{Mô tả ngắn gọn:} Cho phép Mangaka khởi tạo đề xuất Series Manga mới cùng với các thông tin tóm tắt và ảnh bìa để gửi lên Hội đồng biên tập duyệt.
-    \item \textbf{Tiền điều kiện:} Mangaka đã đăng nhập thành công vào hệ thống.
-    \item \textbf{Hậu điều kiện:} Hồ sơ Series được lưu trong CSDL với trạng thái ban đầu là "Đang đề xuất" và thông báo xét duyệt được gửi tới Editorial Board.
-    \item \textbf{Luồng sự kiện chính (Basic Flow):}
-        \begin{enumerate}
-            \item Mangaka truy cập màn hình Danh sách Series (SCR-08) và nhấn nút "Đề xuất Series mới".
-            \item Hệ thống hiển thị form nhập thông tin hồ sơ Series bao gồm: Tên Series, Mô tả nội dung, Thể loại, Tần suất phát hành đề xuất và tải lên ảnh bìa (Cover Image).
-            \item Mangaka điền đầy đủ các thông tin, tải lên file hình ảnh bìa và nhấn nút "Gửi đề xuất".
-            \item Hệ thống kiểm tra dữ liệu đầu vào: Tên Series không được trùng lặp và file ảnh bìa phải đúng định dạng (.png, .jpg, .webp).
-            \item Hệ thống lưu Series vào CSDL, gán quyền sở hữu (Creator) cho Mangaka hiện tại và đặt trạng thái là "Đang đề xuất".
-            \item Hệ thống hiển thị thông báo thành công và gửi thông báo hệ thống đến cho các thành viên của Editorial Board.
-        \end{enumerate}
-    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
-        \begin{itemize}
-            \item \textbf{Trùng tên bộ truyện:} Hệ thống phát hiện tên Series trùng với một bộ truyện đã có, hiển thị thông báo "Tên Series này đã tồn tại trong hệ thống. Vui lòng chọn tên khác".
-            \item \textbf{Ảnh bìa không hợp lệ:} Định dạng file không đúng hoặc dung lượng ảnh vượt quá giới hạn (ví dụ: >5MB). Hệ thống báo lỗi file ảnh bìa và yêu cầu tải lên tệp tin hợp lệ.
-        \end{itemize}
-\end{itemize}
+\subsubsection{UC-07: Tạo hồ sơ Series mới}\label{subsubsec:uc07_create_series}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Tạo hồ sơ Series mới}} \\ \hline
+\textbf{Mã Use Case} & UC-07 \\ \hline
+\textbf{Tên Use Case} & Tạo hồ sơ Series mới \\ \hline
+\textbf{Actor chính} & Mangaka \\ \hline
+\textbf{Mô tả} & Cho phép Mangaka khởi tạo đề xuất Series Manga mới cùng với các thông tin tóm tắt và ảnh bìa để gửi lên Hội đồng biên tập duyệt. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Mangaka đã đăng nhập thành công vào hệ thống. \\ \hline
+\textbf{Luồng sự kiện chính (Basic Flow)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Mangaka truy cập màn hình Danh sách Series (SCR-08) và nhấn nút "Đề xuất Series mới".
+        \item Hệ thống hiển thị form nhập thông tin hồ sơ Series bao gồm: Tên Series, Mô tả nội dung, Thể loại, Tần suất phát hành đề xuất và tải lên ảnh bìa (Cover Image).
+        \item Mangaka điền đầy đủ các thông tin, tải lên file hình ảnh bìa và nhấn nút "Gửi đề xuất".
+        \item Hệ thống kiểm tra dữ liệu đầu vào: Tên Series không được trùng lặp và file ảnh bìa phải đúng định dạng (.png, .jpg, .webp).
+        \item Hệ thống lưu Series vào CSDL, gán quyền sở hữu (Creator) cho Mangaka hiện tại và đặt trạng thái là "Đang đề xuất".
+        \item Hệ thống hiển thị thông báo thành công và gửi thông báo hệ thống đến cho các thành viên của Editorial Board.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{A1}: Trùng tên bộ truyện. Hệ thống phát hiện tên Series trùng với một bộ truyện đã có, hiển thị thông báo "Tên Series này đã tồn tại trong hệ thống. Vui lòng chọn tên khác".
+        \item \textbf{A2}: Ảnh bìa không hợp lệ. Định dạng file không đúng hoặc dung lượng ảnh vượt quá giới hạn (ví dụ: >5MB). Hệ thống báo lỗi file ảnh bìa và yêu cầu tải lên tệp tin hợp lệ.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Hồ sơ Series được lưu trong CSDL với trạng thái ban đầu là "Đang đề xuất" và thông báo xét duyệt được gửi tới Editorial Board. \\ \hline
+\end{tabularx}
+\caption{Đặc tả UC-07: Tạo hồ sơ Series mới}
+\label{tab:uc07}
+\end{table}
 
-\subsubsection{UC-08: Xem danh sách Series}
-\label{subsubsec:uc08_view_series}
-\begin{itemize}
-    \item \textbf{Actor chính:} Tất cả các Actor.
-    \item \textbf{Mô tả ngắn gọn:} Cho phép người dùng theo dõi và tìm kiếm các Series Manga trên hệ thống dựa trên vai trò của mình.
-    \item \textbf{Tiền điều kiện:} Người dùng đã đăng nhập thành công.
-    \item \textbf{Hậu điều kiện:} Hệ thống hiển thị danh sách Series chính xác với quyền hạn của Actor trên màn hình SCR-08.
-    \item \textbf{Luồng sự kiện chính (Basic Flow):}
-        \begin{enumerate}
-            \item Người dùng chọn mục "Danh sách Series" trên menu chính.
-            \item Hệ thống kiểm tra vai trò của người dùng để thực hiện bộ lọc dữ liệu tự động bảo mật:
-                \begin{itemize}
-                    \item \textbf{Admin / Editorial Board:} Hệ thống hiển thị toàn bộ Series trên hệ thống (bao gồm cả "Đang đề xuất" và "Ngừng phát hành").
-                    \item \textbf{Tantou Editor:} Hệ thống hiển thị các Series được phân công biên tập viên phụ trách.
-                    \item \textbf{Mangaka:} Hệ thống hiển thị toàn bộ các Series do Mangaka này tạo ra.
-                    \item \textbf{Assistant:} Hệ thống hiển thị các Series mà Assistant đã được giao ít nhất một nhiệm vụ (Task) vẽ trang.
-                \end{itemize}
-            \item Hệ thống hiển thị danh sách các Series lên màn hình kèm ảnh bìa, tên Series, lịch phát hành và nhãn trạng thái hiện tại.
-            \item Người dùng có thể tìm kiếm Series bằng cách gõ từ khóa tên truyện vào ô tìm kiếm.
-        \end{enumerate}
-    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
-        \begin{itemize}
-            \item \textbf{Không có dữ liệu hiển thị:} Hệ thống hiển thị thông báo "Không tìm thấy bộ truyện nào phù hợp".
-        \end{itemize}
-\end{itemize}
+\subsubsection{UC-08: Xem danh sách Series}\label{subsubsec:uc08_view_series}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Xem danh sách Series}} \\ \hline
+\textbf{Mã Use Case} & UC-08 \\ \hline
+\textbf{Tên Use Case} & Xem danh sách Series \\ \hline
+\textbf{Actor chính} & Tất cả các Actor \\ \hline
+\textbf{Mô tả} & Cho phép người dùng theo dõi và tìm kiếm các Series Manga trên hệ thống dựa trên vai trò của mình. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Người dùng đã đăng nhập thành công. \\ \hline
+\textbf{Luồng sự kiện chính (Basic Flow)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Người dùng chọn mục "Danh sách Series" trên menu chính.
+        \item Hệ thống kiểm tra vai trò của người dùng để thực hiện bộ lọc dữ liệu tự động bảo mật:
+            \begin{itemize}[leftmargin=*]
+                \item \textbf{Admin / Editorial Board:} Hệ thống hiển thị toàn bộ Series trên hệ thống (bao gồm cả "Đang đề xuất" và "Ngừng phát hành").
+                \item \textbf{Tantou Editor:} Hệ thống hiển thị các Series được phân công biên tập viên phụ trách.
+                \item \textbf{Mangaka:} Hệ thống hiển thị toàn bộ các Series do Mangaka này tạo ra.
+                \item \textbf{Assistant:} Hệ thống hiển thị các Series mà Assistant đã được giao ít nhất một nhiệm vụ (Task) vẽ trang.
+            \end{itemize}
+        \item Hệ thống hiển thị danh sách các Series lên màn hình kèm ảnh bìa, tên Series, lịch phát hành và nhãn trạng thái hiện tại.
+        \item Người dùng có thể tìm kiếm Series bằng cách gõ từ khóa tên truyện vào ô tìm kiếm.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{A1}: Không có dữ liệu hiển thị. Hệ thống hiển thị thông báo "Không tìm thấy bộ truyện nào phù hợp".
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Hệ thống hiển thị danh sách Series chính xác với quyền hạn của Actor trên màn hình SCR-08. \\ \hline
+\end{tabularx}
+\caption{Đặc tả UC-08: Xem danh sách Series}
+\label{tab:uc08}
+\end{table}
 
-\subsubsection{UC-09: Cập nhật thông tin Series}
-\label{subsubsec:uc09_update_series}
-\begin{itemize}
-    \item \textbf{Actor chính:} Mangaka.
-    \item \textbf{Mô tả ngắn gọn:} Cho phép tác giả cập nhật lại thông tin giới thiệu, mô tả hoặc thay đổi ảnh bìa của bộ truyện do mình sáng tác.
-    \item \textbf{Tiền điều kiện:} Mangaka đã đăng nhập thành công và Series cần sửa phải thuộc quyền quản lý của Mangaka này.
-    \item \textbf{Hậu điều kiện:} Các thông tin chỉnh sửa được lưu vào CSDL và cập nhật hiển thị chi tiết Series.
-    \item \textbf{Luồng sự kiện chính (Basic Flow):}
-        \begin{enumerate}
-            \item Mangaka truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện mình sở hữu.
-            \item Mangaka nhấn vào nút "Chỉnh sửa hồ sơ".
-            \item Hệ thống hiển thị form nhập liệu chứa thông tin hiện tại của Series.
-            \item Mangaka thay đổi các thông tin (Mô tả, Thể loại, Tải ảnh bìa mới) và nhấn nút "Lưu thay đổi".
-            \item Hệ thống kiểm tra tính hợp lệ và cập nhật thông tin mới vào CSDL, đồng thời ghi lại vết chỉnh sửa.
-            \item Hệ thống hiển thị thông báo "Cập nhật thông tin Series thành công" và hiển thị lại trang chi tiết đã cập nhật.
-        \end{enumerate}
-    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):}
-        \begin{itemize}
-            \item \textbf{Truy cập trái phép chỉnh sửa:} Mangaka cố ý sửa Series của người khác (bằng cách thay đổi ID trên URL). Hệ thống phát hiện quyền sở hữu không hợp lệ, từ chối quyền truy cập và hiển thị màn hình báo lỗi phân quyền "Bạn không có quyền thực hiện hành động này".
-            \item \textbf{Series đã ngừng phát hành:} Nếu bộ truyện đã ở trạng thái "Ngừng phát hành", hệ thống sẽ khóa chức năng chỉnh sửa và thông báo "Series đã ngừng phát hành, không thể chỉnh sửa thông tin".
-        \end{itemize}
-\end{itemize}
+\subsubsection{UC-09: Cập nhật thông tin Series}\label{subsubsec:uc09_update_series}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Cập nhật thông tin Series}} \\ \hline
+\textbf{Mã Use Case} & UC-09 \\ \hline
+\textbf{Tên Use Case} & Cập nhật thông tin Series \\ \hline
+\textbf{Actor chính} & Mangaka \\ \hline
+\textbf{Mô tả} & Cho phép tác giả cập nhật lại thông tin giới thiệu, mô tả hoặc thay đổi ảnh bìa của bộ truyện do mình sáng tác. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Mangaka đã đăng nhập thành công và Series cần sửa phải thuộc quyền quản lý của Mangaka này. \\ \hline
+\textbf{Luồng sự kiện chính (Basic Flow)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Mangaka truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện mình sở hữu.
+        \item Mangaka nhấn vào nút "Chỉnh sửa hồ sơ".
+        \item Hệ thống hiển thị form nhập liệu chứa thông tin hiện tại của Series.
+        \item Mangaka thay đổi các thông tin (Mô tả, Thể loại, Tải ảnh bìa mới) và nhấn nút "Lưu thay đổi".
+        \item Hệ thống kiểm tra tính hợp lệ và cập nhật thông tin mới vào CSDL, đồng thời ghi lại vết chỉnh sửa.
+        \item Hệ thống hiển thị thông báo "Cập nhật thông tin Series thành công" và hiển thị lại trang chi tiết đã cập nhật.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{A1}: Truy cập trái phép chỉnh sửa. Mangaka cố ý sửa Series của người khác (bằng cách thay đổi ID trên URL). Hệ thống phát hiện quyền sở hữu không hợp lệ, từ chối quyền truy cập và hiển thị màn hình báo lỗi phân quyền "Bạn không có quyền thực hiện hành động này".
+        \item \textbf{A2}: Series đã ngừng phát hành. Nếu bộ truyện đã ở trạng thái "Ngừng phát hành", hệ thống sẽ khóa chức năng chỉnh sửa và thông báo "Series đã ngừng phát hành, không thể chỉnh sửa thông tin".
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Các thông tin chỉnh sửa được lưu vào CSDL và cập nhật hiển thị chi tiết Series. \\ \hline
+\end{tabularx}
+\caption{Đặc tả UC-09: Cập nhật thông tin Series}
+\label{tab:uc09}
+\end{table}
 
-\subsubsection{UC-10: Theo dõi trạng thái Series}
-\label{subsubsec:uc10_track_series}
-\begin{itemize}
-    \item \textbf{Actor chính:} Mangaka, Tantou Editor, Editorial Board.
-    \item \textbf{Mô tả ngắn gọn:} Giúp các vai trò quản lý theo dõi sát sao tình trạng hoạt động và tiến trình phát triển thực tế của bộ truyện.
-    \item \textbf{Tiền điều kiện:} Người dùng đã đăng nhập thành công.
-    \item \textbf{Hậu điều kiện:} Hệ thống hiển thị trạng thái và tiến độ tổng quát của Series trên giao diện.
-    \item \textbf{Luồng sự kiện chính (Basic Flow):}
-        \begin{enumerate}
-            \item Người dùng truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện.
-            \item Hệ thống hiển thị thông tin chung và nhãn trạng thái vận hành hiện tại của bộ truyện:
-                \begin{itemize}
-                    \item \textbf{Đang đề xuất:} Đang chờ Editorial Board xét duyệt và bỏ phiếu thông qua.
-                    \item \textbf{Đang tiến hành:} Đang sáng tác tích cực, được phép tạo Chapter và giao Task.
-                    \item \textbf{Tạm ngưng:} Tạm dừng sáng tác, giữ nguyên trạng thái dữ liệu.
-                    \item \textbf{Ngừng phát hành:} Đã hoàn thành hoặc bị huỷ bỏ, khoá toàn bộ các thao tác chỉnh sửa/sáng tác mới.
-                \end{itemize}
-            \item Hệ thống đồng thời tính toán hiển thị tiến độ tổng thể của Series (Tỷ lệ \% Chapter đã hoàn thành và xuất bản so với kế hoạch ban đầu) để người quản lý theo dõi.
-        \end{enumerate}
-    \item \textbf{Luồng sự kiện ngoại lệ (Exception Flows):} Không có.
-\end{itemize}
+\subsubsection{UC-10: Theo dõi trạng thái Series}\label{subsubsec:uc10_track_series}
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Theo dõi trạng thái Series}} \\ \hline
+\textbf{Mã Use Case} & UC-10 \\ \hline
+\textbf{Tên Use Case} & Theo dõi trạng thái Series \\ \hline
+\textbf{Actor chính} & Mangaka, Tantou Editor, Editorial Board \\ \hline
+\textbf{Mô tả} & Giúp các vai trò quản lý theo dõi sát sao tình trạng hoạt động và tiến trình phát triển thực tế của bộ truyện. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Người dùng đã đăng nhập thành công. \\ \hline
+\textbf{Luồng sự kiện chính (Basic Flow)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Người dùng truy cập vào trang Chi tiết Series (SCR-09) của bộ truyện.
+        \item Hệ thống hiển thị thông tin chung và nhãn trạng thái vận hành thực tế của bộ truyện:
+            \begin{itemize}[leftmargin=*]
+                \item \textbf{Lên kế hoạch (Planning):} Đang chuẩn bị kịch bản, ý tưởng và chờ phê duyệt từ Hội đồng.
+                \item \textbf{Đang tiến hành (Ongoing):} Đang sáng tác tích cực, được phép tạo các Chapter và giao Task cho Assistant.
+                \item \textbf{Đã hoàn thành (Completed):} Bộ truyện đã kết thúc và phát hành trọn vẹn toàn bộ các chương.
+                \item \textbf{Đã hủy bỏ (Canceled):} Bộ truyện bị ngừng phát hành vĩnh viễn (do bị hủy hoặc thành tích kém).
+                \item \textbf{Tạm ngưng (Suspended):} Tạm dừng sáng tác tạm thời (ví dụ do tác giả nghỉ ốm), đóng băng quy trình.
+            \end{itemize}
+        \item Hệ thống đồng thời tính toán hiển thị tiến độ tổng thể của Series (Tỷ lệ \% Chapter đã hoàn thành và xuất bản so với kế hoạch ban đầu) để người quản lý theo dõi.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
+\begin{minipage}[t]{\linewidth}
+    Không có.
+\end{minipage} \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Hệ thống hiển thị trạng thái và tiến độ tổng quát của Series trên giao diện. \\ \hline
+\end{tabularx}
+\caption{Đặc tả UC-10: Theo dõi trạng thái Series}
+\label{tab:uc10}
+\end{table}

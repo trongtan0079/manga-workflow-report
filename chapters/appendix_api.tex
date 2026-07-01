@@ -1,0 +1,385 @@
+% ====================================
+% PHỤ LỤC: TÀI LIỆU API (API DOCUMENTATION)
+% ====================================
+\chapter{Tài liệu đặc tả các luồng yêu cầu Web (API \& Web Request Specification)}
+\label{chap:api_documentation}
+
+Hệ thống quản lý quy trình sáng tác và xuất bản Manga được phát triển dựa trên kiến trúc MVC (Model-View-Controller) của PHP. Các yêu cầu từ phía máy khách (Client/Browser) được gửi đến máy chủ (Server) thông qua các tham số định tuyến trên URL bao gồm: \texttt{\small controller} (Bộ điều khiển tương ứng) và \texttt{\small action} (Phương thức xử lý nghiệp vụ).
+
+Dưới đây là tài liệu đặc tả chi tiết 8 luồng yêu cầu Web/API cốt lõi của hệ thống hỗ trợ các vai trò tương tác và điều khiển dữ liệu:
+
+% ----------------------------------------------------
+% API 1: Đăng nhập
+% ----------------------------------------------------
+\section{Đặc tả luồng Đăng nhập hệ thống}
+\label{sec:api_auth_login}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Đăng nhập hệ thống}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=auth\&}\allowbreak\texttt{action=authenticate} \\ \hline
+\textbf{Quyền truy cập (Role)} & Tất cả (Chưa đăng nhập) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Tiếp nhận thông tin định danh và mật khẩu của người dùng từ Form đăng nhập để xác thực và thiết lập phiên làm việc (Session). \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{login\_id} (Chuỗi, bắt buộc): Username hoặc Email đăng ký tài khoản.
+        \item \texttt{password} (Chuỗi, bắt buộc): Mật khẩu người dùng nhập.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Kiểm tra các trường dữ liệu không được để trống.
+        \item Truy vấn CSDL bảng \texttt{users} theo \texttt{email} hoặc \texttt{username}.
+        \item Sử dụng \texttt{password\_verify()} đối chiếu mật khẩu với chuỗi băm \texttt{password\_hash}.
+        \item Kiểm tra trạng thái tài khoản phải là \texttt{active}.
+        \item Khởi tạo \texttt{\$\_SESSION} chứa các thông tin cá nhân: \texttt{user\_id}, \texttt{username}, \texttt{role\_name}.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302 Redirect):} Chuyển hướng người dùng đến trang Dashboard tương ứng (ví dụ: \texttt{/index.php?}\allowbreak\texttt{controller=dashboard\&}\allowbreak\texttt{action=mangaka}).
+        \item \textbf{Thất bại (HTTP 302 Redirect):} Chuyển hướng quay về trang Login kèm thông điệp lỗi lưu trong \texttt{\$\_SESSION['error']} (ví dụ: "Tên đăng nhập hoặc mật khẩu không chính xác.").
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu đăng nhập hệ thống}
+\label{tab:api_auth_login}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 2: Tạo bộ truyện
+% ----------------------------------------------------
+\section{Đặc tả luồng Đề xuất bộ truyện (Series) mới}
+\label{sec:api_series_store}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Đề xuất Series mới}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=series\&}\allowbreak\texttt{action=store} \\ \hline
+\textbf{Quyền truy cập (Role)} & Mangaka (Tác giả chính) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Cho phép Mangaka gửi hồ sơ thông tin và ảnh bìa để đề xuất một bộ truyện mới lên Hội đồng biên tập. \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{title} (Chuỗi, bắt buộc, tối đa 255 ký tự): Tiêu đề bộ truyện.
+        \item \texttt{description} (Chuỗi, tùy chọn): Tóm tắt nội dung cốt truyện.
+        \item \texttt{status} (Chuỗi, tùy chọn): Trạng thái ban đầu, mặc định là \texttt{planning}.
+        \item \texttt{cover\_image} (Tên file ảnh, tùy chọn): Đường dẫn file ảnh bìa đã tải lên thư mục upload.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Xác thực phiên làm việc và kiểm tra quyền hạn của Mangaka.
+        \item Kiểm tra tính hợp lệ của dữ liệu (Tiêu đề không rỗng, không trùng lặp).
+        \item Thực hiện câu lệnh INSERT vào bảng \texttt{series} với \texttt{mangaka\_id} lấy từ thông tin Session.
+        \item Tạo thông báo tự động (Notification) gửi đến cho vai trò \texttt{board} (Ban biên tập).
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302 Redirect):} Chuyển hướng về trang danh sách Series \texttt{/index.php?}\allowbreak\texttt{controller=series\&}\allowbreak\texttt{action=index} kèm \texttt{\$\_SESSION['success']} thông báo tạo thành công.
+        \item \textbf{Thất bại (HTTP 302 Redirect):} Quay lại trang tạo Series kèm theo thông điệp thông báo lỗi chi tiết.
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu đề xuất Series mới}
+\label{tab:api_series_store}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 3: Xem chi tiết Series
+% ----------------------------------------------------
+\section{Đặc tả luồng Xem thông tin chi tiết bộ truyện (Series)}
+\label{sec:api_series_show}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Xem chi tiết Series}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{GET /index.php?}\allowbreak\texttt{controller=series\&}\allowbreak\texttt{action=show\&}\allowbreak\texttt{id=\{id\}} \\ \hline
+\textbf{Quyền truy cập (Role)} & Mangaka (chủ sở hữu), Tantou Editor, Editorial Board, Admin \\ \hline
+\textbf{Mô tả nghiệp vụ} & Hiển thị hồ sơ chi tiết của bộ truyện Series bao gồm ảnh bìa, mô tả, trạng thái hoạt động và danh sách tất cả các Chapter thuộc bộ truyện này. \\ \hline
+\textbf{Tham số trên URL (Query)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{id} (Số nguyên, bắt buộc): Mã khóa chính \texttt{series\_id} của bộ truyện cần truy vấn.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Xác thực đăng nhập.
+        \item Truy vấn cơ sở dữ liệu bảng \texttt{series} theo khóa chính \texttt{id}.
+        \item Kiểm tra quyền hạn sở hữu: Nếu là Mangaka thì bộ truyện phải thuộc sở hữu của mình, hoặc người dùng có vai trò quản lý (Editor, Board, Admin).
+        \item Thực hiện JOIN để lấy danh sách các bản ghi tương ứng từ bảng \texttt{chapters}.
+        \item Nạp giao diện hiển thị thông tin chi tiết Series.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 200 OK):} Trả về giao diện HTML chi tiết Series chứa thông tin mô tả và danh sách Chapter.
+        \item \textbf{Thất bại (HTTP 302 / 403 / 404):} Trả về mã lỗi 403 Forbidden nếu không có quyền xem, hoặc chuyển hướng về trang danh sách Series kèm thông báo lỗi "Không tìm thấy bộ truyện".
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu xem chi tiết Series}
+\label{tab:api_series_show}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 4: Giao Task
+% ----------------------------------------------------
+\section{Đặc tả luồng Khởi tạo và Phân công công việc (Task)}
+\label{sec:api_task_store}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Khởi tạo và phân công Task}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=task\&}\allowbreak\texttt{action=store} \\ \hline
+\textbf{Quyền truy cập (Role)} & Mangaka (hoặc Tantou Editor phụ trách) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Tạo mới một công việc liên quan đến việc vẽ hoặc chỉnh sửa một trang truyện (Page) và phân công trực tiếp cho một trợ lý (Assistant) thực hiện. \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{page\_id} (Số nguyên, bắt buộc): ID trang truyện cần phân công.
+        \item \texttt{assigned\_to} (Số nguyên, bắt buộc): ID tài khoản của Assistant thực hiện.
+        \item \texttt{title} (Chuỗi, bắt buộc, tối đa 255 ký tự): Tiêu đề mô tả ngắn công việc (ví dụ: "Vẽ nền trang 2").
+        \item \texttt{description} (Chuỗi, tùy chọn): Hướng dẫn hoặc ghi chú chi tiết.
+        \item \texttt{priority} (Chuỗi, tùy chọn): Độ ưu tiên, mặc định là \texttt{medium}. Các giá trị: \texttt{low}, \texttt{medium}, \texttt{high}.
+        \item \texttt{due\_date} (Định dạng Ngày giờ, bắt buộc): Hạn chót hoàn thành công việc.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Xác định thông tin của người dùng và kiểm tra quyền quản lý đối với Chapter chứa Page đó.
+        \item Kiểm tra thông tin Assistant được phân công có tồn tại và đang hoạt động không.
+        \item Thực hiện INSERT bản ghi mới vào bảng \texttt{tasks} với trạng thái khởi đầu là \texttt{todo}.
+        \item Tạo và gửi thông báo tức thời (Notification) đến cho Assistant.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302 Redirect):} Chuyển hướng người dùng về trang Task Board của Chapter tương ứng, hiển thị thông báo giao việc thành công.
+        \item \textbf{Thất bại (HTTP 302 Redirect):} Quay về form tạo Task kèm thông báo lỗi dữ liệu (ví dụ: "Hạn chót không được nhỏ hơn thời gian hiện tại.").
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu khởi tạo và phân công Task}
+\label{tab:api_task_store}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 5: Nộp Submission
+% ----------------------------------------------------
+\section{Đặc tả luồng Nộp báo cáo sản phẩm vẽ (Submission)}
+\label{sec:api_submission_store}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Nộp Submission}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=submission\&}\allowbreak\texttt{action=store} \\ \hline
+\textbf{Quyền truy cập (Role)} & Assistant (được chỉ định làm nhiệm vụ) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Cho phép Assistant tải tệp tin hình ảnh bản vẽ (Submission) của trang truyện được phân công và viết ghi chú báo cáo kết quả hoàn thành. \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{task\_id} (Số nguyên, bắt buộc): ID của Task được phân công.
+        \item \texttt{notes} (Chuỗi, tùy chọn): Ghi chú gửi kèm.
+        \item \texttt{file\_image} (Tệp tin hình ảnh tải lên, bắt buộc): Bản vẽ thô hoặc chi tiết dưới dạng ảnh (.png, .jpg), dung lượng nhỏ hơn 10MB.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Xác thực phiên làm việc và kiểm tra quyền được phân công thực hiện Task.
+        \item Thực hiện xác thực tệp tin ảnh tải lên: Định dạng đuôi, dung lượng file.
+        \item Di chuyển tệp tin ảnh vào thư mục lưu trữ an toàn \texttt{uploads/submissions/}.
+        \item INSERT một bản ghi mới vào bảng \texttt{submissions} lưu đường dẫn ảnh và ghi chú.
+        \item Cập nhật trạng thái của Task trong bảng \texttt{tasks} thành \texttt{reviewing}.
+        \item Tạo và gửi thông báo tự động cho Mangaka giao việc để nhắc nhở phê duyệt.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302):} Quay lại trang chi tiết công việc của Assistant, hiển thị thông báo "Đã gửi bản vẽ thành công và đang chờ xét duyệt".
+        \item \textbf{Thất bại (HTTP 302):} Quay lại trang nộp bài kèm báo cáo lỗi chi tiết (ví dụ: "File ảnh tải lên không đúng định dạng hoặc vượt quá 10MB.").
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu nộp Submission}
+\label{tab:api_submission_store}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 6: Review Submission
+% ----------------------------------------------------
+\section{Đặc tả luồng Đánh giá và Phê duyệt bản thảo (Review)}
+\label{sec:api_review_store}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Đánh giá Review}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=review\&}\allowbreak\texttt{action=store} \\ \hline
+\textbf{Quyền truy cập (Role)} & Mangaka (hoặc Tantou Editor phụ trách) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Người quản lý thực hiện kiểm duyệt, viết ý kiến nhận xét và đưa ra quyết định chấp nhận hoặc yêu cầu chỉnh sửa lại đối với bản vẽ của Assistant. \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{submission\_id} (Số nguyên, bắt buộc): ID của Submission cần kiểm duyệt.
+        \item \texttt{status} (Chuỗi, bắt buộc): Kết quả đánh giá (\texttt{approved} - Chấp nhận, \texttt{rejected} - Yêu cầu sửa đổi).
+        \item \texttt{comments} (Chuỗi, bắt buộc): Ý kiến nhận xét, sửa lỗi trực tiếp trên ảnh.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Kiểm tra quyền sở hữu đối với bộ truyện chứa Task.
+        \item INSERT thông tin nhận xét và kết quả kiểm duyệt vào bảng \texttt{reviews}.
+        \item Cập nhật CSDL theo kết quả:
+            \begin{itemize}
+                \item Nếu \texttt{status = approved}: Đổi trạng thái Task thành \texttt{done}, cập nhật trạng thái Page thành hoàn thành.
+                \item Nếu \texttt{status = rejected}: Đổi trạng thái Task quay lại \texttt{in\_progress} để trợ lý tiếp tục sửa đổi.
+            \end{itemize}
+        \item Gửi thông báo kết quả kiểm duyệt kèm theo nhận xét chi tiết tới cho Assistant.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302):} Chuyển hướng người dùng về trang kiểm duyệt chung, báo "Đã hoàn thành đánh giá".
+        \item \textbf{Thất bại (HTTP 302/403):} Lỗi phân quyền hoặc lỗi dữ liệu (ví dụ: Nhận xét rỗng). Quay lại trang chi tiết Submission kèm cảnh báo lỗi.
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu đánh giá và phê duyệt bản thảo}
+\label{tab:api_review_store}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 7: Nhập vote & Xếp hạng
+% ----------------------------------------------------
+\section{Đặc tả luồng Nhập số lượng phiếu bình chọn độc giả (Rankings)}
+\label{sec:api_ranking_store}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Cập nhật phiếu bầu và xếp hạng}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=seriesranking\&}\allowbreak\texttt{action=update} \\ \hline
+\textbf{Quyền truy cập (Role)} & Editorial Board (Ban biên tập) \\ \hline
+\textbf{Mô tả nghiệp vụ} & Nhập số lượng phiếu bình chọn của độc giả thu được cho Series Manga trong kỳ xuất bản hiện tại để hệ thống tự động cập nhật lại thứ hạng. \\ \hline
+\textbf{Tham số đầu vào (Request Body)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \texttt{series\_id} (Số nguyên, bắt buộc): ID bộ truyện cần cập nhật.
+        \item \texttt{period\_start\_date} (Định dạng Ngày, bắt buộc): Ngày bắt đầu kỳ bình chọn hiện tại.
+        \item \texttt{votes} (Số nguyên, bắt buộc): Số lượng phiếu bầu độc giả hợp lệ nhận được trong kỳ.
+    \end{itemize}
+\end{minipage} \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Kiểm tra quyền hạn Ban biên tập (Editorial Board) của người dùng.
+        \item INSERT hoặc UPDATE bản ghi vào bảng \texttt{series\_rankings} với dữ liệu phiếu bầu và ngày kỳ.
+        \item Tự động chạy thuật toán xếp hạng: Tính tổng số phiếu bầu và sắp xếp giảm dần tất cả các bộ truyện để ghi đè cột thứ tự xếp hạng (\texttt{rank\_position}) trong kỳ đó.
+        \item Tạo và gửi thông báo cập nhật bảng xếp hạng định kỳ gửi cho toàn bộ người dùng hệ thống.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 302):} Quay lại trang quản trị Bảng xếp hạng, thông báo "Cập nhật dữ liệu xếp hạng thành công".
+        \item \textbf{Thất bại (HTTP 302):} Quay lại trang nhập dữ liệu kèm báo cáo lỗi (ví dụ: "Số lượng phiếu bình chọn không được nhỏ hơn 0.").
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu cập nhật phiếu bầu và xếp hạng}
+\label{tab:api_ranking_store}
+\end{table}
+
+\newpage
+
+% ----------------------------------------------------
+% API 8: Xem danh sách thông báo
+% ----------------------------------------------------
+\section{Đặc tả luồng Xem danh sách thông báo người dùng}
+\label{sec:api_notification_index}
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Xem danh sách thông báo}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{GET /index.php?}\allowbreak\texttt{controller=notification\&}\allowbreak\texttt{action=index} \\ \hline
+\textbf{Quyền truy cập (Role)} & Tất cả người dùng đã đăng nhập thành công \\ \hline
+\textbf{Mô tả nghiệp vụ} & Lấy toàn bộ danh sách thông báo liên quan đến công việc, phê duyệt, hay bình chọn gửi đến tài khoản của người dùng đang đăng nhập hệ thống. \\ \hline
+\textbf{Tham số đầu vào (Request)} & Không yêu cầu. \\ \hline
+\textbf{Logic xử lý trên Server} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{enumerate}[leftmargin=*]
+        \item Xác thực đăng nhập hiện tại.
+        \item Lấy mã \texttt{user\_id} từ Session của người dùng hiện tại.
+        \item Thực hiện SELECT truy vấn bảng \texttt{notifications} theo điều kiện \texttt{user\_id = :user\_id} sắp xếp giảm dần theo thời gian tạo.
+        \item Nạp giao diện hiển thị danh sách các thông báo trên màn hình.
+    \end{enumerate}
+\end{minipage} \\ \hline
+\textbf{Kết quả phản hồi (Response)} & 
+\begin{minipage}[t]{\linewidth}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{Thành công (HTTP 200 OK):} Nạp giao diện danh sách thông báo SCR-15 hiển thị đầy đủ thông tin nội dung, loại thông báo và nút đánh dấu đã đọc.
+        \item \textbf{Thất bại (HTTP 302):} Nếu chưa đăng nhập, tự động chuyển hướng người dùng quay lại màn hình Login.
+    \end{itemize}
+\end{minipage} \\ \hline
+\end{tabularx}
+\caption{Đặc tả yêu cầu xem danh sách thông báo}
+\label{tab:api_notification_index}
+\end{table}

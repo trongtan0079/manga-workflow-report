@@ -27,7 +27,7 @@
     \item \textbf{Xác thực và Quản lý phiên (Authentication \& Session):}
     \begin{itemize}
         \item Mật khẩu người dùng phải được mã hóa một chiều bằng thuật toán bcrypt với độ phức tạp (cost factor) tối thiểu là $10$ trước khi lưu trữ vào cơ sở dữ liệu.
-        \item Mã thông báo JWT (JSON Web Token) được cấp sau khi đăng nhập thành công phải có thời hạn hết hạn (expiration time) là $2$ giờ.
+        \item Phiên làm việc (Session) của người dùng sau khi đăng nhập thành công phải có thời hạn hết hạn (expiration time) là $2$ giờ.
         \item Hệ thống tự động hủy phiên làm việc và yêu cầu đăng nhập lại sau $30$ phút người dùng không có bất kỳ tương tác nào (idle timeout).
         \item Tài khoản người dùng sẽ tạm thời bị khóa trong vòng $15$ phút nếu đăng nhập sai liên tiếp quá $5$ lần để phòng chống tấn công brute-force.
     \end{itemize}
@@ -139,11 +139,11 @@ Hệ thống hoạt động dựa trên các quy tắc nghiệp vụ (Business R
     \end{itemize}
     \item \textbf{Quy tắc quản lý Task}
     \begin{itemize}
-        \item Mỗi Task phân công công việc chỉ được tạo bởi Mangaka sở hữu Series hoặc Tantou Editor phụ trách.
+        \item Mỗi Task phân công công việc chỉ được tạo bởi Mangaka sở hữu Series đó.
         \item Mỗi Task chỉ được phân công cho duy nhất một Assistant thực hiện tại một thời điểm.
         \item Một Assistant có thể tiếp nhận và thực hiện nhiều Task khác nhau từ các Mangaka.
-        \item Mỗi Task bắt buộc phải có thời hạn hoàn thành (Deadline) cụ thể, trạng thái xử lý (Todo, In Progress, Reviewing, Done) và mô tả chi tiết công việc.
-        \item Chỉ người tạo Task (Mangaka/Tantou Editor) mới có quyền chỉnh sửa thông tin, thay đổi trạng thái trực tiếp hoặc hủy bỏ Task.
+        \item Mỗi Task bắt buộc phải có thời hạn hoàn thành (Deadline) cụ thể, trạng thái xử lý (\texttt{pending}, \texttt{in\_progress}, \texttt{completed}) và mô tả chi tiết công việc.
+        \item Chỉ người tạo Task (Mangaka) mới có quyền chỉnh sửa thông tin, thay đổi trạng thái trực tiếp hoặc hủy bỏ Task.
     \end{itemize}
     \item \textbf{Quy tắc quản lý Submission}
     \begin{itemize}

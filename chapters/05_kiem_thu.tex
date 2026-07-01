@@ -84,7 +84,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
         \item Nhập Mật khẩu hợp lệ vào ô Password.
         \item Nhấn nút "Đăng nhập".
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Đăng nhập thành công, hệ thống cấp JWT token hợp lệ, chuyển hướng người dùng về trang Dashboard tương ứng với vai trò Mangaka, và hiển thị thông điệp chào mừng.
+    \item \textbf{Kết quả mong đợi:} Đăng nhập thành công, hệ thống thiết lập phiên làm việc (session) hợp lệ, chuyển hướng người dùng về trang Dashboard tương ứng với vai trò Mangaka, và hiển thị thông điệp chào mừng.
 \end{itemize}
 
 \subsection{TC-02: Đăng nhập — mật khẩu sai}
@@ -249,7 +249,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
 \label{subsec:tc12_publish_chapter}
 \begin{itemize}
     \item \textbf{Mục tiêu:} Xuất bản chính thức một chương truyện đã hoàn thành lên cổng đọc truyện công cộng.
-    \item \textbf{Actor thực hiện:} Tantou Editor.
+    \item \textbf{Actor thực hiện:} Editorial Board.
     \item \textbf{Tiền điều kiện:} Chương truyện (Chapter) đã được tập hợp đầy đủ các trang vẽ hoàn thiện và Mangaka đã gửi yêu cầu xuất bản.
     \item \textbf{Các bước thực hiện:}
     \begin{enumerate}
@@ -297,7 +297,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
     \item \textbf{Tiền điều kiện:} Assistant đã đăng nhập thành công vào hệ thống bằng tài khoản của mình.
     \item \textbf{Các bước thực hiện:}
     \begin{enumerate}
-        \item Cố tình nhập trực tiếp trên trình duyệt đường dẫn URL quản trị hệ thống: \code{/admin/users/create} hoặc đường dẫn duyệt Series: \code{/editorial/series/approve}.
+        \item Cố tình nhập trực tiếp trên trình duyệt đường dẫn URL quản trị hệ thống: \code{/admin/\allowbreak users/\allowbreak create} hoặc đường dẫn duyệt Series: \code{/editorial/\allowbreak series/\allowbreak approve}.
     \end{enumerate}
     \item \textbf{Kết quả mong đợi:} Giao dịch bị chặn tại Server, chuyển hướng người dùng về trang thông báo lỗi bảo mật 403 Forbidden hoặc trang Dashboard cá nhân, hiển thị thông báo: "Bạn không có quyền truy cập chức năng này."
 \end{itemize}
@@ -332,7 +332,7 @@ Bị chặn (Blocked) & 0 & $0\%$ \\ \hline
 
 Bảng dưới đây là biểu mẫu chi tiết dùng để ghi nhận trạng thái của từng kịch bản kiểm thử sau khi chạy:
 
-\begin{longtable}{|c|l|c|l|p{4cm}|}
+\begin{longtable}{|c|p{4.8cm}|c|c|p{3.2cm}|}
 \hline
 \rowcolor{tableheader}
 \textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline

@@ -64,10 +64,10 @@ ucs = [
     {
         "sec": r"\subsection{Quản lý Page (Page Management)}\label{subsec:srs_page_mgmt}",
         "sub": r"\subsubsection{UC-14: Tạo Page}\label{subsubsec:uc14_create_page}",
-        "id": "UC-14", "name": "Tạo Page", "actor": "Mangaka, Assistant", "label": "uc14",
-        "desc": "Tạo các trang trống (Page) để chuẩn bị cho quá trình vẽ và phân công công việc.",
-        "pre": "Chapter đã được tạo thành công và người dùng được cấp quyền biên tập nội dung.",
-        "basic": r"        \item Người dùng vào giao diện chi tiết Chapter." + "\n" + r"        \item Người dùng chọn 'Thêm Page'." + "\n" + r"        \item Hệ thống tự động sinh số thứ tự trang tiếp theo hoặc cho phép nhập số trang hàng loạt (Batch create)." + "\n" + r"        \item Người dùng nhấn 'Lưu'." + "\n" + r"        \item Hệ thống tạo các bản ghi Page tương ứng trong cơ sở dữ liệu.",
+        "id": "UC-14", "name": "Tạo Page", "actor": "Mangaka", "label": "uc14",
+        "desc": "Cho phép Mangaka tạo các trang trống (Page) trong Chapter để chuẩn bị phân công công việc cho Assistant.",
+        "pre": "Mangaka đăng nhập sở hữu bộ truyện chứa Chapter tương ứng.",
+        "basic": r"        \item Mangaka vào giao diện chi tiết Chapter." + "\n" + r"        \item Mangaka chọn 'Thêm Page'." + "\n" + r"        \item Hệ thống tự động sinh số thứ tự trang tiếp theo hoặc cho phép nhập số trang hàng loạt (Batch create)." + "\n" + r"        \item Mangaka nhấn 'Lưu'." + "\n" + r"        \item Hệ thống tạo các bản ghi Page tương ứng trong cơ sở dữ liệu.",
         "alt": r"        \item \textbf{A1}: Số lượng Page tạo ra vượt mức 100 trang/chapter. Hệ thống cảnh báo quá tải và yêu cầu xác nhận thêm.",
         "post": "Các trang mới được tạo với trạng thái 'Trống' (Blank), sẵn sàng cho phân công."
     },
@@ -153,7 +153,7 @@ ucs = [
         "pre": "Đang xem giao diện chi tiết một Submission chưa được Approve.",
         "basic": r"        \item Người dùng chọn công cụ vẽ (highlight, khoanh vùng, bút đỏ) trên trình duyệt." + "\n" + r"        \item Vẽ đánh dấu trực tiếp lên các điểm cần sửa trên file ảnh." + "\n" + r"        \item Nhập comment nhận xét (văn bản) cho từng vùng đánh dấu." + "\n" + r"        \item Chọn 'Approve' (Chấp nhận) hoặc 'Request Changes' (Yêu cầu sửa)." + "\n" + r"        \item Hệ thống lưu tọa độ đánh dấu, nội dung text và gửi email/push notification cho tác giả/trợ lý.",
         "alt": r"        \item \textbf{A1}: Mất kết nối mạng khi đang khoanh vùng lỗi. Hệ thống tự động lưu nháp (Auto-save) vào LocalStorage của trình duyệt và cảnh báo 'Đang ngoại tuyến'.",
-        "post": "Tọa độ Annotation và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng."
+        "post": "Tọa độ Annotation (được lưu trữ tại cột \\texttt{annotations} trong cơ sở dữ liệu) và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng."
     },
     {
         "sub": r"\subsubsection{UC-24: Xem chi tiết Review}\label{subsubsec:uc24_view_review}",
@@ -262,5 +262,5 @@ for uc in ucs:
     
     out.append(uc_text + "\n")
 
-with open(r"D:\CNPM\SRS\chapters\03_3_srs_func_2.tex", "w", encoding="utf-8") as f:
+with open("chapters/03_3_srs_func_2.tex", "w", encoding="utf-8") as f:
     f.write("".join(out))

@@ -1,10 +1,13 @@
 @startuml
+
 title Manga Creation and Publishing Management System
+
 skinparam classAttributeIconSize 0
 skinparam linetype ortho
-skinparam ranksep 350
-skinparam nodesep 200
-top to bottom direction
+skinparam nodesep 120
+skinparam ranksep 100
+skinparam classFontSize 13
+skinparam classAttributeFontSize 11
 
 class Role {
   +roleId : int
@@ -64,6 +67,7 @@ class Submission {
 class Review {
   +reviewId : int
   +comments : string
+  +annotations : string
   +rating : int
   +createdAt : datetime
 }
@@ -82,23 +86,26 @@ class Notification {
   +isRead : boolean
 }
 
+' ===== RELATIONSHIPS (Ortho directions optimized) =====
 Role "1" -down- "*" User : assigned
-User "1" -down- "*" Series : creates
+User "1" -right- "*" Notification : receives
+
+User "1" -left- "*" Series : creates
 Series "1" -down- "*" Chapter : contains
-Chapter "1" -down- "*" Page : contains
+Chapter "1" -right- "*" Page : contains
 
-Chapter "1" -right- "*" Task : requires
-User "1" -right- "*" Task : assigns
-User "1" -left- "*" Task : receives
+Page "1" -right- "*" Task : requires
+User "1" -down- "*" Task : manager_assigns
+User "1" -down- "*" Task : assistant_receives
 
-Task "1" -right- "*" Submission : generates
-Chapter "1" -left- "*" Submission : submitted
+Task "1" -down- "*" Submission : generates
+Chapter "0..1" -down- "*" Submission : submitted
 User "1" -down- "*" Submission : submits
 
-Submission "1" -down- "*" Review : receives
-User "1" -right- "*" Review : writes
+Submission "1" -right- "*" Review : receives
+User "1" -down- "*" Review : writes
 
-Series "1" -down- "*" SeriesRanking : ranked
+Series "1" -left- "*" SeriesRanking : ranked
 User "1" -down- "*" SeriesRanking : evaluates
-User "1" -down- "*" Notification : receives
+
 @enduml

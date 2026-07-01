@@ -22,17 +22,16 @@
 \pagenumbering{arabic} % Đánh số trang bằng chữ số Ả Rập (1, 2, 3, ...) từ phần mở đầu
 \pagestyle{plain}
 
-% --- Lời cảm ơn ---
-\input{sections/loi_cam_on}
-\clearpage
-
-% --- Tóm tắt ---
-\input{sections/tom_tat}
-\clearpage
-
 % --- Thuật ngữ và viết tắt ---
+\begingroup
+\titleformat{\chapter}[hang]
+    {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}\filcenter}
+    {}
+    {0em}
+    {\MakeTextUppercase}
 \input{sections/thuat_ngu}
 \clearpage
+\endgroup
 
 % --- Mục lục ---
 \tableofcontents
@@ -64,9 +63,16 @@
 \input{chapters/07_ket_luan}
 
 % ====================================
+% PHỤ LỤC
+% ====================================
+\appendix
+\input{chapters/appendix_api}
+
+% ====================================
 % TÀI LIỆU THAM KHẢO
 % ====================================
 \bibliographystyle{plain}
+\nocite{*}
 \bibliography{references}
 
 \end{document}

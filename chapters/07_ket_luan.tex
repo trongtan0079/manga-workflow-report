@@ -3,9 +3,35 @@
 
 \section{Tổng kết kết quả đạt được}
 \label{sec:conclusion_summary}
+Sau quá trình nghiên cứu, thiết kế và phát triển, đề tài "Hệ thống quản lý quy trình sáng tác và xuất bản Manga (Manga Creation Workflow and Publishing Management System)" đã hoàn thành đầy đủ các mục tiêu đề ra ban đầu, cụ thể bao gồm các kết quả sau:
+\begin{itemize}
+    \item \textbf{Về mặt lý thuyết và quy trình}: Đã chuẩn hóa và tài liệu hóa chi tiết toàn bộ quy trình cộng tác phức tạp giữa các vai trò chính trong ngành công nghiệp truyện tranh, bao gồm: tác giả (Mangaka), trợ lý (Assistant), biên tập viên (Tantou Editor) và hội đồng biên tập (Editorial Board).
+    \item \textbf{Về mặt thiết kế hệ thống}: Đã xây dựng hoàn chỉnh bộ tài liệu thiết kế phần mềm (SDD) bao gồm: sơ đồ ca sử dụng (Use Case), sơ đồ hoạt động (Activity), sơ đồ tuần tự (Sequence) và sơ đồ lớp chi tiết (Class Diagram) thống nhất và khớp hoàn toàn với cấu trúc cơ sở dữ liệu thực tế gồm 10 bảng quan hệ.
+    \item \textbf{Về mặt sản phẩm phần mềm}: Triển khai thành công ứng dụng web theo kiến trúc MVC viết bằng PHP thuần. Hệ thống đáp ứng trọn vẹn các luồng chức năng nghiệp vụ cốt lõi:
+    \begin{itemize}
+        \item Quản lý đề xuất và phê duyệt Series truyện mới.
+        \item Giao việc chi tiết đến từng trang truyện (\texttt{Page}) và quản lý tiến độ thực hiện công việc (\texttt{Task}) của trợ lý.
+        \item Nộp sản phẩm (\texttt{Submission}) và kiểm duyệt, phản hồi sửa lỗi (\texttt{Review}) trực tiếp.
+        \item Cập nhật dữ liệu bình chọn của độc giả và tự động tính toán bảng xếp hạng (\texttt{SeriesRanking}) định kỳ.
+        \item Hệ thống thông báo tự động (\texttt{Notification}) giúp giảm thiểu thời gian trễ và sai sót thông tin.
+    \end{itemize}
+\end{itemize}
 
 \section{Hạn chế của hệ thống}
 \label{sec:conclusion_limitations}
+Mặc dù đã đáp ứng đầy đủ các yêu cầu nghiệp vụ cơ bản, hệ thống vẫn tồn tại một số hạn chế cần tiếp tục cải thiện trong thời gian tới:
+\begin{itemize}
+    \item \textbf{Tính thời gian thực (Real-time)}: Cơ chế gửi thông báo và cập nhật tiến độ công việc hiện tại vẫn dựa trên các yêu cầu HTTP truyền thống (đồng bộ/bất đồng bộ qua AJAX). Hệ thống chưa hỗ trợ công nghệ WebSockets để gửi thông báo tức thời (Instant Notifications) cho người dùng.
+    \item \textbf{Công cụ cộng tác đồ họa trực quan}: Trình duyệt bản vẽ hiện tại chỉ hỗ trợ xem ảnh tĩnh và ghi chú văn bản thông thường. Biên tập viên và tác giả chưa thể thực hiện vẽ đè (markup) hoặc khoanh vùng ghi chú trực tiếp lên các tọa độ cụ thể của bản vẽ trên giao diện Web.
+    \item \textbf{Tự động hóa bằng AI}: Chức năng phân vùng trang truyện (Panel Segmentation) và hỗ trợ tự động tô màu (Auto-Colorization) bằng mô hình Deep Learning mới dừng lại ở mức đề xuất kiến trúc lý thuyết, chưa được đóng gói tích hợp thành một module chạy trực tiếp trong ứng dụng.
+\end{itemize}
 
 \section{Hướng phát triển trong tương lai}
 \label{sec:conclusion_future_work}
+Để tối ưu hóa trải nghiệm người dùng và mở rộng khả năng ứng dụng thực tế, các hướng phát triển tiếp theo của dự án tập trung vào:
+\begin{itemize}
+    \item \textbf{Tích hợp WebSockets}: Sử dụng thư viện như Socket.io hoặc tích hợp máy chủ Node.js/Pusher để hỗ trợ thông báo đẩy và cập nhật tiến độ công việc theo thời gian thực (Real-time).
+    \item \textbf{Xây dựng bộ công cụ biên tập đồ họa Web (Web Canvas Editor)}: Tích hợp thư viện HTML5 Canvas cho phép Tantou Editor và Mangaka khoanh vùng, vẽ nháp trực tiếp lên trang truyện để chỉ rõ vị trí cần sửa đổi (đổi thoại, sửa hình nền, chỉnh nét vẽ).
+    \item \textbf{Tích hợp Module AI}: Triển khai các mô hình Deep Learning (như YOLOv8 hoặc Segment Anything Model - SAM) để tự động phát hiện khung hình (panels), bong bóng thoại (speech bubbles) và hỗ trợ tô màu tự động nhằm đẩy nhanh tiến độ làm việc của các studio Manga.
+    \item \textbf{Ứng dụng di động (Mobile Application)}: Phát triển ứng dụng di động dạng Hybrid (React Native hoặc Flutter) giúp tác giả và biên tập viên có thể theo dõi tiến độ và phê duyệt bản thảo mọi lúc mọi nơi thuận tiện hơn.
+\end{itemize}

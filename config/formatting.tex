@@ -2,13 +2,13 @@
 % FORMATTING - Định dạng tài liệu
 % ====================================
 
-% Định nghĩa bảng màu đen trắng (theo yêu cầu chữ màu đen)
-\definecolor{navyblue}{RGB}{0, 0, 0}          % Đen cho tiêu đề, header
-\definecolor{charcoal}{RGB}{0, 0, 0}          % Đen cho chữ chính
+% Định nghĩa bảng màu xanh biển đậm (Deep Navy Blue) chuyên nghiệp
+\definecolor{navyblue}{RGB}{26, 54, 93}          % Xanh biển đậm cho tiêu đề, header
+\definecolor{charcoal}{RGB}{0, 0, 0}             % Đen cho chữ chính
 \definecolor{lightgray}{RGB}{245, 247, 250}   % Nền xám nhạt cho code
 \definecolor{bordergray}{RGB}{220, 224, 230}  % Màu viền cho bảng/code
-\definecolor{linkblue}{RGB}{0, 0, 0}          % Đen cho link
-\definecolor{citegreen}{RGB}{0, 0, 0}         % Đen cho trích dẫn
+\definecolor{linkblue}{RGB}{43, 108, 176}        % Xanh dương cho link
+\definecolor{citegreen}{RGB}{47, 133, 90}       % Xanh lá đậm cho trích dẫn
 \definecolor{tableheader}{RGB}{224, 235, 250} % Màu nền xanh xám nhạt cho header bảng
 
 % Thiết lập lề trang
@@ -125,3 +125,8 @@
 
 % Định dạng đường dẫn hình ảnh
 \graphicspath{{assets/images/}{assets/diagrams/}}
+
+% Tự động thu nhỏ font chữ Monospace (texttt, code) để khớp tỷ lệ với Times Roman
+\let\oldttfamily\ttfamily
+\renewcommand{\ttfamily}{\oldttfamily\small}
+
