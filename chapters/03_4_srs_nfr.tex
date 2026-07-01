@@ -4,47 +4,113 @@
 \subsection{Hiệu năng (Performance)}
 \label{subsec:nfr_performance}
 \begin{itemize}
-    \item Hệ thống phải đảm bảo thời gian phản hồi phù hợp đối với các thao tác thông thường như đăng nhập, tra cứu dữ liệu, cập nhật thông tin và gửi bài.
-    \item Hệ thống phải hỗ trợ nhiều người dùng truy cập đồng thời mà không ảnh hưởng đáng kể đến hiệu năng xử lý.
+    \item \textbf{Thời gian phản hồi (Response Time):} 
+    \begin{itemize}
+        \item Các thao tác thông thường (đăng nhập, xem danh sách, cập nhật trạng thái) phải phản hồi trong thời gian $\le 1.0$ giây ở điều kiện mạng bình thường (băng thông $\ge 10$ Mbps).
+        \item Các truy vấn tìm kiếm hoặc lọc dữ liệu phức tạp trên cơ sở dữ liệu lớn phải trả về kết quả trong vòng $\le 2.0$ giây.
+        \item Thời gian tải và xử lý tệp ảnh trang truyện (Page) có dung lượng lên tới $10$ MB phải hoàn thành trong vòng $\le 5.0$ giây.
+    \end{itemize}
+    \item \textbf{Khả năng chịu tải (Concurrency):}
+    \begin{itemize}
+        \item Hệ thống phải hỗ trợ tối thiểu $200$ người dùng hoạt động đồng thời (concurrent users) mà không làm suy giảm thời gian phản hồi trung bình quá $10\%$.
+        \item Khả năng xử lý tải đỉnh (peak load) của API gateway phải đạt tối thiểu $500$ yêu cầu trên giây (requests per second).
+    \end{itemize}
+    \item \textbf{Sử dụng tài nguyên (Resource Utilization):}
+    \begin{itemize}
+        \item Mức sử dụng CPU trung bình của máy chủ Web/Application không được vượt quá $70\%$, và bộ nhớ RAM không quá $80\%$ trong điều kiện hoạt động tiêu chuẩn.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Bảo mật (Security)}
 \label{subsec:nfr_security}
 \begin{itemize}
-    \item Hệ thống phải yêu cầu người dùng đăng nhập trước khi truy cập các chức năng nghiệp vụ.
-    \item Thông tin tài khoản và mật khẩu phải được lưu trữ an toàn trong cơ sở dữ liệu.
-    \item Hệ thống phải áp dụng cơ chế phân quyền để đảm bảo mỗi người dùng chỉ được truy cập các chức năng phù hợp với vai trò được cấp.
+    \item \textbf{Xác thực và Quản lý phiên (Authentication \& Session):}
+    \begin{itemize}
+        \item Mật khẩu người dùng phải được mã hóa một chiều bằng thuật toán bcrypt với độ phức tạp (cost factor) tối thiểu là $10$ trước khi lưu trữ vào cơ sở dữ liệu.
+        \item Mã thông báo JWT (JSON Web Token) được cấp sau khi đăng nhập thành công phải có thời hạn hết hạn (expiration time) là $2$ giờ.
+        \item Hệ thống tự động hủy phiên làm việc và yêu cầu đăng nhập lại sau $30$ phút người dùng không có bất kỳ tương tác nào (idle timeout).
+        \item Tài khoản người dùng sẽ tạm thời bị khóa trong vòng $15$ phút nếu đăng nhập sai liên tiếp quá $5$ lần để phòng chống tấn công brute-force.
+    \end{itemize}
+    \item \textbf{Kiểm soát truy cập (Authorization):}
+    \begin{itemize}
+        \item Áp dụng mô hình phân quyền dựa trên vai trò (Role-Based Access Control - RBAC). Mọi yêu cầu API từ Client phải được xác thực và đối chiếu quyền truy cập tương ứng với vai trò (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) tại máy chủ trước khi xử lý. Các truy cập trái phép phải bị từ chối ngay lập tức và trả về mã lỗi HTTP 403 Forbidden.
+    \end{itemize}
+    \item \textbf{An toàn dữ liệu và truyền tải:}
+    \begin{itemize}
+        \item Toàn bộ dữ liệu truyền tải giữa Client và Server phải được mã hóa bằng giao thức HTTPS sử dụng TLS phiên bản tối thiểu là 1.3.
+        \item Dữ liệu nhạy cảm lưu trữ trong cơ sở dữ liệu (ví dụ: mật khẩu, mã thông báo truy cập thiết bị) phải được mã hóa an toàn.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Khả năng mở rộng (Scalability)}
 \label{subsec:nfr_scalability}
 \begin{itemize}
-    \item Hệ thống phải được thiết kế theo hướng dễ dàng mở rộng khi số lượng người dùng, Series Manga hoặc dữ liệu phát sinh tăng lên.
-    \item Cấu trúc hệ thống cần hỗ trợ bổ sung các chức năng mới trong tương lai mà không làm ảnh hưởng đáng kể đến các chức năng hiện có.
+    \item \textbf{Mở rộng dịch vụ (Service Scaling):}
+    \begin{itemize}
+        \item Kiến trúc máy chủ ứng dụng phải được thiết kế theo mô hình phi trạng thái (stateless), cho phép cấu hình tự động giãn nở (Horizontal Auto-scaling) tăng thêm các instance khi tải CPU vượt ngưỡng $70\%$.
+    \end{itemize}
+    \item \textbf{Mở rộng dữ liệu (Data Scaling):}
+    \begin{itemize}
+        \item Cơ sở dữ liệu của hệ thống phải được thiết kế tối ưu (đánh chỉ mục index cho các khóa ngoại và các trường truy vấn thường dùng) đảm bảo dung lượng lưu trữ có thể mở rộng lên tới ít nhất $50.000$ Series Manga, $1.000.000$ Chapter và $10.000$ tài khoản người dùng hoạt động mà không làm tăng thời gian phản hồi của các câu lệnh SELECT quá $2$ giây.
+    \end{itemize}
+    \item \textbf{Lưu trữ tài nguyên ảnh (Asset Storage Scaling):}
+    \begin{itemize}
+        \item Sử dụng các dịch vụ lưu trữ đối tượng đám mây (Cloud Object Storage) để lưu trữ tệp hình ảnh các trang truyện (Page) nhằm tách biệt với máy chủ ứng dụng chính, cho phép dung lượng lưu trữ tăng trưởng vô hạn mà không ảnh hưởng tới hạ tầng máy chủ ứng dụng.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Tính sẵn sàng (Availability)}
 \label{subsec:nfr_availability}
 \begin{itemize}
-    \item Hệ thống phải đảm bảo khả năng hoạt động ổn định trong quá trình sử dụng.
-    \item Người dùng có thể truy cập và sử dụng hệ thống trong điều kiện kết nối mạng bình thường.
-    \item Hệ thống cần hạn chế tối đa các lỗi gây gián đoạn quá trình làm việc.
+    \item \textbf{Độ khả dụng hệ thống (Uptime):}
+    \begin{itemize}
+        \item Hệ thống phải duy trì tỷ lệ sẵn sàng hoạt động tối thiểu đạt $99.9\%$ mỗi năm (tương ứng với thời gian ngừng hoạt động không mong muốn tối đa không quá $8.76$ giờ trong cả năm).
+    \end{itemize}
+    \item \textbf{Khôi phục thảm họa (Disaster Recovery):}
+    \begin{itemize}
+        \item Chỉ số thời gian phục hồi mục tiêu (Recovery Time Objective - RTO) của hệ thống khi xảy ra sự cố nghiêm trọng không được vượt quá $2$ giờ.
+        \item Chỉ số điểm phục hồi mục tiêu (Recovery Point Objective - RPO) không vượt quá $24$ giờ. Cơ sở dữ liệu phải được thiết lập cơ chế sao lưu tự động hàng ngày (daily backup) vào lúc $02:00$ sáng và lưu trữ an toàn tại một phân vùng vật lý độc lập.
+    \end{itemize}
+    \item \textbf{Khả năng chống chịu lỗi (Fault Tolerance):}
+    \begin{itemize}
+        \item Hệ thống phải có khả năng tự động kết nối lại (auto-reconnect) cơ sở dữ liệu khi kết nối bị gián đoạn tạm thời và duy trì hoạt động tối thiểu bằng cách thông báo lỗi thân thiện cho người dùng thay vì làm sập ứng dụng.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Khả năng sử dụng (Usability)}
 \label{subsec:nfr_usability}
 \begin{itemize}
-    \item Giao diện hệ thống phải đơn giản, trực quan và dễ sử dụng đối với các nhóm người dùng khác nhau.
-    \item Các chức năng cần được bố trí hợp lý nhằm giúp người dùng dễ dàng thao tác và tìm kiếm thông tin.
-    \item Hệ thống cần cung cấp các thông báo và hướng dẫn cần thiết trong quá trình sử dụng.
+    \item \textbf{Tính dễ tiếp cận và học hỏi (Learnability):}
+    \begin{itemize}
+        \item Người dùng mới thuộc bất kỳ vai trò nào (ví dụ: Mangaka hoặc Assistant) có thể thực hiện thành công các thao tác cốt lõi của mình (như tạo Series mới, tạo Task hoặc nộp Submission) trong thời gian $\le 5$ phút ngay lần đầu tiên sử dụng mà không cần thông qua đào tạo trực tiếp.
+    \end{itemize}
+    \item \textbf{Giao diện tương thích (Responsiveness \& Accessibility):}
+    \begin{itemize}
+        \item Giao diện Web của hệ thống phải đạt chuẩn thiết kế đáp ứng (Responsive Web Design), hiển thị chính xác và hoạt động tốt trên các loại thiết bị khác nhau bao gồm máy tính để bàn (desktop), máy tính bảng (tablet) và điện thoại di động (mobile) với kích thước màn hình tối thiểu từ $320$px chiều ngang.
+        \item Độ tương phản giữa chữ và nền (Contrast Ratio) của toàn bộ văn bản trên giao diện phải đạt tỷ lệ tối thiểu $4.5:1$ theo tiêu chuẩn WCAG 2.1 AA để hỗ trợ người dùng có thị lực kém.
+    \end{itemize}
+    \item \textbf{Xử lý thông báo lỗi (Error Handling):}
+    \begin{itemize}
+        \item Mọi thông báo lỗi hiển thị cho người dùng cuối phải được viết bằng ngôn ngữ tiếng Việt dễ hiểu, nêu rõ nguyên nhân gặp lỗi và hướng dẫn khắc phục cụ thể. Tuyệt đối không để lộ mã lỗi hệ thống dạng stack trace trên giao diện người dùng để đảm bảo bảo mật.
+    \end{itemize}
 \end{itemize}
 
 \subsection{Khả năng bảo trì (Maintainability)}
 \label{subsec:nfr_maintainability}
 \begin{itemize}
-    \item Hệ thống phải được xây dựng với cấu trúc rõ ràng, dễ quản lý và dễ nâng cấp.
-    \item Mã nguồn cần được tổ chức hợp lý nhằm hỗ trợ việc sửa lỗi, bảo trì và phát triển thêm các chức năng mới trong tương lai.
-    \item Cơ sở dữ liệu phải được thiết kế nhất quán nhằm đảm bảo thuận lợi cho việc quản lý và cập nhật dữ liệu.
+    \item \textbf{Chất lượng mã nguồn (Code Quality):}
+    \begin{itemize}
+        \item Mã nguồn dự án phải được kiểm tra tự động qua các công cụ chuẩn hóa mã nguồn (ví dụ: SonarQube). Tỷ lệ phủ mã nguồn bởi kiểm thử đơn vị (Unit Test coverage) phải đạt tối thiểu $80\%$.
+        \item Tỷ lệ mã trùng lặp (duplicated blocks of code) trong toàn bộ dự án phải được kiểm soát dưới ngưỡng $5\%$.
+    \end{itemize}
+    \item \textbf{Nhật ký hệ thống (Logging):}
+    \begin{itemize}
+        \item Hệ thống phải ghi nhật ký hoạt động (System Log) chi tiết ở định dạng cấu trúc (JSON format) bao gồm mã định danh dấu vết (trace\_id), thời gian thực hiện, tài khoản thực hiện, loại thao tác và kết quả. Các log phải được phân cấp độ rõ ràng (INFO, WARN, ERROR).
+    \end{itemize}
+    \item \textbf{Triển khai và Cập nhật (Deployment):}
+    \begin{itemize}
+        \item Áp dụng quy trình tích hợp và triển khai liên tục (CI/CD) tự động hóa hoàn toàn việc đóng gói và deploy. Thời gian dừng hệ thống để cập nhật phiên bản mới (deployment downtime) phải $\le 5$ phút bằng cách áp dụng phương thức deploy rolling update hoặc blue-green deployment.
+    \end{itemize}
 \end{itemize}
 
 \section{Phụ lục yêu cầu (Requirement Appendix)}
@@ -52,3 +118,60 @@
 
 \subsection{Quy tắc nghiệp vụ (Business Rules)}
 \label{subsec:srs_business_rules}
+
+Hệ thống hoạt động dựa trên các quy tắc nghiệp vụ (Business Rules) chặt chẽ dưới đây nhằm đảm bảo tính nhất quán dữ liệu và tính đúng đắn của quy trình sáng tác và xuất bản Manga:
+
+\begin{itemize}
+    \item \textbf{Quy tắc quản lý Series}
+    \begin{itemize}
+        \item Mỗi Series chỉ thuộc quyền quản lý và sở hữu của duy nhất một Mangaka tại một thời điểm.
+        \item Một Mangaka có thể khởi tạo và quản lý nhiều Series khác nhau trên hệ thống.
+        \item Series mới được đề xuất phải được xét duyệt và thông qua bởi Editorial Board (Hội đồng biên tập) trước khi được chuyển sang trạng thái Active để đưa vào kế hoạch phát triển và xuất bản.
+        \item Mỗi Series phải có trạng thái hoạt động rõ ràng (ví dụ: Draft, Pending, Active, Paused, Completed) để phản ánh chính xác tình trạng thực tế của bộ truyện.
+        \item Một Series có thể bao gồm nhiều Chapter khác nhau.
+    \end{itemize}
+    \item \textbf{Quy tắc quản lý Chapter}
+    \begin{itemize}
+        \item Mỗi Chapter phải thuộc về duy nhất một Series Manga.
+        \item Mỗi Chapter trong một Series phải được gán một số thứ tự (Chapter Number) duy nhất và tăng dần.
+        \item Chapter chỉ được phép xuất bản (Publish) ra bên ngoài sau khi đã được kiểm duyệt nội dung và được phê duyệt trạng thái hoàn thành bởi Tantou Editor phụ trách.
+        \item Mỗi Chapter có thể chứa nhiều trang Manga (Page).
+    \end{itemize}
+    \item \textbf{Quy tắc quản lý Task}
+    \begin{itemize}
+        \item Mỗi Task phân công công việc chỉ được tạo bởi Mangaka sở hữu Series hoặc Tantou Editor phụ trách.
+        \item Mỗi Task chỉ được phân công cho duy nhất một Assistant thực hiện tại một thời điểm.
+        \item Một Assistant có thể tiếp nhận và thực hiện nhiều Task khác nhau từ các Mangaka.
+        \item Mỗi Task bắt buộc phải có thời hạn hoàn thành (Deadline) cụ thể, trạng thái xử lý (Todo, In Progress, Reviewing, Done) và mô tả chi tiết công việc.
+        \item Chỉ người tạo Task (Mangaka/Tantou Editor) mới có quyền chỉnh sửa thông tin, thay đổi trạng thái trực tiếp hoặc hủy bỏ Task.
+    \end{itemize}
+    \item \textbf{Quy tắc quản lý Submission}
+    \begin{itemize}
+        \item Mỗi Submission phải liên kết trực tiếp với một Task cụ thể được giao.
+        \item Chỉ Assistant được giao Task tương ứng mới có quyền tạo và nộp bản vẽ dưới dạng Submission cho Task đó.
+        \item Một Task có thể phát sinh nhiều lần nộp Submission (lưu lịch sử các phiên bản) trong trường hợp Mangaka yêu cầu chỉnh sửa hoặc bổ sung nội dung vẽ.
+        \item Submission chỉ được đóng trạng thái khi Mangaka hoặc Tantou Editor xác nhận "Chấp nhận" (Approved) kết quả.
+    \end{itemize}
+    \item \textbf{Quy tắc quản lý Review}
+    \begin{itemize}
+        \item Mỗi lượt đánh giá (Review) bắt buộc phải thực hiện trên một Submission cụ thể.
+        \item Lượt Review được thực hiện bởi Mangaka (đối với Task giao cho Assistant) hoặc Tantou Editor (đối với Chapter do Mangaka nộp).
+        \item Kết quả Review phải được chọn rõ ràng giữa hai trạng thái: Chấp nhận (Approved) hoặc Yêu cầu sửa đổi (Request Changes), đi kèm với nội dung nhận xét chi tiết.
+        \item Toàn bộ lịch sử các lượt Review phải được lưu trữ vĩnh viễn phục vụ cho việc theo dõi chất lượng và giải quyết tranh chấp tác quyền nếu có.
+    \end{itemize}
+    \item \textbf{Quy tắc xuất bản và phát hành}
+    \begin{itemize}
+        \item Editorial Board là vai trò duy nhất có quyền đưa ra quyết định thay đổi kế hoạch phát hành tổng quát hoặc ngừng xuất bản một Series Manga dựa trên các chỉ số hoạt động.
+        \item Lịch phát hành chính thức của các Chapter phải được hệ thống tự động kiểm tra và khóa thay đổi trước giờ phát hành 24 tiếng.
+    \end{itemize}
+    \item \textbf{Quy tắc xếp hạng}
+    \begin{itemize}
+        \item Kết quả xếp hạng các Series Manga được tính toán tự động dựa trên dữ liệu phiếu bình chọn (Votes) hợp lệ của độc giả trong mỗi kỳ đánh giá (tuần/tháng).
+        \item Mỗi Series chỉ có duy nhất một thứ hạng (Rank) trong bảng xếp hạng tại mỗi kỳ tổng hợp.
+    \end{itemize}
+    \item \textbf{Quy tắc phân quyền tài khoản}
+    \begin{itemize}
+        \item Mỗi tài khoản người dùng chỉ được hoạt động dưới một vai trò chính tại một thời điểm.
+        \item Admin có quyền tối cao trong việc tạo tài khoản, phân quyền vai trò ban đầu và khóa tài khoản khi có vi phạm bảo mật.
+    \end{itemize}
+\end{itemize}
