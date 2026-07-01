@@ -47,10 +47,10 @@ Hiện tại dự án đang tập trung vào quá trình chuyển dịch cấu t
 * [ ] **[P2-04]** Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
 
 #### 🔄 Di chuyển nội dung SDD (Trúc Ngân & Phan Hạnh)
-* [ ] **[P2-05]** Di chuyển thiết kế kiến trúc hệ thống và deployment từ `03_1_thiet_ke_tong_the.tex` sang `04_1_sdd_system.tex`.
+* [x] **[P2-05]** Di chuyển thiết kế kiến trúc hệ thống và deployment từ `03_1_thiet_ke_tong_the.tex` sang `04_1_sdd_system.tex`.
 * [ ] **[P2-06]** Di chuyển sơ đồ Swimlane và 3 sơ đồ Activity từ `03_2_uml_nghiep_vu.tex` sang `04_3_sdd_detailed.tex` (§4.3.1).
 * [ ] **[P2-07]** Di chuyển 5 sơ đồ Sequence Diagram (đã dọn dẹp phần trùng lặp) từ `03_3_uml_thiet_ke.tex` sang `04_3_sdd_detailed.tex` (§4.3.2).
-* [ ] **[P2-08]** Di chuyển Class Diagram tổng thể và mô tả các lớp từ `03_3` sang `04_3_sdd_detailed.tex` (§4.3.3).
+* [x] **[P2-08]** Di chuyển Class Diagram tổng thể và mô tả các lớp từ `03_3` sang `04_3_sdd_detailed.tex` (§4.3.3).
 * [ ] **[P2-09]** Di chuyển Sơ đồ ERD, Data Dictionary (10 bảng) và mô tả mối quan hệ từ `03_4_database_ui.tex` sang `04_2_sdd_database.tex`.
 * [ ] **[P2-10]** Di chuyển danh sách UI hiện tại từ `03_4` sang `04_4_sdd_ui.tex`.
 
@@ -68,12 +68,12 @@ Hiện tại dự án đang tập trung vào quá trình chuyển dịch cấu t
 * [x] **[P3-03]** Xem xét loại bỏ phần Kết luận chương ở cuối Chương 1 theo đúng mẫu.
 
 #### ✍️ Chương II: Kế hoạch quản lý dự án - SPMP (Trúc Ngân)
-* [ ] **[P3-04]** Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
-* [ ] **[P3-05]** Viết mục **2.1.2 Mục tiêu dự án** (chỉ tiêu thời gian, nỗ lực) và **2.1.3 Rủi ro dự án** (bảng Risk + kế hoạch ứng phó).
-* [ ] **[P3-06]** Mô tả **Quy trình phát triển phần mềm** áp dụng và phương pháp quản lý chất lượng.
-* [ ] **[P3-07]** Bổ sung **Sản phẩm bàn giao** theo từng giai đoạn / Sprint.
-* [ ] **[P3-08]** Xây dựng ma trận phân công trách nhiệm **RACI**.
-* [ ] **[P3-09]** Viết các phần Giao tiếp dự án & Quản lý cấu hình (tài liệu, mã nguồn, hạ tầng).
+* [x] **[P3-04]** Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
+* [x] **[P3-05]** Viết mục **2.1.2 Mục tiêu dự án** (chỉ tiêu thời gian, nỗ lực) và **2.1.3 Rủi ro dự án** (bảng Risk + kế hoạch ứng phó).
+* [x] **[P3-06]** Mô tả **Quy trình phát triển phần mềm** áp dụng và phương pháp quản lý chất lượng.
+* [x] **[P3-07]** Bổ sung **Sản phẩm bàn giao** theo từng giai đoạn / Sprint.
+* [x] **[P3-08]** Xây dựng ma trận phân công trách nhiệm **RACI**.
+* [x] **[P3-09]** Viết các phần Giao tiếp dự án & Quản lý cấu hình (tài liệu, mã nguồn, hạ tầng).
 
 #### ✍️ Chương III: Đặc tả yêu cầu phần mềm - SRS
 ##### Phần tổng quan & UC Spec 1 (Ngọc Hân)
@@ -101,9 +101,9 @@ Hiện tại dự án đang tập trung vào quá trình chuyển dịch cấu t
 
 #### ✍️ Chương IV: Thiết kế hệ thống - SDD
 ##### Kiến trúc & Thiết kế chi tiết (Trúc Ngân)
-* [ ] **[P3-16]** Vẽ sơ đồ thành phần **Component / Package Diagram** (§4.1.3).
-* [ ] **[P3-17]** Viết mô tả chi tiết công nghệ sử dụng (**Technology Stack**).
-* [ ] **[P3-18]** Bổ sung danh sách các **phương thức (Methods)** cho từng thực thể trong Class Diagram.
+* [x] **[P3-16]** Vẽ sơ đồ thành phần **Component / Package Diagram** (§4.1.3).
+* [x] **[P3-17]** Viết mô tả chi tiết công nghệ sử dụng (**Technology Stack**).
+* [x] **[P3-18]** Bổ sung danh sách các **phương thức (Methods)** cho từng thực thể trong Class Diagram.
 
 ##### Thiết kế giao diện (Phan Hạnh)
 * [ ] **[P3-19]** Thiết kế **UI Mockup/Wireframe** cho 9 giao diện chính:
