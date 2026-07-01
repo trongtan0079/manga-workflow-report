@@ -36,7 +36,7 @@ Dưới đây là thông tin chi tiết về các thành viên và vai trò tron
 \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{1.3}
-    \begin{tabularx}{\textwidth}{|c|l|l|>{\raggedright\arraybackslash}X|}
+    \begin{tabularx}{\textwidth}{|c|l|l|>{\raggedright\arraybackslash\small}X|}
         \hline
         \rowcolor{tableheader}
         \textbf{STT} & \textbf{Họ và tên} & \textbf{Vai trò} & \textbf{Email} \rule[-1.2ex]{0pt}{4ex} \\
@@ -95,7 +95,7 @@ Trong mô hình sáng tác và xuất bản truyện tranh truyền thống, qu�
 Quy trình quản lý mang tính thủ công này bộc lộ những hạn chế và rủi ro nghiêm trọng:
 \begin{itemize}
     \item \textbf{Thất lạc và hao hụt tài nguyên dữ liệu:} Các tệp tin hình ảnh có dung lượng lớn khi truyền tải qua các ứng dụng chat thường bị nén làm giảm chất lượng (lossy compression) hoặc tự động xóa sau một khoảng thời gian nhất định (như chính sách lưu trữ của Zalo), gây mất mát dữ liệu và buộc các thành viên phải gửi lại nhiều lần.
-    \item \textbf{Khó khăn trong kiểm soát phiên bản (Version Control):} Trong quá trình sửa đổi bản thảo vẽ, việc lưu trữ nhiều phiên bản chỉnh sửa khác nhau dưới dạng các file độc lập (ví dụ: \texttt{page01\_v1.psd}, \texttt{page01\_v2.psd}, \texttt{page01\_final.psd}) trên các máy tính cá nhân dễ dẫn đến việc nhầm lẫn phiên bản cũ/mới, thậm chí ghi đè dữ liệu vẽ của nhau làm lãng phí công sức làm việc.
+    \item \textbf{Khó khăn trong kiểm soát phiên bản (Version Control):} Trong quá trình sửa đổi bản thảo vẽ, việc lưu trữ nhiều phiên bản chỉnh sửa khác nhau dưới dạng các file độc lập (ví dụ: \texttt{\small page01\_v1.psd}, \texttt{\small page01\_v2.psd}, \texttt{\small page01\_final.psd}) trên các máy tính cá nhân dễ dẫn đến việc nhầm lẫn phiên bản cũ/mới, thậm chí ghi đè dữ liệu vẽ của nhau làm lãng phí công sức làm việc.
     \item \textbf{Thiếu tính trực quan và kiểm soát tiến độ thời gian thực:} Mangaka không có một bảng giám sát (dashboard) tập trung để theo dõi trạng thái hiện tại của từng trang truyện (Page) trong một chương (Chapter). Thay vào đó, tác giả phải liên hệ thủ công với từng trợ lý để hỏi tiến độ, dẫn đến việc khó dự báo thời gian hoàn thành chương và tăng nguy cơ chậm trễ tiến độ nộp bài (Submission) cho nhà xuất bản.
     \item \textbf{Rủi ro rò rỉ tác quyền và bảo mật thông tin:} Việc truyền tải các file bản vẽ thô chứa nội dung cốt truyện chưa phát hành qua các dịch vụ chat công cộng tiềm ẩn nguy cơ cao về việc rò rỉ thông tin tác phẩm ra ngoài trước thời điểm phát hành chính thức, gây ảnh hưởng nghiêm trọng đến bản quyền và doanh thu.
 \end{itemize}
