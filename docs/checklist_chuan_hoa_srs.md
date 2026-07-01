@@ -21,23 +21,23 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 *Mục tiêu: Đưa toàn bộ nội dung từ các file cũ vào đúng vị trí mới trong cây thư mục.*
 
 ### 🔄 Di chuyển nội dung SRS (Giang Thị Ngọc Hân & Nguyễn Thanh Thảo)
-- [ ] **[P2-01]** Chuyển phần Giới thiệu chung & Quy trình nghiệp vụ từ `02_1_yeu_cau_chuc_nang.tex` sang `03_1_srs_tong_quan.tex`.
-- [ ] **[P2-02]** Chuyển bảng mô tả Actor từ `03_2_uml_nghiep_vu.tex` và phần mô tả actor từ `01_gioi_thieu.tex` gộp chung vào `03_1_srs_tong_quan.tex` (§3.2.1).
-- [ ] **[P2-03]** Di chuyển các sơ đồ Use Case (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) từ `03_2` sang `03_1_srs_tong_quan.tex` (§3.2.2).
+- [x] **[P2-01]** Chuyển phần Giới thiệu chung & Quy trình nghiệp vụ từ `02_1_yeu_cau_chuc_nang.tex` sang `03_1_srs_tong_quan.tex`.
+- [x] **[P2-02]** Chuyển bảng mô tả Actor từ `03_2_uml_nghiep_vu.tex` và phần mô tả actor từ `01_gioi_thieu.tex` gộp chung vào `03_1_srs_tong_quan.tex` (§3.2.1).
+- [x] **[P2-03]** Di chuyển các sơ đồ Use Case (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) từ `03_2` sang `03_1_srs_tong_quan.tex` (§3.2.2).
 - [x] **[P2-04]** Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
 
 ### 🔄 Di chuyển nội dung SDD (Nguyễn Thị Trúc Ngân & Phan Thị Hạnh)
 - [x] **[P2-05]** Di chuyển thiết kế kiến trúc hệ thống và deployment từ `03_1_thiet_ke_tong_the.tex` sang `04_1_sdd_system.tex`.
-- [ ] **[P2-06]** Di chuyển sơ đồ Swimlane và 3 sơ đồ Activity từ `03_2_uml_nghiep_vu.tex` sang `04_3_sdd_detailed.tex` (§4.3.1).
-- [ ] **[P2-07]** Di chuyển 5 sơ đồ Sequence Diagram (đã dọn dẹp phần trùng lặp) từ `03_3_uml_thiet_ke.tex` sang `04_3_sdd_detailed.tex` (§4.3.2).
+- [x] **[P2-06]** Di chuyển sơ đồ Swimlane và 3 sơ đồ Activity từ `03_2_uml_nghiep_vu.tex` sang `04_3_sdd_detailed.tex` (§4.3.1).
+- [x] **[P2-07]** Di chuyển 5 sơ đồ Sequence Diagram (đã dọn dẹp phần trùng lặp) từ `03_3_uml_thiet_ke.tex` sang `04_3_sdd_detailed.tex` (§4.3.2).
 - [x] **[P2-08]** Di chuyển Class Diagram tổng thể và mô tả các lớp từ `03_3` sang `04_3_sdd_detailed.tex` (§4.3.3).
-- [ ] **[P2-09]** Di chuyển Sơ đồ ERD, Data Dictionary (10 bảng) và mô tả mối quan hệ từ `03_4_database_ui.tex` sang `04_2_sdd_database.tex`.
-- [ ] **[P2-10]** Di chuyển danh sách UI hiện tại từ `03_4` sang `04_4_sdd_ui.tex`.
+- [x] **[P2-09]** Di chuyển Sơ đồ ERD, Data Dictionary (10 bảng) và mô tả mối quan hệ từ `03_4_database_ui.tex` sang `04_2_sdd_database.tex`.
+- [x] **[P2-10]** Di chuyển danh sách UI hiện tại từ `03_4` sang `04_4_sdd_ui.tex`.
 
 ### 🔄 Đồng bộ hóa tham chiếu (Cả nhóm thực hiện phần mình phụ trách)
-- [ ] **[P2-11]** Sửa lại toàn bộ các nhãn `\label` bị trùng hoặc bị lỗi do phân tách file.
-- [ ] **[P2-12]** Cập nhật lại đường dẫn hình ảnh trong lệnh `\includegraphics` tương ứng với vị trí file mới.
-- [ ] **[P2-13]** Sửa lại các liên kết chéo `\ref` và `\pageref` trong tài liệu.
+- [x] **[P2-11]** Sửa lại toàn bộ các nhãn `\label` bị trùng hoặc bị lỗi do phân tách file.
+- [x] **[P2-12]** Cập nhật lại đường dẫn hình ảnh trong lệnh `\includegraphics` tương ứng với vị trí file mới.
+- [x] **[P2-13]** Sửa lại các liên kết chéo `\ref` và `\pageref` trong tài liệu.
 
 ---
 

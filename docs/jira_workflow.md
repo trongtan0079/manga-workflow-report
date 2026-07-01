@@ -38,12 +38,9 @@
 - [x] **[OLD-03]** Đưa nội dung phân tích yêu cầu chức năng vào LaTeX (Chương II bản cũ).
 - [x] **[OLD-04]** Đưa nội dung thu thập và phân tích yêu cầu từ người dùng vào LaTeX.
 - [x] **[OLD-05]** Đưa nội dung mô tả chi tiết vai trò và chức năng của từng Actor vào LaTeX.
+- [x] **[Phase 2 - Hân]** Di chuyển và gộp nội dung SRS (Mô tả & Actors: Giới thiệu chung, Quy trình nghiệp vụ, Bảng Actor, Use Case Diagrams).
 
 ### 📋 Task phân công Jira tiếp theo
-- [ ] **[Phase 2 - Hân]** Di chuyển và gộp nội dung SRS (Mô tả & Actors):
-  * Di chuyển phần Giới thiệu chung & Quy trình nghiệp vụ từ `02_1_yeu_cau_chuc_nang.tex` sang `03_1_srs_tong_quan.tex`.
-  * Di chuyển bảng mô tả Actor từ `03_2_uml_nghiep_vu.tex` và phần mô tả actor từ `01_gioi_thieu.tex` gộp chung vào `03_1_srs_tong_quan.tex` (§3.2.1).
-  * Di chuyển các sơ đồ Use Case (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) từ `03_2` sang `03_1_srs_tong_quan.tex` (§3.2.2).
 - [ ] **[Phase 3 - Hân]** Vẽ sơ đồ và đặc tả Use Case Module 1:
   * Vẽ sơ đồ ngữ cảnh **Context Diagram** (§3.1.2) cho hệ thống Manga Workflow.
   * Lập **Bảng tóm tắt Use Case** (§3.2.3) gồm cột ID, Use Case, Actor, Mô tả ngắn.
@@ -61,10 +58,9 @@
 - [x] **[OLD-06]** Đưa sơ đồ Use Case Diagram tổng thể và chi tiết vào LaTeX.
 - [x] **[OLD-07]** Đưa sơ đồ Swimlane Diagram và Activity Diagram cho các quy trình nghiệp vụ vào LaTeX.
 - [x] **[OLD-08]** Đưa mô tả nghiệp vụ chi tiết cho từng sơ đồ vào LaTeX.
+- [x] **[Phase 2 - Thảo]** Di chuyển nội dung SRS (Yêu cầu phi chức năng NFR từ 02_2 sang 03_4_srs_nfr.tex).
 
 ### 📋 Task phân công Jira tiếp theo
-- [x] **[Phase 2 - Thảo]** Di chuyển nội dung SRS (Yêu cầu phi chức năng NFR):
-  * Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
 - [ ] **[Phase 3 - Thảo]** Đặc tả chi tiết Use Case Module 2:
   * Đặc tả chi tiết Use Case (UC Spec) cho các module còn lại trong file `chapters/03_3_srs_func_2.tex`:
     * UC-11 đến UC-13 (Quản lý Chapter: Tạo, Cập nhật, Theo dõi).
@@ -84,11 +80,9 @@
 - [x] **[OLD-09]** Đưa nội dung mô tả kiến trúc tổng thể và sơ đồ triển khai của hệ thống vào LaTeX.
 - [x] **[OLD-10]** Đưa sơ đồ Sequence Diagram cho các luồng xử lý chính vào LaTeX.
 - [x] **[OLD-11]** Đưa sơ đồ Class Diagram chi tiết của hệ thống (Sơ đồ do cả nhóm cùng vẽ) vào LaTeX.
+- [x] **[Phase 2 - Trúc Ngân]** Di chuyển nội dung SDD (Kiến trúc & Class Diagram sang 04_1 và 04_3).
 
 ### 📋 Task phân công Jira tiếp theo
-- [ ] **[Phase 2 - Trúc Ngân]** Di chuyển nội dung SDD (Kiến trúc & Class Diagram):
-  * Di chuyển thiết kế kiến trúc hệ thống và deployment từ `03_1_thiet_ke_tong_the.tex` sang `04_1_sdd_system.tex`.
-  * Di chuyển Class Diagram tổng thể và mô tả các lớp từ `03_3` sang `04_3_sdd_detailed.tex` (§4.3.3).
 - [ ] **[Phase 3 - Trúc Ngân]** Soạn thảo Chương II (Kế hoạch quản lý dự án SPMP) & UML bổ sung:
   * Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
   * Viết mục **2.1.2 Mục tiêu dự án** (chỉ tiêu thời gian, nỗ lực) và **2.1.3 Rủi ro dự án** (bảng Risk + kế hoạch ứng phó).
@@ -108,13 +102,9 @@
 - [x] **[OLD-12]** Đưa lược đồ cơ sở dữ liệu hệ thống (Database Schema) vào LaTeX.
 - [x] **[OLD-13]** Đưa sơ đồ quan hệ thực thể (ERD - Sơ đồ do cả nhóm cùng vẽ) vào LaTeX.
 - [x] **[OLD-14]** Đưa danh sách Từ điển dữ liệu (Data Dictionary) chi tiết cho các bảng vào LaTeX.
+- [x] **[Phase 2 - Hạnh]** Di chuyển nội dung SDD (CSDL & UML hành vi: Swimlane, Activity, Sequence, ERD, Data Dictionary, UI list).
 
 ### 📋 Task phân công Jira tiếp theo
-- [ ] **[Phase 2 - Hạnh]** Di chuyển nội dung SDD (CSDL & UML hành vi):
-  * Di chuyển sơ đồ Swimlane và 3 sơ đồ Activity từ `03_2_uml_nghiep_vu.tex` sang `04_3_sdd_detailed.tex` (§4.3.1).
-  * Di chuyển 5 sơ đồ Sequence Diagram (đã dọn dẹp phần trùng lặp) từ `03_3_uml_thiet_ke.tex` sang `04_3_sdd_detailed.tex` (§4.3.2).
-  * Di chuyển Sơ đồ ERD, Data Dictionary (10 bảng) và mô tả mối quan hệ từ `03_4_database_ui.tex` sang `04_2_sdd_database.tex`.
-  * Di chuyển danh sách UI hiện tại từ `03_4` sang `04_4_sdd_ui.tex`.
 - [ ] **[Phase 3 - Hạnh]** Thiết kế UI Mockup & Hướng dẫn sử dụng:
   * Thiết kế **UI Mockup/Wireframe** cho 9 giao diện chính: Dashboard (chung & riêng), Trang đăng nhập, Quản lý Series (Danh sách & Chi tiết), Quản lý Chapter, Quản lý Task, Giao diện Nộp Submission, Giao diện Review & Đánh giá, Trung tâm thông báo, Bảng xếp hạng Series.
   * Lập danh mục gói sản phẩm bàn giao (Deliverable Package) trong `06_release.tex`.
@@ -140,6 +130,6 @@
 ---
 
 ## 🔄 7. ĐỒNG BỘ THAM CHIẾU (Cả nhóm tự thực hiện trên file mình đảm nhận)
-- [ ] **[Phase 2 - Cả nhóm]** Sửa lại toàn bộ các nhãn `\label` bị trùng hoặc bị lỗi do phân tách file.
-- [ ] **[Phase 2 - Cả nhóm]** Cập nhật lại đường dẫn hình ảnh trong lệnh `\includegraphics` tương ứng với vị trí file mới.
-- [ ] **[Phase 2 - Cả nhóm]** Sửa lại các liên kết chéo `\ref` và `\pageref` trong tài liệu.
+- [x] **[Phase 2 - Cả nhóm]** Sửa lại toàn bộ các nhãn `\label` bị trùng hoặc bị lỗi do phân tách file.
+- [x] **[Phase 2 - Cả nhóm]** Cập nhật lại đường dẫn hình ảnh trong lệnh `\includegraphics` tương ứng với vị trí file mới.
+- [x] **[Phase 2 - Cả nhóm]** Sửa lại các liên kết chéo `\ref` và `\pageref` trong tài liệu.
