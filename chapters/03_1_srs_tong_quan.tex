@@ -3,18 +3,96 @@
 
 \subsection{Mô tả hệ thống (System Description)}
 \label{subsec:srs_system_description}
+Manga Creation Workflow and Publishing Management System là hệ thống hỗ trợ quản lý tập trung toàn bộ quy trình sáng tác và xuất bản Manga. Hệ thống cho phép quản lý thông tin Series, Chapter, Page, phân công công việc cho Assistant, quản lý quá trình nộp bài (Submission), kiểm duyệt nội dung (Review), theo dõi kết quả bình chọn và xếp hạng Series, đồng thời hỗ trợ quản lý hoạt động phát hành. Hệ thống được xây dựng nhằm hỗ trợ sự phối hợp giữa các vai trò tham gia trong quy trình sản xuất và xuất bản Manga bao gồm Mangaka, Assistant, Tantou Editor, Editorial Board và Admin. Việc số hóa quy trình làm việc giúp nâng cao hiệu quả quản lý, tăng khả năng theo dõi tiến độ thực hiện công việc, đảm bảo tính nhất quán của dữ liệu và hỗ trợ quá trình ra quyết định xuất bản.
 
 \subsection{Sơ đồ ngữ cảnh (Context Diagram)}
 \label{subsec:srs_context_diagram}
 
+Sơ đồ ngữ cảnh (Context Diagram) mô tả mối quan hệ tương tác giữa hệ thống Manga Creation Workflow and Publishing Management System với các đối tượng bên ngoài (các Actor). Hệ thống đóng vai trò trung tâm tiếp nhận, xử lý và phân phối thông tin trong toàn bộ quy trình sản xuất Manga.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2.2cm and 2.5cm,
+        font=\sffamily\scriptsize,
+        system/.style={rectangle, draw=navyblue, fill=blue!5, thick, rounded corners, minimum width=3.8cm, minimum height=2.2cm, align=center, text width=3.6cm, font=\sffamily\bfseries\small},
+        actor/.style={rectangle, draw=black!70, fill=gray!10, thick, rounded corners=2pt, minimum width=2.4cm, minimum height=1.3cm, align=center, text width=2.2cm, font=\sffamily\bfseries\small},
+        flow/.style={-latex, thick, draw=black!60}
+    ]
+        % Nodes
+        \node[system] (sys) {Hệ thống Quản lý\\Quy trình Sáng tác và\\Xuất bản Manga};
+        
+        \node[actor, above=of sys, yshift=0.5cm] (board) {Editorial Board};
+        \node[actor, left=of sys, xshift=-1.0cm] (mangaka) {Mangaka};
+        \node[actor, right=of sys, xshift=1.0cm] (editor) {Tantou Editor};
+        \node[actor, below left=of sys, yshift=-0.5cm] (admin) {Admin};
+        \node[actor, below right=of sys, yshift=-0.5cm] (assistant) {Assistant};
+        
+        % Flows - Mangaka
+        \draw[flow] ([yshift=0.25cm]mangaka.east) -- node[above, align=center, font=\sffamily\tiny] {Đề xuất Series, tạo Chapter/Page\\Giao Task, duyệt Submission, phản hồi} ([yshift=0.25cm]sys.west);
+        \draw[flow] ([yshift=-0.25cm]sys.west) -- node[below, align=center, font=\sffamily\tiny] {Trạng thái Task, phản hồi của Editor\\Bảng xếp hạng, thông báo} ([yshift=-0.25cm]mangaka.east);
+        
+        % Flows - Assistant
+        \draw[flow] ([xshift=-0.2cm]assistant.north) -- node[left, xshift=-2pt, yshift=15pt, align=right, font=\sffamily\tiny] {Cập nhật trạng thái Task\\Nộp Submission} ([xshift=1.2cm]sys.south);
+        \draw[flow] ([xshift=0.9cm]sys.south) -- node[right, xshift=2pt, yshift=2pt, align=left, font=\sffamily\tiny] {Nhiệm vụ được giao\\Phản hồi, thông báo} ([xshift=-0.5cm]assistant.north);
+        
+        % Flows - Tantou Editor
+        \draw[flow] ([yshift=0.25cm]sys.east) -- node[above, align=center, font=\sffamily\tiny] {Bản thảo cần duyệt\\Tiến độ studio, thông báo} ([yshift=0.25cm]editor.west);
+        \draw[flow] ([yshift=-0.25cm]editor.west) -- node[below, align=center, font=\sffamily\tiny] {Xem/nhận xét Chapter, Series\\Gửi yêu cầu chỉnh sửa} ([yshift=-0.25cm]sys.east);
+        
+        % Flows - Editorial Board
+        \draw[flow] ([xshift=-0.3cm]board.south) -- node[left, align=right, font=\sffamily\tiny] {Xét duyệt Series, nhập vote\\Quyết định xuất bản/ngừng} ([xshift=-0.3cm]sys.north);
+        \draw[flow] ([xshift=0.3cm]sys.north) -- node[right, align=left, font=\sffamily\tiny] {Hồ sơ đề xuất Series\\BXH, báo cáo phát hành} ([xshift=0.3cm]board.south);
+        
+        % Flows - Admin
+        \draw[flow] ([xshift=0.5cm]admin.north) -- node[left, xshift=-2pt, yshift=2pt, align=right, font=\sffamily\tiny] {Yêu cầu tạo/khoá TK\\Phân quyền truy cập} ([xshift=-0.9cm]sys.south);
+        \draw[flow] ([xshift=-1.2cm]sys.south) -- node[right, xshift=2pt, yshift=15pt, align=left, font=\sffamily\tiny] {Nhật ký hoạt động\\Báo cáo hệ thống} ([xshift=-0.2cm]admin.north);
+
+    \end{tikzpicture}
+    \caption{Sơ đồ ngữ cảnh (Context Diagram) của hệ thống}
+    \label{fig:context_diagram}
+\end{figure}
+
 \subsection{Quy trình nghiệp vụ tổng quát (Business Process)}
 \label{subsec:srs_business_process}
+Quy trình nghiệp vụ tổng quát của hệ thống được thực hiện theo các bước sau:
+\begin{enumerate}
+    \item \textbf{Bước 1:} Mangaka đề xuất Series mới và gửi hồ sơ giới thiệu đến Editorial Board.
+    \item \textbf{Bước 2:} Editorial Board xem xét hồ sơ, đánh giá và thực hiện xét duyệt Series.
+    \item \textbf{Bước 3:} Sau khi được phê duyệt, Mangaka tiến hành xây dựng nội dung Series, tạo các Chapter và các trang Manga tương ứng.
+    \item \textbf{Bước 4:} Mangaka phân chia công việc trên từng trang Manga và giao Task cho Assistant thực hiện.
+    \item \textbf{Bước 5:} Assistant thực hiện các nhiệm vụ được giao và gửi Submission lên hệ thống sau khi hoàn thành.
+    \item \textbf{Bước 6:} Mangaka và Tantou Editor tiến hành kiểm tra, đánh giá Submission và đưa ra phản hồi chỉnh sửa nếu cần thiết.
+    \item \textbf{Bước 7:} Sau khi nội dung đạt yêu cầu, Chapter được hoàn thiện và đưa vào kế hoạch phát hành.
+    \item \textbf{Bước 8:} Editorial Board cập nhật dữ liệu bình chọn của độc giả, theo dõi kết quả xếp hạng và đánh giá hiệu quả hoạt động của Series.
+    \item \textbf{Bước 9:} Dựa trên kết quả đánh giá, Editorial Board đưa ra quyết định tiếp tục xuất bản, điều chỉnh kế hoạch phát hành hoặc ngừng phát hành Series.
+\end{enumerate}
 
 \section{Yêu cầu người dùng (User Requirements)}
 \label{sec:srs_user_requirements}
 
 \subsection{Danh sách Actor (Actor List)}
 \label{subsec:srs_actor_list}
+
+Hệ thống bao gồm các tác nhân (Actor) tham gia tương tác như sau:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{STT} & \textbf{Actor} & \textbf{Mô tả} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+1 & Admin & Quản trị hệ thống, quản lý người dùng và phân quyền \\ \hline
+2 & Mangaka & Tác giả Manga, quản lý quá trình sáng tác và cộng tác \\ \hline
+3 & Assistant & Trợ lý hỗ trợ thực hiện các công việc được giao \\ \hline
+4 & Tantou Editor & Biên tập viên kiểm duyệt và phản hồi nội dung \\ \hline
+5 & Editorial Board & Hội đồng biên tập đánh giá và quyết định xuất bản \\ \hline
+\end{tabularx}
+\caption{Danh sách Actor}
+\label{tab:danh_sach_actor}
+
+\end{table}
 
 Dưới đây là mô tả chi tiết vai trò của các đối tượng sử dụng (Actor) tham gia vào hệ thống Manga Creation Workflow and Publishing Management System:
 
@@ -29,8 +107,125 @@ Dưới đây là mô tả chi tiết vai trò của các đối tượng sử d
 \subsection{Use Case Diagram}
 \label{subsec:srs_use_case_diagram}
 
+\subsubsection{Use Case Diagram tổng thể}
+\label{subsec:use_case_tong_the}
+Use Case Diagram tổng thể mô tả toàn bộ các chức năng chính của hệ thống và mối quan hệ tương tác giữa các Actor với hệ thống.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapter3_IMAGE/Use_case_tong_quat .png}
+    \caption{Use Case Diagram tổng thể của hệ thống}
+    \label{fig:Use_case_tong_quat}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram chi tiết}
+\label{subsec:use_case_chi_tiet}
+Để làm rõ chức năng của từng nhóm người dùng, hệ thống được phân tách thành các Use Case Diagram chi tiết tương ứng với từng Actor.
+
+\subsubsection{Use Case Diagram của Admin}
+\label{subsec:use_case_diagram_cua_admin}
+Use Case Diagram của Admin mô tả các chức năng quản trị hệ thống, quản lý người dùng, phân quyền và theo dõi hoạt động hệ thống.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/Use_case_Admin.png}
+    \caption{Use Case Diagram của Admin}
+    \label{fig:Use_case_Admin}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Mangaka}
+\label{subsec:use_case_diagram_cua_mangaka}
+Use Case Diagram của Mangaka mô tả các chức năng liên quan đến quản lý Series, Chapter, giao việc cho Assistant và theo dõi quá trình sáng tác Manga.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Magaka.png}
+    \caption{Use Case Diagram của Mangaka}
+    \label{fig:Use_case_Magaka}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Assistant}
+\label{subsec:use_case_diagram_cua_Assistant}
+Use Case Diagram của Assistant mô tả các chức năng nhận nhiệm vụ, thực hiện công việc, nộp Submission và theo dõi kết quả xử lý công việc.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Assistant.png}
+    \caption{Use Case Diagram của Assistant}
+    \label{fig:use_case_Assistant}    
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Tantou Editor}
+\label{subsec:use_case_diagram_cua_Tantou_Editor}
+Use Case Diagram của Tantou Editor mô tả các chức năng kiểm duyệt nội dung, theo dõi tiến độ phát triển Series và gửi phản hồi cho Mangaka.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Tantou_Editor.png}
+    \caption{Use Case Diagram của Tantou Editor}
+    \label{fig:use_case_Tantou_Editor}    
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Editorial Board}
+\label{subsec:use_case_diagram_cua_Editorial_Board}
+Use Case Diagram của Editorial Board mô tả các chức năng xét duyệt Series, nhập dữ liệu bình chọn, đánh giá xếp hạng và đưa ra quyết định xuất bản.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Editorial_board.png}
+    \caption{Use Case Diagram của Editorial Board}
+    \label{fig:use_case_Editorial_board}    
+\end{figure}
+
+\FloatBarrier
+
 \subsection{Bảng tóm tắt Use Case (Use Case Summary)}
 \label{subsec:srs_use_case_summary}
+
+Dưới đây là bảng tổng hợp và tóm tắt toàn bộ 33 Use Cases của hệ thống Manga Creation Workflow and Publishing Management System bao gồm mã định danh (ID), tên Use Case, Actor chính tham gia và mô tả ngắn gọn chức năng của từng Use Case:
+
+\begin{longtable}{|p{1.3cm}|p{4.2cm}|p{3.2cm}|p{6.0cm}|}
+    \hline
+    \rowcolor{tableheader}
+    \textbf{ID} & \textbf{Tên Use Case} & \textbf{Actor chính} & \textbf{Mô tả ngắn gọn} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+    \endfirsthead
+    \hline
+    \rowcolor{tableheader}
+    \textbf{ID} & \textbf{Tên Use Case} & \textbf{Actor chính} & \textbf{Mô tả ngắn gọn} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+    \endhead
+    \textbf{UC-01} & Đăng nhập hệ thống & Tất cả các Actor & Người dùng đăng nhập vào hệ thống bằng tài khoản và mật khẩu được cấp. \\ \hline
+    \textbf{UC-02} & Đăng xuất & Tất cả các Actor & Người dùng đăng xuất khỏi hệ thống để kết thúc phiên làm việc. \\ \hline
+    \textbf{UC-03} & Xem danh sách người dùng & Admin & Admin xem danh sách toàn bộ người dùng trong hệ thống. \\ \hline
+    \textbf{UC-04} & Tạo tài khoản & Admin & Admin tạo tài khoản mới cho các thành viên trong hệ thống. \\ \hline
+    \textbf{UC-05} & Cập nhật thông tin & Admin & Admin chỉnh sửa thông tin cá nhân và vai trò của người dùng. \\ \hline
+    \textbf{UC-06} & Khóa/Mở khóa tài khoản & Admin & Admin vô hiệu hóa hoặc kích hoạt lại tài khoản người dùng. \\ \hline
+    \textbf{UC-07} & Tạo hồ sơ Series mới & Mangaka & Mangaka tạo đề xuất Series mới kèm thông tin mô tả và ảnh bìa. \\ \hline
+    \textbf{UC-08} & Xem danh sách Series & Tất cả các Actor & Xem danh sách các bộ truyện Manga trên hệ thống theo phân quyền. \\ \hline
+    \textbf{UC-09} & Cập nhật thông tin Series & Mangaka & Mangaka chỉnh sửa thông tin giới thiệu của Series do mình quản lý. \\ \hline
+    \textbf{UC-10} & Theo dõi trạng thái Series & Mangaka, Editor, Board & Theo dõi tình trạng phát triển và xuất bản hiện tại của Series. \\ \hline
+    \textbf{UC-11} & Tạo Chapter mới & Mangaka & Mangaka tạo Chapter mới thuộc Series của mình quản lý. \\ \hline
+    \textbf{UC-12} & Cập nhật thông tin Chapter & Mangaka & Mangaka chỉnh sửa tiêu đề, số thứ tự hoặc mô tả Chapter. \\ \hline
+    \textbf{UC-13} & Theo dõi tiến độ Chapter & Mangaka, Editor & Theo dõi tiến độ hoàn thành của các trang truyện trong Chapter. \\ \hline
+    \textbf{UC-14} & Tạo Page & Mangaka & Mangaka tải các trang truyện thô lên Chapter để phân chia công việc. \\ \hline
+    \textbf{UC-15} & Cập nhật trạng thái Page & Mangaka, Assistant & Cập nhật trạng thái của từng trang vẽ (Chưa làm, Đang làm, Hoàn thành). \\ \hline
+    \textbf{UC-16} & Tạo và phân công Task & Mangaka & Mangaka tạo các nhiệm vụ vẽ chi tiết và giao cho Assistant cụ thể. \\ \hline
+    \textbf{UC-17} & Cập nhật trạng thái Task & Assistant & Assistant cập nhật tiến trình thực hiện Task được giao. \\ \hline
+    \textbf{UC-18} & Theo dõi tiến độ Task & Mangaka & Mangaka giám sát trạng thái và thời hạn thực hiện Task của Assistant. \\ \hline
+    \textbf{UC-19} & Hủy Task & Mangaka & Mangaka hủy bỏ nhiệm vụ vẽ đã giao cho Assistant. \\ \hline
+    \textbf{UC-20} & Nộp Submission & Assistant & Assistant tải lên sản phẩm vẽ hoàn thiện tương ứng với Task được giao. \\ \hline
+    \textbf{UC-21} & Xem chi tiết Submission & Mangaka, Assistant & Xem file hình ảnh vẽ, ghi chú và các thông tin nộp bài của Task. \\ \hline
+    \textbf{UC-22} & Xem lịch sử Submission & Mangaka, Assistant & Xem danh sách các phiên bản nộp và chỉnh sửa trước đó của Task. \\ \hline
+    \textbf{UC-23} & Tạo Review cho Submission & Mangaka, Editor & Mangaka hoặc Editor viết nhận xét, khoanh vùng và đánh giá kết quả Submission. \\ \hline
+    \textbf{UC-24} & Xem chi tiết Review & Mangaka, Assistant, Editor & Xem nội dung đánh giá và các ghi chú yêu cầu sửa đổi từ người kiểm duyệt. \\ \hline
+    \textbf{UC-25} & Phản hồi yêu cầu chỉnh sửa & Assistant & Assistant phản hồi nhận xét và thực hiện gửi lại bản vẽ sửa đổi. \\ \hline
+    \textbf{UC-26} & Xét duyệt Series mới & Editorial Board & Hội đồng đánh giá hồ sơ đề xuất Series mới và bỏ phiếu xét duyệt. \\ \hline
+    \textbf{UC-27} & Xuất bản Chapter & Editorial Board, Editor & Phát hành chính thức Chapter đã hoàn thành lên hệ thống đọc truyện. \\ \hline
+    \textbf{UC-28} & Quyết định ngừng phát hành & Editorial Board & Quyết định dừng sản xuất và xuất bản vĩnh viễn một Series Manga. \\ \hline
+    \textbf{UC-29} & Nhập dữ liệu bình chọn & Editorial Board & Hội đồng nhập số liệu phiếu bình chọn của độc giả sau mỗi kỳ phát hành. \\ \hline
+    \textbf{UC-30} & Xem bảng xếp hạng & Tất cả các Actor & Theo dõi thứ hạng và sự tăng giảm thứ bậc của các bộ truyện. \\ \hline
+    \textbf{UC-31} & Xem lịch sử xếp hạng & Board, Mangaka & Xem lịch sử thứ hạng của Series qua các kỳ phát hành để đánh giá hiệu quả. \\ \hline
+    \textbf{UC-32} & Xem danh sách thông báo & Tất cả các Actor & Xem danh sách các thông báo hệ thống liên quan đến công việc, kiểm duyệt. \\ \hline
+    \textbf{UC-33} & Đánh dấu đã đọc & Tất cả các Actor & Cập nhật trạng thái thông báo thành đã đọc (từng thông báo hoặc tất cả). \\ \hline
+\end{longtable}
 
 \subsection{Yêu cầu của từng nhóm người dùng}
 \label{subsec:srs_user_specific_requirements}
