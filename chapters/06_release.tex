@@ -3,33 +3,119 @@
 
 \section{Danh sách sản phẩm bàn giao (Deliverable Package)}
 \label{sec:release_package}
+Hệ thống quản lý quy trình sản xuất và xuất bản Manga sau khi hoàn thiện sẽ được bàn giao đầy đủ bao gồm các thành phần sản phẩm dưới đây:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|l|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{STT} & \textbf{Tên sản phẩm} & \textbf{Định dạng} & \textbf{Mô tả chi tiết} \\ \hline
+1 & Mã nguồn hệ thống (Source Code) & ZIP / Git Repo & Toàn bộ mã nguồn PHP của ứng dụng (views, controllers, config, assets...). \\ \hline
+2 & Kịch bản cơ sở dữ liệu (Database Schema) & File .sql & Tập tin script khởi tạo cấu trúc 10 bảng CSDL và dữ liệu cấu hình ban đầu (Roles, Admin). \\ \hline
+3 & Tài liệu đặc tả yêu cầu (SRS) & File .pdf & Tài liệu đặc tả yêu cầu phần mềm chi tiết của hệ thống. \\ \hline
+4 & Tài liệu thiết kế kiến trúc và CSDL (SDD) & File .pdf & Bản mô tả thiết kế hệ thống, thực thể cơ sở dữ liệu, sơ đồ lớp tĩnh và tuần tự. \\ \hline
+5 & Tài liệu kịch bản kiểm thử (STD) & File .pdf & Kịch bản kiểm thử chi tiết cho các chức năng cốt lõi. \\ \hline
+6 & Hướng dẫn cài đặt và sử dụng & File .pdf & Hướng dẫn thiết lập môi trường, cơ sở dữ liệu và vận hành cho các Actor. \\ \hline
+\end{tabularx}
+\caption{Danh sách sản phẩm bàn giao dự án}
+\label{tab:deliverables}
+\end{table}
 
 \section{Hướng dẫn cài đặt (Installation Guides)}
 \label{sec:installation_guides}
 
 \subsection{Yêu cầu hệ thống}
 \label{subsec:install_sys_requirements}
+Để hệ thống vận hành ổn định, môi trường triển khai cần đáp ứng các yêu cầu tối thiểu và khuyến nghị như sau:
+
+\textbf{Cấu hình phần cứng:}
+\begin{itemize}
+    \item \textbf{Cấu hình tối thiểu (Minimum Specification):} CPU Intel Dual Core / AMD tương đương, RAM 4GB, bộ nhớ lưu trữ trống tối thiểu 500MB.
+    \item \textbf{Cấu hình khuyến nghị (Recommended Specification):} CPU Intel Core i3 trở lên / AMD tương đương, RAM 8GB, bộ nhớ lưu trữ trống (SSD) từ 2GB trở lên để tối ưu tốc độ lưu trữ bản thảo hình ảnh.
+\end{itemize}
+
+\textbf{Cấu hình phần mềm:}
+\begin{itemize}
+    \item \textbf{Máy chủ Web (Web Server):} Apache 2.4 trở lên (khuyến nghị sử dụng XAMPP v3.3.0+ hoặc Laragon).
+    \item \textbf{Ngôn ngữ lập trình:} PHP từ phiên bản 8.1 trở lên (bắt buộc kích hoạt thư viện mở rộng \texttt{PDO} và \texttt{pdo\_mysql} để thực hiện kết nối cơ sở dữ liệu).
+    \item \textbf{Hệ quản trị cơ sở dữ liệu:} MySQL 5.7+ hoặc MariaDB 10.4+.
+\end{itemize}
 
 \subsection{Cài đặt môi trường phát triển}
 \label{subsec:install_dev_environment}
+Quy trình cài đặt môi trường chạy thử nghiệm hệ thống sử dụng XAMPP trên hệ điều hành Windows gồm các bước:
+\begin{enumerate}
+    \item \textbf{Tải và cài đặt XAMPP:} Tải gói cài đặt XAMPP hỗ trợ PHP 8.1+ từ trang chủ Apache Friends và tiến hành cài đặt vào thư mục mặc định (ví dụ: \texttt{C:\\xampp}).
+    \item \textbf{Khởi động dịch vụ:} Mở bảng điều khiển \texttt{XAMPP Control Panel} dưới quyền Administrator, khởi động (Start) dịch vụ \textbf{Apache} và \textbf{MySQL}.
+    \item \textbf{Sao chép mã nguồn:} Giải nén tệp mã nguồn dự án \texttt{BTapManga.zip} vào thư mục gốc phục vụ web của XAMPP tại đường dẫn \texttt{C:\\xampp\\htdocs\\BTapManga}.
+    \item \textbf{Kiểm tra truy cập:} Mở trình duyệt web và truy cập địa chỉ \texttt{http://localhost/BTapManga/} để đảm bảo máy chủ web nhận dạng chính xác thư mục dự án.
+\end{enumerate}
 
 \subsection{Cài đặt cơ sở dữ liệu}
 \label{subsec:install_database}
+Thiết lập cơ sở dữ liệu cho dự án được thực hiện tuần tự như sau:
+\begin{enumerate}
+    \item \textbf{Tạo cơ sở dữ liệu mới:} Truy cập công cụ quản lý \texttt{phpMyAdmin} qua địa chỉ \texttt{http://localhost/phpmyadmin/}. Chọn mục \textbf{New} để tạo cơ sở dữ liệu mới với tên gọi chính xác là \texttt{manga\_workflow}, thiết lập bảng mã đối chiếu (Collation) là \texttt{utf8mb4\_general\_ci}.
+    \item \textbf{Nhập cấu trúc dữ liệu (Import SQL):} Chọn cơ sở dữ liệu \texttt{manga\_workflow} mới tạo, nhấp chọn thẻ \textbf{Import} ở thanh trình đơn phía trên, tìm chọn tệp tin kịch bản cơ sở dữ liệu \texttt{manga\_workflow.sql} đi kèm trong gói bàn giao và nhấn nút \textbf{Import/Go} để thực thi.
+    \item \textbf{Cấu hình thông số kết nối ứng dụng:} Trong mã nguồn dự án, kiểm tra tệp tin cấu hình \texttt{config/database.php} để đảm bảo thông tin kết nối khớp với cấu hình MySQL cục bộ. Mẫu cấu hình mặc định như sau:
+\begin{lstlisting}[language=PHP]
+class Database {
+    private $host = 'localhost';
+    private $port = '3306';
+    private $dbname = 'manga_workflow';
+    private $username = 'root';
+    private $password = '';
+    // ... logic ket noi PDO ...
+}
+\end{lstlisting}
+\end{enumerate}
 
 \section{Hướng dẫn sử dụng (User Manual)}
 \label{sec:user_manual}
 
 \subsection{Hướng dẫn cho Admin}
 \label{subsec:manual_admin}
+Tác nhân Admin chịu trách nhiệm quản trị hệ thống, quản lý tài khoản và phân quyền người dùng:
+\begin{itemize}
+    \item \textbf{Đăng nhập hệ thống:} Sử dụng tài khoản quản trị viên mặc định để truy cập giao diện Dashboard dành riêng cho Admin.
+    \item \textbf{Quản lý người dùng (User Management):} Truy cập mục "Quản lý tài khoản". Để thêm mới người dùng, chọn "Tạo tài khoản", điền đầy đủ các thông tin gồm Tên đăng nhập, Họ và tên, Email, Mật khẩu và chọn Vai trò phù hợp (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) rồi nhấn lưu.
+    \item \textbf{Khóa và kích hoạt tài khoản:} Admin có thể chủ động vô hiệu hóa quyền đăng nhập của bất kỳ tài khoản nào bằng cách nhấp chọn nút "Khóa tài khoản" bên cạnh thông tin người dùng trong danh sách, hoặc nhấn "Mở khóa" để phục hồi quyền truy cập.
+\end{itemize}
 
 \subsection{Hướng dẫn cho Mangaka}
 \label{subsec:manual_mangaka}
+Tác nhân Mangaka sở hữu quyền sáng tác chính, điều phối nhân lực phụ tá và làm việc trực tiếp với biên tập viên:
+\begin{itemize}
+    \item \textbf{Quản lý bộ truyện (Series):} Vào thẻ "Quản lý Series", nhấp chọn "Tạo Series mới", cung cấp Tên bộ truyện, Ảnh bìa đại diện, phần mô tả nội dung tóm tắt và lưu lại hồ sơ.
+    \item \textbf{Quản lý chương (Chapter):} Truy cập vào chi tiết một bộ truyện, tạo mới các Chapter bằng cách khai báo số thứ tự chương và tiêu đề tương ứng.
+    \item \textbf{Phân công công việc (Task):} Trong trang quản trị tiến độ chương, Mangaka có thể tạo Task công việc mới (Ví dụ: "Vẽ phác thảo trang 1-5", "Lên màu hậu cảnh"), chỉ định một trợ lý (Assistant) chịu trách nhiệm thực hiện, thiết lập thời hạn hoàn thành (Due Date) và mức độ ưu tiên của công việc.
+    \item \textbf{Đánh giá kết quả (Review Submission):} Khi Assistant hoàn thành công việc và nộp bài vẽ, Mangaka truy cập chi tiết Task để xem ảnh bản vẽ thô, nhập ý kiến nhận xét và nhấn nút "Phê duyệt" (Approve) để đóng Task hoặc nhấn "Từ chối" (Reject) để yêu cầu sửa lại.
+\end{itemize}
 
 \subsection{Hướng dẫn cho Assistant}
 \label{subsec:manual_assistant}
+Tác nhân Assistant tiếp nhận công việc được giao từ Mangaka và phản hồi kết quả:
+\begin{itemize}
+    \item \textbf{Theo dõi công việc được giao:} Truy cập vào trang "Nhiệm vụ của tôi" (My Tasks) hiển thị trực quan dưới dạng bảng Kanban để nắm bắt các Task mới được giao (To Do) hoặc các Task đang thực hiện (In Progress).
+    \item \textbf{Nộp báo cáo kết quả (Submission):} Với mỗi Task hoàn thành, Assistant nhấp chọn chi tiết nhiệm vụ, chọn mục "Nộp bản vẽ" (New Submission), thực hiện tải lên tệp tin hình ảnh bản phác thảo vẽ tay hoặc tệp nén bản vẽ số, viết thêm ghi chú bổ sung gửi Mangaka và bấm gửi.
+    \item \textbf{Chỉnh sửa theo yêu cầu:} Theo dõi trạng thái duyệt bài của Mangaka. Nếu bài nộp bị chuyển trạng thái "Yêu cầu sửa lại", Assistant cần đọc kỹ phần nhận xét phản hồi của tác giả để vẽ lại và tiến hành nộp bản vẽ cập nhật mới.
+\end{itemize}
 
 \subsection{Hướng dẫn cho Tantou Editor}
 \label{subsec:manual_tantou}
+Tác nhân Tantou Editor đóng vai trò là Biên tập viên kiểm duyệt chất lượng nội dung chương truyện trước khi đưa ra quyết định phát hành:
+\begin{itemize}
+    \item \textbf{Kiểm duyệt chương truyện (Review Chapter):} Nhận thông báo tự động khi một chương truyện được Mangaka đánh dấu hoàn thiện. Tantou Editor truy cập vào danh sách chờ duyệt, duyệt chi tiết từng trang truyện của chương đó.
+    \item \textbf{Gửi ý kiến phản hồi:} Nhập nội dung đánh giá chất lượng cốt truyện và nét vẽ vào biểu mẫu nhận xét, chấm điểm rating (từ 1 đến 5 sao) và lựa chọn: "Thông qua" (Chương truyện sẽ được chuyển sang trạng thái sẵn sàng xuất bản) hoặc "Yêu cầu chỉnh sửa thêm" (Chương truyện trả về cho Mangaka sửa đổi).
+\end{itemize}
 
 \subsection{Hướng dẫn cho Editorial Board}
 \label{subsec:manual_editorial}
+Tác nhân Editorial Board (Hội đồng biên tập) thực hiện quản lý phát hành cấp cao và điều phối chiến lược xuất bản truyện:
+\begin{itemize}
+    \item \textbf{Theo dõi hiệu quả phát hành:} Truy cập vào trang "Thống kê & Xếp hạng" để xem biểu đồ thứ hạng của các bộ truyện dựa trên lượt xem và điểm số đánh giá từ độc giả.
+    \item \textbf{Cập nhật bình chọn độc giả:} Sử dụng giao diện "Nhập số liệu bình chọn" định kỳ theo số phát hành để hệ thống tự động tính toán lại điểm số và thay đổi vị trí xếp hạng của toàn bộ các Series.
+    \item \textbf{Quyết định xuất bản và điều chỉnh:} Đối với các chương đạt điều kiện phê duyệt, chọn chức năng "Xuất bản" (Publish) để đẩy dữ liệu lên trang đọc truyện công cộng. Đối với các bộ truyện liên tục đứng cuối bảng xếp hạng trong nhiều kỳ, Hội đồng họp đánh giá và chọn "Ngừng xuất bản" (Archive Series) hoặc điều chỉnh lại kế hoạch phát hành.
+\end{itemize}
