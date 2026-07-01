@@ -39,3 +39,30 @@ Kiến trúc Client -- Server giúp tập trung quản lý dữ liệu, tăng kh
 
 \subsection{Công nghệ sử dụng (Technology Stack)}
 \label{subsec:sdd_tech_stack}
+
+Để đáp ứng yêu cầu hoạt động ổn định, dễ bảo trì và mở rộng, hệ thống được xây dựng dựa trên các công nghệ tiêu chuẩn sau:
+
+\begin{itemize}
+    \item \textbf{Tầng giao diện (Frontend - Presentation Layer):}
+    \begin{itemize}
+        \item \textbf{HTML5 \& CSS3:} Định nghĩa cấu trúc trang web và định dạng giao diện tương thích đa thiết bị (Responsive Design).
+        \item \textbf{JavaScript (ES6):} Xử lý các tương tác phía client, gửi và nhận dữ liệu bất đồng bộ (AJAX).
+        \item \textbf{Bootstrap Framework:} Hỗ trợ thiết kế giao diện nhanh chóng, nhất quán nhờ hệ thống lưới và các component dựng sẵn.
+    \end{itemize}
+    
+    \item \textbf{Tầng xử lý nghiệp vụ (Backend - Business Logic Layer):}
+    \begin{itemize}
+        \item \textbf{PHP:} Ngôn ngữ lập trình phía máy chủ, chịu trách nhiệm xử lý các luồng nghiệp vụ của hệ thống (quản lý Series, Task, Submission...).
+        \item \textbf{MVC Pattern:} Áp dụng kiến trúc Model-View-Controller giúp phân tách rõ ràng phần hiển thị, nghiệp vụ và dữ liệu, dễ bảo trì và viết các bài kiểm thử.
+    \end{itemize}
+
+    \item \textbf{Tầng dữ liệu (Database - Data Layer):}
+    \begin{itemize}
+        \item \textbf{MySQL Database Server:} Hệ quản trị cơ sở dữ liệu quan hệ được sử dụng để lưu trữ toàn bộ dữ liệu nghiệp vụ của ứng dụng một cách an toàn và tối ưu hiệu năng truy vấn.
+    \end{itemize}
+
+    \item \textbf{Hạ tầng và Máy chủ (Web Server):}
+    \begin{itemize}
+        \item \textbf{Apache / Nginx:} Máy chủ web chịu trách nhiệm tiếp nhận yêu cầu từ client, chuyển tiếp qua PHP processor và phản hồi kết quả về trình duyệt.
+    \end{itemize}
+\end{itemize}

@@ -71,12 +71,13 @@ description & string & Mô tả vai trò \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-userId & int & Mã người dùng \\ \hline
+userId & int & Mã người dùng (Primary Key) \\ \hline
 username & string & Tên đăng nhập \\ \hline
 fullName & string & Họ và tên \\ \hline
 email & string & Địa chỉ email \\ \hline
 passwordHash & string & Mật khẩu đã mã hóa \\ \hline
 status & string & Trạng thái tài khoản \\ \hline
+roleId & int & Mã vai trò (Foreign Key liên kết lớp Role) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp User}
 \label{tab:class_user}
@@ -93,11 +94,12 @@ status & string & Trạng thái tài khoản \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-seriesId & int & Mã bộ truyện \\ \hline
+seriesId & int & Mã bộ truyện (Primary Key) \\ \hline
 title & string & Tên bộ truyện \\ \hline
 description & string & Mô tả nội dung \\ \hline
 status & string & Trạng thái bộ truyện \\ \hline
 coverImage & string & Ảnh bìa bộ truyện \\ \hline
+userId & int & Mã tác giả (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Series}
 \label{tab:class_series}
@@ -114,11 +116,12 @@ coverImage & string & Ảnh bìa bộ truyện \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-chapterId & int & Mã chương \\ \hline
+chapterId & int & Mã chương (Primary Key) \\ \hline
 chapterNumber & int & Số thứ tự chương \\ \hline
 title & string & Tên chương \\ \hline
 status & string & Trạng thái chương \\ \hline
 publishedAt & datetime & Ngày xuất bản \\ \hline
+seriesId & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Chapter}
 \label{tab:class_chapter}
@@ -135,10 +138,11 @@ publishedAt & datetime & Ngày xuất bản \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-pageId & int & Mã trang \\ \hline
+pageId & int & Mã trang (Primary Key) \\ \hline
 pageNumber & int & Số thứ tự trang \\ \hline
 imageUrl & string & Đường dẫn ảnh \\ \hline
 status & string & Trạng thái hoàn thành \\ \hline
+chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Page}
 \label{tab:class_page}
@@ -155,12 +159,15 @@ status & string & Trạng thái hoàn thành \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-taskId & int & Mã công việc \\ \hline
+taskId & int & Mã công việc (Primary Key) \\ \hline
 title & string & Tên công việc \\ \hline
 description & string & Mô tả công việc \\ \hline
 priority & string & Mức độ ưu tiên \\ \hline
 status & string & Trạng thái công việc \\ \hline
 dueDate & datetime & Hạn hoàn thành \\ \hline
+chapterId & int & Mã chương truyện liên kết (Foreign Key liên kết lớp Chapter) \\ \hline
+creatorId & int & Mã người giao việc (Foreign Key liên kết lớp User) \\ \hline
+assigneeId & int & Mã người nhận việc (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Task}
 \label{tab:class_task}
@@ -177,11 +184,13 @@ dueDate & datetime & Hạn hoàn thành \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-submissionId & int & Mã bài nộp \\ \hline
+submissionId & int & Mã bài nộp (Primary Key) \\ \hline
 fileUrl & string & Đường dẫn tập tin \\ \hline
 notes & string & Ghi chú bổ sung \\ \hline
 status & string & Trạng thái bài nộp \\ \hline
 submittedAt & datetime & Thời gian nộp \\ \hline
+taskId & int & Mã công việc liên kết (Foreign Key liên kết lớp Task) \\ \hline
+userId & int & Mã trợ lý thực hiện (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Submission}
 \label{tab:class_submission}
@@ -198,10 +207,12 @@ submittedAt & datetime & Thời gian nộp \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-reviewId & int & Mã đánh giá \\ \hline
+reviewId & int & Mã đánh giá (Primary Key) \\ \hline
 comments & string & Nội dung nhận xét \\ \hline
 rating & int & Điểm đánh giá \\ \hline
 createdAt & datetime & Thời gian đánh giá \\ \hline
+submissionId & int & Mã bài nộp được đánh giá (Foreign Key liên kết lớp Submission) \\ \hline
+userId & int & Mã người đánh giá (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Review}
 \label{tab:class_review}
@@ -218,10 +229,12 @@ createdAt & datetime & Thời gian đánh giá \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-rankingId & int & Mã xếp hạng \\ \hline
+rankingId & int & Mã xếp hạng (Primary Key) \\ \hline
 rankPosition & int & Thứ hạng \\ \hline
 score & decimal & Điểm đánh giá \\ \hline
 periodStartDate & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
+seriesId & int & Mã bộ truyện được xếp hạng (Foreign Key liên kết lớp Series) \\ \hline
+userId & int & Mã thành viên BBT chấm điểm (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp SeriesRanking}
 \label{tab:class_seriesranking}
@@ -238,10 +251,11 @@ periodStartDate & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-notificationId & int & Mã thông báo \\ \hline
+notificationId & int & Mã thông báo (Primary Key) \\ \hline
 type & string & Loại thông báo \\ \hline
 message & string & Nội dung thông báo \\ \hline
 isRead & boolean & Trạng thái đã đọc \\ \hline
+userId & int & Mã người dùng nhận (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Notification}
 \label{tab:class_notification}
@@ -249,6 +263,30 @@ isRead & boolean & Trạng thái đã đọc \\ \hline
 
 \subsubsection{Bổ sung phương thức (Methods)}
 \label{subsubsec:class_methods}
+
+Các phương thức (Methods) của từng lớp trong hệ thống mô tả hành vi động và các xử lý logic cụ thể của các thực thể nghiệp vụ:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{3cm}|p{5cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Tên lớp} & \textbf{Tên phương thức} & \textbf{Mô tả chức năng} \\ \hline
+Role & getRoleName(), getDescription() & Lấy thông tin chi tiết của vai trò. \\ \hline
+User & login(), logout(), updateProfile(), changePassword(), deactivateAccount() & Xác thực người dùng, cập nhật thông tin và quản lý tài khoản. \\ \hline
+Series & createSeries(), updateSeries(), deleteSeries(), publishSeries(), getChapters() & Quản lý vòng đời bộ truyện, xuất bản và truy vấn danh sách chương. \\ \hline
+Chapter & createChapter(), updateChapter(), publishChapter(), getPages() & Quản lý thông tin chương truyện, phê duyệt trang và phát hành. \\ \hline
+Page & addPage(), updatePage(), deletePage() & Quản lý các trang ảnh trong chương truyện. \\ \hline
+Task & createTask(), assignTask(), updateTaskStatus(), cancelTask() & Giao việc cho trợ lý (Assistant), cập nhật tiến độ công việc. \\ \hline
+Submission & submitWork(), updateSubmission(), deleteSubmission(), getReviews() & Trợ lý nộp sản phẩm, cập nhật file nộp và xem phản hồi. \\ \hline
+Review & createReview(), updateReview(), getReviewDetails() & Biên tập viên/Tác giả đánh giá bài nộp, chấm điểm và viết nhận xét. \\ \hline
+SeriesRanking & updateRank(), getRankingHistory() & Tính toán điểm số và cập nhật xếp hạng của bộ truyện theo kỳ. \\ \hline
+Notification & createNotification(), markAsRead(), deleteNotification() & Gửi thông báo đến người nhận, đánh dấu đã đọc hoặc xóa. \\ \hline
+\end{tabularx}
+\caption{Mô tả chi tiết phương thức của các lớp trong hệ thống}
+\label{tab:class_methods}
+\end{table}
 
 \subsubsection{Class Diagram tổng thể}
 \label{subsubsec:class_overview}
