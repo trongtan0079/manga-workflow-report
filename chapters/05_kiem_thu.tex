@@ -4,59 +4,360 @@
 \section{Phạm vi kiểm thử (Scope of Testing)}
 \label{sec:test_scope}
 
+Tài liệu này xác định phạm vi kiểm thử cho hệ thống quản lý quy trình sáng tác và xuất bản Manga (Manga Creation Workflow and Publishing Management System). Phạm vi bao gồm cả kiểm thử chức năng và phi chức năng nhằm đảm bảo hệ thống vận hành đúng đặc tả yêu cầu phần mềm (SRS).
+
+\begin{itemize}
+    \item \textbf{Kiểm thử trong phạm vi (In-Scope):}
+    \begin{itemize}
+        \item Toàn bộ các chức năng cốt lõi của hệ thống từ các ca sử dụng đặc tả (UC-01 đến UC-33): Quản lý người dùng, phân quyền truy cập, quản lý Series, Chapter, Page, giao và thực hiện Task, nộp bản thảo (Submission), đánh giá bản thảo (Review), xét duyệt Series, xuất bản, nhập dữ liệu bình chọn độc giả, cập nhật xếp hạng Series và gửi nhận thông báo.
+        \item Các yêu cầu phi chức năng (NFR) đã được định lượng: Hiệu năng tải trang ảnh và phản hồi API, các cơ chế bảo mật xác thực/phân quyền, khả năng tương thích hiển thị (Responsive) trên màn hình thiết bị di động/máy tính bảng, tính sẵn sàng khi ngắt kết nối tạm thời.
+    \end{itemize}
+    \item \textbf{Kiểm thử ngoài phạm vi (Out-of-Scope):}
+    \begin{itemize}
+        \item Kiểm thử bảo mật tầng sâu của máy chủ hạ tầng (OS patching, network level DDoS defense).
+        \item Kiểm thử các tích hợp thanh toán (Payment gateways) của bên thứ ba không thuộc phạm vi phần mềm quản lý nội bộ.
+        \item Kiểm thử hiệu năng mạng và băng thông của nhà cung cấp dịch vụ Internet (ISP).
+    \end{itemize}
+\end{itemize}
+
 \section{Chiến lược kiểm thử (Test Strategy)}
 \label{sec:test_strategy}
+
+Chiến lược kiểm thử áp dụng mô hình kiểm thử nhiều tầng nhằm phát hiện sớm lỗi và đảm bảo chất lượng phần mềm xuyên suốt các giai đoạn phát triển:
+
+\begin{itemize}
+    \item \textbf{Các cấp độ kiểm thử (Testing Levels):}
+    \begin{itemize}
+        \item \textit{Kiểm thử đơn vị (Unit Testing):} Do đội ngũ lập trình viên tự thực hiện trên các module code riêng lẻ. Tỷ lệ phủ mã nguồn tối thiểu phải đạt $80\%$.
+        \item \textit{Kiểm thử tích hợp (Integration Testing):} Thực hiện kiểm tra tính đúng đắn khi tích hợp các dịch vụ API, cơ sở dữ liệu và các module nghiệp vụ kết nối với nhau.
+        \item \textit{Kiểm thử hệ thống (System Testing):} Tiến hành kiểm thử luồng nghiệp vụ khép kín (End-to-End) trên môi trường Staging tích hợp đầy đủ giao diện người dùng và cơ sở dữ liệu.
+        \item \textit{Kiểm thử chấp nhận người dùng (User Acceptance Testing - UAT):} Do đại diện các bên liên quan thực tế (như Mangaka, Assistant và Tantou Editor) thực hiện kiểm thử trên các kịch bản thực tế để nghiệm thu chất lượng phần mềm.
+    \end{itemize}
+    \item \textbf{Phương pháp kiểm thử (Testing Methodology):}
+    \begin{itemize}
+        \item \textit{Kiểm thử hộp đen (Black-box Testing):} Áp dụng chủ yếu để kiểm thử chức năng giao diện, dựa vào đặc tả ca sử dụng mà không cần biết cấu trúc mã nguồn bên trong.
+        \item \textit{Kiểm thử tự động (Automated Testing):} Sử dụng các công cụ tự động hóa để chạy kiểm thử hồi quy (regression testing) cho các API backend.
+        \item \textit{Kiểm thử thủ công (Manual Testing):} Áp dụng cho kiểm thử giao diện người dùng (UI/UX), tính tương thích responsive trên các trình duyệt và thiết bị di động.
+    \end{itemize}
+    \item \textbf{Phân loại mức độ nghiêm trọng của lỗi (Defect Severity):}
+    \begin{itemize}
+        \item \textit{Mức 1 (Critical):} Lỗi gây sập hệ thống, mất mát dữ liệu cơ sở dữ liệu, hoặc vi phạm bảo mật nghiêm trọng (rò rỉ bản quyền truyện).
+        \item \textit{Mức 2 (Major):} Lỗi chức năng nghiệp vụ cốt lõi không hoạt động và không có giải pháp tạm thời (ví dụ: Mangaka không thể tạo Task mới, Assistant không thể nộp bài vẽ).
+        \item \textit{Mức 3 (Minor):} Lỗi giao diện hiển thị, căn lề lệch, sai chính tả văn bản tiếng Việt hoặc cảnh báo không ảnh hưởng nghiêm trọng đến luồng nghiệp vụ.
+    \end{itemize}
+\end{itemize}
 
 \section{Kế hoạch kiểm thử (Test Plan)}
 \label{sec:test_plan}
 
+Kế hoạch kiểm thử chi tiết hóa việc phân bổ tài nguyên, thiết lập môi trường và quy trình nghiệm thu chất lượng:
+
+\begin{itemize}
+    \item \textbf{Môi trường kiểm thử (Test Environment):}
+    \begin{itemize}
+        \item Máy chủ Staging chạy trên nền tảng Docker/Linux đồng bộ cấu hình với máy chủ Production.
+        \item Cơ sở dữ liệu Staging được populate sẵn dữ liệu thử nghiệm (ít nhất 5 tài khoản người dùng tương ứng với các vai trò, 10 Series truyện mẫu, và 100 trang vẽ thô).
+        \item Thiết bị kiểm thử: Máy tính chạy Google Chrome, Safari, Firefox; Điện thoại di động (iPhone và Android) hỗ trợ kiểm tra responsive.
+    \end{itemize}
+    \item \textbf{Tiêu chí bắt đầu và kết thúc (Entrance \& Exit Criteria):}
+    \begin{itemize}
+        \item \textit{Tiêu chí bắt đầu (Entrance Criteria):} Mã nguồn đã hoàn thiện biên dịch không lỗi; Toàn bộ các Unit Test đã được chạy thành công; Môi trường Staging đã sẵn sàng hoạt động ổn định; Kịch bản kiểm thử đã được phê duyệt.
+        \item \textit{Tiêu chí kết thúc (Exit Criteria):} 100\% các kịch bản kiểm thử (TC-01 đến TC-15) được thực hiện đầy đủ; Không còn tồn đọng lỗi mức Critical và Major; Tỷ lệ Pass Rate đạt tối thiểu $95\%$.
+    \end{itemize}
+\end{itemize}
+
 \section{Kịch bản kiểm thử (Test Cases)}
 \label{sec:test_cases}
 
+Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm thông tin về Actor, tiền điều kiện, các bước thực hiện và kết quả mong đợi nhằm kiểm tra các tính năng và ràng buộc cốt lõi của hệ thống:
+
 \subsection{TC-01: Đăng nhập — thông tin hợp lệ}
 \label{subsec:tc01_login_valid}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xác thực người dùng đăng nhập thành công khi nhập đúng thông tin tài khoản.
+    \item \textbf{Actor thực hiện:} Bất kỳ người dùng nào (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board).
+    \item \textbf{Tiền điều kiện:} Tài khoản đã được tạo và kích hoạt trên hệ thống (ví dụ: username \code{mangaka\_test}, vai trò Mangaka).
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang đăng nhập của hệ thống.
+        \item Nhập Tên đăng nhập hợp lệ vào ô Username.
+        \item Nhập Mật khẩu hợp lệ vào ô Password.
+        \item Nhấn nút "Đăng nhập".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Đăng nhập thành công, hệ thống cấp JWT token hợp lệ, chuyển hướng người dùng về trang Dashboard tương ứng với vai trò Mangaka, và hiển thị thông điệp chào mừng.
+\end{itemize}
 
 \subsection{TC-02: Đăng nhập — mật khẩu sai}
 \label{subsec:tc02_login_invalid_pwd}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Đảm bảo hệ thống từ chối đăng nhập khi người dùng nhập sai mật khẩu.
+    \item \textbf{Actor thực hiện:} Bất kỳ người dùng nào.
+    \item \textbf{Tiền điều kiện:} Tài khoản đã tồn tại trên hệ thống.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang đăng nhập của hệ thống.
+        \item Nhập Tên đăng nhập hợp lệ vào ô Username.
+        \item Nhập Mật khẩu sai vào ô Password.
+        \item Nhấn nút "Đăng nhập".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Đăng nhập thất bại, không cấp phiên làm việc, hiển thị thông báo lỗi thân thiện: "Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại." bằng chữ màu đỏ.
+\end{itemize}
 
 \subsection{TC-03: Đăng nhập — tài khoản bị khóa}
 \label{subsec:tc03_login_locked}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xác minh cơ chế tự động khóa tài khoản sau 5 lần đăng nhập sai liên tiếp nhằm bảo mật.
+    \item \textbf{Actor thực hiện:} Bất kỳ người dùng nào.
+    \item \textbf{Tiền điều kiện:} Tài khoản có trạng thái hoạt động bình thường trước sự cố.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Thực hiện đăng nhập sai mật khẩu liên tục 5 lần trên cùng một tài khoản.
+        \item Tại lần thứ 6, thực hiện đăng nhập bằng mật khẩu đúng của tài khoản đó.
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Tại lần sai thứ 5, hệ thống hiển thị thông báo tài khoản bị khóa tạm thời 15 phút. Tại lần thứ 6 (kể cả dùng mật khẩu đúng), hệ thống vẫn chặn đăng nhập và hiển thị thông báo tài khoản đang bị khóa tạm thời.
+\end{itemize}
 
 \subsection{TC-04: Tạo Series mới}
 \label{subsec:tc04_create_series}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xác thực tính năng đề xuất và tạo một bộ truyện (Series) mới của tác giả.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Mangaka đã đăng nhập thành công vào hệ thống.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang "Quản lý Series" và chọn "Đề xuất Series mới".
+        \item Nhập Tiêu đề bộ truyện, Mô tả tóm tắt nội dung.
+        \item Tải lên tệp ảnh bìa (dung lượng dưới 5MB).
+        \item Nhấn nút "Gửi đề xuất".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Tạo Series thành công, dữ liệu được ghi nhận vào bảng \code{Series} với trạng thái mặc định ban đầu là \code{Pending} (Chờ duyệt), và gửi thông báo đề xuất mới tới Editorial Board.
+\end{itemize}
 
 \subsection{TC-05: Cập nhật Series}
 \label{subsec:tc05_update_series}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xác thực quyền chỉnh sửa thông tin Series của tác giả sở hữu.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Series đã tồn tại trên hệ thống và thuộc quyền quản lý của Mangaka này.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập chi tiết Series cần chỉnh sửa trên Dashboard.
+        \item Nhấn nút "Chỉnh sửa thông tin".
+        \item Thay đổi Mô tả tóm tắt và cập nhật ảnh bìa mới.
+        \item Nhấn nút "Lưu thay đổi".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Ghi nhận thông tin mới vào cơ sở dữ liệu, hiển thị thông báo "Cập nhật thông tin Series thành công" và hiển thị thông tin mới cập nhật trên giao diện.
+\end{itemize}
 
 \subsection{TC-06: Tạo Chapter}
 \label{subsec:tc06_create_chapter}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Kiểm tra tính năng tạo chương mới cho một Series đang hoạt động.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Series truyện đã ở trạng thái \code{Active} (Đã được duyệt).
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập chi tiết Series đang hoạt động.
+        \item Chọn mục "Danh sách Chapter" và nhấn "Tạo Chapter mới".
+        \item Nhập số thứ tự Chapter, Tiêu đề chương.
+        \item Nhấn nút "Tạo".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Chapter mới được tạo thành công, tự động liên kết đúng với Series, ghi nhận vào bảng \code{Chapters} với trạng thái \code{Draft} (Bản thảo), sẵn sàng để thêm trang (Page).
+\end{itemize}
 
 \subsection{TC-07: Phân công Task cho Assistant}
 \label{subsec:tc07_assign_task}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xác thực quy trình tạo và giao việc (Task) vẽ trang truyện cho trợ lý.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Chapter đã được tạo và chứa các Page vẽ thô cần phân công; Assistant đã có tài khoản hoạt động trong hệ thống.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang quản lý Chapter vẽ, chọn trang cụ thể (Page).
+        \item Nhấn nút "Giao việc" (Assign Task).
+        \item Chọn loại công việc (ví dụ: Vẽ nền - Background inking), chọn tên Assistant thực hiện, chọn thời hạn Deadline, và viết ghi chú mô tả yêu cầu vẽ.
+        \item Nhấn "Gửi phân công".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Task được tạo thành công trong bảng \code{Tasks} ở trạng thái \code{Todo}, Assistant được phân công nhận được thông báo tức thì trên hệ thống về Task mới.
+\end{itemize}
 
 \subsection{TC-08: Nộp Submission}
 \label{subsec:tc08_submit_work}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Kiểm tra tính năng nộp kết quả công việc vẽ của trợ lý lên hệ thống.
+    \item \textbf{Actor thực hiện:} Assistant.
+    \item \textbf{Tiền điều kiện:} Assistant đã đăng nhập và được giao ít nhất một Task ở trạng thái \code{Todo} hoặc \code{In Progress}.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang Dashboard cá nhân, chọn Task đang thực hiện.
+        \item Nhấn nút "Nộp bản vẽ" (Submit Work).
+        \item Đính kèm tệp ảnh kết quả vẽ (định dạng PNG, dung lượng <10MB).
+        \item Nhập lời nhắn/báo cáo tiến độ và nhấn "Gửi".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Bản vẽ được tải lên thành công, tạo một bản ghi mới trong bảng \code{Submissions}, cập nhật trạng thái Task sang \code{Reviewing}, và gửi thông báo nhắc duyệt bài tới Mangaka giao việc.
+\end{itemize}
 
 \subsection{TC-09: Review Submission — Chấp nhận}
 \label{subsec:tc09_review_approve}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Kiểm duyệt và phê duyệt bản thảo đạt yêu cầu của tác giả.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Assistant đã gửi Submission cho Task được giao.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Nhấp vào thông báo duyệt bài hoặc truy cập chi tiết Task.
+        \item Xem tệp bản vẽ đính kèm trong Submission.
+        \item Nhấn nút "Duyệt và Chấp nhận" (Approve).
+        \item Nhập nhận xét khen ngợi hoặc phản hồi và nhấn "Xác nhận".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Lưu bản ghi phê duyệt vào bảng \code{Reviews} với kết quả \code{Approved}, trạng thái Task chuyển sang \code{Done}, trạng thái trang vẽ (Page) được cập nhật hoàn thành, gửi thông báo chúc mừng tới Assistant.
+\end{itemize}
 
 \subsection{TC-10: Review Submission — Yêu cầu chỉnh sửa}
 \label{subsec:tc10_review_edit}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Trả về bản thảo chưa đạt yêu cầu để trợ lý vẽ lại.
+    \item \textbf{Actor thực hiện:} Mangaka.
+    \item \textbf{Tiền điều kiện:} Assistant đã gửi Submission cho Task được giao.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập chi tiết Submission cần duyệt của Assistant.
+        \item Nhấp nút "Yêu cầu sửa đổi" (Request Changes).
+        \item Nhập mô tả chi tiết các phần vẽ lỗi cần sửa (ví dụ: "Vẽ lại bóng đổ ở góc trái").
+        \item Nhấn "Xác nhận gửi yêu cầu".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Lưu bản ghi review vào bảng \code{Reviews} với kết quả \code{Request Changes}, trạng thái Task quay lại \code{In Progress}, gửi thông báo kèm theo chi tiết nội dung phản hồi yêu cầu chỉnh sửa cho Assistant vẽ lại.
+\end{itemize}
 
 \subsection{TC-11: Xét duyệt Series mới}
 \label{subsec:tc11_approve_series}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Phê duyệt đề xuất Series mới để bắt đầu sản xuất.
+    \item \textbf{Actor thực hiện:} Editorial Board.
+    \item \textbf{Tiền điều kiện:} Có Series mới do Mangaka đề xuất đang ở trạng thái \code{Pending}.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập danh sách đề xuất Series mới.
+        \item Xem thông tin chi tiết hồ sơ đề xuất bộ truyện.
+        \item Nhấp nút "Phê duyệt" (Approve Series) và nhập quyết định kế hoạch.
+        \item Nhấn "Lưu quyết định".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Trạng thái bộ truyện chuyển sang \code{Active}, hệ thống tự động gửi thông báo phê duyệt chính thức kèm theo lời chúc mừng đến Mangaka đề xuất.
+\end{itemize}
 
 \subsection{TC-12: Xuất bản Chapter}
 \label{subsec:tc12_publish_chapter}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xuất bản chính thức một chương truyện đã hoàn thành lên cổng đọc truyện công cộng.
+    \item \textbf{Actor thực hiện:} Tantou Editor.
+    \item \textbf{Tiền điều kiện:} Chương truyện (Chapter) đã được tập hợp đầy đủ các trang vẽ hoàn thiện và Mangaka đã gửi yêu cầu xuất bản.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập danh sách Chapter chờ duyệt xuất bản.
+        \item Kiểm tra nội dung toàn chương và chọn "Duyệt Xuất bản".
+        \item Xác nhận xuất bản ngay lập tức.
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Trạng thái của Chapter chuyển từ \code{Draft}/\code{Pending} sang \code{Published}, ghi nhận thời gian xuất bản thực tế vào cơ sở dữ liệu, và kích hoạt thông báo cho độc giả đã theo dõi Series.
+\end{itemize}
 
 \subsection{TC-13: Nhập dữ liệu bình chọn}
 \label{subsec:tc13_input_votes}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Cập nhật số phiếu bình chọn của độc giả cho từng Series truyện theo kỳ đánh giá.
+    \item \textbf{Actor thực hiện:} Editorial Board.
+    \item \textbf{Tiền điều kiện:} Kết thúc một kỳ phát hành/bình chọn tuần hoặc tháng.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập trang "Quản lý Bảng xếp hạng".
+        \item Chọn Series tương ứng và nhập số lượng phiếu bình chọn thực tế thu được trong kỳ.
+        \item Nhấn nút "Cập nhật phiếu bầu".
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Hệ thống ghi nhận số lượng phiếu bầu mới vào bảng \code{Series\_Rankings}, thực hiện tính toán lại thứ hạng tự động của tất cả các bộ truyện.
+\end{itemize}
 
 \subsection{TC-14: Xem bảng xếp hạng}
 \label{subsec:tc14_view_ranking}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Xem bảng xếp hạng Series tự động cập nhật theo số phiếu bình chọn.
+    \item \textbf{Actor thực hiện:} Bất kỳ người dùng nào (Editorial Board, Mangaka...).
+    \item \textbf{Tiền điều kiện:} Hệ thống đã hoàn tất chạy cập nhật dữ liệu xếp hạng tự động.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Truy cập mục "Bảng xếp hạng Series" trên menu điều hướng.
+        \item Lọc xem bảng xếp hạng theo kỳ hiện tại (ví dụ: Tuần 26).
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Bảng xếp hạng hiển thị danh sách các Series Manga được sắp xếp giảm dần theo số lượng phiếu bình chọn thực tế, hiển thị đúng thứ hạng (hạng 1, 2, 3...) và mức độ tăng giảm hạng của Series so với kỳ trước.
+\end{itemize}
 
 \subsection{TC-15: Phân quyền — Truy cập trái phép}
 \label{subsec:tc15_auth_violation}
+\begin{itemize}
+    \item \textbf{Mục tiêu:} Kiểm tra ràng buộc bảo mật khi người dùng cố tình truy cập chức năng vượt ngoài quyền hạn.
+    \item \textbf{Actor thực hiện:} Assistant (Trợ lý).
+    \item \textbf{Tiền điều kiện:} Assistant đã đăng nhập thành công vào hệ thống bằng tài khoản của mình.
+    \item \textbf{Các bước thực hiện:}
+    \begin{enumerate}
+        \item Cố tình nhập trực tiếp trên trình duyệt đường dẫn URL quản trị hệ thống: \code{/admin/users/create} hoặc đường dẫn duyệt Series: \code{/editorial/series/approve}.
+    \end{enumerate}
+    \item \textbf{Kết quả mong đợi:} Giao dịch bị chặn tại Server, chuyển hướng người dùng về trang thông báo lỗi bảo mật 403 Forbidden hoặc trang Dashboard cá nhân, hiển thị thông báo: "Bạn không có quyền truy cập chức năng này."
+\end{itemize}
 
 \section{Báo cáo kiểm thử (Test Reports)}
 \label{sec:test_reports}
+
+Dưới đây là biểu mẫu Báo cáo kết quả kiểm thử tổng hợp (thống kê số lượng Pass/Fail/Blocked) và biểu mẫu danh sách chi tiết lỗi ghi nhận được trong mỗi vòng kiểm thử (Test Run):
+
+\subsection{Bảng thống kê kết quả tổng hợp (Summary Metrics)}
+
+Bảng dưới đây thống kê số lượng kịch bản kiểm thử đã thực hiện và tỷ lệ phần trăm tương ứng:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{0.8\textwidth}{|X|c|c|}
+\hline
+\rowcolor{tableheader}
+\textbf{Trạng thái kết quả} & \textbf{Số lượng kịch bản} & \textbf{Tỷ lệ (\%)} \\ \hline
+Đạt (Pass) & 0 & $0\%$ \\ \hline
+Không Đạt (Fail) & 0 & $0\%$ \\ \hline
+Bị chặn (Blocked) & 0 & $0\%$ \\ \hline
+\rowcolor{lightgray}
+\textbf{Tổng số kịch bản đã chạy} & \textbf{0 / 15} & \textbf{0\%} \\ \hline
+\end{tabularx}
+\caption{Thống kê kết quả kiểm thử tổng hợp}
+\label{tab:test_summary}
+\end{table}
+
+\subsection{Bảng theo dõi danh sách chi tiết kết quả chạy kiểm thử}
+
+Bảng dưới đây là biểu mẫu chi tiết dùng để ghi nhận trạng thái của từng kịch bản kiểm thử sau khi chạy:
+
+\begin{longtable}{|c|l|c|l|p{4cm}|}
+\hline
+\rowcolor{tableheader}
+\textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
+\endfirsthead
+
+\hline
+\rowcolor{tableheader}
+\textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
+\endhead
+
+TC-01 & Đăng nhập — thông tin hợp lệ & Chưa chạy & -- & -- \\ \hline
+TC-02 & Đăng nhập — mật khẩu sai & Chưa chạy & -- & -- \\ \hline
+TC-03 & Đăng nhập — tài khoản bị khóa & Chưa chạy & -- & -- \\ \hline
+TC-04 & Tạo Series mới & Chưa chạy & -- & -- \\ \hline
+TC-05 & Cập nhật Series & Chưa chạy & -- & -- \\ \hline
+TC-06 & Tạo Chapter & Chưa chạy & -- & -- \\ \hline
+TC-07 & Phân công Task cho Assistant & Chưa chạy & -- & -- \\ \hline
+TC-08 & Nộp Submission & Chưa chạy & -- & -- \\ \hline
+TC-09 & Review Submission — Chấp nhận & Chưa chạy & -- & -- \\ \hline
+TC-10 & Review Submission — Yêu cầu chỉnh sửa & Chưa chạy & -- & -- \\ \hline
+TC-11 & Xét duyệt Series mới & Chưa chạy & -- & -- \\ \hline
+TC-12 & Xuất bản Chapter & Chưa chạy & -- & -- \\ \hline
+TC-13 & Nhập dữ liệu bình chọn & Chưa chạy & -- & -- \\ \hline
+TC-14 & Xem bảng xếp hạng & Chưa chạy & -- & -- \\ \hline
+TC-15 & Phân quyền — Truy cập trái phép & Chưa chạy & -- & -- \\ \hline
+\caption{Danh sách theo dõi chi tiết kết quả kiểm thử}
+\label{tab:test_details}
+\end{longtable}
