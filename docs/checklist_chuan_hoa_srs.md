@@ -59,27 +59,27 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 
 ### ✍️ Chương III: Đặc tả yêu cầu phần mềm - SRS
 #### Phần tổng quan & UC Spec 1 (Giang Thị Ngọc Hân)
-- [ ] **[P3-10]** Vẽ sơ đồ ngữ cảnh **Context Diagram** (§3.1.2) cho hệ thống Manga Workflow.
-- [ ] **[P3-11]** Lập **Bảng tóm tắt Use Case** (§3.2.3) gồm cột ID, Use Case, Actor, Mô tả ngắn.
-- [ ] **[P3-12]** Viết phần **System Functional Overview** (§3.3.1) gồm: Screens Flow, Screen Descriptions, Screen Authorization (ma trận Actor-Screen).
-- [ ] **[P3-13]** Đặc tả chi tiết Use Case (UC Spec) cho các module:
-  - [ ] UC-01 Đăng nhập & UC-02 Đăng xuất.
-  - [ ] UC-03 đến UC-06 (Quản lý người dùng: Xem, Tạo, Cập nhật, Khóa).
-  - [ ] UC-07 đến UC-10 (Quản lý Series: Tạo, Xem, Cập nhật, Theo dõi trạng thái).
+- [x] **[P3-10]** Vẽ sơ đồ ngữ cảnh **Context Diagram** (§3.1.2) cho hệ thống Manga Workflow.
+- [x] **[P3-11]** Lập **Bảng tóm tắt Use Case** (§3.2.3) gồm cột ID, Use Case, Actor, Mô tả ngắn.
+- [x] **[P3-12]** Viết phần **System Functional Overview** (§3.3.1) gồm: Screens Flow, Screen Descriptions, Screen Authorization (ma trận Actor-Screen).
+- [x] **[P3-13]** Đặc tả chi tiết Use Case (UC Spec) cho các module:
+  - [x] UC-01 Đăng nhập & UC-02 Đăng xuất.
+  - [x] UC-03 đến UC-06 (Quản lý người dùng: Xem, Tạo, Cập nhật, Khóa).
+  - [x] UC-07 đến UC-10 (Quản lý Series: Tạo, Xem, Cập nhật, Theo dõi trạng thái).
 
 #### Phần UC Spec 2 (Nguyễn Thanh Thảo)
-- [ ] **[P3-14]** Đặc tả chi tiết Use Case (UC Spec) cho các module:
-  - [ ] UC-11 đến UC-13 (Quản lý Chapter: Tạo, Cập nhật, Theo dõi).
-  - [ ] UC-14 đến UC-15 (Quản lý Page: Tạo, Cập nhật trạng thái).
-  - [ ] UC-16 đến UC-19 (Quản lý Task: Tạo/Phân công, Cập nhật, Theo dõi, Hủy).
-  - [ ] UC-20 đến UC-22 (Quản lý Submission: Nộp, Xem chi tiết, Lịch sử).
-  - [ ] UC-23 đến UC-25 (Quản lý Review: Tạo, Xem chi tiết, Phản hồi sửa).
-  - [ ] UC-26 đến UC-28 (Xét duyệt & Xuất bản: Duyệt Series, Xuất bản Chapter, Ngừng phát hành).
-  - [ ] UC-29 đến UC-31 (Quản lý Xếp hạng: Nhập vote, Xem BXH, Xem lịch sử).
-  - [ ] UC-32 đến UC-33 (Quản lý Thông báo: Xem, Đánh dấu đã đọc).
+- [x] **[P3-14]** Đặc tả chi tiết Use Case (UC Spec) cho các module:
+  - [x] UC-11 đến UC-13 (Quản lý Chapter: Tạo, Cập nhật, Theo dõi).
+  - [x] UC-14 đến UC-15 (Quản lý Page: Tạo, Cập nhật trạng thái).
+  - [x] UC-16 đến UC-19 (Quản lý Task: Tạo/Phân công, Cập nhật, Theo dõi, Hủy).
+  - [x] UC-20 đến UC-22 (Quản lý Submission: Nộp, Xem chi tiết, Lịch sử).
+  - [x] UC-23 đến UC-25 (Quản lý Review: Tạo, Xem chi tiết, Phản hồi sửa).
+  - [x] UC-26 đến UC-28 (Xét duyệt & Xuất bản: Duyệt Series, Xuất bản Chapter, Ngừng phát hành).
+  - [x] UC-29 đến UC-31 (Quản lý Xếp hạng: Nhập vote, Xem BXH, Xem lịch sử).
+  - [x] UC-32 đến UC-33 (Quản lý Thông báo: Xem, Đánh dấu đã đọc).
 
 #### Phần NFR & Quy tắc nghiệp vụ (Dương Kim Ngân)
-- [ ] **[P3-15]** Chuẩn hóa NFR: Thêm các chỉ số đo lường cụ thể cho Hiệu năng, Bảo mật, Khả năng mở rộng, Tính sẵn sàng, Khả năng sử dụng, Khả năng bảo trì.
+- [x] **[P3-15]** Chuẩn hóa NFR: Thêm các chỉ số đo lường cụ thể cho Hiệu năng, Bảo mật, Khả năng mở rộng, Tính sẵn sàng, Khả năng sử dụng, Khả năng bảo trì.
 
 ### ✍️ Chương IV: Thiết kế hệ thống - SDD
 #### Kiến trúc & Thiết kế chi tiết (Nguyễn Thị Trúc Ngân)
@@ -88,31 +88,31 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 - [x] **[P3-18]** Bổ sung danh sách các **phương thức (Methods)** cho từng thực thể trong Class Diagram.
 
 #### Thiết kế giao diện (Phan Thị Hạnh)
-- [ ] **[P3-19]** Thiết kế **UI Mockup/Wireframe** cho 9 giao diện chính:
-  - [ ] Dashboard (chung và riêng theo vai trò)
-  - [ ] Trang đăng nhập
-  - [ ] Quản lý Series (Danh sách & Chi tiết)
-  - [ ] Quản lý Chapter
-  - [ ] Quản lý Task
-  - [ ] Giao diện Nộp Submission
-  - [ ] Giao diện Review & Đánh giá
-  - [ ] Trung tâm thông báo
-  - [ ] Bảng xếp hạng Series
+- [x] **[P3-19]** Thiết kế **UI Mockup/Wireframe** cho 9 giao diện chính:
+  - [x] Dashboard (chung và riêng theo vai trò)
+  - [x] Trang đăng nhập
+  - [x] Quản lý Series (Danh sách & Chi tiết)
+  - [x] Quản lý Chapter
+  - [x] Quản lý Task
+  - [x] Giao diện Nộp Submission
+  - [x] Giao diện Review & Đánh giá
+  - [x] Trung tâm thông báo
+  - [x] Bảng xếp hạng Series
 
 ### ✍️ Chương V: Tài liệu kiểm thử - Testing (Dương Kim Ngân)
-- [ ] **[P3-20]** Xác định **Phạm vi kiểm thử** (§5.1).
-- [ ] **[P3-21]** Xây dựng **Chiến lược kiểm thử** (§5.2) và **Kế hoạch kiểm thử** (§5.3).
-- [ ] **[P3-22]** Triển khai viết chi tiết **15 kịch bản kiểm thử (Test Cases)** từ TC-01 đến TC-15.
-- [ ] **[P3-23]** Thiết lập biểu mẫu **Báo cáo kiểm thử** (§5.5) thống kê kết quả Pass/Fail.
+- [x] **[P3-20]** Xác định **Phạm vi kiểm thử** (§5.1).
+- [x] **[P3-21]** Xây dựng **Chiến lược kiểm thử** (§5.2) và **Kế hoạch kiểm thử** (§5.3).
+- [x] **[P3-22]** Triển khai viết chi tiết **15 kịch bản kiểm thử (Test Cases)** từ TC-01 đến TC-15.
+- [x] **[P3-23]** Thiết lập biểu mẫu **Báo cáo kiểm thử** (§5.5) thống kê kết quả Pass/Fail.
 
 ### ✍️ Chương VI: Gói phát hành & Hướng dẫn sử dụng (Phan Thị Hạnh)
-- [ ] **[P3-24]** Lập danh mục gói sản phẩm bàn giao (Deliverable Package).
-- [ ] **[P3-25]** Viết hướng dẫn cài đặt chi tiết (Yêu cầu hệ thống, cấu hình môi trường, setup database).
-- [ ] **[P3-26]** Viết hướng dẫn sử dụng (User Manual) chi tiết cho cả 5 Actor.
+- [x] **[P3-24]** Lập danh mục gói sản phẩm bàn giao (Deliverable Package).
+- [x] **[P3-25]** Viết hướng dẫn cài đặt chi tiết (Yêu cầu hệ thống, cấu hình môi trường, setup database).
+- [x] **[P3-26]** Viết hướng dẫn sử dụng (User Manual) chi tiết cho cả 5 Actor.
 
 ### ✍️ Chương VII & Phụ lục (Trương Trọng Tấn)
-- [ ] **[P3-27]** Viết phần **Kết luận & Hướng phát triển** ở chương cuối.
-- [ ] **[P3-28]** Bổ sung tài liệu API trong Phụ lục A (ít nhất 5-10 endpoint thực tế).
+- [x] **[P3-27]** Viết phần **Kết luận & Hướng phát triển** ở chương cuối.
+- [x] **[P3-28]** Bổ sung tài liệu API trong Phụ lục A (ít nhất 5-10 endpoint thực tế).
 
 ---
 
