@@ -4,47 +4,47 @@
 \subsection{Hiệu năng (Performance)}
 \label{subsec:nfr_performance}
 \begin{itemize}
-    \item Hệ thống phải đảm bảo thời gian phản hồi phù hợp đối với các thao tác thông thường như đăng nhập, tra cứu dữ liệu, cập nhật thông tin và gửi bài.
-    \item Hệ thống phải hỗ trợ nhiều người dùng truy cập đồng thời mà không ảnh hưởng đáng kể đến hiệu năng xử lý.
+    \item Hệ thống phải đảm bảo thời gian phản hồi dưới 2 giây đối với các thao tác thông thường như đăng nhập, tra cứu dữ liệu, cập nhật thông tin và gửi bài.
+    \item Hệ thống phải xử lý mượt mà và không suy giảm hiệu năng khi có tối thiểu 1.000 người dùng truy cập đồng thời (concurrent users).
 \end{itemize}
 
 \subsection{Bảo mật (Security)}
 \label{subsec:nfr_security}
 \begin{itemize}
-    \item Hệ thống phải yêu cầu người dùng đăng nhập trước khi truy cập các chức năng nghiệp vụ.
-    \item Thông tin tài khoản và mật khẩu phải được lưu trữ an toàn trong cơ sở dữ liệu.
-    \item Hệ thống phải áp dụng cơ chế phân quyền để đảm bảo mỗi người dùng chỉ được truy cập các chức năng phù hợp với vai trò được cấp.
+    \item Mật khẩu và thông tin nhạy cảm của người dùng phải được mã hóa một chiều (ví dụ: bcrypt/Argon2) trước khi lưu trữ vào cơ sở dữ liệu.
+    \item Mọi kết nối truyền tải dữ liệu giữa máy khách và máy chủ phải được mã hóa thông qua giao thức HTTPS (SSL/TLS).
+    \item Hệ thống phải áp dụng cơ chế phân quyền (Role-Based Access Control) để đảm bảo mỗi người dùng chỉ được truy cập các chức năng phù hợp với vai trò được cấp.
 \end{itemize}
 
 \subsection{Khả năng mở rộng (Scalability)}
 \label{subsec:nfr_scalability}
 \begin{itemize}
-    \item Hệ thống phải được thiết kế theo hướng dễ dàng mở rộng khi số lượng người dùng, Series Manga hoặc dữ liệu phát sinh tăng lên.
-    \item Cấu trúc hệ thống cần hỗ trợ bổ sung các chức năng mới trong tương lai mà không làm ảnh hưởng đáng kể đến các chức năng hiện có.
+    \item Hệ thống phải được thiết kế có khả năng mở rộng theo chiều ngang (horizontal scaling) đối với máy chủ ứng dụng để đáp ứng khi lượng truy cập tăng đột biến.
+    \item Hỗ trợ lưu trữ khối lượng lớn dữ liệu (hình ảnh, bản thảo Manga) lên tới hàng TB thông qua giải pháp Cloud Storage mà không làm ảnh hưởng đến hiệu năng hiện tại.
 \end{itemize}
 
 \subsection{Tính sẵn sàng (Availability)}
 \label{subsec:nfr_availability}
 \begin{itemize}
-    \item Hệ thống phải đảm bảo khả năng hoạt động ổn định trong quá trình sử dụng.
-    \item Người dùng có thể truy cập và sử dụng hệ thống trong điều kiện kết nối mạng bình thường.
-    \item Hệ thống cần hạn chế tối đa các lỗi gây gián đoạn quá trình làm việc.
+    \item Hệ thống phải đạt thời gian hoạt động (Uptime) tối thiểu 99.9\% trong mọi điều kiện (downtime không quá 8.76 giờ/năm).
+    \item Các kế hoạch bảo trì, nâng cấp hệ thống phải được thông báo trước cho người dùng ít nhất 24 giờ.
+    \item Tự động sao lưu dữ liệu (backup) định kỳ hàng ngày để hạn chế tối đa nguy cơ mất mát dữ liệu do sự cố.
 \end{itemize}
 
 \subsection{Khả năng sử dụng (Usability)}
 \label{subsec:nfr_usability}
 \begin{itemize}
-    \item Giao diện hệ thống phải đơn giản, trực quan và dễ sử dụng đối với các nhóm người dùng khác nhau.
-    \item Các chức năng cần được bố trí hợp lý nhằm giúp người dùng dễ dàng thao tác và tìm kiếm thông tin.
-    \item Hệ thống cần cung cấp các thông báo và hướng dẫn cần thiết trong quá trình sử dụng.
+    \item Giao diện hệ thống phải tương thích tốt và hiển thị đúng trên các trình duyệt web phổ biến hiện nay (Chrome, Edge, Safari, Firefox).
+    \item Người dùng mới có thể làm quen và tự thực hiện được các quy trình nghiệp vụ cơ bản sau không quá 2 giờ đào tạo hoặc xem tài liệu hướng dẫn.
+    \item Cung cấp các thông báo lỗi rõ ràng, chi tiết hướng dẫn người dùng cách khắc phục khi thao tác sai.
 \end{itemize}
 
 \subsection{Khả năng bảo trì (Maintainability)}
 \label{subsec:nfr_maintainability}
 \begin{itemize}
-    \item Hệ thống phải được xây dựng với cấu trúc rõ ràng, dễ quản lý và dễ nâng cấp.
-    \item Mã nguồn cần được tổ chức hợp lý nhằm hỗ trợ việc sửa lỗi, bảo trì và phát triển thêm các chức năng mới trong tương lai.
-    \item Cơ sở dữ liệu phải được thiết kế nhất quán nhằm đảm bảo thuận lợi cho việc quản lý và cập nhật dữ liệu.
+    \item Mã nguồn phải tuân thủ nghiêm ngặt các quy tắc lập trình (Coding Convention) thống nhất của đội ngũ phát triển.
+    \item Áp dụng cấu trúc kiến trúc tách bạch rõ ràng (ví dụ: MVC, API-First) nhằm hỗ trợ việc dễ dàng cô lập lỗi, bảo trì và phát triển thêm các module mới trong tương lai.
+    \item Cơ sở dữ liệu phải được chuẩn hóa ít nhất ở dạng chuẩn 3 (3NF) để tránh dư thừa và đảm bảo tính nhất quán dữ liệu.
 \end{itemize}
 
 \section{Phụ lục yêu cầu (Requirement Appendix)}
