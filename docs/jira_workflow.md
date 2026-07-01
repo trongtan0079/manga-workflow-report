@@ -66,7 +66,7 @@
 - [x] **[OLD-08]** Đưa mô tả nghiệp vụ chi tiết cho từng sơ đồ vào LaTeX.
 
 ### 📋 Task phân công Jira tiếp theo
-- [ ] **[Phase 2 - Thảo]** Di chuyển nội dung SRS (Yêu cầu phi chức năng NFR):
+- [x] **[Phase 2 - Thảo]** Di chuyển nội dung SRS (Yêu cầu phi chức năng NFR):
   * Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
 - [ ] **[Phase 3 - Thảo]** Đặc tả chi tiết Use Case Module 2:
   * Đặc tả chi tiết Use Case (UC Spec) cho các module còn lại trong file `chapters/03_3_srs_func_2.tex`:

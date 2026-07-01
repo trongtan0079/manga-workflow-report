@@ -24,7 +24,7 @@ Bảng checklist này chứa tất cả các đầu việc cần làm để chu�
 - [ ] **[P2-01]** Chuyển phần Giới thiệu chung & Quy trình nghiệp vụ từ `02_1_yeu_cau_chuc_nang.tex` sang `03_1_srs_tong_quan.tex`.
 - [ ] **[P2-02]** Chuyển bảng mô tả Actor từ `03_2_uml_nghiep_vu.tex` và phần mô tả actor từ `01_gioi_thieu.tex` gộp chung vào `03_1_srs_tong_quan.tex` (§3.2.1).
 - [ ] **[P2-03]** Di chuyển các sơ đồ Use Case (Admin, Mangaka, Assistant, Tantou Editor, Editorial Board) từ `03_2` sang `03_1_srs_tong_quan.tex` (§3.2.2).
-- [ ] **[P2-04]** Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
+- [x] **[P2-04]** Di chuyển nội dung phần Yêu cầu phi chức năng (NFR) từ `02_2_yeu_cau_phi_chuc_nang.tex` sang `03_4_srs_nfr.tex`.
 
 ### 🔄 Di chuyển nội dung SDD (Nguyễn Thị Trúc Ngân & Phan Thị Hạnh)
 - [ ] **[P2-05]** Di chuyển thiết kế kiến trúc hệ thống và deployment từ `03_1_thiet_ke_tong_the.tex` sang `04_1_sdd_system.tex`.
