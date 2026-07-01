@@ -4,41 +4,197 @@
 \section{Tổng quan (Overview)}
 \label{sec:spmp_overview}
 
+Dự án phát triển hệ thống "Manga Creation Workflow and Publishing Management System" được tổ chức quản lý khoa học nhằm đảm bảo tính đúng hạn, chất lượng cao và sự phối hợp nhịp nhàng giữa các thành viên. Kế hoạch quản lý dự án (SPMP) này định nghĩa phạm vi, ước lượng nỗ lực, phân chia trách nhiệm và các biện pháp giảm thiểu rủi ro trong suốt vòng đời dự án.
+
 \subsection{Phạm vi và ước lượng (Scope \& Estimation)}
 \label{subsec:spmp_scope_estimation}
+
+Dự án bao gồm toàn bộ các hoạt động khảo sát, phân tích yêu cầu (SRS), thiết kế hệ thống (SDD), xây dựng kịch bản kiểm thử, tài liệu hướng dẫn và gói phát hành sản phẩm. Dựa trên phân tích cấu trúc phân tách công việc (WBS), tổng nỗ lực của dự án được ước lượng khoảng 98 Man-days (công làm việc của một người trong một ngày).
+
+Dưới đây là bảng phân tách công việc WBS chi tiết cùng ước lượng nỗ lực:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{1.5cm}|>{\raggedright\arraybackslash}X|p{3.5cm}|p{2cm}|}
+\hline
+\rowcolor{tableheader}
+\textbf{Mã WBS} & \textbf{Tên công việc / Hạng mục} & \textbf{Người phụ trách} & \textbf{Nỗ lực (Man-days)} \\ \hline
+\textbf{WBS 1} & \textbf{Phase 1: Khóa cấu trúc \& Dọn dẹp} & Trương Trọng Tấn & \textbf{8} \\ \hline
+WBS 1.1 & Tạo khung sườn và cấu trúc rỗng các file & Trương Trọng Tấn & 2 \\ \hline
+WBS 1.2 & Cấu hình file main.tex và packages & Trương Trọng Tấn & 3 \\ \hline
+WBS 1.3 & Dọn dẹp tài nguyên và kiểm tra lỗi biên dịch & Trương Trọng Tấn & 3 \\ \hline
+\textbf{WBS 2} & \textbf{Phase 2: Di chuyển nội dung cũ} & Cả nhóm & \textbf{20} \\ \hline
+WBS 2.1 & Di chuyển nội dung phân tích chức năng (SRS) & Giang Thị Ngọc Hân & 5 \\ \hline
+WBS 2.2 & Di chuyển Use Case và nghiệp vụ & Nguyễn Thanh Thảo & 5 \\ \hline
+WBS 2.3 & Di chuyển kiến trúc, UML và Class Diagram (SDD) & Nguyễn Thị Trúc Ngân & 5 \\ \hline
+WBS 2.4 & Di chuyển CSDL và Giao diện (UI) & Phan Thị Hạnh & 5 \\ \hline
+\textbf{WBS 3} & \textbf{Phase 3: Viết mới \& Hoàn thiện thiếu} & Cả nhóm & \textbf{60} \\ \hline
+WBS 3.1 & Lập kế hoạch quản lý dự án (SPMP) & Nguyễn Thị Trúc Ngân & 10 \\ \hline
+WBS 3.2 & Vẽ sơ đồ thành phần, tech stack và phương thức & Nguyễn Thị Trúc Ngân & 8 \\ \hline
+WBS 3.3 & Đặc tả chi tiết Use Cases & Ngọc Hân, Thanh Thảo & 16 \\ \hline
+WBS 3.4 & Thiết kế UI Mockups chi tiết & Phan Thị Hạnh & 10 \\ \hline
+WBS 3.5 & Xây dựng kịch bản kiểm thử (Test Cases) & Dương Kim Ngân & 10 \\ \hline
+WBS 3.6 & Viết hướng dẫn sử dụng & Phan Thị Hạnh & 6 \\ \hline
+\textbf{WBS 4} & \textbf{Phase 4: Review \& Đồng bộ định dạng} & Trương Trọng Tấn & \textbf{10} \\ \hline
+WBS 4.1 & Đồng bộ font chữ, lề trang và khoảng cách dòng & Trương Trọng Tấn & 4 \\ \hline
+WBS 4.2 & Đồng bộ bảng biểu, chú thích hình vẽ & Trương Trọng Tấn & 3 \\ \hline
+WBS 4.3 & Kiểm tra chính tả, biên dịch PDF chính thức & Trương Trọng Tấn & 3 \\ \hline
+\hline
+\rowcolor{tableheader}
+\multicolumn{3}{|r|}{\textbf{Tổng cộng nỗ lực ước lượng}} & \textbf{98 Man-days} \\ \hline
+\end{tabularx}
+\caption{Cấu trúc phân tách công việc WBS và ước lượng nỗ lực}
+\label{tab:spmp_wbs}
+\end{table}
 
 \subsection{Mục tiêu dự án (Project Objectives)}
 \label{subsec:spmp_objectives}
 
+Dự án đặt ra các mục tiêu rõ ràng về thời gian, nỗ lực và chất lượng như sau:
+\begin{itemize}
+    \item \textbf{Thời gian:} Hoàn thành toàn bộ báo cáo và sản phẩm bàn giao trong vòng 6 tuần, bắt đầu từ ngày 01/06/2026 và kết thúc trước ngày 15/07/2026.
+    \item \textbf{Nỗ lực:} Không vượt quá giới hạn nỗ lực 100 Man-days đã được phê duyệt.
+    \item \textbf{Chất lượng:} Tài liệu báo cáo LaTeX biên dịch thành công 100\% với 0 lỗi (Fatal Error), các hình vẽ sơ đồ sắc nét, và toàn bộ 100\% liên kết chéo (\texttt{\textbackslash ref}, \texttt{\textbackslash pageref}) hoạt động chính xác.
+\end{itemize}
+
 \subsection{Rủi ro dự án (Project Risks)}
 \label{subsec:spmp_risks}
+
+Để đảm bảo dự án diễn ra trôi chảy, nhóm đã xác định các rủi ro tiềm ẩn và xây dựng các phương án ứng phó cụ thể:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{3cm}|p{2cm}|p{2cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Mô tả rủi ro} & \textbf{Khả năng xảy ra} & \textbf{Mức độ ảnh hưởng} & \textbf{Phương án ứng phó} \\ \hline
+Xung đột mã nguồn (Git Conflict) khi nhiều người chỉnh sửa tài liệu & Cao & Trung bình & Áp dụng quy trình Git workflow nghiêm ngặt: Đóng băng nhánh main, làm việc trên nhánh feature riêng, tạo Pull Request và review chéo trước khi merge. \\ \hline
+Lỗi biên dịch LaTeX do thiếu package hoặc sai cú pháp & Trung bình & Cao & Mỗi thành viên phải biên dịch thử nghiệm cục bộ trên máy cá nhân trước khi push code; Leader kiểm tra biên dịch trước khi merge Pull Request. Sử dụng tùy chọn disable-installer để phát hiện lỗi nhanh. \\ \hline
+Trễ tiến độ hoàn thành các chương viết mới & Trung bình & Trung bình & Tổ chức họp họp daily ngắn để cập nhật tiến độ; nếu có thành viên gặp khó khăn, phân bổ tài nguyên từ các thành viên rảnh việc sang hỗ trợ. \\ \hline
+Không đồng nhất giữa sơ đồ thiết kế và cơ sở dữ liệu thực tế & Thấp & Cao & Trúc Ngân (phụ trách Class Diagram) và Phan Hạnh (phụ trách Database) tiến hành rà soát chéo định kỳ hàng tuần để đối chiếu các thuộc tính và kiểu dữ liệu. \\ \hline
+\end{tabularx}
+\caption{Ma trận quản trị rủi ro dự án}
+\label{tab:spmp_risks}
+\end{table}
 
 \section{Phương pháp quản lý (Management Approach)}
 \label{sec:spmp_management_approach}
 
+Dự án áp dụng mô hình quản lý linh hoạt kết hợp với các quy chuẩn kiểm soát chất lượng chặt chẽ nhằm duy trì tiến độ ổn định và phản ứng nhanh với các thay đổi.
+
 \subsection{Quy trình phát triển phần mềm}
 \label{subsec:spmp_process}
+
+Nhóm áp dụng quy trình phát triển theo mô hình Agile/Scrum rút gọn với các Sprint kéo dài 1 tuần. Lộ trình thực hiện dự án được chia làm 5 Sprint cụ thể:
+\begin{itemize}
+    \item \textbf{Sprint 1 (Tuần 1 - Khóa cấu trúc):} Leader thiết lập khung sườn thư mục LaTeX mới, dọn dẹp các tài nguyên thừa, sửa các lỗi biên dịch ban đầu.
+    \item \textbf{Sprint 2 (Tuần 2 - Di chuyển nội dung):} Các thành viên thực hiện di chuyển toàn bộ nội dung báo cáo cũ sang cấu trúc file mới và giải quyết các lỗi liên kết chéo ban đầu.
+    \item \textbf{Sprint 3 (Tuần 3 - Viết mới SRS \& SPMP):} Biên soạn Chương I (Giới thiệu chung), Chương II (Kế hoạch SPMP) và phần tổng quan Chương III (SRS). Vẽ sơ đồ ngữ cảnh hệ thống (Context Diagram).
+    \item \textbf{Sprint 4 (Tuần 4 - Thiết kế SDD \& UI):} Hoàn thiện thiết kế sơ đồ thành phần (Component Diagram), đặc tả chi tiết lớp học (Class Diagram), thiết kế cơ sở dữ liệu và vẽ 9 giao diện chính (UI Mockup).
+    \item \textbf{Sprint 5 (Tuần 5-6 - Kiểm thử \& Đóng gói):} Viết 15 kịch bản kiểm thử chi tiết, lập báo cáo kết quả kiểm thử, viết hướng dẫn sử dụng cho các Actor, biên tập toàn bộ tài liệu và xuất bản PDF chính thức.
+\end{itemize}
 
 \subsection{Quản lý chất lượng (Quality Management)}
 \label{subsec:spmp_quality}
 
+Hoạt động quản lý chất lượng được thực hiện thông qua các quy tắc sau:
+\begin{itemize}
+    \item \textbf{Peer Review (Đánh giá chéo):} 100\% các thay đổi về tài liệu hoặc sơ đồ khi đẩy lên GitHub dưới dạng Pull Request đều phải được tối thiểu một thành viên khác trong nhóm review và chấp thuận trước khi Leader thực hiện merge.
+    \item \textbf{Kiểm tra tính nhất quán (Consistency Check):} Đối chiếu trực tiếp giữa các thuộc tính của các lớp trong Class Diagram với các trường dữ liệu trong Data Dictionary của Database để đảm bảo trùng khớp hoàn toàn.
+    \item \textbf{Kiểm tra Biên dịch tự động:} Sử dụng script biên dịch cục bộ trước khi merge để đảm bảo không đưa mã nguồn LaTeX lỗi vào nhánh phát triển chung.
+\end{itemize}
+
 \section{Sản phẩm bàn giao (Project Deliverables)}
 \label{sec:spmp_deliverables}
+
+Các sản phẩm bàn giao chính thức của dự án khi kết thúc bao gồm:
+\begin{enumerate}
+    \item File báo cáo đồ án chính thức định dạng PDF (`main.pdf`) đã được định dạng chuẩn.
+    \item Thư mục chứa toàn bộ mã nguồn LaTeX của báo cáo (`chapters/`, `sections/`, `config/`, `assets/`).
+    \item Danh sách 9 giao diện Mockup/Wireframe chất lượng cao đi kèm mô tả luồng màn hình.
+    \item Cơ sở dữ liệu vật lý MySQL cùng từ điển dữ liệu chi tiết của 10 bảng cốt lõi.
+    \item Bộ tài liệu kiểm thử gồm 15 kịch bản kiểm thử (Test Cases) chi tiết kèm báo cáo kết quả.
+    \item Hướng dẫn cài đặt hệ thống và Hướng dẫn sử dụng chi tiết dành cho cả 5 Actor.
+    \item Slide thuyết trình bảo vệ đồ án trước hội đồng.
+\end{enumerate}
 
 \section{Phân công trách nhiệm (Responsibility Assignments)}
 \label{sec:spmp_responsibility}
 
+Để làm rõ vai trò thực hiện và phê duyệt trong nhóm, ma trận trách nhiệm RACI được xây dựng. Các ký hiệu viết tắt bao gồm:
+* \textbf{R (Responsible):} Người trực tiếp thực hiện công việc.
+* \textbf{A (Accountable):} Người chịu trách nhiệm chính và phê duyệt kết quả.
+* \textbf{C (Consulted):} Người được tham vấn ý kiến khi thực hiện.
+* \textbf{I (Informed):} Người nhận thông tin sau khi công việc hoàn thành.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash}X|c|c|c|c|c|c|}
+\hline
+\rowcolor{tableheader}
+\textbf{Hạng mục / Nhiệm vụ chính} & \textbf{Tấn} & \textbf{Hân} & \textbf{K. Ngân} & \textbf{Thảo} & \textbf{T. Ngân} & \textbf{Hạnh} \\ \hline
+Quản trị dự án \& Git Workflow & A & I & I & I & R & I \\ \hline
+Biên soạn Chương I (Giới thiệu) & R, A & I & I & I & I & I \\ \hline
+Biên soạn Chương II (SPMP) & C & I & I & I & R, A & I \\ \hline
+Đặc tả yêu cầu chức năng (SRS) & C & R, A & C & R & C & C \\ \hline
+Đặc tả yêu cầu phi chức năng & C & C & R, A & C & C & C \\ \hline
+Thiết kế kiến trúc hệ thống (SDD) & C & I & I & I & R, A & I \\ \hline
+Thiết kế chi tiết lớp học \& CSDL & C & I & I & I & R & R, A \\ \hline
+Thiết kế giao diện (UI Mockups) & C & C & I & C & C & R, A \\ \hline
+Xây dựng Kịch bản kiểm thử (Testing) & C & I & R, A & I & C & I \\ \hline
+Tài liệu hướng dẫn \& Đóng gói & A & I & I & I & I & R \\ \hline
+Review \& Đồng bộ hóa LaTeX toàn bài & R, A & C & C & C & C & C \\ \hline
+\end{tabularx}
+\caption{Ma trận trách nhiệm RACI của dự án}
+\label{tab:spmp_raci}
+\end{table}
+
 \section{Giao tiếp dự án (Project Communications)}
 \label{sec:spmp_communications}
+
+Hoạt động trao đổi thông tin trong dự án được thực hiện định kỳ nhằm phát hiện sớm các vướng mắc và duy trì sự gắn kết:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{3cm}|p{2cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Hình thức họp} & \textbf{Tần suất} & \textbf{Kênh thực hiện} & \textbf{Mục tiêu cuộc họp} \\ \hline
+Họp nhanh (Daily Standup) & Hàng ngày (17h) & Discord (Voice channel) & Cập nhật nhanh 3 câu hỏi: Hôm qua làm gì? Hôm nay làm gì? Có khó khăn gì không? Kéo dài không quá 10 phút. \\ \hline
+Họp tổng kết Sprint (Sprint Review) & Tối thứ Bảy hàng tuần & Google Meet & Đánh giá lại các mục tiêu đã hoàn thành trong Sprint, demo các sản phẩm đạt được và lập kế hoạch cho Sprint tiếp theo. \\ \hline
+Thảo luận kỹ thuật & Khi phát sinh & Slack / GitHub Issues & Giải quyết các vấn đề chuyên sâu về kỹ thuật, thiết kế CSDL, sửa lỗi LaTeX chung. \\ \hline
+\end{tabularx}
+\caption{Kế hoạch giao tiếp trong dự án}
+\label{tab:spmp_communications}
+\end{table}
 
 \section{Quản lý cấu hình (Configuration Management)}
 \label{sec:spmp_configuration}
 
+Hoạt động quản lý cấu hình đảm bảo kiểm soát toàn bộ phiên bản của tài liệu, mã nguồn báo cáo và mã nguồn hệ thống một cách an toàn.
+
 \subsection{Quản lý tài liệu}
 \label{subsec:spmp_doc_mgmt}
+
+Tài liệu báo cáo đồ án và các tài liệu thiết kế (UML, ERD) bản gốc được lưu trữ tập trung trên thư mục Google Drive của nhóm. Phiên bản chính thức của mã nguồn báo cáo LaTeX được quản lý trực tiếp trên GitHub Repository chung của nhóm dưới dạng code.
 
 \subsection{Quản lý mã nguồn}
 \label{subsec:spmp_code_mgmt}
 
+Mã nguồn hệ thống và mã nguồn báo cáo LaTeX được quản lý trên GitHub. Quy trình quản lý nhánh tuân thủ quy tắc nghiêm ngặt:
+* Nhánh `main`: Chỉ chứa các phiên bản báo cáo ổn định nhất và đã được biên dịch thành công. Cấm push trực tiếp lên nhánh này.
+* Nhánh `restructure-toc-final`: Nhánh tích hợp chung dùng để gộp các tính năng/chương con từ các thành viên.
+* Nhánh `feature/ten-thanh-vien`: Nhánh con cá nhân dùng để thực hiện các nhiệm vụ được giao trước khi gửi Pull Request gộp vào nhánh tích hợp.
+
 \subsection{Công cụ và hạ tầng}
 \label{subsec:spmp_tools_infrastructure}
+
+Hệ thống công cụ phục vụ quản lý cấu hình và phát triển bao gồm:
+* \textbf{Quản lý công việc:} Jira Software để khởi tạo, giao việc và theo dõi trạng thái task.
+* \textbf{Quản lý mã nguồn:} Git \& GitHub.
+* \textbf{Soạn thảo tài liệu:} VS Code kết hợp với trình biên dịch LaTeX cục bộ (MiKTeX/TeX Live) hoặc Overleaf.
+* \textbf{Thiết kế sơ đồ:} Draw.io hoặc StarUML để vẽ sơ đồ Use Case, Activity, Sequence và Class Diagram.

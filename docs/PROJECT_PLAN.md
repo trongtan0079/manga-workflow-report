@@ -68,12 +68,12 @@ Hiện tại dự án đang tập trung vào quá trình chuyển dịch cấu t
 * [x] **[P3-03]** Xem xét loại bỏ phần Kết luận chương ở cuối Chương 1 theo đúng mẫu.
 
 #### ✍️ Chương II: Kế hoạch quản lý dự án - SPMP (Trúc Ngân)
-* [ ] **[P3-04]** Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
-* [ ] **[P3-05]** Viết mục **2.1.2 Mục tiêu dự án** (chỉ tiêu thời gian, nỗ lực) và **2.1.3 Rủi ro dự án** (bảng Risk + kế hoạch ứng phó).
-* [ ] **[P3-06]** Mô tả **Quy trình phát triển phần mềm** áp dụng và phương pháp quản lý chất lượng.
-* [ ] **[P3-07]** Bổ sung **Sản phẩm bàn giao** theo từng giai đoạn / Sprint.
-* [ ] **[P3-08]** Xây dựng ma trận phân công trách nhiệm **RACI**.
-* [ ] **[P3-09]** Viết các phần Giao tiếp dự án & Quản lý cấu hình (tài liệu, mã nguồn, hạ tầng).
+* [x] **[P3-04]** Lập bảng phân tích **WBS (Work Breakdown Structure)** và ước lượng công sức (Man-days).
+* [x] **[P3-05]** Viết mục **2.1.2 Mục tiêu dự án** (chỉ tiêu thời gian, nỗ lực) và **2.1.3 Rủi ro dự án** (bảng Risk + kế hoạch ứng phó).
+* [x] **[P3-06]** Mô tả **Quy trình phát triển phần mềm** áp dụng và phương pháp quản lý chất lượng.
+* [x] **[P3-07]** Bổ sung **Sản phẩm bàn giao** theo từng giai đoạn / Sprint.
+* [x] **[P3-08]** Xây dựng ma trận phân công trách nhiệm **RACI**.
+* [x] **[P3-09]** Viết các phần Giao tiếp dự án & Quản lý cấu hình (tài liệu, mã nguồn, hạ tầng).
 
 #### ✍️ Chương III: Đặc tả yêu cầu phần mềm - SRS
 ##### Phần tổng quan & UC Spec 1 (Ngọc Hân)
@@ -101,9 +101,9 @@ Hiện tại dự án đang tập trung vào quá trình chuyển dịch cấu t
 
 #### ✍️ Chương IV: Thiết kế hệ thống - SDD
 ##### Kiến trúc & Thiết kế chi tiết (Trúc Ngân)
-* [ ] **[P3-16]** Vẽ sơ đồ thành phần **Component / Package Diagram** (§4.1.3).
-* [ ] **[P3-17]** Viết mô tả chi tiết công nghệ sử dụng (**Technology Stack**).
-* [ ] **[P3-18]** Bổ sung danh sách các **phương thức (Methods)** cho từng thực thể trong Class Diagram.
+* [x] **[P3-16]** Vẽ sơ đồ thành phần **Component / Package Diagram** (§4.1.3).
+* [x] **[P3-17]** Viết mô tả chi tiết công nghệ sử dụng (**Technology Stack**).
+* [x] **[P3-18]** Bổ sung danh sách các **phương thức (Methods)** cho từng thực thể trong Class Diagram.
 
 ##### Thiết kế giao diện (Phan Hạnh)
 * [ ] **[P3-19]** Thiết kế **UI Mockup/Wireframe** cho 9 giao diện chính:

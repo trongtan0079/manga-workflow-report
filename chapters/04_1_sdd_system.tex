@@ -37,32 +37,67 @@ Kiến trúc Client -- Server giúp tập trung quản lý dữ liệu, tăng kh
 \subsection{Component / Package Diagram}
 \label{subsec:sdd_component}
 
+Sơ đồ thành phần (Component Diagram) thể hiện kiến trúc cấu trúc tĩnh của hệ thống ở cấp độ module và cách các khối thành phần ở các tầng Presentation, Business Logic và Data giao tiếp với nhau:
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        box/.style={draw, rectangle, rounded corners, minimum width=4cm, minimum height=1.2cm, align=center, fill=blue!5, draw=blue!60, thick},
+        layer/.style={draw, rectangle, dashed, inner sep=0.4cm, draw=gray!40, fill=gray!3}
+    ]
+        % Tầng Presentation
+        \node[box] (pres) at (0, 4.5) {\textbf{Tầng Giao diện (Presentation)}\\Web Browser (HTML5/CSS3/JS)\\Bootstrap UI Components};
+        
+        % Tầng Business Logic
+        \node[box] (router) at (-3, 1.5) {\textbf{Routing Module}\\Điều hướng HTTP Requests};
+        \node[box] (ctrl) at (3, 1.5) {\textbf{Business Controllers}\\User/Series/Task/Review};
+        
+        % Tầng Data Layer
+        \node[box] (pdo) at (0, -1.5) {\textbf{Database Access (PDO)}\\Prepared Statements};
+        \node[box] (db) at (0, -4.5) {\textbf{Tầng Dữ liệu (MySQL)}\\Relational Tables \& FKs};
+        
+        % Mũi tên tương tác
+        \draw[->, thick, >=latex] (pres) -- (router) node[midway, left] {HTTP Requests};
+        \draw[->, thick, >=latex] (router) -- (ctrl) node[midway, above] {Dispatch};
+        \draw[->, thick, >=latex] (ctrl) -- (pdo) node[midway, right] {Call Model APIs};
+        \draw[->, thick, >=latex] (pdo) -- (db) node[midway, left] {SQL Query Execution};
+        \draw[<-, thick, >=latex] (pdo) -- (db) node[midway, right] {Result Set};
+        
+        \draw[<-, thick, >=latex] (pres.east) .. controls (6, 4.5) and (6, 1.5) .. (ctrl.east) node[midway, right] {Render HTML/JSON};
+        
+    \end{tikzpicture}
+    \caption{Sơ đồ thành phần (Component Diagram) của hệ thống}
+    \label{fig:sdd_component_diagram}
+\end{figure}
+
 \subsection{Công nghệ sử dụng (Technology Stack)}
 \label{subsec:sdd_tech_stack}
 
-Để đáp ứng yêu cầu hoạt động ổn định, dễ bảo trì và mở rộng, hệ thống được xây dựng dựa trên các công nghệ tiêu chuẩn sau:
+Hệ thống "Manga Creation Workflow and Publishing Management System" được xây dựng trên một ngăn xếp công nghệ đồng bộ và thực tiễn, tối ưu hóa cho mô hình kiến trúc 3 lớp (Three-Tier Architecture). Chi tiết công nghệ tại các lớp như sau:
 
-\begin{itemize}
-    \item \textbf{Tầng giao diện (Frontend - Presentation Layer):}
+\begin{enumerate}
+    \item \textbf{Lớp giao diện (Presentation Layer):}
     \begin{itemize}
-        \item \textbf{HTML5 \& CSS3:} Định nghĩa cấu trúc trang web và định dạng giao diện tương thích đa thiết bị (Responsive Design).
-        \item \textbf{JavaScript (ES6):} Xử lý các tương tác phía client, gửi và nhận dữ liệu bất đồng bộ (AJAX).
-        \item \textbf{Bootstrap Framework:} Hỗ trợ thiết kế giao diện nhanh chóng, nhất quán nhờ hệ thống lưới và các component dựng sẵn.
-    \end{itemize}
-    
-    \item \textbf{Tầng xử lý nghiệp vụ (Backend - Business Logic Layer):}
-    \begin{itemize}
-        \item \textbf{PHP:} Ngôn ngữ lập trình phía máy chủ, chịu trách nhiệm xử lý các luồng nghiệp vụ của hệ thống (quản lý Series, Task, Submission...).
-        \item \textbf{MVC Pattern:} Áp dụng kiến trúc Model-View-Controller giúp phân tách rõ ràng phần hiển thị, nghiệp vụ và dữ liệu, dễ bảo trì và viết các bài kiểm thử.
+        \item \textbf{HTML5:} Đóng vai trò là ngôn ngữ đánh dấu cấu trúc thông tin hiển thị trên trang web. Đảm bảo tuân thủ tiêu chuẩn ngữ nghĩa (Semantic HTML) và khả năng tối ưu hóa tìm kiếm (SEO).
+        \item \textbf{CSS3 \& Bootstrap 5:} Bootstrap 5 được sử dụng để xây dựng hệ thống giao diện phản hồi nhanh (Responsive UI) thích ứng với nhiều kích thước màn hình khác nhau (Desktop, Tablet, Mobile). CSS3 tùy chỉnh để làm mịn các trải nghiệm thị giác (hiệu ứng hover, chuyển cảnh, bo góc).
+        \item \textbf{JavaScript (ES6) \& Fetch API:} Hỗ trợ xử lý các tương tác thời gian thực từ người dùng (như bật/tắt cửa sổ thông báo, cập nhật tiến độ vẽ). Fetch API được dùng để giao tiếp bất đồng bộ (AJAX) với máy chủ để thực hiện lưu trữ hoặc cập nhật dữ liệu mà không cần tải lại toàn bộ trang (ví dụ: gửi nhận xét Review).
     \end{itemize}
 
-    \item \textbf{Tầng dữ liệu (Database - Data Layer):}
+    \item \textbf{Lớp xử lý nghiệp vụ (Business Logic Layer):}
     \begin{itemize}
-        \item \textbf{MySQL Database Server:} Hệ quản trị cơ sở dữ liệu quan hệ được sử dụng để lưu trữ toàn bộ dữ liệu nghiệp vụ của ứng dụng một cách an toàn và tối ưu hiệu năng truy vấn.
+        \item \textbf{PHP 8.x:} Ngôn ngữ lập trình chính được thực thi ở phía máy chủ (Server-side). PHP xử lý các logic nghiệp vụ phức tạp của quy trình manga bao gồm: kiểm soát quyền truy cập của các Actor (Admin, Editor, Mangaka, Assistant), phân công công việc và tính toán điểm xếp hạng (Ranking).
+        \item \textbf{Mô hình MVC (Model-View-Controller):} Phân tách mã nguồn thành 3 thành phần chính:
+        \begin{itemize}
+            \item \textit{Model:} Quản lý logic dữ liệu và thực hiện các câu truy vấn thông qua PDO (PHP Data Objects).
+            \item \textit{View:} Nhận dữ liệu từ Controller và trả về mã HTML hiển thị ở trình duyệt.
+            \item \textit{Controller:} Tiếp nhận các yêu cầu HTTP (GET/POST), xử lý điều hướng, gọi Model thích hợp để thao tác dữ liệu và chuyển tiếp kết quả đến View.
+        \end{itemize}
+        \item \textbf{Session \& Cookie Management:} Quản lý phiên làm việc của người dùng nhằm đảm bảo tính bảo mật và duy trì trạng thái đăng nhập sau khi xác thực thành công.
     \end{itemize}
 
-    \item \textbf{Hạ tầng và Máy chủ (Web Server):}
+    \item \textbf{Lớp cơ sở dữ liệu (Data Layer):}
     \begin{itemize}
-        \item \textbf{Apache / Nginx:} Máy chủ web chịu trách nhiệm tiếp nhận yêu cầu từ client, chuyển tiếp qua PHP processor và phản hồi kết quả về trình duyệt.
+        \item \textbf{MySQL 8.0:} Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mạnh mẽ, an toàn và tối ưu cho các luồng dữ liệu liên kết phức tạp. Lưu trữ toàn bộ 10 thực thể cốt lõi của hệ thống, hỗ trợ ràng buộc toàn vẹn dữ liệu (Integrity Constraints) qua hệ thống khóa ngoại chặt chẽ.
+        \item \textbf{PDO (PHP Data Objects):} Lớp trừu tượng hóa dữ liệu của PHP, cung cấp các hàm API an toàn để tương tác với cơ sở dữ liệu MySQL, ngăn chặn các cuộc tấn công SQL Injection thông qua Prepared Statements.
     \end{itemize}
-\end{itemize}
+\end{enumerate}
