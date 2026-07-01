@@ -3,18 +3,51 @@
 
 \subsection{Mô tả hệ thống (System Description)}
 \label{subsec:srs_system_description}
+Manga Creation Workflow and Publishing Management System là hệ thống hỗ trợ quản lý tập trung toàn bộ quy trình sáng tác và xuất bản Manga. Hệ thống cho phép quản lý thông tin Series, Chapter, Page, phân công công việc cho Assistant, quản lý quá trình nộp bài (Submission), kiểm duyệt nội dung (Review), theo dõi kết quả bình chọn và xếp hạng Series, đồng thời hỗ trợ quản lý hoạt động phát hành. Hệ thống được xây dựng nhằm hỗ trợ sự phối hợp giữa các vai trò tham gia trong quy trình sản xuất và xuất bản Manga bao gồm Mangaka, Assistant, Tantou Editor, Editorial Board và Admin. Việc số hóa quy trình làm việc giúp nâng cao hiệu quả quản lý, tăng khả năng theo dõi tiến độ thực hiện công việc, đảm bảo tính nhất quán của dữ liệu và hỗ trợ quá trình ra quyết định xuất bản.
 
 \subsection{Sơ đồ ngữ cảnh (Context Diagram)}
 \label{subsec:srs_context_diagram}
 
 \subsection{Quy trình nghiệp vụ tổng quát (Business Process)}
 \label{subsec:srs_business_process}
+Quy trình nghiệp vụ tổng quát của hệ thống được thực hiện theo các bước sau:
+\begin{enumerate}
+    \item \textbf{Bước 1:} Mangaka đề xuất Series mới và gửi hồ sơ giới thiệu đến Editorial Board.
+    \item \textbf{Bước 2:} Editorial Board xem xét hồ sơ, đánh giá và thực hiện xét duyệt Series.
+    \item \textbf{Bước 3:} Sau khi được phê duyệt, Mangaka tiến hành xây dựng nội dung Series, tạo các Chapter và các trang Manga tương ứng.
+    \item \textbf{Bước 4:} Mangaka phân chia công việc trên từng trang Manga và giao Task cho Assistant thực hiện.
+    \item \textbf{Bước 5:} Assistant thực hiện các nhiệm vụ được giao và gửi Submission lên hệ thống sau khi hoàn thành.
+    \item \textbf{Bước 6:} Mangaka và Tantou Editor tiến hành kiểm tra, đánh giá Submission và đưa ra phản hồi chỉnh sửa nếu cần thiết.
+    \item \textbf{Bước 7:} Sau khi nội dung đạt yêu cầu, Chapter được hoàn thiện và đưa vào kế hoạch phát hành.
+    \item \textbf{Bước 8:} Editorial Board cập nhật dữ liệu bình chọn của độc giả, theo dõi kết quả xếp hạng và đánh giá hiệu quả hoạt động của Series.
+    \item \textbf{Bước 9:} Dựa trên kết quả đánh giá, Editorial Board đưa ra quyết định tiếp tục xuất bản, điều chỉnh kế hoạch phát hành hoặc ngừng phát hành Series.
+\end{enumerate}
 
 \section{Yêu cầu người dùng (User Requirements)}
 \label{sec:srs_user_requirements}
 
 \subsection{Danh sách Actor (Actor List)}
 \label{subsec:srs_actor_list}
+
+Hệ thống bao gồm các tác nhân (Actor) tham gia tương tác như sau:
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|c|l|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{STT} & \textbf{Actor} & \textbf{Mô tả} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+1 & Admin & Quản trị hệ thống, quản lý người dùng và phân quyền \\ \hline
+2 & Mangaka & Tác giả Manga, quản lý quá trình sáng tác và cộng tác \\ \hline
+3 & Assistant & Trợ lý hỗ trợ thực hiện các công việc được giao \\ \hline
+4 & Tantou Editor & Biên tập viên kiểm duyệt và phản hồi nội dung \\ \hline
+5 & Editorial Board & Hội đồng biên tập đánh giá và quyết định xuất bản \\ \hline
+\end{tabularx}
+\caption{Danh sách Actor}
+\label{tab:danh_sach_actor}
+
+\end{table}
 
 Dưới đây là mô tả chi tiết vai trò của các đối tượng sử dụng (Actor) tham gia vào hệ thống Manga Creation Workflow and Publishing Management System:
 
@@ -28,6 +61,77 @@ Dưới đây là mô tả chi tiết vai trò của các đối tượng sử d
 
 \subsection{Use Case Diagram}
 \label{subsec:srs_use_case_diagram}
+
+\subsubsection{Use Case Diagram tổng thể}
+\label{subsec:use_case_tong_the}
+Use Case Diagram tổng thể mô tả toàn bộ các chức năng chính của hệ thống và mối quan hệ tương tác giữa các Actor với hệ thống.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapter3_IMAGE/Use_case_tong_quat .png}
+    \caption{Use Case Diagram tổng thể của hệ thống}
+    \label{fig:Use_case_tong_quat}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram chi tiết}
+\label{subsec:use_case_chi_tiet}
+Để làm rõ chức năng của từng nhóm người dùng, hệ thống được phân tách thành các Use Case Diagram chi tiết tương ứng với từng Actor.
+
+\subsubsection{Use Case Diagram của Admin}
+\label{subsec:use_case_diagram_cua_admin}
+Use Case Diagram của Admin mô tả các chức năng quản trị hệ thống, quản lý người dùng, phân quyền và theo dõi hoạt động hệ thống.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/Use_case_Admin.png}
+    \caption{Use Case Diagram của Admin}
+    \label{fig:Use_case_Admin}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Mangaka}
+\label{subsec:use_case_diagram_cua_mangaka}
+Use Case Diagram của Mangaka mô tả các chức năng liên quan đến quản lý Series, Chapter, giao việc cho Assistant và theo dõi quá trình sáng tác Manga.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Magaka.png}
+    \caption{Use Case Diagram của Mangaka}
+    \label{fig:Use_case_Magaka}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Assistant}
+\label{subsec:use_case_diagram_cua_Assistant}
+Use Case Diagram của Assistant mô tả các chức năng nhận nhiệm vụ, thực hiện công việc, nộp Submission và theo dõi kết quả xử lý công việc.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Assistant.png}
+    \caption{Use Case Diagram của Assistant}
+    \label{fig:use_case_Assistant}    
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Tantou Editor}
+\label{subsec:use_case_diagram_cua_Tantou_Editor}
+Use Case Diagram của Tantou Editor mô tả các chức năng kiểm duyệt nội dung, theo dõi tiến độ phát triển Series và gửi phản hồi cho Mangaka.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Tantou_Editor.png}
+    \caption{Use Case Diagram của Tantou Editor}
+    \label{fig:use_case_Tantou_Editor}    
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Use Case Diagram của Editorial Board}
+\label{subsec:use_case_diagram_cua_Editorial_Board}
+Use Case Diagram của Editorial Board mô tả các chức năng xét duyệt Series, nhập dữ liệu bình chọn, đánh giá xếp hạng và đưa ra quyết định xuất bản.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.73\textwidth]{Chapter3_IMAGE/Use_case_Editorial_board.png}
+    \caption{Use Case Diagram của Editorial Board}
+    \label{fig:use_case_Editorial_board}    
+\end{figure}
+
+\FloatBarrier
 
 \subsection{Bảng tóm tắt Use Case (Use Case Summary)}
 \label{subsec:srs_use_case_summary}
