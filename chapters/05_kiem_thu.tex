@@ -260,19 +260,20 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
     \item \textbf{Kết quả mong đợi:} Trạng thái của Chapter chuyển từ \code{Draft}/\code{Pending} sang \code{Published}, ghi nhận thời gian xuất bản thực tế vào cơ sở dữ liệu, và kích hoạt thông báo cho độc giả đã theo dõi Series.
 \end{itemize}
 
-\subsection{TC-13: Nhập dữ liệu bình chọn}
+\subsection{TC-13: Nhập dữ liệu bình chọn và xếp hạng hàng loạt}
 \label{subsec:tc13_input_votes}
 \begin{itemize}
-    \item \textbf{Mục tiêu:} Cập nhật số phiếu bình chọn của độc giả cho từng Series truyện theo kỳ đánh giá.
+    \item \textbf{Mục tiêu:} Cập nhật số phiếu bình chọn của độc giả cho toàn bộ các Series truyện đang hoạt động và tự động tính toán điểm số, xếp hạng theo kỳ đánh giá.
     \item \textbf{Actor thực hiện:} Editorial Board.
     \item \textbf{Tiền điều kiện:} Kết thúc một kỳ phát hành/bình chọn tuần hoặc tháng.
     \item \textbf{Các bước thực hiện:}
     \begin{enumerate}
-        \item Truy cập trang "Quản lý Bảng xếp hạng".
-        \item Chọn Series tương ứng và nhập số lượng phiếu bình chọn thực tế thu được trong kỳ.
-        \item Nhấn nút "Cập nhật phiếu bầu".
+        \item Truy cập trang "Quản lý Bảng xếp hạng" $\rightarrow$ chọn chức năng "Nhập phiếu bầu".
+        \item Chọn Ngày bắt đầu kỳ đánh giá (Period Start Date).
+        \item Nhập số lượng phiếu bình chọn thực tế thu được cho từng bộ truyện trong danh sách hiển thị.
+        \item Nhấn nút "Tính toán \& Lưu".
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Hệ thống ghi nhận số lượng phiếu bầu mới vào bảng \code{Series\_Rankings}, thực hiện tính toán lại thứ hạng tự động của tất cả các bộ truyện.
+    \item \textbf{Kết quả mong đợi:} Hệ thống tự động xóa dữ liệu xếp hạng cũ cùng kỳ (nếu trùng), tính điểm số quy chuẩn (Score) từ mốc phiếu cao nhất (100 điểm), tính thứ hạng (Rank Position) đồng hạng chuẩn thi đấu. Lưu dữ liệu vào bảng \code{Series\_Rankings}, tự động gửi thông báo kết quả cho tác giả Mangaka (gửi cảnh báo thêm nếu điểm $< 50$), và ghi log hành động Board vào \code{SystemLog}.
 \end{itemize}
 
 \subsection{TC-14: Xem bảng xếp hạng}
@@ -333,6 +334,7 @@ Bị chặn (Blocked) & 0 & $0\%$ \\ \hline
 Bảng dưới đây là biểu mẫu chi tiết dùng để ghi nhận trạng thái của từng kịch bản kiểm thử sau khi chạy:
 
 \begin{longtable}{|c|p{4.8cm}|c|c|p{3.2cm}|}
+\caption{Danh sách theo dõi chi tiết kết quả kiểm thử}\label{tab:test_details} \\
 \hline
 \rowcolor{tableheader}
 \textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
@@ -342,6 +344,12 @@ Bảng dưới đây là biểu mẫu chi tiết dùng để ghi nhận trạng 
 \rowcolor{tableheader}
 \textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
 \endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
 
 TC-01 & Đăng nhập — thông tin hợp lệ & Chưa chạy & -- & -- \\ \hline
 TC-02 & Đăng nhập — mật khẩu sai & Chưa chạy & -- & -- \\ \hline
@@ -358,6 +366,4 @@ TC-12 & Xuất bản Chapter & Chưa chạy & -- & -- \\ \hline
 TC-13 & Nhập dữ liệu bình chọn & Chưa chạy & -- & -- \\ \hline
 TC-14 & Xem bảng xếp hạng & Chưa chạy & -- & -- \\ \hline
 TC-15 & Phân quyền — Truy cập trái phép & Chưa chạy & -- & -- \\ \hline
-\caption{Danh sách theo dõi chi tiết kết quả kiểm thử}
-\label{tab:test_details}
 \end{longtable}

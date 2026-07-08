@@ -93,10 +93,10 @@ Ma trận dưới đây biểu diễn quyền truy cập chi tiết của từng
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
-\begin{tabularx}{\textwidth}{|l|l|c|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|c|c|c|c|c|}
 \hline
 \rowcolor{tableheader}
-\textbf{Mã MH} & \textbf{Tên màn hình} & \textbf{Admin} & \textbf{Mangaka} & \textbf{Assistant} & \textbf{Editor} & \textbf{Board} \rule[-1.2ex]{0pt}{4ex} \\ \hline
+\textbf{Mã MH} & \textbf{Tên màn hình} & \textbf{Admin} & \textbf{Mangaka} & \textbf{Assistant} & \textbf{Editor} & \textbf{Board} \\ \hline
 SCR-01 & Màn hình Đăng nhập & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\ \hline
 SCR-02 & Dashboard Admin & $\checkmark$ & & & & \\ \hline
 SCR-03 & Dashboard Mangaka & & $\checkmark$ & & & \\ \hline
@@ -141,7 +141,7 @@ Ngoài các chức năng tương tác qua màn hình giao diện, hệ thống c
             \item Hệ thống hiển thị form đăng nhập yêu cầu nhập Email hoặc Tên đăng nhập (Username) và Mật khẩu.
             \item Người dùng nhập chính xác Email hoặc Username, nhập Mật khẩu và nhấn nút "Đăng nhập".
             \item Hệ thống kiểm tra dữ liệu đầu vào. Nếu là Email (chứa ký tự '@'), hệ thống truy vấn tài khoản theo Email, ngược lại truy vấn theo Username.
-            \item Hệ thống thực hiện băm mật khẩu và đối chiếu bằng hàm \texttt{password\_verify()} với cơ sở dữ liệu để xác thực tài khoản.
+            \item Hệ thống thực hiện băm mật khẩu và đối chiếu bằng hàm \texttt{password\_\allowbreak verify()} với cơ sở dữ liệu để xác thực tài khoản.
             \item Hệ thống ghi nhận đăng nhập thành công, thiết lập thông tin người dùng vào Session (gồm \texttt{user\_id}, \texttt{username}, \texttt{full\_name}, \texttt{role\_id}, \texttt{role\_name}) và tái tạo Session ID để chống tấn công Session Fixation.
             \item Hệ thống chuyển hướng người dùng đến Dashboard tương ứng với vai trò (SCR-02 đến SCR-06).
         \end{enumerate}

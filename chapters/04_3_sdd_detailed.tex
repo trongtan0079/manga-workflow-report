@@ -103,14 +103,14 @@ Sequence Diagram mô tả quá trình Manager đánh giá Submission. Nếu đ�
     \label{fig:seq_review_chapter}
 \end{figure}
 
-\subsubsection{Sequence — Xuất bản Manga}
+\subsubsection{Sequence — Phê duyệt Xuất bản Series}
 \label{subsubsec:seq_publish}
-Sequence Diagram mô tả quá trình Editor xuất bản Chapter sau khi hoàn thành kiểm duyệt. Chapter được chuyển sang trạng thái Published và hiển thị cho người đọc.
+Sequence Diagram mô tả quá trình Hội đồng Biên tập (Editorial Board) tiến hành bỏ phiếu và phê duyệt bộ truyện mới (Series). Hệ thống tự động theo dõi tỷ lệ tán thành và chỉ chuyển trạng thái bộ truyện sang Đang triển khai (Ongoing) khi 100% thành viên Hội đồng đã bỏ phiếu và tỷ lệ tán thành đạt từ 50% trở lên. Sau khi phê duyệt, hệ thống sẽ ghi nhận nhật ký, cập nhật lịch xuất bản, phân công Tantou Editor và gửi thông báo kết quả cho Mangaka.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Chapter3_IMAGE/sequence_diagram_manga_series_publishing.png}
-    \caption{Sequence Diagram Xuất bản Manga}
+    \caption{Sequence Diagram Phê duyệt Xuất bản Series}
     \label{fig:seq_xuat_ban}
 \end{figure}
 
@@ -177,9 +177,13 @@ roleId & int & Mã vai trò (Foreign Key liên kết lớp Role) \\ \hline
 seriesId & int & Mã bộ truyện (Primary Key) \\ \hline
 title & string & Tên bộ truyện \\ \hline
 description & string & Mô tả nội dung \\ \hline
-status & string & Trạng thái bộ truyện \\ \hline
+status & string & Trạng thái bộ truyện (\texttt{'planning'}, \texttt{'ongoing'}...) \\ \hline
+publishType & string & Tần suất phát hành (weekly, monthly...) \\ \hline
 coverImage & string & Ảnh bìa bộ truyện \\ \hline
-userId & int & Mã tác giả (Foreign Key liên kết lớp User) \\ \hline
+proposalFile & string & Đường dẫn tệp đề xuất bộ truyện \\ \hline
+editorId & int & Mã Biên tập viên phụ trách (Foreign Key, cho phép NULL) \\ \hline
+dossierNotes & string & Ghi chú hồ sơ duyệt bộ truyện \\ \hline
+mangakaId & int & Mã tác giả sở hữu (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Series}
 \label{tab:class_series}
@@ -200,7 +204,9 @@ chapterId & int & Mã chương (Primary Key) \\ \hline
 chapterNumber & int & Số thứ tự chương \\ \hline
 title & string & Tên chương \\ \hline
 status & string & Trạng thái chương \\ \hline
+dueDate & datetime & Hạn hoàn thành chương truyện \\ \hline
 publishedAt & datetime & Ngày xuất bản \\ \hline
+isFinal & tinyint & Đánh dấu chương cuối cùng của bộ truyện \\ \hline
 seriesId & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Chapter}
@@ -229,6 +235,30 @@ chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \end{table}
 
 
+\subsubsection{Lớp PageRegion}
+\textit{Mô tả:} Lưu thông tin phân vùng cụ thể của trang vẽ để phân công công việc.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+regionId & int & Mã phân vùng (Primary Key) \\ \hline
+regionType & string & Loại phân vùng (panel, bubble, background...) \\ \hline
+x & int & Tọa độ x trên trang truyện \\ \hline
+y & int & Tọa độ y trên trang truyện \\ \hline
+width & int & Chiều rộng phân vùng \\ \hline
+height & int & Chiều cao phân vùng \\ \hline
+status & string & Trạng thái hoàn thành phân vùng \\ \hline
+pageId & int & Mã trang truyện chứa phân vùng (Foreign Key liên kết lớp Page) \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp PageRegion}
+\label{tab:class_pageregion}
+\end{table}
+
+
 \subsubsection{Lớp Task}
 \textit{Mô tả:} Quản lý công việc được giao cho Assistant.
 
@@ -241,13 +271,16 @@ chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
 taskId & int & Mã công việc (Primary Key) \\ \hline
 title & string & Tên công việc \\ \hline
+taskType & string & Loại công việc (background, inking, coloring...) \\ \hline
 description & string & Mô tả công việc \\ \hline
+resourceUrl & string & Đường dẫn tệp tài nguyên đính kèm \\ \hline
 priority & string & Mức độ ưu tiên \\ \hline
 status & string & Trạng thái công việc \\ \hline
 dueDate & datetime & Hạn hoàn thành \\ \hline
 pageId & int & Mã trang truyện liên kết (Foreign Key liên kết lớp Page) \\ \hline
-creatorId & int & Mã người giao việc (Foreign Key liên kết lớp User) \\ \hline
-assigneeId & int & Mã người nhận việc (Foreign Key liên kết lớp User) \\ \hline
+pageRegionId & int & Mã phân vùng liên quan (Foreign Key, cho phép NULL) \\ \hline
+mangakaId & int & Mã tác giả giao việc (Foreign Key liên kết lớp User) \\ \hline
+assistantId & int & Mã trợ lý nhận việc (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Task}
 \label{tab:class_task}
@@ -293,10 +326,56 @@ comments & string & Nội dung nhận xét \\ \hline
 rating & int & Điểm đánh giá \\ \hline
 createdAt & datetime & Thời gian đánh giá \\ \hline
 submissionId & int & Mã bài nộp được đánh giá (Foreign Key liên kết lớp Submission) \\ \hline
-userId & int & Mã người đánh giá (Foreign Key liên kết lớp User) \\ \hline
+reviewerId & int & Mã người đánh giá (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Review}
 \label{tab:class_review}
+\end{table}
+
+
+\subsubsection{Lớp EditorAnnotation}
+\textit{Mô tả:} Lưu thông tin ghi chú lỗi trực quan vẽ đè trên trang truyện từ Editor.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+annotationId & int & Mã ghi chú (Primary Key) \\ \hline
+x & int & Tọa độ x của vùng đánh dấu nét lỗi \\ \hline
+y & int & Tọa độ y của vùng đánh dấu nét lỗi \\ \hline
+width & int & Chiều rộng vùng lỗi \\ \hline
+height & int & Chiều cao vùng lỗi \\ \hline
+comments & string & Nhận xét, góp ý chi tiết \\ \hline
+createdAt & datetime & Thời gian tạo ghi chú \\ \hline
+pageId & int & Mã trang truyện liên quan (Foreign Key liên kết lớp Page) \\ \hline
+editorId & int & Mã Biên tập viên ghi chú (Foreign Key liên kết lớp User) \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp EditorAnnotation}
+\label{tab:class_editorannotation}
+\end{table}
+
+
+\subsubsection{Lớp BoardVote}
+\textit{Mô tả:} Lưu trữ phiếu biểu quyết của thành viên Hội đồng biên tập cho đề xuất Series.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+voteId & int & Mã phiếu bầu (Primary Key) \\ \hline
+vote & string & Quyết định bầu chọn (approve/reject) \\ \hline
+createdAt & datetime & Thời gian bỏ phiếu \\ \hline
+seriesId & int & Mã bộ truyện liên quan (Foreign Key liên kết lớp Series) \\ \hline
+boardMemberId & int & Mã thành viên hội đồng bỏ phiếu (Foreign Key liên kết lớp User) \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp BoardVote}
+\label{tab:class_boardvote}
 \end{table}
 
 
@@ -315,7 +394,7 @@ rankPosition & int & Thứ hạng \\ \hline
 score & decimal & Điểm đánh giá \\ \hline
 periodStartDate & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
 seriesId & int & Mã bộ truyện được xếp hạng (Foreign Key liên kết lớp Series) \\ \hline
-userId & int & Mã thành viên BBT chấm điểm (Foreign Key liên kết lớp User) \\ \hline
+boardMemberId & int & Mã thành viên BBT chấm điểm (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp SeriesRanking}
 \label{tab:class_seriesranking}
@@ -336,213 +415,217 @@ notificationId & int & Mã thông báo (Primary Key) \\ \hline
 type & string & Loại thông báo \\ \hline
 message & string & Nội dung thông báo \\ \hline
 isRead & boolean & Trạng thái đã đọc \\ \hline
+relatedId & int & ID của thực thể liên quan (task, submission...) \\ \hline
 userId & int & Mã người dùng nhận (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Notification}
 \label{tab:class_notification}
 \end{table}
 
+
+\subsubsection{Lớp SystemLog}
+\textit{Mô tả:} Lưu thông tin nhật ký các hoạt động nhạy cảm trong hệ thống.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+logId & int & Mã log (Primary Key) \\ \hline
+action & string & Tên hành động thực hiện \\ \hline
+details & string & Mô tả chi tiết \\ \hline
+ipAddress & string & Địa chỉ IP truy cập \\ \hline
+createdAt & datetime & Thời gian ghi nhận log \\ \hline
+userId & int & Mã người dùng thực hiện (Foreign Key liên kết lớp User, có thể NULL) \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp SystemLog}
+\label{tab:class_systemlog}
+\end{table}
+
+
 \subsubsection{Bổ sung phương thức (Methods)}
 \label{subsubsec:class_methods}
 
-Các phương thức (Methods) của từng lớp trong hệ thống mô tả chi tiết chữ ký hàm (Method Signatures) bao gồm tham số truyền vào, kiểu dữ liệu trả về và ý nghĩa hoạt động:
-
-\vspace{0.2cm}
-\noindent
-\textit{\textbf{Lưu ý về Kiến trúc MVC thực tế:} Các phương thức nghiệp vụ dưới đây được mô tả thuộc về lớp thực thể (Entity Class) tương ứng trong sơ đồ tĩnh Class Diagram để biểu diễn trách nhiệm và phạm vi của từng thực thể theo hướng đối tượng (OOP). Trong mã nguồn thực tế của hệ thống (sử dụng PHP MVC), các phương thức xử lý logic nghiệp vụ và điều khiển quy trình được tách biệt và thực thi tại các lớp Controller tương ứng (như \texttt{AuthController}, \texttt{UserController}, \texttt{TaskController}) nhằm tuân thủ nguyên lý đơn nhiệm (Single Responsibility Principle) và kiến trúc của framework, trong khi các lớp Model chỉ đóng vai trò xử lý dữ liệu và truy vấn database thông qua lớp cha \texttt{Model}.}\\
-
+Các phương thức (Methods) của từng lớp trong hệ thống mô tả chi tiết chữ ký hàm (Method Signatures) bao gồm tham số truyền vào, kiểu dữ liệu trả về và ý nghĩa hoạt động thực tế trong mã nguồn PHP Model:
 
 \begin{itemize}
     \item \textbf{Lớp Role:}
     \begin{itemize}
-        \item \texttt{getRoleName(\allowbreak\allowbreak):} \allowbreak\ \texttt{string}: Trả về tên của vai trò (VD: Admin, Assistant...). Không nhận tham số.
-        \item \texttt{getDescription(\allowbreak\allowbreak):} \allowbreak\ \texttt{string}: Trả về chuỗi mô tả nhiệm vụ của vai trò. Không nhận tham số.
+        \item \texttt{findByRoleName(roleName: string): Role}\\
+            Lấy thông tin vai trò theo tên (ví dụ: 'mangaka', 'assistant'...).
+        \item \texttt{getRolesWithUserCount(): array}\\
+            Lấy danh sách vai trò kèm theo số lượng người dùng thuộc vai trò đó.
     \end{itemize}
     
     \item \textbf{Lớp User:}
     \begin{itemize}
-        \item \texttt{login(}\\
-            \quad\texttt{username: string,}\\
-            \quad\texttt{passwordHash: string}\\
-            \texttt{): boolean}\\
-            Xác thực tài khoản người dùng đăng nhập hệ thống. Trả về \texttt{true} nếu đăng nhập thành công.
-        \item \texttt{logout(): boolean}\\
-            Hủy phiên làm việc (Session) của tài khoản hiện tại. Trả về \texttt{true} nếu đăng xuất thành công.
-        \item \texttt{updateProfile(}\\
-            \quad\texttt{fullName: string,}\\
-            \quad\texttt{email: string}\\
-            \texttt{): boolean}\\
-            Cập nhật họ tên và email mới của người dùng. Trả về \texttt{true} nếu lưu thành công.
-        \item \texttt{changePassword(}\\
-            \quad\texttt{oldHash: string,}\\
-            \quad\texttt{newHash: string}\\
-            \texttt{): boolean}\\
-            Thay đổi mật khẩu tài khoản. Trả về \texttt{true} nếu mật khẩu cũ chính xác và cập nhật mật khẩu mới thành công.
-        \item \texttt{deactivateAccount(): boolean}\\
-            Vô hiệu hóa tài khoản người dùng (đặt trạng thái thành inactive). Trả về \texttt{true} nếu thực hiện thành công.
+        \item \texttt{findByEmail(email: string): User}\\
+            Tìm người dùng theo email đăng ký.
+        \item \texttt{findByUsername(username: string): User}\\
+            Tìm người dùng theo tên đăng nhập.
+        \item \texttt{getUserByIdWithRole(id: int): array}\\
+            Lấy thông tin người dùng kèm theo tên vai trò tương ứng.
+        \item \texttt{findByRoleName(roleName: string): array}\\
+            Lấy danh sách người dùng đang active theo tên vai trò.
+        \item \texttt{getRoleStatistics(): array}\\
+            Lấy dữ liệu thống kê số lượng tài khoản theo từng vai trò.
     \end{itemize}
 
     \item \textbf{Lớp Series:}
     \begin{itemize}
-        \item \texttt{createSeries(}\\
-            \quad\texttt{title: string,}\\
-            \quad\texttt{description: string,}\\
-            \quad\texttt{coverImage: string,}\\
-            \quad\texttt{userId: int}\\
-            \texttt{): boolean}\\
-            Khởi tạo một bộ truyện mới do tác giả có mã \texttt{userId} sáng tác. Trả về \texttt{true} nếu tạo thành công.
-        \item \texttt{updateSeries(}\\
-            \quad\texttt{seriesId: int,}\\
-            \quad\texttt{title: string,}\\
-            \quad\texttt{description: string,}\\
-            \quad\texttt{status: string,}\\
-            \quad\texttt{coverImage: string}\\
-            \texttt{): boolean}\\
-            Cập nhật thông tin chi tiết hoặc ảnh bìa của bộ truyện. Trả về \texttt{true} nếu cập nhật thành công.
-        \item \texttt{deleteSeries(seriesId: int): boolean}\\
-            Xóa bộ truyện khỏi hệ thống. Trả về \texttt{true} nếu thực hiện thành công.
-        \item \texttt{publishSeries(seriesId: int): boolean}\\
-            Đổi trạng thái bộ truyện thành công bố rộng rãi. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getChapters(seriesId: int): List<Chapter>}\\
-            Lấy toàn bộ danh sách các chương thuộc về bộ truyện có mã \texttt{seriesId}.
+        \item \texttt{findByMangakaId(mangakaId: int): array}\\
+            Lấy danh sách các bộ truyện của tác giả đang đăng nhập.
+        \item \texttt{findByStatus(status: string): array}\\
+            Lấy danh sách các bộ truyện theo trạng thái (ongoing, planning...).
+        \item \texttt{getSeriesByEditorId(editorId: int): array}\\
+            Lấy danh sách các bộ truyện được phân công cho Biên tập viên và đã duyệt phát hành.
+        \item \texttt{getSeriesForPublishing(): array}\\
+            Lấy danh sách bộ truyện kèm thống kê số chương, điểm số phục vụ cho Hội đồng duyệt xuất bản.
+        \item \texttt{getDossiersByEditorId(editorId: int): array}\\
+            Lấy danh sách hồ sơ truyện theo Biên tập viên phụ trách.
+        \item \texttt{countActiveSeries(): int}\\
+            Đếm số lượng bộ truyện đang hoạt động trong hệ thống.
     \end{itemize}
 
     \item \textbf{Lớp Chapter:}
     \begin{itemize}
-        \item \texttt{createChapter(}\\
-            \quad\texttt{chapterNumber: int,}\\
-            \quad\texttt{title: string,}\\
-            \quad\texttt{seriesId: int}\\
-            \texttt{): boolean}\\
-            Tạo một chương mới thuộc bộ truyện \texttt{seriesId}. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateChapter(}\\
-            \quad\texttt{chapterId: int,}\\
-            \quad\texttt{chapterNumber: int,}\\
-            \quad\texttt{title: string,}\\
-            \quad\texttt{status: string}\\
-            \texttt{): boolean}\\
-            Sửa đổi số thứ tự hoặc tiêu đề chương. Trả về \texttt{true} nếu thành công.
-        \item \texttt{publishChapter(chapterId: int): boolean}\\
-            Xuất bản chương truyện công khai cho độc giả. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getPages(chapterId: int): List<Page>}\\
-            Lấy toàn bộ danh sách các trang vẽ thuộc chương truyện có mã \texttt{chapterId}.
+        \item \texttt{findBySeriesId(seriesId: int): array}\\
+            Lấy danh sách các chương thuộc bộ truyện, sắp xếp tăng dần.
+        \item \texttt{isChapterNumberExists(seriesId: int, chapterNumber: int): bool}\\
+            Kiểm tra số chương đã tồn tại trong bộ truyện chưa để tránh trùng lặp.
+        \item \texttt{findByMangakaId(mangakaId: int): array}\\
+            Lấy danh sách chương truyện của Mangaka sở hữu.
+        \item \texttt{findBySeriesIdWithStats(seriesId: int): array}\\
+            Lấy danh sách chương truyện kèm thống kê số lượng Task hoàn thành của trợ lý.
+        \item \texttt{hasFinalChapter(seriesId: int): bool}\\
+            Kiểm tra xem truyện đã có chương cuối cùng (is\_final = 1) chưa.
+        \item \texttt{countUnfinishedChapters(seriesId: int): int}\\
+            Đếm số chương chưa hoàn tất của một truyện.
+        \item \texttt{hasFinalApprovedChapter(seriesId: int): bool}\\
+            Kiểm tra xem chương cuối đã được duyệt hay chưa.
+        \item \texttt{getUpcomingDeadlinesByEditor(editorId: int): array}\\
+            Lấy danh sách các chương sắp đến hạn nộp thuộc BTV quản lý.
     \end{itemize}
 
     \item \textbf{Lớp Page:}
     \begin{itemize}
-        \item \texttt{addPage(}\\
-            \quad\texttt{pageNumber: int,}\\
-            \quad\texttt{imageUrl: string,}\\
-            \quad\texttt{chapterId: int}\\
-            \texttt{): boolean}\\
-            Thêm một trang ảnh mới vào chương truyện. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updatePage(}\\
-            \quad\texttt{pageId: int,}\\
-            \quad\texttt{pageNumber: int,}\\
-            \quad\texttt{imageUrl: string,}\\
-            \quad\texttt{status: string}\\
-            \texttt{): boolean}\\
-            Cập nhật lại đường dẫn hình ảnh hoặc thay đổi trạng thái trang vẽ. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deletePage(pageId: int): boolean}\\
-            Xóa bỏ trang vẽ khỏi chương truyện. Trả về \texttt{true} nếu thành công.
+        \item \texttt{findByChapterId(chapterId: int): array}\\
+            Lấy danh sách các trang vẽ thuộc chương, sắp xếp theo số trang.
+        \item \texttt{isPageNumberExists(chapterId: int, pageNumber: int): bool}\\
+            Kiểm tra trùng số trang trong một chương.
+        \item \texttt{findByChapterIdWithAnnotationCount(chapterId: int): array}\\
+            Lấy danh sách trang vẽ kèm số lỗi ghi chú của Biên tập viên.
+        \item \texttt{getPageNumbersByChapterId(chapterId: int): array}\\
+            Lấy mảng các số thứ tự trang hiện có trong chương.
+        \item \texttt{getOtherPageNumbers(chapterId: int, pageId: int): array}\\
+            Lấy số thứ tự các trang khác trong chương để phục vụ thay đổi vị trí.
     \end{itemize}
 
     \item \textbf{Lớp Task:}
     \begin{itemize}
-        \item \texttt{createTask(}\\
-            \quad\texttt{title: string,}\\
-            \quad\texttt{description: string,}\\
-            \quad\texttt{priority: string,}\\
-            \quad\texttt{dueDate: datetime,}\\
-            \quad\texttt{pageId: int,}\\
-            \quad\texttt{creatorId: int}\\
-            \texttt{): boolean}\\
-            Tạo công việc mới liên quan đến trang truyện và gán mã người giao. Trả về \texttt{true} nếu thành công.
-        \item \texttt{assignTask(}\\
-            \quad\texttt{taskId: int,}\\
-            \quad\texttt{assigneeId: int}\\
-            \texttt{): boolean}\\
-            Chỉ định trợ lý (Assistant) chịu trách nhiệm thực hiện công việc. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateTaskStatus(}\\
-            \quad\texttt{taskId: int,}\\
-            \quad\texttt{status: string}\\
-            \texttt{): boolean}\\
-            Cập nhật tiến độ của công việc (VD: pending, in-progress, completed). Trả về \texttt{true} nếu thành công.
-        \item \texttt{cancelTask(taskId: int): boolean}\\
-            Hủy bỏ công việc đã giao. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getSubmissions(taskId: int): List<Submission>}\\
-            Lấy danh sách toàn bộ các bản nộp tiến độ của công việc này.
+        \item \texttt{findByPageId(pageId: int): array}\\
+            Lấy danh sách các công việc trên một trang truyện cụ thể kèm tên trợ lý.
+        \item \texttt{findByAssistantId(assistantId: int): array}\\
+            Lấy danh sách công việc được giao của trợ lý kèm thông tin chương, trang, phân vùng.
+        \item \texttt{findActiveByAssistantId(assistantId: int): array}\\
+            Lấy các công việc chưa hoàn thành của một trợ lý.
+        \item \texttt{findByMangakaId(mangakaId: int): array}\\
+            Lấy danh sách công việc do tác giả giao cho các trợ lý.
+        \item \texttt{getStatusStatistics(): array}\\
+            Lấy thống kê số lượng Task theo trạng thái (pending, in\_progress, completed).
+        \item \texttt{getMonthlyIncomeStats(assistantId: int): array}\\
+            Tính toán thống kê thu nhập dự kiến của trợ lý theo từng tháng dựa trên số Task hoàn thành.
     \end{itemize}
 
     \item \textbf{Lớp Submission:}
     \begin{itemize}
-        \item \texttt{submitWork(}\\
-            \quad\texttt{fileUrl: string,}\\
-            \quad\texttt{notes: string,}\\
-            \quad\texttt{taskId: int,}\\
-            \quad\texttt{userId: int}\\
-            \texttt{): boolean}\\
-            Trợ lý thực hiện nộp sản phẩm vẽ kèm theo ghi chú lên hệ thống. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateSubmission(}\\
-            \quad\texttt{submissionId: int,}\\
-            \quad\texttt{fileUrl: string,}\\
-            \quad\texttt{notes: string}\\
-            \texttt{): boolean}\\
-            Cập nhật lại bản vẽ sửa đổi hoặc ghi chú mới. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deleteSubmission(submissionId: int): boolean}\\
-            Hủy bỏ bản nộp sản phẩm vẽ. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getReviews(submissionId: int): List<Review>}\\
-            Lấy danh sách các nhận xét và phản hồi liên quan đến bản nộp này.
+        \item \texttt{findByTaskId(taskId: int): array}\\
+            Lấy lịch sử các lần nộp bài vẽ cho một Task cụ thể.
+        \item \texttt{findByChapterId(chapterId: int): array}\\
+            Lấy danh sách các lần nộp bản thảo cho một chương cụ thể.
+        \item \texttt{findPendingSubmissions(): array}\\
+            Lấy danh sách các bản thảo chương đang chờ duyệt của hệ thống.
+        \item \texttt{countPendingChapterSubmissionsByEditor(editorId: int): int}\\
+            Đếm số lượng chương đang chờ duyệt thuộc Biên tập viên quản lý.
+        \item \texttt{getStatusStatistics(): array}\\
+            Lấy thống kê số lượng bài nộp theo trạng thái.
     \end{itemize}
 
     \item \textbf{Lớp Review:}
     \begin{itemize}
-        \item \texttt{createReview(}\\
-            \quad\texttt{comments: string,}\\
-            \quad\texttt{rating: int,}\\
-            \quad\texttt{submissionId: int,}\\
-            \quad\texttt{userId: int}\\
-            \texttt{): boolean}\\
-            Biên tập viên hoặc tác giả tạo nhận xét và cho điểm đánh giá cho bài nộp. Trả về \texttt{true} nếu thành công.
-        \item \texttt{updateReview(}\\
-            \quad\texttt{reviewId: int,}\\
-            \quad\texttt{comments: string,}\\
-            \quad\texttt{rating: int}\\
-            \texttt{): boolean}\\
-            Sửa đổi lại nội dung nhận xét hoặc điểm số đã đánh giá. Trả về \texttt{true} nếu thành công.
-        \item \texttt{getReviewDetails(reviewId: int): Review}\\
-            Trả về đối tượng chứa thông tin đánh giá chi tiết của mã \texttt{reviewId}.
+        \item \texttt{findBySubmissionId(submissionId: int): array}\\
+            Lấy danh sách nhận xét cho một lần nộp bài cụ thể.
+        \item \texttt{countReviewsByEditor(editorId: int, status: string): int}\\
+            Đếm số lượng đánh giá của Editor theo trạng thái bài nộp.
     \end{itemize}
 
-    \item \textbf{Lớp SeriesRanking:}
+    \item \textbf{Lớp BoardVote:}
     \begin{itemize}
-        \item \texttt{updateRank(}\\
-            \quad\texttt{seriesId: int,}\\
-            \quad\texttt{score: decimal,}\\
-            \quad\texttt{rankPosition: int,}\\
-            \quad\texttt{periodStartDate: date}\\
-            \texttt{): boolean}\\
-            Ghi nhận điểm số và vị trí xếp hạng mới của bộ truyện trong kỳ đánh giá. Trả về \texttt{true} nếu cập nhật thành công.
-        \item \texttt{getRankingHistory(}\\
-            \quad\texttt{seriesId: int}\\
-            \texttt{): List<SeriesRanking>}\\
-            Lấy lịch sử biến động xếp hạng qua các kỳ của bộ truyện.
-    \end{itemize}
-
-    \item \textbf{Lớp Notification:}
-    \begin{itemize}
-        \item \texttt{createNotification(}\\
-            \quad\texttt{type: string,}\\
-            \quad\texttt{message: string,}\\
-            \quad\texttt{userId: int}\\
-            \texttt{): boolean}\\
-            Khởi tạo thông báo mới gửi tới người dùng có mã \texttt{userId}. Trả về \texttt{true} nếu thành công.
-        \item \texttt{markAsRead(notificationId: int): boolean}\\
-            Đổi trạng thái thông báo thành đã đọc. Trả về \texttt{true} nếu thành công.
-        \item \texttt{deleteNotification(notificationId: int): boolean}\\
-            Xóa thông báo khỏi hộp thư người dùng. Trả về \texttt{true} nếu thành công.
+        \item \texttt{castVote(seriesId: int, memberId: int, vote: string): bool}\\
+            Ghi nhận lượt bỏ phiếu của thành viên hội đồng cho đề xuất truyện.
+        \item \texttt{getMemberVote(seriesId: int, memberId: int): string}\\
+            Lấy ý kiến bỏ phiếu hiện tại của một thành viên cụ thể.
+        \item \texttt{getApprovalStats(seriesId: int): array}\\
+            Tính toán động tỉ lệ phần trăm tán thành và số lượng phiếu bầu đạt được.
     \end{itemize}
 \end{itemize}
+
+\subsection{Thiết kế biểu đồ trạng thái (State Machine Diagram)}
+\label{subsec:sdd_state_machine}
+
+Biểu đồ trạng thái (State Machine Diagram) được sử dụng để mô tả chi tiết vòng đời hoạt động và các sự kiện chuyển trạng thái của các thực thể cốt lõi trong hệ thống:
+
+\subsubsection{Biểu đồ trạng thái Chương truyện (Chapter)}
+\label{subsubsec:state_chapter}
+Mô tả vòng đời của chương truyện từ khi là bản thảo thô cho đến khi xuất bản chính thức.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Chapter3_IMAGE/State_Machine_Chapter.png}
+    \caption{Biểu đồ trạng thái của Chương truyện (Chapter)}
+    \label{fig:state_chapter}
+\end{figure}
+
+\subsubsection{Biểu đồ trạng thái Trang truyện (Page)}
+\label{subsubsec:state_page}
+Mô tả sự dịch chuyển trạng thái vẽ của một trang Manga cụ thể khi có sự tác động phân công công việc.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/State_Machine_Page.png}
+    \caption{Biểu đồ trạng thái của Trang truyện (Page)}
+    \label{fig:state_page}
+\end{figure}
+
+\subsubsection{Biểu đồ trạng thái Phân vùng trang truyện (PageRegion)}
+\label{subsubsec:state_pageregion}
+Mô tả vòng đời của một phân vùng ảnh vẽ tay nhỏ trên trang truyện từ khi được đánh dấu cho đến khi hoàn thành.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/State_Machine_Page_Region.png}
+    \caption{Biểu đồ trạng thái của Phân vùng trang truyện (PageRegion)}
+    \label{fig:state_pageregion}
+\end{figure}
+
+\subsubsection{Biểu đồ trạng thái Bộ truyện Manga (Series)}
+\label{subsubsec:state_series}
+Mô tả vòng đời của dự án truyện Manga từ đề xuất kế hoạch, sáng tác thực tế đến khi kết thúc hoặc đình bản.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/State_Machine_Series.png}
+    \caption{Biểu đồ trạng thái của Bộ truyện (Series)}
+    \label{fig:state_series}
+\end{figure}
+
+\subsubsection{Biểu đồ trạng thái Công việc giao trợ lý (Task)}
+\label{subsubsec:state_task}
+Mô tả tiến độ phân công, tiếp nhận và hoàn thiện các Task vẽ hỗ trợ của các Assistant.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Chapter3_IMAGE/State_Machine_Task.png}
+    \caption{Biểu đồ trạng thái của Công việc (Task)}
+    \label{fig:state_task}
+\end{figure}
 
 \subsubsection{Class Diagram tổng thể}
 \label{subsubsec:class_overview}
@@ -551,7 +634,7 @@ Class Diagram tổng thể thể hiện toàn bộ các lớp cốt lõi của h
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Chapter3_IMAGE/Class_Diagram.pdf}
+    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{Chapter3_IMAGE/class_diagram.png}
     \caption{Class Diagram tổng thể}
     \label{fig:class_diagram_tong_the}
 \end{figure}

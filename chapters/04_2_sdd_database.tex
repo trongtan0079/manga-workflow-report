@@ -6,7 +6,7 @@
 Sơ đồ mối quan hệ thực thể (ERD) thể hiện cấu trúc cơ sở dữ liệu của hệ thống, mô tả các thực thể chính và mối liên kết giữa chúng.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Chapter3_IMAGE/ERD.pdf}
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/ERD.png}
     \caption{Sơ đồ mối quan hệ thực thể (ERD)}
     \label{fig:erd}
 \end{figure}
@@ -75,7 +75,11 @@ mangaka\_id & INT (FK) & Tác giả sở hữu \\ \hline
 title & VARCHAR(255) & Tên bộ truyện \\ \hline
 description & TEXT & Mô tả \\ \hline
 status & ENUM & Trạng thái (\texttt{'planning'}, \texttt{'ongoing'}, \texttt{'completed'}, \texttt{'canceled'}, \texttt{'suspended'}) \\ \hline
+publish\_type & VARCHAR(50) & Tần suất phát hành (weekly, monthly...) \\ \hline
 cover\_image & VARCHAR(255) & Ảnh bìa \\ \hline
+proposal\_file & VARCHAR(255) & Đường dẫn tệp đề xuất bộ truyện \\ \hline
+editor\_id & INT (FK) (NULL) & Biên tập viên chuyên trách được gán phụ trách \\ \hline
+dossier\_notes & TEXT (NULL) & Các ghi chú, đánh giá về hồ sơ bộ truyện \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 \end{tabularx}
@@ -100,7 +104,9 @@ series\_id & INT (FK) & Bộ truyện \\ \hline
 chapter\_number & INT & Số chương \\ \hline
 title & VARCHAR(255) & Tiêu đề \\ \hline
 status & ENUM & Trạng thái (\texttt{'drafting'}, \texttt{'drawing'}, \texttt{'reviewing'}, \texttt{'approved'}, \texttt{'published'}) \\ \hline
+due\_date & DATETIME & Hạn hoàn thành chương truyện \\ \hline
 published\_at & DATETIME & Ngày xuất bản \\ \hline
+is\_final & TINYINT(1) & Đánh dấu chương cuối cùng của bộ truyện \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 \end{tabularx}
@@ -125,7 +131,7 @@ page\_id & INT (PK) & Mã trang \\ \hline
 chapter\_id & INT (FK) & Chương \\ \hline
 page\_number & INT & Số trang \\ \hline
 image\_url & VARCHAR(255) & Đường dẫn ảnh \\ \hline
-status & ENUM & Trạng thái (\texttt{'sketch'}, \texttt{'inked'}, \texttt{'toned'}, \texttt{'finished'}) \\ \hline
+status & ENUM & Trạng thái (\texttt{'drafting'}, \texttt{'drawing'}, \texttt{'reviewing\_draft'}, \texttt{'reviewing\_final'}, \texttt{'approved'}, \texttt{'published'}) \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 \end{tabularx}
@@ -148,12 +154,15 @@ updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
 task\_id & INT (PK) & Mã công việc \\ \hline
 page\_id & INT (FK) & Trang liên quan \\ \hline
+page\_region\_id & INT (FK) (NULL) & Phân vùng liên quan \\ \hline
 mangaka\_id & INT (FK) & Người giao việc \\ \hline
 assistant\_id & INT (FK) & Người nhận việc \\ \hline
 title & VARCHAR(255) & Tiêu đề công việc \\ \hline
+task\_type & ENUM & Loại công việc (\texttt{'background'}, \texttt{'inking'}, \texttt{'coloring'}, \texttt{'effects'}, \texttt{'other'}) \\ \hline
 description & TEXT & Mô tả \\ \hline
+resource\_url & VARCHAR(255) & Tệp tài nguyên đính kèm \\ \hline
 priority & ENUM & Mức độ ưu tiên (\texttt{'low'}, \texttt{'medium'}, \texttt{'high'}) \\ \hline
-status & ENUM & Trạng thái (\texttt{'pending'}, \texttt{'in\_progress'}, \texttt{'completed'}) \\ \hline
+status & ENUM & Trạng thái (\texttt{'pending'}, \texttt{'in\_progress'}, \texttt{'submitted'}, \texttt{'completed'}, \texttt{'rejected'}) \\ \hline
 due\_date & DATETIME & Hạn hoàn thành \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
@@ -206,7 +215,6 @@ review\_id & INT (PK) & Mã đánh giá \\ \hline
 submission\_id & INT (FK) & Bài nộp \\ \hline
 reviewer\_id & INT (FK) & Người đánh giá \\ \hline
 comments & TEXT & Nội dung nhận xét \\ \hline
-annotations & TEXT & Tọa độ và ghi chú cọ vẽ nét lỗi trên ảnh \\ \hline
 rating & INT & Điểm đánh giá \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 \end{tabularx}
@@ -256,11 +264,113 @@ notification\_id & INT (PK) & Mã thông báo \\ \hline
 user\_id & INT (FK) & Người nhận \\ \hline
 type & VARCHAR(50) & Loại thông báo \\ \hline
 message & TEXT & Nội dung \\ \hline
+related\_id & INT (FK) (NULL) & ID thực thể liên quan \\ \hline
 is\_read & BOOLEAN & Trạng thái đọc \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 \end{tabularx}
 \caption{Cấu trúc chi tiết bảng dữ liệu Notifications}
 \label{tab:db_notifications}
+\end{table}
+\vspace{0.5cm}
+
+\subsubsection{Bảng Page\_Regions}
+\label{subsubsec:tbl_page_regions}
+\textit{Mô tả:} Lưu thông tin chi tiết về từng phân vùng vẽ tay thủ công trên trang truyện.
+
+\noindent
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+region\_id & INT (PK) & Mã phân vùng \\ \hline
+page\_id & INT (FK) & Trang liên quan \\ \hline
+region\_type & ENUM & Loại phân đoạn (\texttt{'panel'}, \texttt{'bubble'}, \texttt{'character'}, \texttt{'background'}, \texttt{'sfx'}) \\ \hline
+x & INT & Tọa độ x \\ \hline
+y & INT & Tọa độ y \\ \hline
+width & INT & Chiều rộng phân vùng \\ \hline
+height & INT & Chiều cao phân vùng \\ \hline
+status & ENUM & Trạng thái phân vùng (\texttt{'pending'}, \texttt{'in\_progress'}, \texttt{'submitted'}, \texttt{'completed'}, \texttt{'rejected'}) \\ \hline
+created\_at & TIMESTAMP & Ngày tạo \\ \hline
+\end{tabularx}
+\caption{Cấu trúc chi tiết bảng dữ liệu Page Regions}
+\label{tab:db_page_regions}
+\end{table}
+\vspace{0.5cm}
+
+\subsubsection{Bảng Editor\_Annotations}
+\label{subsubsec:tbl_editor_annotations}
+\textit{Mô tả:} Lưu thông tin ghi chú lỗi trực quan vẽ đè của Editor lên từng vùng ảnh cụ thể của trang truyện.
+
+\noindent
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+annotation\_id & INT (PK) & Mã ghi chú \\ \hline
+page\_id & INT (FK) & Trang liên quan \\ \hline
+editor\_id & INT (FK) & Biên tập viên thực hiện ghi chú \\ \hline
+x & INT & Tọa độ x của vùng đánh dấu nét lỗi \\ \hline
+y & INT & Tọa độ y của vùng đánh dấu nét lỗi \\ \hline
+width & INT & Chiều rộng vùng lỗi \\ \hline
+height & INT & Chiều cao vùng lỗi \\ \hline
+comments & TEXT & Nội dung góp ý, nhận xét nét lỗi \\ \hline
+created\_at & TIMESTAMP & Ngày tạo ghi chú \\ \hline
+\end{tabularx}
+\caption{Cấu trúc chi tiết bảng dữ liệu Editor Annotations}
+\label{tab:db_editor_annotations}
+\end{table}
+\vspace{0.5cm}
+
+\subsubsection{Bảng Board\_Votes}
+\label{subsubsec:tbl_board_votes}
+\textit{Mô tả:} Lưu phiếu biểu quyết của từng thành viên Hội đồng biên tập (Editorial Board) cho các đề xuất Series mới.
+
+\noindent
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+vote\_id & INT (PK) & Mã phiếu bầu \\ \hline
+series\_id & INT (FK) & Series liên quan \\ \hline
+board\_member\_id & INT (FK) & Thành viên Hội đồng \\ \hline
+vote & ENUM & Ý kiến bình chọn (\texttt{'approve'}, \texttt{'reject'}) \\ \hline
+created\_at & TIMESTAMP & Ngày bỏ phiếu \\ \hline
+\end{tabularx}
+\caption{Cấu trúc chi tiết bảng dữ liệu Board Votes}
+\label{tab:db_board_votes}
+\end{table}
+\vspace{0.5cm}
+
+\subsubsection{Bảng System\_Logs}
+\label{subsubsec:tbl_system_logs}
+\textit{Mô tả:} Lưu nhật ký hoạt động nhạy cảm trong hệ thống như đăng nhập, thay đổi thông tin hay cập nhật trạng thái Series.
+
+\noindent
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+log\_id & INT (PK) & Mã log \\ \hline
+user\_id & INT (FK) (NULL) & Người thực hiện hành động \\ \hline
+action & VARCHAR(255) & Tên hành động thực hiện \\ \hline
+details & TEXT & Chi tiết hoạt động \\ \hline
+ip\_address & VARCHAR(45) & Địa chỉ IP truy cập \\ \hline
+created\_at & TIMESTAMP & Thời gian ghi log \\ \hline
+\end{tabularx}
+\caption{Cấu trúc chi tiết bảng dữ liệu System Logs}
+\label{tab:db_system_logs}
 \end{table}
 \vspace{0.5cm}
 
@@ -282,13 +392,17 @@ Role & 1-N & User & Một vai trò có thể được gán cho nhiều người 
 User & 1-N & Series & Một người dùng có thể quản lý nhiều Series. \\ \hline
 Series & 1-N & Chapter & Một Series bao gồm nhiều Chapter. \\ \hline
 Chapter & 1-N & Page & Một Chapter bao gồm nhiều Page. \\ \hline
-Page & 1-N & Task & Một Page có thể phát sinh nhiều công việc xử lý. \\ \hline
+Page & 1-N & PageRegion & Một Page được phân chia thành nhiều phân vùng vẽ khác nhau. \\ \hline
+Page & 1-N & EditorAnnotation & Một Page có thể nhận nhiều ghi chú đánh dấu nét lỗi từ Editor. \\ \hline
+PageRegion & 1-N & Task & Một phân vùng vẽ có thể yêu cầu nhiều Task hỗ trợ từ Assistant. \\ \hline
 User & 1-N & Task & Một người dùng có thể phân công nhiều Task. \\ \hline
 Task & 1-N & Submission & Một Task có thể có nhiều lần nộp kết quả. \\ \hline
 User & 1-N & Submission & Một người dùng có thể gửi nhiều Submission. \\ \hline
 Submission & 1-N & Review & Một Submission có thể được đánh giá nhiều lần. \\ \hline
 User & 1-N & Review & Một người dùng có thể thực hiện nhiều Review. \\ \hline
+Series & 1-N & BoardVote & Một Series đề xuất nhận phiếu bầu từ nhiều thành viên Hội đồng. \\ \hline
 Series & 1-N & Ranking & Một Series có thể có nhiều bản ghi xếp hạng theo từng thời kỳ. \\ \hline
 User & 1-N & Notification & Một người dùng có thể nhận nhiều thông báo. \\ \hline
+User & 1-N & SystemLog & Một người dùng có thể kích hoạt nhiều nhật ký hoạt động trên hệ thống. \\ \hline
 \end{tabularx}
 \vspace{0.5cm}

@@ -6,7 +6,7 @@
 Sau quá trình nghiên cứu, thiết kế và phát triển, đề tài "Hệ thống quản lý quy trình sáng tác và xuất bản Manga (Manga Creation Workflow and Publishing Management System)" đã hoàn thành đầy đủ các mục tiêu đề ra ban đầu, cụ thể bao gồm các kết quả sau:
 \begin{itemize}
     \item \textbf{Về mặt lý thuyết và quy trình}: Đã chuẩn hóa và tài liệu hóa chi tiết toàn bộ quy trình cộng tác phức tạp giữa các vai trò chính trong ngành công nghiệp truyện tranh, bao gồm: tác giả (Mangaka), trợ lý (Assistant), biên tập viên (Tantou Editor) và hội đồng biên tập (Editorial Board).
-    \item \textbf{Về mặt thiết kế hệ thống}: Đã xây dựng hoàn chỉnh bộ tài liệu thiết kế phần mềm (SDD) bao gồm: sơ đồ ca sử dụng (Use Case), sơ đồ hoạt động (Activity), sơ đồ tuần tự (Sequence) và sơ đồ lớp chi tiết (Class Diagram) thống nhất và khớp hoàn toàn với cấu trúc cơ sở dữ liệu thực tế gồm 10 bảng quan hệ.
+    \item \textbf{Về mặt thiết kế hệ thống}: Đã xây dựng hoàn chỉnh bộ tài liệu thiết kế phần mềm (SDD) bao gồm: sơ đồ ca sử dụng (Use Case), sơ đồ hoạt động (Activity), sơ đồ tuần tự (Sequence) và sơ đồ lớp chi tiết (Class Diagram) thống nhất và khớp hoàn toàn với cấu trúc cơ sở dữ liệu thực tế gồm 14 bảng quan hệ.
     \item \textbf{Về mặt sản phẩm phần mềm}: Triển khai thành công ứng dụng web theo kiến trúc MVC viết bằng PHP thuần. Hệ thống đáp ứng trọn vẹn các luồng chức năng nghiệp vụ cốt lõi:
     \begin{itemize}
         \item Quản lý đề xuất và phê duyệt Series truyện mới.
@@ -22,7 +22,7 @@ Sau quá trình nghiên cứu, thiết kế và phát triển, đề tài "Hệ 
 Mặc dù đã đáp ứng đầy đủ các yêu cầu nghiệp vụ cơ bản, hệ thống vẫn tồn tại một số hạn chế cần tiếp tục cải thiện trong thời gian tới:
 \begin{itemize}
     \item \textbf{Tính thời gian thực (Real-time)}: Cơ chế gửi thông báo và cập nhật tiến độ công việc hiện tại vẫn dựa trên các yêu cầu HTTP truyền thống (đồng bộ/bất đồng bộ qua AJAX). Hệ thống chưa hỗ trợ công nghệ WebSockets để gửi thông báo tức thời (Instant Notifications) cho người dùng.
-    \item \textbf{Công cụ cộng tác đồ họa trực quan}: Trình duyệt bản vẽ hiện tại chỉ hỗ trợ xem ảnh tĩnh và ghi chú văn bản thông thường. Biên tập viên và tác giả chưa thể thực hiện vẽ đè (markup) hoặc khoanh vùng ghi chú trực tiếp lên các tọa độ cụ thể của bản vẽ trên giao diện Web.
+    \item \textbf{Công cụ vẽ tay tự do (Freehand Sketching)}: Mặc dù hệ thống đã hỗ trợ khoanh vùng tọa độ hình chữ nhật (Selection Box) để đánh dấu nét lỗi và định vị phân vùng vẽ trực tiếp trên giao diện web, nhưng chưa hỗ trợ vẽ nét tay tự do (freehand brush strokes) trực tiếp trên trình duyệt.
     \item \textbf{Tự động hóa bằng AI}: Chức năng phân vùng trang truyện (Panel Segmentation) và hỗ trợ tự động tô màu (Auto-Colorization) bằng mô hình Deep Learning mới dừng lại ở mức đề xuất kiến trúc lý thuyết, chưa được đóng gói tích hợp thành một module chạy trực tiếp trong ứng dụng.
 \end{itemize}
 

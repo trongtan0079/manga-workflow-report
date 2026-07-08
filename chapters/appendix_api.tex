@@ -311,32 +311,37 @@ Dưới đây là tài liệu đặc tả chi tiết 8 luồng yêu cầu Web/AP
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.0cm}|>{\raggedright\arraybackslash}X|}
 \hline
 \rowcolor{tableheader}
-\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Cập nhật phiếu bầu và xếp hạng}} \\ \hline
-\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=seriesranking\&}\allowbreak\texttt{action=update} \\ \hline
+\multicolumn{2}{|c|}{\textbf{Đặc tả yêu cầu Web: Cập nhật phiếu bầu và xếp hạng hàng loạt}} \\ \hline
+\textbf{HTTP Method / Route} & \texttt{POST /index.php?}\allowbreak\texttt{controller=seriesRanking\&}\allowbreak\texttt{action=store} \\ \hline
 \textbf{Quyền truy cập (Role)} & Editorial Board (Ban biên tập) \\ \hline
-\textbf{Mô tả nghiệp vụ} & Nhập số lượng phiếu bình chọn của độc giả thu được cho Series Manga trong kỳ xuất bản hiện tại để hệ thống tự động cập nhật lại thứ hạng. \\ \hline
+\textbf{Mô tả nghiệp vụ} & Nhập số lượng phiếu bình chọn của độc giả thu được cho toàn bộ các Series Manga trong kỳ xuất bản hiện tại để hệ thống tự động cập nhật lại thứ hạng và tính điểm quy chuẩn. \\ \hline
 \textbf{Tham số đầu vào (Request Body)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \texttt{series\_id} (Số nguyên, bắt buộc): ID bộ truyện cần cập nhật.
-        \item \texttt{period\_start\_date} (Định dạng Ngày, bắt buộc): Ngày bắt đầu kỳ bình chọn hiện tại.
-        \item \texttt{votes} (Số nguyên, bắt buộc): Số lượng phiếu bầu độc giả hợp lệ nhận được trong kỳ.
+        \item \texttt{period\_start\_date} (Định dạng Ngày, bắt buộc): Ngày bắt đầu kỳ đánh giá hiện tại (không được chọn ngày ở tương lai).
+        \item \texttt{votes} (Mảng, bắt buộc): Mảng key-value dưới dạng \texttt{votes[series\_id] = voteCount} chứa số lượng phiếu bầu của từng bộ truyện.
     \end{itemize}
 \end{minipage} \\ \hline
 \textbf{Logic xử lý trên Server} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Kiểm tra quyền hạn Ban biên tập (Editorial Board) của người dùng.
-        \item INSERT hoặc UPDATE bản ghi vào bảng \texttt{series\_rankings} với dữ liệu phiếu bầu và ngày kỳ.
-        \item Tự động chạy thuật toán xếp hạng: Tính tổng số phiếu bầu và sắp xếp giảm dần tất cả các bộ truyện để ghi đè cột thứ tự xếp hạng (\texttt{rank\_position}) trong kỳ đó.
-        \item Tạo và gửi thông báo cập nhật bảng xếp hạng định kỳ gửi cho toàn bộ người dùng hệ thống.
+        \item Kiểm tra quyền hạn Ban biên tập (Editorial Board) của người dùng hiện tại.
+        \item Xác thực ngày bắt đầu kỳ đánh giá hợp lệ (không vượt quá ngày hiện tại).
+        \item Bắt đầu Transaction: Xóa toàn bộ các bản ghi xếp hạng cũ trong cùng kỳ nếu có để tránh trùng lặp.
+        \item Tìm số lượng phiếu cao nhất (\texttt{maxVotes}) làm mốc quy chuẩn 100 điểm.
+        \item Sắp xếp danh sách Series giảm dần theo phiếu bầu để tính thứ hạng (\texttt{rank\_position}) theo chuẩn thi đấu (đồng hạng nếu cùng số phiếu).
+        \item Tính điểm quy chuẩn (\texttt{score}) cho từng Series: \texttt{round((votes / maxVotes) * 100, 2)}.
+        \item Thực hiện INSERT các bản ghi mới vào bảng \texttt{series\_rankings}.
+        \item Tạo và gửi thông báo kết quả xếp hạng (\texttt{ranking\_published}) cho từng Mangaka. Nếu điểm quy chuẩn $< 50$, tự động gửi thêm cảnh báo đặc biệt (\texttt{series\_warning}) về nguy cơ bị ngưng xuất bản.
+        \item Ghi log hoạt động của Board vào nhật ký hệ thống \texttt{SystemLog}.
+        \item Commit Transaction.
     \end{enumerate}
 \end{minipage} \\ \hline
 \textbf{Kết quả phản hồi (Response)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \textbf{Thành công (HTTP 302):} Quay lại trang quản trị Bảng xếp hạng, thông báo "Cập nhật dữ liệu xếp hạng thành công".
-        \item \textbf{Thất bại (HTTP 302):} Quay lại trang nhập dữ liệu kèm báo cáo lỗi (ví dụ: "Số lượng phiếu bình chọn không được nhỏ hơn 0.").
+        \item \textbf{Thành công (HTTP 302):} Chuyển hướng về trang quản lý xếp hạng chung, báo "Nhập phiếu bầu độc giả và tự động xếp hạng thành công!".
+        \item \textbf{Thất bại (HTTP 302):} Quay lại trang nhập dữ liệu kèm thông điệp thông báo lỗi chi tiết (ví dụ: ngày đánh giá không hợp lệ, dữ liệu trống).
     \end{itemize}
 \end{minipage} \\ \hline
 \end{tabularx}

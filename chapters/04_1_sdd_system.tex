@@ -12,6 +12,13 @@ Hệ thống Manga Creation Workflow and Publishing Management System được t
 \end{itemize}
 Mô hình kiến trúc ba lớp giúp hệ thống dễ bảo trì, dễ mở rộng và nâng cao khả năng tái sử dụng các thành phần chức năng.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter3_IMAGE/System_Architecture_Diagram.png}
+    \caption{Sơ đồ Kiến trúc Hệ thống}
+    \label{fig:system_architecture}
+\end{figure}
+
 \subsection{Kiến trúc triển khai (Deployment Diagram)}
 \label{subsec:sdd_deployment}
 
@@ -97,7 +104,7 @@ Hệ thống "Manga Creation Workflow and Publishing Management System" được
 
     \item \textbf{Lớp cơ sở dữ liệu (Data Layer):}
     \begin{itemize}
-        \item \textbf{MySQL 8.0:} Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mạnh mẽ, an toàn và tối ưu cho các luồng dữ liệu liên kết phức tạp. Lưu trữ toàn bộ 10 thực thể cốt lõi của hệ thống, hỗ trợ ràng buộc toàn vẹn dữ liệu (Integrity Constraints) qua hệ thống khóa ngoại chặt chẽ.
+        \item \textbf{MySQL 8.0:} Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mạnh mẽ, an toàn và tối ưu cho các luồng dữ liệu liên kết phức tạp. Lưu trữ toàn bộ 14 thực thể cốt lõi của hệ thống, hỗ trợ ràng buộc toàn vẹn dữ liệu (Integrity Constraints) qua hệ thống khóa ngoại chặt chẽ.
         \item \textbf{PDO (PHP Data Objects):} Lớp trừu tượng hóa dữ liệu của PHP, cung cấp các hàm API an toàn để tương tác với cơ sở dữ liệu MySQL, ngăn chặn các cuộc tấn công SQL Injection thông qua Prepared Statements.
     \end{itemize}
 \end{enumerate}

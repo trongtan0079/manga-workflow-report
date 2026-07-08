@@ -530,94 +530,99 @@
 \textbf{Mã Use Case} & UC-26 \\ \hline
 \textbf{Tên Use Case} & Xét duyệt Series mới \\ \hline
 \textbf{Actor chính} & Editorial Board \\ \hline
-\textbf{Mô tả} & Đánh giá, bỏ phiếu và phê duyệt một Series mới (Pilot/One-shot) được Mangaka đề xuất. \\ \hline
-\textbf{Tiền điều kiện (Pre-conditions)} & Tài khoản thuộc nhóm Editorial Board, tồn tại Series ở trạng thái 'Pending Approval'. \\ \hline
+\textbf{Mô tả} & Từng thành viên hội đồng tiến hành xem xét kịch bản, bỏ phiếu và phê duyệt một đề xuất Series mới. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Tài khoản thuộc nhóm Editorial Board, tồn tại Series ở trạng thái 'planning' và đã được nộp đề xuất (publish\_type = 'submitted'). \\ \hline
 \textbf{Luồng sự kiện chính (Basic Flow)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Hội đồng xem xét tài liệu Pitching, Kịch bản One-shot của Series.
-        \item Tổ chức tính năng họp bàn hoặc bỏ phiếu nội bộ trên hệ thống.
-        \item Tổng biên tập (đại diện Hội đồng) chọn 'Approve' (Duyệt) hoặc 'Reject' (Từ chối).
-        \item Hệ thống cập nhật trạng thái Series (Thành 'Ongoing' nếu duyệt) và gửi thư phản hồi tự động.
+        \item Hội đồng xem xét tài liệu đề xuất và file kịch bản (proposal\_file) của Series.
+        \item Từng thành viên thực hiện bỏ phiếu (Đồng ý - Approve hoặc Từ chối - Reject) trực tiếp trên giao diện hệ thống.
+        \item Hệ thống ghi nhận phiếu bầu, gửi thông báo cập nhật tiến trình cho Mangaka và các thành viên khác trong Hội đồng.
+        \item Khi nhận đầy đủ phiếu bầu từ tất cả thành viên (100\%), hệ thống gửi thông báo cho các thành viên Board sẵn sàng tiến hành chốt quyết định phê duyệt.
     \end{enumerate}
 \end{minipage} \\ \hline
 \textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \textbf{A1}: Ý tưởng tốt nhưng cần sửa lại kịch bản. Hội đồng chọn 'Needs Revision', điền yêu cầu sửa và trả lại cho tác giả.
+        \item \textbf{A1}: Chưa nhận đầy đủ phiếu bầu từ các thành viên Hội đồng. Hệ thống sẽ khóa chức năng chốt quyết định phê duyệt trạng thái Series.
+        \item \textbf{A2}: Tỷ lệ tán thành phiếu bầu của Hội đồng chưa đạt tối thiểu 50\%. Hệ thống sẽ chặn không cho phép phê duyệt sang trạng thái Đang triển khai (Ongoing).
     \end{itemize}
 \end{minipage} \\ \hline
-\textbf{Hậu điều kiện (Post-conditions)} & Series có trạng thái pháp lý và hoạt động chính thức trên nền tảng. \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Ghi nhận đầy đủ phiếu biểu quyết, thông báo kết quả tiến trình bỏ phiếu của Hội đồng. \\ \hline
 \end{tabularx}
 \caption{Đặc tả UC-26: Xét duyệt Series mới}
 \label{tab:uc26}
 \end{table}
 
-\subsubsection{UC-27: Xuất bản Chapter}\label{subsubsec:uc27_publish_chapter}
+\subsubsection{UC-27: Phê duyệt Chapter}\label{subsubsec:uc27_publish_chapter}
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
 \hline
 \rowcolor{tableheader}
-\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Xuất bản Chapter}} \\ \hline
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Phê duyệt Chapter}} \\ \hline
 \textbf{Mã Use Case} & UC-27 \\ \hline
-\textbf{Tên Use Case} & Xuất bản Chapter \\ \hline
-\textbf{Actor chính} & Editorial Board \\ \hline
-\textbf{Mô tả} & Phát hành Chapter ra công chúng, website hoặc nền tảng đọc trực tuyến. \\ \hline
-\textbf{Tiền điều kiện (Pre-conditions)} & Chapter đã hoàn thiện 100\%, hoàn tất Review và được Tantou Editor thông qua (Approved). \\ \hline
+\textbf{Tên Use Case} & Phê duyệt Chapter \\ \hline
+\textbf{Actor chính} & Tantou Editor \\ \hline
+\textbf{Mô tả} & Tantou Editor phê duyệt chương truyện đã hoàn thành sau khi kiểm duyệt bản thảo cuối cùng đạt chất lượng. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Chapter hoàn thành các Task vẽ trang truyện, Mangaka nộp bản thảo Chapter hoàn chỉnh lên hệ thống (Chương ở trạng thái 'reviewing\_final'). \\ \hline
 \textbf{Luồng sự kiện chính (Basic Flow)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Hội đồng kiểm tra chất lượng file lần cuối.
-        \item Chọn Chapter, thiết lập ngày giờ phát hành (Timezone mặc định).
-        \item Nhấn 'Publish'.
-        \item Hệ thống đổi trạng thái Chapter thành 'Published', đóng dấu Watermark chống vi phạm bản quyền và phân phối tới Database đọc truyện.
+        \item Tantou Editor truy cập vào trang kiểm duyệt bản thảo chương truyện.
+        \item Kiểm tra chất lượng hình ảnh vẽ và nội dung của từng trang truyện.
+        \item Chọn kết quả phê duyệt là "Approved".
+        \item Hệ thống tự động chuyển trạng thái của Chapter sang 'approved', đồng thời khóa cứng toàn bộ các trang truyện và các Task liên quan để chuẩn bị xuất bản.
+        \item Hệ thống gửi thông báo phê duyệt thành công cho Mangaka.
     \end{enumerate}
 \end{minipage} \\ \hline
 \textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \textbf{A1}: Thiết lập lịch phát hành tự động (Scheduled Publish). Hệ thống sẽ chuyển trạng thái 'Scheduled' và chờ Trigger tự động đổi thành 'Published' khi đến giờ G.
+        \item \textbf{A1}: Bản thảo chương chưa đạt yêu cầu. Editor chọn "Từ chối" (Rejected), ghi chú các lỗi cần sửa và trả lại. Hệ thống tự động chuyển trạng thái Chapter về 'drawing' để Mangaka và trợ lý chỉnh sửa lại.
     \end{itemize}
 \end{minipage} \\ \hline
-\textbf{Hậu điều kiện (Post-conditions)} & Chapter được phát hành chính thức, người dùng không thể sửa đổi nội dung cốt lõi nữa. \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Chapter được chuyển trạng thái thành 'approved' và khóa chỉnh sửa, sẵn sàng phát hành. \\ \hline
 \end{tabularx}
-\caption{Đặc tả UC-27: Xuất bản Chapter}
+\caption{Đặc tả UC-27: Phê duyệt Chapter}
 \label{tab:uc27}
 \end{table}
 
-\subsubsection{UC-28: Quyết định ngừng phát hành}\label{subsubsec:uc28_cease_publish}
+\subsubsection{UC-28: Cập nhật trạng thái Series}\label{subsubsec:uc28_cease_publish}
 \begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
 \begin{tabularx}{\textwidth}{|>{\raggedright\arraybackslash\bfseries}p{4.5cm}|>{\raggedright\arraybackslash}X|}
 \hline
 \rowcolor{tableheader}
-\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Quyết định ngừng phát hành}} \\ \hline
+\multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Cập nhật trạng thái Series}} \\ \hline
 \textbf{Mã Use Case} & UC-28 \\ \hline
-\textbf{Tên Use Case} & Quyết định ngừng phát hành \\ \hline
+\textbf{Tên Use Case} & Cập nhật trạng thái Series \\ \hline
 \textbf{Actor chính} & Editorial Board \\ \hline
-\textbf{Mô tả} & Đình chỉ (hiatus) hoặc kết thúc (axe) một Series do thành tích xếp hạng kém hoặc lý do cá nhân của tác giả. \\ \hline
-\textbf{Tiền điều kiện (Pre-conditions)} & Series đang ở trạng thái phát hành 'Ongoing'. \\ \hline
+\textbf{Mô tả} & Cập nhật trạng thái hoạt động (Ongoing, Completed, Canceled, Suspended) và lịch xuất bản của bộ truyện. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Tài khoản thuộc nhóm Editorial Board. \\ \hline
 \textbf{Luồng sự kiện chính (Basic Flow)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Hội đồng chọn Series cần xử lý.
-        \item Chọn 'Change Status' $\rightarrow$ 'Cancelled' (Hủy bỏ) hoặc 'Hiatus' (Tạm ngưng).
-        \item Nhập lý do (bắt buộc để lưu hồ sơ).
-        \item Hệ thống lưu trạng thái, tự động đóng băng toàn bộ các Task/Chapter đang mở thuộc Series và thông báo cho toàn đội ngũ sản xuất.
+        \item Hội đồng truy cập vào trang Quản lý xuất bản bộ truyện.
+        \item Chọn bộ truyện cần cập nhật trạng thái.
+        \item Chọn trạng thái mới và lịch xuất bản (Hàng tuần/Hàng tháng) phù hợp.
+        \item Hệ thống kiểm tra các ràng buộc nghiệp vụ (Business Rules).
+        \item Nếu hợp lệ, hệ thống cập nhật trạng thái mới, ghi nhật ký hoạt động (\texttt{SystemLog}) và gửi thông báo kết quả cho Mangaka.
     \end{enumerate}
 \end{minipage} \\ \hline
 \textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \textbf{A1}: Tạm ngưng có thời hạn vì lý do sức khỏe. Người dùng thiết lập thêm 'Ngày dự kiến mở lại', hệ thống sẽ gửi nhắc nhở khi sắp đến hạn.
+        \item \textbf{A1}: Chọn trạng thái Hoàn thành (Completed) nhưng vẫn còn chapter chưa hoàn thành hoặc chưa có chapter nào là chương cuối (\texttt{is\_final = 1}) được duyệt $\rightarrow$ Hệ thống báo lỗi và từ chối cập nhật.
+        \item \textbf{A2}: Phê duyệt sang Đang triển khai (Ongoing) nhưng chưa đủ 100\% phiếu bầu, tỉ lệ tán thành $< 50\%$, chưa gán Editor chuyên trách, hoặc bộ truyện đang ở dạng nháp/thiếu kịch bản đề xuất $\rightarrow$ Hệ thống báo lỗi và từ chối cập nhật.
+        \item \textbf{A3}: Hạ cấp bộ truyện về trạng thái Kế hoạch (Planning) nhưng đã có chapter được tạo $\rightarrow$ Hệ thống báo lỗi và từ chối cập nhật.
     \end{itemize}
 \end{minipage} \\ \hline
-\textbf{Hậu điều kiện (Post-conditions)} & Series bị dừng vô thời hạn hoặc có thời hạn, quy trình sản xuất tạm khóa. \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Trạng thái hoạt động của Series được cập nhật mới trên hệ thống, ghi nhận nhật ký hoạt động. \\ \hline
 \end{tabularx}
-\caption{Đặc tả UC-28: Quyết định ngừng phát hành}
+\caption{Đặc tả UC-28: Cập nhật trạng thái Series}
 \label{tab:uc28}
 \end{table}
 
@@ -632,26 +637,29 @@
 \multicolumn{2}{|c|}{\textbf{Đặc tả Use Case: Nhập dữ liệu bình chọn}} \\ \hline
 \textbf{Mã Use Case} & UC-29 \\ \hline
 \textbf{Tên Use Case} & Nhập dữ liệu bình chọn \\ \hline
-\textbf{Actor chính} & Admin, Editorial Board \\ \hline
-\textbf{Mô tả} & Nhập dữ liệu phiếu bầu (vote) của độc giả từ tạp chí giấy hoặc API hệ thống ngoài. \\ \hline
-\textbf{Tiền điều kiện (Pre-conditions)} & Tài khoản có quyền Admin/Editor. Đã có dữ liệu thô từ bộ phận khảo sát độc giả. \\ \hline
+\textbf{Actor chính} & Editorial Board \\ \hline
+\textbf{Mô tả} & Nhập số liệu phiếu bầu của độc giả trong kỳ phát hành để hệ thống tự động tính điểm quy chuẩn và bảng xếp hạng. \\ \hline
+\textbf{Tiền điều kiện (Pre-conditions)} & Tài khoản có quyền Editorial Board, có số liệu bình chọn của độc giả sau kỳ phát hành. \\ \hline
 \textbf{Luồng sự kiện chính (Basic Flow)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{enumerate}[leftmargin=*]
-        \item Người dùng vào module 'Quản lý xếp hạng'.
-        \item Chọn Kỳ phát hành tạp chí (Issue Number).
-        \item Nhập thủ công số phiếu bầu hoặc điểm số cho từng Series đang phát hành.
-        \item Nhấn 'Tính toán \& Lưu'.
-        \item Hệ thống cập nhật bảng xếp hạng cho kỳ đó vào Database.
+        \item Thành viên Hội đồng vào module Xếp hạng $\rightarrow$ chọn chức năng "Nhập phiếu bầu".
+        \item Chọn Ngày bắt đầu kỳ đánh giá (Period Start Date).
+        \item Nhập số phiếu bình chọn thực tế của độc giả cho từng Series đang hoạt động.
+        \item Nhấn "Tính toán \& Lưu".
+        \item Hệ thống tự động xóa dữ liệu xếp hạng cũ cùng kỳ (nếu có), tính toán Điểm số quy chuẩn (Score) từ mốc phiếu cao nhất (100 điểm), và xếp hạng (Rank Position) theo chuẩn thi đấu (đồng hạng nếu cùng số phiếu).
+        \item Hệ thống lưu thông tin, ghi log hoạt động của Board vào \texttt{SystemLog} và gửi thông báo kết quả cho Mangaka.
     \end{enumerate}
 \end{minipage} \\ \hline
 \textbf{Luồng rẽ nhánh/Ngoại lệ (Alternate/Exception)} & 
 \begin{minipage}[t]{\linewidth}
     \begin{itemize}[leftmargin=*]
-        \item \textbf{A1}: Import hàng loạt từ file Excel (.xlsx). Hệ thống tự động đọc file, ánh xạ cột dữ liệu và tính toán thứ hạng giảm dần lỗi nhập tay.
+        \item \textbf{A1}: Điểm quy chuẩn của bộ truyện dưới 50 điểm $\rightarrow$ Hệ thống tự động gửi thêm thông báo cảnh báo (\texttt{series\_warning}) nguy cơ bị ngừng phát hành cho Mangaka phụ trách.
+        \item \textbf{A2}: Chọn ngày đánh giá ở tương lai $\rightarrow$ Hệ thống báo lỗi và từ chối lưu dữ liệu.
+        \item \textbf{A3}: Nhập số phiếu bầu âm $\rightarrow$ Hệ thống tự động chuyển số phiếu về 0.
     \end{itemize}
 \end{minipage} \\ \hline
-\textbf{Hậu điều kiện (Post-conditions)} & Bảng xếp hạng của kỳ phát hành được cập nhật và đóng băng chỉnh sửa. \\ \hline
+\textbf{Hậu điều kiện (Post-conditions)} & Bảng xếp hạng của kỳ phát hành được cập nhật và gửi thông báo kết quả cho các Mangaka. \\ \hline
 \end{tabularx}
 \caption{Đặc tả UC-29: Nhập dữ liệu bình chọn}
 \label{tab:uc29}

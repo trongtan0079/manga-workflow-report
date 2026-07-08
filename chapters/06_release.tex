@@ -13,7 +13,7 @@ Hệ thống quản lý quy trình sản xuất và xuất bản Manga sau khi h
 \rowcolor{tableheader}
 \textbf{STT} & \textbf{Tên sản phẩm} & \textbf{Định dạng} & \textbf{Mô tả chi tiết} \\ \hline
 1 & Mã nguồn hệ thống (Source Code) & ZIP / Git Repo & Toàn bộ mã nguồn PHP của ứng dụng (views, controllers, config, assets...). \\ \hline
-2 & Kịch bản cơ sở dữ liệu (Database Schema) & File .sql & Tập tin script khởi tạo cấu trúc 10 bảng CSDL và dữ liệu cấu hình ban đầu (Roles, Admin). \\ \hline
+2 & Kịch bản cơ sở dữ liệu (Database Schema) & File .sql & Tập tin script khởi tạo cấu trúc 14 bảng CSDL và dữ liệu cấu hình ban đầu (Roles, Admin). \\ \hline
 3 & Tài liệu đặc tả yêu cầu (SRS) & File .pdf & Tài liệu đặc tả yêu cầu phần mềm chi tiết của hệ thống. \\ \hline
 4 & Tài liệu thiết kế kiến trúc và CSDL (SDD) & File .pdf & Bản mô tả thiết kế hệ thống, thực thể cơ sở dữ liệu, sơ đồ lớp tĩnh và tuần tự. \\ \hline
 5 & Tài liệu kịch bản kiểm thử (STD) & File .pdf & Kịch bản kiểm thử chi tiết cho các chức năng cốt lõi. \\ \hline
@@ -117,5 +117,5 @@ Tác nhân Editorial Board (Hội đồng biên tập) thực hiện quản lý 
 \begin{itemize}
     \item \textbf{Theo dõi hiệu quả phát hành:} Truy cập vào trang "Thống kê \& Xếp hạng" để xem biểu đồ thứ hạng của các bộ truyện dựa trên lượt xem và điểm số đánh giá từ độc giả.
     \item \textbf{Cập nhật bình chọn độc giả:} Sử dụng giao diện "Nhập số liệu bình chọn" định kỳ theo số phát hành để hệ thống tự động tính toán lại điểm số và thay đổi vị trí xếp hạng của toàn bộ các Series.
-    \item \textbf{Quyết định xuất bản và điều chỉnh:} Đối với các chương đạt điều kiện phê duyệt, chọn chức năng "Xuất bản" (Publish) để đẩy dữ liệu lên trang đọc truyện công cộng. Đối với các bộ truyện liên tục đứng cuối bảng xếp hạng trong nhiều kỳ, Hội đồng họp đánh giá và chọn "Ngừng xuất bản" (Archive Series) hoặc điều chỉnh lại kế hoạch phát hành.
+    \item \textbf{Quyết định xuất bản và điều chỉnh:} Đối với các đề xuất bộ truyện mới, Hội đồng thực hiện bỏ phiếu xét duyệt và quyết định "Xuất bản" (cập nhật trạng thái thành Đang triển khai - Ongoing, phân công Editor chuyên trách). Đối với các bộ truyện đang hoạt động nhưng hiệu quả kém, Hội đồng họp đánh giá và có thể chọn "Tạm ngưng" (Suspend) hoặc "Hủy bỏ" (Cancel) để ngừng xuất bản.
 \end{itemize}
