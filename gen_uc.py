@@ -74,7 +74,7 @@ ucs = [
     {
         "sub": r"\subsubsection{UC-15: Cập nhật trạng thái Page}\label{subsubsec:uc15_update_page}",
         "id": "UC-15", "name": "Cập nhật trạng thái Page", "actor": "Mangaka, Assistant", "label": "uc15",
-        "desc": "Cập nhật trạng thái của trang trong quy trình vẽ (Draft, Inked, Toned, Completed).",
+        "desc": "Cập nhật trạng thái của trang trong quy trình vẽ (drafting, drawing, reviewing\\_draft, reviewing\\_final, approved, published).",
         "pre": "Page đã tồn tại và người dùng có quyền chỉnh sửa Page này (được phân công hoặc là Mangaka).",
         "basic": r"        \item Người dùng chọn Page cụ thể." + "\n" + r"        \item Chọn thay đổi trạng thái từ menu thả xuống (Dropdown)." + "\n" + r"        \item Hệ thống cập nhật trạng thái mới của Page." + "\n" + r"        \item Hệ thống tự động tính toán lại tiến độ tổng của Chapter và lưu lại lịch sử thay đổi.",
         "alt": r"        \item \textbf{A1}: Người dùng không có quyền (không được phân công). Hệ thống chặn thao tác và hiển thị 'Bạn không có quyền chuyển trạng thái trang này'.",
@@ -95,7 +95,7 @@ ucs = [
         "id": "UC-17", "name": "Cập nhật trạng thái Task", "actor": "Assistant", "label": "uc17",
         "desc": "Assistant cập nhật tình trạng công việc mình đang làm trên hệ thống Kanban.",
         "pre": "Assistant đã đăng nhập và là người được chỉ định thực hiện Task đó.",
-        "basic": r"        \item Assistant vào danh sách 'Task của tôi'." + "\n" + r"        \item Kéo thả Task (hoặc bấm chọn) để thay đổi trạng thái sang 'In Progress', 'Ready for Review' hoặc 'Completed'." + "\n" + r"        \item Hệ thống ghi nhận trạng thái, thời gian cập nhật." + "\n" + r"        \item Thông báo tự động gửi đến Mangaka nếu trạng thái là 'Ready for Review'.",
+        "basic": r"        \item Assistant vào danh sách 'Task của tôi'." + "\n" + r"        \item Kéo thả Task (hoặc bấm chọn) để thay đổi trạng thái sang \texttt{'in\_progress'} (Assistant tự cập nhật) hoặc nộp bản vẽ để chuyển sang \texttt{'submitted'} (sau đó Mangaka sẽ phê duyệt để thành \texttt{'completed'} hoặc từ chối để thành \texttt{'rejected'})." + "\n" + r"        \item Hệ thống ghi nhận trạng thái, thời gian cập nhật." + "\n" + r"        \item Thông báo tự động gửi đến Mangaka nếu trạng thái là 'submitted'.",
         "alt": r"        \item \textbf{A1}: Task thuộc về một Series đang bị tạm ngưng (Hiatus). Hệ thống khóa Task và thông báo 'Dự án đang đóng băng, không thể cập nhật'.",
         "post": "Trạng thái Task được thay đổi và lịch sử thao tác được lưu trữ."
     },
@@ -123,7 +123,7 @@ ucs = [
         "id": "UC-20", "name": "Nộp Submission", "actor": "Assistant", "label": "uc20",
         "desc": "Nộp kết quả công việc (file ảnh/tài liệu) lên Cloud để Mangaka đánh giá.",
         "pre": "Task đang ở trạng thái 'In Progress' và thuộc quyền xử lý của Assistant.",
-        "basic": r"        \item Assistant chọn Task tương ứng." + "\n" + r"        \item Chọn chức năng 'Nộp kết quả (Submission)'." + "\n" + r"        \item Tải lên các file kết quả (Chỉ chấp nhận JPEG, PNG, PSD; dung lượng tối đa 20MB/file)." + "\n" + r"        \item Viết ghi chú đính kèm." + "\n" + r"        \item Nhấn 'Gửi'. Hệ thống lưu file lên Cloud Storage, chuyển trạng thái Task sang 'Reviewing' và gửi Notification cho Mangaka.",
+        "basic": r"        \item Assistant chọn Task tương ứng." + "\n" + r"        \item Chọn chức năng 'Nộp kết quả (Submission)'." + "\n" + r"        \item Tải lên các file kết quả (Chỉ chấp nhận JPEG, PNG, PSD; dung lượng tối đa 20MB/file)." + "\n" + r"        \item Viết ghi chú đính kèm." + "\n" + r"        \item Nhấn 'Gửi'. Hệ thống lưu file lên Cloud Storage, chuyển trạng thái Task sang 'submitted' và gửi Notification cho Mangaka.",
         "alt": r"        \item \textbf{A1}: File sai định dạng hoặc quá dung lượng 20MB. Hệ thống từ chối tải lên, bôi đỏ lỗi và hướng dẫn Assistant nén file hoặc đổi định dạng.",
         "post": "Submission được ghi nhận an toàn, phiên bản (version) được cập nhật."
     },
@@ -153,7 +153,7 @@ ucs = [
         "pre": "Đang xem giao diện chi tiết một Submission chưa được Approve.",
         "basic": r"        \item Người dùng chọn công cụ vẽ (highlight, khoanh vùng, bút đỏ) trên trình duyệt." + "\n" + r"        \item Vẽ đánh dấu trực tiếp lên các điểm cần sửa trên file ảnh." + "\n" + r"        \item Nhập comment nhận xét (văn bản) cho từng vùng đánh dấu." + "\n" + r"        \item Chọn 'Approve' (Chấp nhận) hoặc 'Request Changes' (Yêu cầu sửa)." + "\n" + r"        \item Hệ thống lưu tọa độ đánh dấu, nội dung text và gửi email/push notification cho tác giả/trợ lý.",
         "alt": r"        \item \textbf{A1}: Mất kết nối mạng khi đang khoanh vùng lỗi. Hệ thống tự động lưu nháp (Auto-save) vào LocalStorage của trình duyệt và cảnh báo 'Đang ngoại tuyến'.",
-        "post": "Tọa độ Annotation (được lưu trữ tại cột \\texttt{annotations} trong cơ sở dữ liệu) và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng."
+        "post": "Các Annotation (được lưu trữ trong bảng \\texttt{editor\\_annotations} liên kết với trang truyện) và kết quả Review được lưu trữ vĩnh viễn, trạng thái Task thay đổi tương ứng."
     },
     {
         "sub": r"\subsubsection{UC-24: Xem chi tiết Review}\label{subsubsec:uc24_view_review}",
@@ -209,7 +209,7 @@ ucs = [
         "pre": "Tài khoản có quyền Admin/Editor. Đã có dữ liệu thô từ bộ phận khảo sát độc giả.",
         "basic": r"        \item Người dùng vào module 'Quản lý xếp hạng'." + "\n" + r"        \item Chọn Kỳ phát hành tạp chí (Issue Number)." + "\n" + r"        \item Nhập thủ công số phiếu bầu hoặc điểm số cho từng Series đang phát hành." + "\n" + r"        \item Nhấn 'Tính toán \& Lưu'." + "\n" + r"        \item Hệ thống cập nhật bảng xếp hạng cho kỳ đó vào Database.",
         "alt": r"        \item \textbf{A1}: Import hàng loạt từ file Excel (.xlsx). Hệ thống tự động đọc file, ánh xạ cột dữ liệu và tính toán thứ hạng giảm dần lỗi nhập tay.",
-        "post": "Bảng xếp hạng của kỳ phát hành được cập nhật và đóng băng chỉnh sửa."
+        "post": "Bảng xếp hạng của kỳ phát hành được cập nhật và đóng băng chỉnh sửa. Đồng thời, hệ thống tự động gửi thông báo cảnh báo loại \\texttt{series\\_warning} cho Mangaka của truyện nếu điểm quy chuẩn dưới 50 điểm đồng thời thứ hạng của truyện từ hạng 5 trở xuống."
     },
     {
         "sub": r"\subsubsection{UC-30: Xem bảng xếp hạng}\label{subsubsec:uc30_view_ranking}",

@@ -194,7 +194,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
         \item Đính kèm tệp ảnh kết quả vẽ (định dạng PNG, dung lượng <10MB).
         \item Nhập lời nhắn/báo cáo tiến độ và nhấn "Gửi".
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Bản vẽ được tải lên thành công, tạo một bản ghi mới trong bảng \code{Submissions}, cập nhật trạng thái Task sang \code{Reviewing}, và gửi thông báo nhắc duyệt bài tới Mangaka giao việc.
+    \item \textbf{Kết quả mong đợi:} Bản vẽ được tải lên thành công, tạo một bản ghi mới trong bảng \code{Submissions}, cập nhật trạng thái Task sang \code{submitted}, và gửi thông báo nhắc duyệt bài tới Mangaka giao việc.
 \end{itemize}
 
 \subsection{TC-09: Review Submission — Chấp nhận}
@@ -226,7 +226,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
         \item Nhập mô tả chi tiết các phần vẽ lỗi cần sửa (ví dụ: "Vẽ lại bóng đổ ở góc trái").
         \item Nhấn "Xác nhận gửi yêu cầu".
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Lưu bản ghi review vào bảng \code{Reviews} với kết quả \code{Request Changes}, trạng thái Task quay lại \code{In Progress}, gửi thông báo kèm theo chi tiết nội dung phản hồi yêu cầu chỉnh sửa cho Assistant vẽ lại.
+    \item \textbf{Kết quả mong đợi:} Lưu bản ghi review vào bảng \code{Reviews} với kết quả \code{Request Changes}, trạng thái Task quay lại \code{rejected}, gửi thông báo kèm theo chi tiết nội dung phản hồi yêu cầu chỉnh sửa cho Assistant vẽ lại.
 \end{itemize}
 
 \subsection{TC-11: Xét duyệt Series mới}
@@ -234,15 +234,14 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
 \begin{itemize}
     \item \textbf{Mục tiêu:} Phê duyệt đề xuất Series mới để bắt đầu sản xuất.
     \item \textbf{Actor thực hiện:} Editorial Board.
-    \item \textbf{Tiền điều kiện:} Có Series mới do Mangaka đề xuất đang ở trạng thái \code{Pending}.
+    \item \textbf{Tiền điều kiện:} Có Series mới do Mangaka đề xuất đang ở trạng thái \code{planning} (đã nộp đề xuất với \code{publish\_type = 'submitted'}).
     \item \textbf{Các bước thực hiện:}
     \begin{enumerate}
-        \item Truy cập danh sách đề xuất Series mới.
-        \item Xem thông tin chi tiết hồ sơ đề xuất bộ truyện.
-        \item Nhấp nút "Phê duyệt" (Approve Series) và nhập quyết định kế hoạch.
-        \item Nhấn "Lưu quyết định".
+        \item Các thành viên trong Hội đồng truy cập và bỏ phiếu cho đề xuất Series mới.
+        \item Xem thông tin chi tiết hồ sơ đề xuất bộ truyện và tiến hành vote (Đồng ý / Từ chối).
+        \item Khi 100\% thành viên Hội đồng đã hoàn tất bỏ phiếu, hệ thống tự động kiểm tra tỷ lệ vote.
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Trạng thái bộ truyện chuyển sang \code{Active}, hệ thống tự động gửi thông báo phê duyệt chính thức kèm theo lời chúc mừng đến Mangaka đề xuất.
+    \item \textbf{Kết quả mong đợi:} Nếu tỷ lệ phiếu bầu đồng ý đạt từ $50\%$ trở lên, trạng thái bộ truyện chuyển sang \code{ongoing} và gán Biên tập viên phụ trách. Ngược lại, trạng thái chuyển sang \code{canceled}. Hệ thống tự động gửi thông báo kết quả phê duyệt chính thức đến Mangaka đề xuất.
 \end{itemize}
 
 \subsection{TC-12: Xuất bản Chapter}
@@ -250,14 +249,14 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
 \begin{itemize}
     \item \textbf{Mục tiêu:} Xuất bản chính thức một chương truyện đã hoàn thành lên cổng đọc truyện công cộng.
     \item \textbf{Actor thực hiện:} Editorial Board.
-    \item \textbf{Tiền điều kiện:} Chương truyện (Chapter) đã được tập hợp đầy đủ các trang vẽ hoàn thiện và Mangaka đã gửi yêu cầu xuất bản.
+    \item \textbf{Tiền điều kiện:} Chương truyện (Chapter) đã ở trạng thái duyệt hoàn thành (\code{approved}).
     \item \textbf{Các bước thực hiện:}
     \begin{enumerate}
-        \item Truy cập danh sách Chapter chờ duyệt xuất bản.
-        \item Kiểm tra nội dung toàn chương và chọn "Duyệt Xuất bản".
-        \item Xác nhận xuất bản ngay lập tức.
+        \item Truy cập trang chi tiết Chapter đã duyệt.
+        \item Chọn chức năng "Xuất bản" (Publish).
+        \item Xác nhận xuất bản.
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Trạng thái của Chapter chuyển từ \code{Draft}/\code{Pending} sang \code{Published}, ghi nhận thời gian xuất bản thực tế vào cơ sở dữ liệu, và kích hoạt thông báo cho độc giả đã theo dõi Series.
+    \item \textbf{Kết quả mong đợi:} Trạng thái của Chapter chuyển sang \code{published}, đồng thời toàn bộ các trang vẽ (Pages) thuộc chương này tự động cập nhật sang trạng thái \code{published}. Ghi nhận thời gian xuất bản thực tế vào cơ sở dữ liệu và gửi thông báo loại \code{chapter\_published} đến Mangaka.
 \end{itemize}
 
 \subsection{TC-13: Nhập dữ liệu bình chọn và xếp hạng hàng loạt}
@@ -273,7 +272,7 @@ Dưới đây là 15 kịch bản kiểm thử (Test Cases) chi tiết bao gồm
         \item Nhập số lượng phiếu bình chọn thực tế thu được cho từng bộ truyện trong danh sách hiển thị.
         \item Nhấn nút "Tính toán \& Lưu".
     \end{enumerate}
-    \item \textbf{Kết quả mong đợi:} Hệ thống tự động xóa dữ liệu xếp hạng cũ cùng kỳ (nếu trùng), tính điểm số quy chuẩn (Score) từ mốc phiếu cao nhất (100 điểm), tính thứ hạng (Rank Position) đồng hạng chuẩn thi đấu. Lưu dữ liệu vào bảng \code{Series\_Rankings}, tự động gửi thông báo kết quả cho tác giả Mangaka (gửi cảnh báo thêm nếu điểm $< 50$), và ghi log hành động Board vào \code{SystemLog}.
+    \item \textbf{Kết quả mong đợi:} Hệ thống tự động xóa dữ liệu xếp hạng cũ cùng kỳ (nếu trùng), tính điểm số quy chuẩn (Score) từ mốc phiếu cao nhất (100 điểm), tính thứ hạng (Rank Position) đồng hạng chuẩn thi đấu. Lưu dữ liệu vào bảng \code{Series\_Rankings}, tự động gửi thông báo kết quả cho tác giả Mangaka (gửi cảnh báo thêm loại \texttt{series\_warning} nếu điểm số quy chuẩn $< 50$ đồng thời thứ hạng từ hạng 5 trở xuống), và ghi log hành động Board vào \code{SystemLog}.
 \end{itemize}
 
 \subsection{TC-14: Xem bảng xếp hạng}
