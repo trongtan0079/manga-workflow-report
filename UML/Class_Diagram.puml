@@ -55,6 +55,7 @@ class Chapter {
   +hasFinalApprovedChapter(seriesId: int) : bool
   +countByMangakaId(mangakaId: int) : int
   +getUpcomingDeadlinesByEditor(editorId: int) : array
+  +findPublishedChapters() : array
 }
 
 class Page {
@@ -62,11 +63,13 @@ class Page {
   +chapterId : int
   +pageNumber : int
   +imageUrl : string
+  +oldImageUrl : string
   +status : string
   +findByChapterIdWithAnnotationCount(chapterId: int) : array
   +countByMangakaId(mangakaId: int) : int
   +getPageNumbersByChapterId(chapterId: int) : array
   +getOtherPageNumbers(chapterId: int, pageId: int) : array
+  +updateStatusByChapterId(chapterId: int, status: string) : bool
 }
 
 class PageRegion {

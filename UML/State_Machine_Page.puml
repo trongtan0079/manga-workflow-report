@@ -3,34 +3,32 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Trang Truyện (P
 
 skinparam backgroundColor white
 skinparam shadowing false
-skinparam linetype ortho
+skinparam state {
+    BackgroundColor #E8F4F8
+    BorderColor #2980B9
+    FontSize 13
+}
+skinparam ArrowFontSize 11
 
 [*] --> drafting : Mangaka tải lên trang vẽ mới
 
-state drafting {
-    description : Trang vẽ thô đang biên tập
-}
+drafting : Trang vẽ thô đang biên tập
+reviewing_draft : Chapter chứa trang đang được duyệt nháp
+drawing : Đang thực hiện vẽ (đang có Task hoạt động)
+reviewing_final : Chapter chứa trang đang được duyệt hoàn chỉnh
+approved : Toàn bộ Tasks trên trang đã hoàn thành
+published : Trang truyện đã xuất bản chính thức cùng Chapter
 
-state drawing {
-    description : Đang thực hiện vẽ (đang có Task hoạt động)
-}
-
-state approved {
-    description : Toàn bộ phân vùng (PageRegions) đã hoàn thành và được duyệt
-}
-
-state published {
-    description : Trang truyện đã xuất bản chính thức cùng Chapter
-}
-
-drafting --> drawing : Mangaka tạo và giao Task trên phân vùng
 drafting --> reviewing_draft : Chapter chứa trang chuyển sang reviewing_draft
 reviewing_draft --> drafting : Chapter bị từ chối duyệt nháp
 reviewing_draft --> drawing : Chapter được duyệt nháp
+
+drafting --> drawing : Mangaka tạo và giao Task trên phân vùng
+
 drawing --> reviewing_final : Chapter chứa trang chuyển sang reviewing_final
 reviewing_final --> drawing : Chapter bị từ chối duyệt hoàn chỉnh
 
-drawing --> approved : Tất cả phân vùng (PageRegions) chuyển sang 'completed'\nvà tất cả Task đã hoàn thành
+drawing --> approved : Tất cả các Task của trang này đã hoàn thành
 reviewing_final --> approved : Chapter được duyệt hoàn chỉnh
 
 approved --> published : Chapter chứa trang này được duyệt xuất bản

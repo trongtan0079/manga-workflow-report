@@ -76,6 +76,7 @@ entity pages {
   chapter_id : int <<FK>>
   page_number : int
   image_url : varchar
+  old_image_url : varchar <<NULL>>
   status : enum
   created_at : timestamp
   updated_at : timestamp

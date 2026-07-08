@@ -15,18 +15,13 @@ actor "Editorial Board" as board
 
 component "Hệ thống Quản lý Quy trình\nSáng tác và Xuất bản Manga" as system
 
-admin --> system : Yêu cầu quản lý tài khoản, phân quyền
-system --> admin : Nhật ký hoạt động, báo cáo hệ thống
+admin <--> system : **[Yêu cầu]** Quản lý tài khoản, phân quyền\n**[Phản hồi]** Nhật ký hoạt động, báo cáo hệ thống
 
-mangaka --> system : Đề xuất Series mới, tạo Chapter/Page,\nphân công Task, duyệt Submission, phản hồi review
-system --> mangaka : Báo cáo tiến độ Task, phản hồi của Editor,\nbảng xếp hạng, thông báo hệ thống
+mangaka <--> system : **[Yêu cầu]** Đề xuất Series, tạo Chapter/Page, giao Task, duyệt Submission, phản hồi\n**[Phản hồi]** Trạng thái Task, phản hồi của Editor, bảng xếp hạng, thông báo
 
-assistant --> system : Cập nhật tiến độ Task, nộp Submission
-system --> assistant : Nhiệm vụ được giao, phản hồi từ Mangaka, thông báo
+assistant <--> system : **[Yêu cầu]** Cập nhật trạng thái Task, nộp Submission\n**[Phản hồi]** Nhiệm vụ được giao, phản hồi, thông báo
 
-editor --> system : Xem và đánh dấu nhận xét Chapter/Series,\ngửi yêu cầu chỉnh sửa
-system --> editor : Bản thảo cần duyệt, báo cáo tiến độ studio, thông báo
+editor <--> system : **[Yêu cầu]** Xem/nhận xét Chapter/Series, gửi yêu cầu chỉnh sửa\n**[Phản hồi]** Bản thảo cần duyệt, tiến độ studio, thông báo
 
-board --> system : Đánh giá hồ sơ Series, bỏ phiếu duyệt,\nnhập dữ liệu bình chọn độc giả, quyết định xuất bản/ngừng
-system --> board : Hồ sơ đề xuất Series, bảng xếp hạng, báo cáo phát hành
+board <--> system : **[Yêu cầu]** Xét duyệt Series, nhập vote, quyết định xuất bản/ngừng\n**[Phản hồi]** Hồ sơ đề xuất Series, BXH, báo cáo phát hành
 @enduml
