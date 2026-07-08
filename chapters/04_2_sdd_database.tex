@@ -131,6 +131,7 @@ page\_id & INT (PK) & Mã trang \\ \hline
 chapter\_id & INT (FK) & Chương \\ \hline
 page\_number & INT & Số trang \\ \hline
 image\_url & VARCHAR(255) & Đường dẫn ảnh \\ \hline
+old\_image\_url & VARCHAR(255) (NULL) & Đường dẫn ảnh cũ trước khi bị Editor báo lỗi và sửa đổi \\ \hline
 status & ENUM & Trạng thái (\texttt{'drafting'}, \texttt{'drawing'}, \texttt{'reviewing\_draft'}, \texttt{'reviewing\_final'}, \texttt{'approved'}, \texttt{'published'}) \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline

@@ -227,6 +227,7 @@ seriesId & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hl
 pageId & int & Mã trang (Primary Key) \\ \hline
 pageNumber & int & Số thứ tự trang \\ \hline
 imageUrl & string & Đường dẫn ảnh \\ \hline
+oldImageUrl & string & Đường dẫn ảnh cũ trước khi sửa đổi \\ \hline
 status & string & Trạng thái hoàn thành \\ \hline
 chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \end{tabularx}
@@ -507,6 +508,8 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Kiểm tra xem chương cuối đã được duyệt hay chưa.
         \item \texttt{getUpcomingDeadlinesByEditor(editorId: int): array}\\
             Lấy danh sách các chương sắp đến hạn nộp thuộc BTV quản lý.
+        \item \texttt{findPublishedChapters(): array}\\
+            Lấy danh sách các chương đã xuất bản (published) thuộc các Series.
     \end{itemize}
 
     \item \textbf{Lớp Page:}
@@ -521,6 +524,8 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy mảng các số thứ tự trang hiện có trong chương.
         \item \texttt{getOtherPageNumbers(chapterId: int, pageId: int): array}\\
             Lấy số thứ tự các trang khác trong chương để phục vụ thay đổi vị trí.
+        \item \texttt{updateStatusByChapterId(chapterId: int, status: string): bool}\\
+            Cập nhật trạng thái cho tất cả các trang thuộc một chương truyện cụ thể.
     \end{itemize}
 
     \item \textbf{Lớp Task:}
@@ -569,6 +574,58 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy ý kiến bỏ phiếu hiện tại của một thành viên cụ thể.
         \item \texttt{getApprovalStats(seriesId: int): array}\\
             Tính toán động tỉ lệ phần trăm tán thành và số lượng phiếu bầu đạt được.
+    \end{itemize}
+
+    \item \textbf{Lớp PageRegion:}
+    \begin{itemize}
+        \item \texttt{findByPageId(pageId: int): array}\\
+            Lấy tất cả các phân vùng của một trang truyện cụ thể.
+    \end{itemize}
+
+    \item \textbf{Lớp EditorAnnotation:}
+    \begin{itemize}
+        \item \texttt{findByPageId(pageId: int): array}\\
+            Lấy danh sách các ghi chú báo lỗi của Editor trên trang truyện kèm theo tên Editor.
+        \item \texttt{deleteByPageId(pageId: int): bool}\\
+            Xóa toàn bộ các ghi chú báo lỗi trên một trang truyện cụ thể.
+    \end{itemize}
+
+    \item \textbf{Lớp SeriesRanking:}
+    \begin{itemize}
+        \item \texttt{findBySeriesId(seriesId: int): array}\\
+            Lấy danh sách lịch sử điểm số và thứ hạng của bộ truyện.
+        \item \texttt{getSeriesCountByPeriod(period: string): int}\\
+            Đếm số lượng bộ truyện đã xếp hạng trong một kỳ đánh giá cụ thể.
+        \item \texttt{getTopSeriesByPeriod(period: string, limit: int): array}\\
+            Lấy danh sách các bộ truyện có điểm cao nhất trong kỳ đánh giá.
+        \item \texttt{getBottomSeriesByPeriod(period: string, limit: int): array}\\
+            Lấy danh sách các bộ truyện có điểm thấp nhất trong kỳ đánh giá.
+    \end{itemize}
+
+    \item \textbf{Lớp Notification:}
+    \begin{itemize}
+        \item \texttt{createNotification(userId: int, type: string, message: string, relatedId: int = null): bool}\\
+            Tạo và gửi thông báo mới cho người dùng.
+        \item \texttt{findByUserId(userId: int): array}\\
+            Lấy toàn bộ danh sách thông báo của người dùng.
+        \item \texttt{findUnreadByUserId(userId: int): array}\\
+            Lấy danh sách các thông báo chưa đọc của người dùng.
+        \item \texttt{getUnreadCount(userId: int): int}\\
+            Đếm số lượng thông báo chưa đọc của người dùng.
+        \item \texttt{getLatestNotifications(userId: int, limit: int = 5): array}\\
+            Lấy danh sách thông báo mới nhất phục vụ hiển thị nhanh (dropdown).
+        \item \texttt{markAsRead(notificationId: int, userId: int): bool}\\
+            Đánh dấu một thông báo cụ thể là đã đọc.
+        \item \texttt{markAllAsRead(userId: int): bool}\\
+            Đánh dấu toàn bộ thông báo của người dùng là đã đọc.
+    \end{itemize}
+
+    \item \textbf{Lớp SystemLog:}
+    \begin{itemize}
+        \item \texttt{logAction(userId: int, action: string, details: string): bool}\\
+            Ghi nhận nhật ký hoạt động nghiệp vụ của người dùng vào hệ thống.
+        \item \texttt{getPaginatedLogs(limit: int, offset: int): array}\\
+            Lấy danh sách log có phân trang kèm theo thông tin chi tiết người dùng thực hiện.
     \end{itemize}
 \end{itemize}
 
