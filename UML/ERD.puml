@@ -1,10 +1,11 @@
 @startuml
 title ERD - Manga Creation Workflow and Publishing Management System
+
 skinparam linetype ortho
-skinparam ranksep 250
-skinparam nodesep 150
+skinparam ranksep 60
+skinparam nodesep 50
 skinparam titleFontSize 24
-left to right direction
+
 entity roles {
   *role_id : int <<PK>>
   --
@@ -30,10 +31,14 @@ entity series {
   *series_id : int <<PK>>
   --
   mangaka_id : int <<FK>>
+  editor_id : int <<FK>> <<NULL>>
   title : varchar
   description : text
   status : enum
+  publish_type : varchar
   cover_image : varchar
+  proposal_file : varchar
+  dossier_notes : text
   created_at : timestamp
   updated_at : timestamp
 }
@@ -45,9 +50,24 @@ entity chapters {
   chapter_number : int
   title : varchar
   status : enum
+  due_date : datetime
   published_at : datetime
+  is_final : tinyint
   created_at : timestamp
   updated_at : timestamp
+}
+
+entity page_regions {
+  *region_id : int <<PK>>
+  --
+  page_id : int <<FK>>
+  region_type : enum
+  x : int
+  y : int
+  width : int
+  height : int
+  status : enum
+  created_at : timestamp
 }
 
 entity pages {
@@ -65,10 +85,13 @@ entity tasks {
   *task_id : int <<PK>>
   --
   page_id : int <<FK>>
+  page_region_id : int <<FK>> <<NULL>>
   mangaka_id : int <<FK>>
   assistant_id : int <<FK>>
   title : varchar
+  task_type : enum
   description : text
+  resource_url : varchar
   priority : enum
   status : enum
   due_date : datetime
@@ -95,7 +118,6 @@ entity reviews {
   submission_id : int <<FK>>
   reviewer_id : int <<FK>>
   comments : text
-  annotations : text
   rating : int
   created_at : timestamp
 }
@@ -115,29 +137,74 @@ entity notifications {
   *notification_id : int <<PK>>
   --
   user_id : int <<FK>>
+  related_id : int <<FK>> <<NULL>>
   type : varchar
   message : text
   is_read : boolean
   created_at : timestamp
 }
 
+entity system_logs {
+  *log_id : int <<PK>>
+  --
+  user_id : int <<FK>> <<NULL>>
+  action : varchar
+  details : text
+  ip_address : varchar
+  created_at : timestamp
+}
+
+entity editor_annotations {
+  *annotation_id : int <<PK>>
+  --
+  page_id : int <<FK>>
+  editor_id : int <<FK>>
+  x : int
+  y : int
+  width : int
+  height : int
+  comments : text
+  created_at : timestamp
+}
+
+entity board_votes {
+  *vote_id : int <<PK>>
+  --
+  series_id : int <<FK>>
+  board_member_id : int <<FK>>
+  vote : enum
+  created_at : timestamp
+}
+
 roles ||--o{ users : has
+users ||--o{ system_logs : triggers
+
 users ||--o{ series : creates
+users ||--o{ series : manages
+
 users ||--o{ tasks : assigns
 users ||--o{ tasks : receives
+
 users ||--o{ submissions : submits
 users ||--o{ reviews : writes
 users ||--o{ notifications : receives
 users ||--o{ series_rankings : evaluates
+users ||--o{ editor_annotations : annotates
+users ||--o{ board_votes : votes
 
 series ||--o{ chapters : contains
 series ||--o{ series_rankings : ranked
+series ||--o{ board_votes : receives_votes
 
 chapters ||--o{ pages : contains
-pages ||--o{ tasks : requires
 chapters ||--o{ submissions : submitted
 
+pages ||--o{ page_regions : segment
+pages ||--o{ tasks : requires
+pages ||--o{ editor_annotations : has
+page_regions ||--o{ tasks : targetedAt
 tasks ||--o{ submissions : generates
 
 submissions ||--o{ reviews : receives
+
 @enduml
