@@ -6,7 +6,7 @@
 Sơ đồ mối quan hệ thực thể (ERD) thể hiện cấu trúc cơ sở dữ liệu của hệ thống, mô tả các thực thể chính và mối liên kết giữa chúng.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Chapter3_IMAGE/ERD.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{Chapter3_IMAGE/ERD.png}
     \caption{Sơ đồ mối quan hệ thực thể (ERD)}
     \label{fig:erd}
 \end{figure}
@@ -103,7 +103,7 @@ chapter\_id & INT (PK) & Mã chương \\ \hline
 series\_id & INT (FK) & Bộ truyện \\ \hline
 chapter\_number & INT & Số chương \\ \hline
 title & VARCHAR(255) & Tiêu đề \\ \hline
-status & ENUM & Trạng thái (\texttt{'drafting'}, \texttt{'drawing'}, \texttt{'reviewing'}, \texttt{'approved'}, \texttt{'published'}) \\ \hline
+status & ENUM & Trạng thái (\texttt{'drafting'}, \texttt{'drawing'}, \texttt{'reviewing\_draft'}, \texttt{'reviewing\_final'}, \texttt{'approved'}, \texttt{'published'}) \\ \hline
 due\_date & DATETIME & Hạn hoàn thành chương truyện \\ \hline
 published\_at & DATETIME & Ngày xuất bản \\ \hline
 is\_final & TINYINT(1) & Đánh dấu chương cuối cùng của bộ truyện \\ \hline
