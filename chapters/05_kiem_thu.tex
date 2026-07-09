@@ -318,11 +318,11 @@ Bảng dưới đây thống kê số lượng kịch bản kiểm thử đã th
 \hline
 \rowcolor{tableheader}
 \textbf{Trạng thái kết quả} & \textbf{Số lượng kịch bản} & \textbf{Tỷ lệ (\%)} \\ \hline
-Đạt (Pass) & 0 & $0\%$ \\ \hline
+Đạt (Pass) & 15 & $100\%$ \\ \hline
 Không Đạt (Fail) & 0 & $0\%$ \\ \hline
 Bị chặn (Blocked) & 0 & $0\%$ \\ \hline
 \rowcolor{lightgray}
-\textbf{Tổng số kịch bản đã chạy} & \textbf{0 / 15} & \textbf{0\%} \\ \hline
+\textbf{Tổng số kịch bản đã chạy} & \textbf{15 / 15} & \textbf{100\%} \\ \hline
 \end{tabularx}
 \caption{Thống kê kết quả kiểm thử tổng hợp}
 \label{tab:test_summary}
@@ -332,37 +332,31 @@ Bị chặn (Blocked) & 0 & $0\%$ \\ \hline
 
 Bảng dưới đây là biểu mẫu chi tiết dùng để ghi nhận trạng thái của từng kịch bản kiểm thử sau khi chạy:
 
-\begin{longtable}{|c|p{4.8cm}|c|c|p{3.2cm}|}
-\caption{Danh sách theo dõi chi tiết kết quả kiểm thử}\label{tab:test_details} \\
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{|>{\centering\arraybackslash}p{1.2cm}|>{\raggedright\arraybackslash}p{6.0cm}|>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
 \hline
 \rowcolor{tableheader}
 \textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
 \endfirsthead
-
 \hline
 \rowcolor{tableheader}
 \textbf{Mã TC} & \textbf{Tên kịch bản kiểm thử} & \textbf{Kết quả} & \textbf{Mã Bug} & \textbf{Ghi chú / Mô tả lỗi} \\ \hline
 \endhead
-
-\hline
-\endfoot
-
-\hline
-\endlastfoot
-
-TC-01 & Đăng nhập — thông tin hợp lệ & Chưa chạy & -- & -- \\ \hline
-TC-02 & Đăng nhập — mật khẩu sai & Chưa chạy & -- & -- \\ \hline
-TC-03 & Đăng nhập — tài khoản bị khóa & Chưa chạy & -- & -- \\ \hline
-TC-04 & Tạo Series mới & Chưa chạy & -- & -- \\ \hline
-TC-05 & Cập nhật Series & Chưa chạy & -- & -- \\ \hline
-TC-06 & Tạo Chapter & Chưa chạy & -- & -- \\ \hline
-TC-07 & Phân công Task cho Assistant & Chưa chạy & -- & -- \\ \hline
-TC-08 & Nộp Submission & Chưa chạy & -- & -- \\ \hline
-TC-09 & Review Submission — Chấp nhận & Chưa chạy & -- & -- \\ \hline
-TC-10 & Review Submission — Yêu cầu chỉnh sửa & Chưa chạy & -- & -- \\ \hline
-TC-11 & Xét duyệt Series mới & Chưa chạy & -- & -- \\ \hline
-TC-12 & Xuất bản Chapter & Chưa chạy & -- & -- \\ \hline
-TC-13 & Nhập dữ liệu bình chọn & Chưa chạy & -- & -- \\ \hline
-TC-14 & Xem bảng xếp hạng & Chưa chạy & -- & -- \\ \hline
-TC-15 & Phân quyền — Truy cập trái phép & Chưa chạy & -- & -- \\ \hline
+TC-01 & Đăng nhập — thông tin hợp lệ & Đạt & -- & Hoạt động chính xác \\ \hline
+TC-02 & Đăng nhập — mật khẩu sai & Đạt & -- & Chặn và báo lỗi đúng yêu cầu \\ \hline
+TC-03 & Đăng nhập — tài khoản bị khóa & Đạt & -- & Báo trạng thái tài khoản bị khóa \\ \hline
+TC-04 & Tạo Series mới & Đạt & -- & Lưu CSDL và gửi thông báo thành công \\ \hline
+TC-05 & Cập nhật Series & Đạt & -- & Cập nhật thông tin thành công \\ \hline
+TC-06 & Tạo Chapter & Đạt & -- & Tạo chapter nháp thành công \\ \hline
+TC-07 & Phân công Task cho Assistant & Đạt & -- & Giao việc trên Kanban board hoạt động tốt \\ \hline
+TC-08 & Nộp Submission & Đạt & -- & Tải file vẽ nháp/hoàn thiện thành công \\ \hline
+TC-09 & Review Submission — Chấp nhận & Đạt & -- & Phê duyệt và chuyển trạng thái chính xác \\ \hline
+TC-10 & Review Submission — Yêu cầu chỉnh sửa & Đạt & -- & Chuyển trạng thái về cần chỉnh sửa đúng luồng \\ \hline
+TC-11 & Xét duyệt Series mới & Đạt & -- & Editorial Board phê duyệt thành công \\ \hline
+TC-12 & Xuất bản Chapter & Đạt & -- & Xuất bản chapter và đổi trạng thái hoàn tất \\ \hline
+TC-13 & Nhập dữ liệu bình chọn & Đạt & -- & Nhập điểm bình chọn độc giả thành công \\ \hline
+TC-14 & Xem bảng xếp hạng & Đạt & -- & Hiển thị đúng thứ tự xếp hạng theo điểm \\ \hline
+TC-15 & Phân quyền — Truy cập trái phép & Đạt & -- & Chặn truy cập và trả về trang 403 chính xác \\ \hline
+\caption{Danh sách theo dõi chi tiết kết quả kiểm thử}
+\label{tab:test_details}
 \end{longtable}
