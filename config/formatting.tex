@@ -50,7 +50,7 @@
 
 % Định dạng tiêu đề chương trên 1 hàng, viết hoa toàn bộ (Không hiển thị chữ "CHƯƠNG", căn lề trái)
 \titleformat{\chapter}[hang]
-    {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}}
+    {\normalfont\fontsize{18pt}{22pt}\selectfont\bfseries\color{navyblue}}
     {\thechapter.~}
     {0em}
     {\MakeTextUppercase}
@@ -58,17 +58,17 @@
 
 % Định dạng tiêu đề mục
 \titleformat{\section}
-    {\normalfont\fontsize{14pt}{18pt}\selectfont\bfseries\color{navyblue}}
+    {\normalfont\fontsize{16pt}{20pt}\selectfont\bfseries\color{navyblue}}
     {\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{18pt}{10pt}
 
 \titleformat{\subsection}
-    {\normalfont\fontsize{13pt}{16.5pt}\selectfont\bfseries\color{navyblue}}
+    {\normalfont\fontsize{14pt}{18pt}\selectfont\bfseries\color{navyblue}}
     {\thesubsection}{1em}{}
 \titlespacing*{\subsection}{0pt}{14pt}{6pt}
 
 \titleformat{\subsubsection}
-    {\normalfont\fontsize{12pt}{15pt}\selectfont\bfseries\color{navyblue}}
+    {\normalfont\fontsize{13pt}{16.5pt}\selectfont\bfseries\color{navyblue}}
     {\thesubsubsection}{1em}{}
 \titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
 
@@ -125,7 +125,14 @@
 % Định dạng đường dẫn hình ảnh
 \graphicspath{{assets/images/}{assets/diagrams/}}
 
-% Tự động thu nhỏ font chữ Monospace (texttt, code) để khớp tỷ lệ với Times Roman
-\let\oldttfamily\ttfamily
-\renewcommand{\ttfamily}{\oldttfamily\small}
+% Tự động co tỷ lệ phông Monospace (Courier) để tương thích và cân đối với Times Roman
+\makeatletter
+\DeclareFontFamily{T5}{pcr}{}
+\DeclareFontShape{T5}{pcr}{m}{n}{<-> s * [0.83] ucrr8v}{}
+\DeclareFontShape{T5}{pcr}{m}{sl}{<-> s * [0.83] ucrro8v}{}
+\DeclareFontShape{T5}{pcr}{b}{n}{<-> s * [0.83] ucrb8v}{}
+\DeclareFontShape{T5}{pcr}{b}{sl}{<-> s * [0.83] ucrbo8v}{}
+\DeclareFontShape{T5}{pcr}{bx}{n}{<-> ssub * pcr/b/n}{}
+\DeclareFontShape{T5}{pcr}{bx}{sl}{<-> ssub * pcr/b/sl}{}
+\makeatother
 
