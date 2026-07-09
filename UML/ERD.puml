@@ -1,7 +1,7 @@
 @startuml
 title ERD - Manga Creation Workflow and Publishing Management System
 
-skinparam linetype ortho
+' skinparam linetype ortho
 skinparam ranksep 60
 skinparam nodesep 50
 skinparam titleFontSize 24
