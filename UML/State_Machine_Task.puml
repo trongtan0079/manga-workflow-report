@@ -3,31 +3,39 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Task (Công việ
 
 skinparam backgroundColor white
 skinparam shadowing false
-skinparam state {
-    BackgroundColor #E8F4F8
-    BorderColor #2980B9
-    FontSize 13
+' skinparam linetype ortho
+
+[*] --> pending : Mangaka tạo Task mới\n[TaskController::store()]
+
+state pending {
+    description : Công việc đang chờ Trợ lý tiếp nhận
 }
-skinparam ArrowFontSize 11
 
-[*] --> pending : Mangaka tạo Task mới
+state in_progress {
+    description : Trợ lý đang thực hiện vẽ phác thảo / đi nét / lên màu...
+}
 
-pending : Công việc đang chờ Trợ lý tiếp nhận
-in_progress : Trợ lý đang thực hiện vẽ phác thảo / đi nét / lên màu...
-submitted : Trợ lý đã nộp bản thảo vẽ (Submission)
-completed : Công việc hoàn thành xuất sắc & được Mangaka duyệt (Approved)
-rejected : Bản vẽ bị Mangaka từ chối (Rejected) và yêu cầu chỉnh sửa
+state submitted {
+    description : Trợ lý đã tải lên bản thảo và gửi nộp\n[SubmissionController::store()]
+}
 
-pending --> in_progress : Assistant xem Task / Bắt đầu vẽ
+state rejected {
+    description : Bản thảo bị Mangaka từ chối, yêu cầu chỉnh sửa\n[ReviewController::store()]
+}
 
-in_progress --> submitted : Assistant nộp Submission
+state completed {
+    description : Công việc hoàn thành xuất sắc \& được Mangaka phê duyệt\n[ReviewController::store()]
+}
 
-submitted --> completed : Mangaka duyệt (Approved)
-submitted --> rejected : Mangaka từ chối (Rejected)
+pending -down-> in_progress : Assistant tiếp nhận / Bắt đầu làm\n[TaskController::updateStatus()]
+in_progress -down-> submitted : Assistant nộp bản vẽ\n[SubmissionController::store()]
 
-rejected --> in_progress : Assistant cập nhật trạng thái để sửa lại
-rejected --> submitted : Assistant nộp lại bản thảo mới
+submitted -left-> completed : Mangaka phê duyệt bản vẽ\n[ReviewController::store() status='approved']
+submitted -right-> rejected : Mangaka từ chối bản vẽ\n[ReviewController::store() status='rejected']
 
-completed --> [*]
+rejected -up-> in_progress : Assistant bắt đầu sửa đổi / vẽ lại\n[TaskController::updateStatus()]
+rejected -up-> pending : Mangaka giao lại task hoặc đổi người làm\n[TaskController::update()]
+
+completed -down-> [*]
 
 @enduml

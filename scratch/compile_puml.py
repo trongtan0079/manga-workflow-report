@@ -82,6 +82,7 @@ def main():
         "UML/State_Machine_Task.puml": "assets/diagrams/Chapter3_IMAGE/State_Machine_Task.png",
         "UML/Swimlane_tong_quat_quy_trinh_sang_tac_maga.puml": "assets/diagrams/Chapter3_IMAGE/Swimlane_tong_quat_quy_trinh_sang_tac_maga.png",
         "UML/Use_Case_Diagram.puml": "assets/diagrams/Chapter3_IMAGE/Use_Case_Diagram.png",
+        "UML/System_Architecture_Diagram.puml": "assets/diagrams/Chapter3_IMAGE/System_Architecture_Diagram.png",
         "UML/sequence_diagram_dang_nhap_he_thong.puml": "assets/diagrams/Chapter3_IMAGE/sequence_diagram_dang_nhap_he_thong.png",
         "UML/sequence_diagram_manga_task_assignment.puml": "assets/diagrams/Chapter3_IMAGE/sequence_diagram_manga_task_assignment.png",
         "UML/sequence_diagram_quy_trinh_nop_submission.puml": "assets/diagrams/Chapter3_IMAGE/sequence_diagram_quy_trinh_nop_submission.png",

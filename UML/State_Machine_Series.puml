@@ -3,44 +3,35 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Bộ Truyện (Se
 
 skinparam backgroundColor white
 skinparam shadowing false
-skinparam state {
-    BackgroundColor #E8F4F8
-    BorderColor #2980B9
-    FontSize 13
-}
-skinparam ArrowFontSize 11
+' skinparam linetype ortho
 
 [*] --> draft : Mangaka tạo Series mới\n[publish_type = 'draft', status = 'planning']
 
-draft : Nháp chưa nộp - Mangaka đang soạn thảo
-
 draft --> submitted : Mangaka bấm Nộp đề xuất\n[publish_type = 'submitted', status = 'planning']
 
-submitted : Đang chờ Editorial Board phê duyệt
+state submitted {
+    description : Đang nằm trong hàng đợi chờ Editorial Board phê duyệt
+}
 
-submitted --> ongoing : Editorial Board phê duyệt\n[status = 'ongoing']\n[Bắt buộc gán BTV chuyên trách - Tantou Editor]
+submitted -down-> ongoing : Editorial Board phê duyệt\n[status = 'ongoing']\n[Bắt buộc gán BTV chuyên trách\n- Tantou Editor]
 
-submitted --> canceled : Editorial Board từ chối đề xuất\n[status = 'canceled']
+submitted -right-> canceled : Editorial Board từ chối đề xuất\n[status = 'canceled']
 
-ongoing : Bộ truyện đang trong quá trình sáng tác và xuất bản thương mại
+state ongoing {
+    description : Bộ truyện đang trong quá trình sáng tác và xuất bản thương mại
+}
 
-ongoing --> suspended : Editorial Board tạm ngưng phát hành (treo bút)\n[status = 'suspended']
+ongoing -down-> suspended : Editorial Board tạm ngưng phát hành (treo bút)\n[status = 'suspended']
 
-suspended : Bộ truyện tạm dừng phát hành
+suspended -up-> ongoing : Editorial Board khôi phục trạng thái phát hành\n[status = 'ongoing']
 
-suspended --> ongoing : Editorial Board khôi phục trạng thái phát hành\n[status = 'ongoing']
+ongoing -left-> completed : Editorial Board\nđánh dấu hoàn thành\n[status = 'completed']\n[Guard: Hết chapter chưa duyệt\nVÀ đã duyệt xong Chương cuối (is_final=1)]
 
-ongoing --> completed : Editorial Board đánh dấu hoàn thành bộ truyện\n[status = 'completed']\n[Guard: Hết chapter chưa duyệt VÀ đã duyệt xong Chương cuối (is_final=1)]
+ongoing -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
 
-ongoing --> canceled : Editorial Board hủy phát hành bộ truyện\n[status = 'canceled']
+suspended -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
 
-suspended --> canceled : Editorial Board hủy phát hành bộ truyện\n[status = 'canceled']
-
-completed : Bộ truyện đã kết thúc hoàn chỉnh
-
-canceled : Bộ truyện bị hủy
-
-completed --> [*]
-canceled --> [*]
+completed -down-> [*]
+canceled -down-> [*]
 
 @enduml

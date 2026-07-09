@@ -3,31 +3,40 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Phân Vùng (Page
 
 skinparam backgroundColor white
 skinparam shadowing false
-skinparam state {
-    BackgroundColor #E8F4F8
-    BorderColor #2980B9
-    FontSize 13
+' skinparam linetype ortho
+
+[*] --> pending : Mangaka vẽ phân vùng mới\n[PageRegionController::store()]
+
+state pending {
+    description : Vùng vừa được tạo, chưa giao việc
 }
-skinparam ArrowFontSize 11
 
-[*] --> pending : Mangaka vẽ thủ công phân vùng mới
+state in_progress {
+    description : Đã giao Task cho Assistant và đang vẽ
+}
 
-pending : Vùng vừa được tạo, chưa giao việc
-in_progress : Đã giao Task cho Assistant và đang vẽ
-submitted : Assistant đã nộp bản vẽ cho phân vùng này
-completed : Bản vẽ trên phân vùng đã được Mangaka phê duyệt (Approved)
-rejected : Bản vẽ trên phân vùng bị Mangaka từ chối (Rejected)
+state submitted {
+    description : Trợ lý đã vẽ xong và gửi nộp bản thảo\n[SubmissionController::store()]
+}
 
-pending --> in_progress : Mangaka tạo và giao Task mới gắn với vùng
+state rejected {
+    description : Bản thảo trên phân vùng bị Mangaka từ chối\n[ReviewController::store()]
+}
 
-in_progress --> submitted : Assistant nộp Submission cho Task liên kết
+state completed {
+    description : Bản thảo phân vùng được Mangaka phê duyệt\n[ReviewController::store()]
+}
 
-submitted --> completed : Mangaka phê duyệt bản thảo (Approve Submission)
-submitted --> rejected : Mangaka từ chối bản thảo (Reject Submission)
+pending -down-> in_progress : Mangaka tạo và giao Task mới\ngắn với vùng [TaskController::store()]
 
-rejected --> in_progress : Assistant chỉnh sửa hoặc Mangaka giao lại task
-rejected --> submitted : Assistant nộp lại bản thảo mới cho phân vùng
+in_progress -down-> submitted : Trợ lý nộp bản thảo\ngắn với vùng [SubmissionController::store()]
 
-completed --> [*]
+submitted -left-> completed : Mangaka phê duyệt bản thảo\n[ReviewController::store() status='approved']
+submitted -right-> rejected : Mangaka từ chối bản thảo\n[ReviewController::store() status='rejected']
+
+rejected -up-> in_progress : Trợ lý vẽ lại trên phân vùng này\n[TaskController::updateStatus()]
+rejected -up-> pending : Hủy giao việc hoặc giao lại task\ncho người khác [TaskController::update()]
+
+completed -down-> [*]
 
 @enduml

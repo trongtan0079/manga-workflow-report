@@ -49,21 +49,19 @@ partition TantouEditor {
 }
 
 if (Chương được phê duyệt?) then (Có)
-  if (Là Bản thảo nháp (Storyboard)?) then (Có)
-    partition TantouEditor {
+  partition TantouEditor {
+    if (Là Bản thảo nháp (Storyboard)?) then (Có)
       :Phê duyệt kịch bản phân cảnh;
       :Chương chuyển sang trạng thái Đang vẽ (drawing);
       :Mở khóa cho Mangaka và trợ lý tiến hành vẽ chi tiết;
-    }
-  else (Không (Bản thảo hoàn thiện))
-    partition TantouEditor {
+    else (Không (Bản thảo hoàn thiện))
       :Phê duyệt bản vẽ Chapter hoàn thiện (Approved);
       :Chương chuyển sang trạng thái Đã duyệt (approved);
-    }
-    partition "Editorial Board" {
-      :Xuất bản chương truyện ra công chúng (Published);
-    }
-  endif
+      partition "Editorial Board" {
+        :Xuất bản chương truyện ra công chúng (Published);
+      }
+    endif
+  }
   stop
 else (Không)
   partition TantouEditor {

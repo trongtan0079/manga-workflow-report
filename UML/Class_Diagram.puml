@@ -10,6 +10,7 @@ class Role {
   +roleId : int
   +roleName : string
   +description : string
+  +findByRoleName(roleName: string) : array
   +getRolesWithUserCount() : array
 }
 
@@ -21,6 +22,10 @@ class User {
   +email : string
   +passwordHash : string
   +status : string
+  +findByEmail(email: string) : array
+  +findByUsername(username: string) : array
+  +getUserByIdWithRole(id: int) : array
+  +findByRoleName(roleName: string) : array
   +getRoleStatistics() : array
 }
 
@@ -35,6 +40,8 @@ class Series {
   +coverImage : string
   +proposalFile : string
   +dossierNotes : string
+  +findByMangakaId(mangakaId: int) : array
+  +findByStatus(status: string) : array
   +getSeriesForPublishing() : array
   +getSeriesByEditorId(editorId: int) : array
   +getDossiersByEditorId(editorId: int) : array
@@ -50,6 +57,10 @@ class Chapter {
   +dueDate : datetime
   +publishedAt : datetime
   +isFinal : tinyint
+  +findBySeriesId(seriesId: int) : array
+  +isChapterNumberExists(seriesId: int, chapterNumber: int) : bool
+  +findByMangakaId(mangakaId: int) : array
+  +findBySeriesIdWithStats(seriesId: int) : array
   +hasFinalChapter(seriesId: int) : bool
   +countUnfinishedChapters(seriesId: int) : int
   +hasFinalApprovedChapter(seriesId: int) : bool
@@ -65,6 +76,8 @@ class Page {
   +imageUrl : string
   +oldImageUrl : string
   +status : string
+  +findByChapterId(chapterId: int) : array
+  +isPageNumberExists(chapterId: int, pageNumber: int) : bool
   +findByChapterIdWithAnnotationCount(chapterId: int) : array
   +countByMangakaId(mangakaId: int) : int
   +getPageNumbersByChapterId(chapterId: int) : array
@@ -81,6 +94,7 @@ class PageRegion {
   +width : int
   +height : int
   +status : string
+  +findByPageId(pageId: int) : array
 }
 
 class Task {
@@ -96,6 +110,10 @@ class Task {
   +priority : string
   +status : string
   +dueDate : datetime
+  +findByPageId(pageId: int) : array
+  +findByAssistantId(assistantId: int) : array
+  +findActiveByAssistantId(assistantId: int) : array
+  +findByMangakaId(mangakaId: int) : array
   +getStatusStatistics() : array
   +countByPageAndAssistant(pageId: int, assistantId: int) : int
   +getMonthlyIncomeStats(assistantId: int) : array
@@ -110,6 +128,9 @@ class Submission {
   +notes : string
   +status : string
   +submittedAt : datetime
+  +findByTaskId(taskId: int) : array
+  +findByChapterId(chapterId: int) : array
+  +findPendingSubmissions() : array
   +getStatusStatistics() : array
   +countByMangakaId(mangakaId: int) : int
   +countPendingByMangakaId(mangakaId: int) : int
@@ -123,6 +144,7 @@ class Review {
   +comments : string
   +rating : int
   +createdAt : datetime
+  +findBySubmissionId(submissionId: int) : array
   +countReviewsByEditor(editorId: int, status: string) : int
 }
 
@@ -133,6 +155,10 @@ class SeriesRanking {
   +rankPosition : int
   +score : decimal
   +periodStartDate : date
+  +findBySeriesId(seriesId: int) : array
+  +getSeriesCountByPeriod(period: string) : int
+  +getTopSeriesByPeriod(period: string, limit: int) : array
+  +getBottomSeriesByPeriod(period: string, limit: int) : array
 }
 
 class Notification {
@@ -142,6 +168,13 @@ class Notification {
   +type : string
   +message : string
   +isRead : boolean
+  +createNotification(userId: int, type: string, message: string, relatedId: int) : bool
+  +findByUserId(userId: int) : array
+  +findUnreadByUserId(userId: int) : array
+  +getUnreadCount(userId: int) : int
+  +getLatestNotifications(userId: int, limit: int) : array
+  +markAsRead(notificationId: int, userId: int) : bool
+  +markAllAsRead(userId: int) : bool
 }
 
 class SystemLog {
@@ -150,6 +183,8 @@ class SystemLog {
   +action : string
   +details : string
   +ipAddress : string
+  +logAction(userId: int, action: string, details: string) : bool
+  +getPaginatedLogs(limit: int, offset: int) : array
 }
 
 class EditorAnnotation {
@@ -162,6 +197,8 @@ class EditorAnnotation {
   +height : int
   +comments : string
   +createdAt : datetime
+  +findByPageId(pageId: int) : array
+  +deleteByPageId(pageId: int) : bool
 }
 
 class BoardVote {
@@ -170,6 +207,9 @@ class BoardVote {
   +boardMemberId : int
   +vote : string
   +createdAt : datetime
+  +castVote(seriesId: int, memberId: int, vote: string) : bool
+  +getMemberVote(seriesId: int, memberId: int) : string
+  +getApprovalStats(seriesId: int) : array
 }
 
 Role "1" -- "*" User : assigned
