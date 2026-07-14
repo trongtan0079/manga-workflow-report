@@ -3,40 +3,51 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Phân Vùng (Page
 
 skinparam backgroundColor white
 skinparam shadowing false
-' skinparam linetype ortho
+skinparam roundcorner 8
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
 
-[*] --> pending : Mangaka vẽ phân vùng mới\n[PageRegionController::store()]
-
-state pending {
-    description : Vùng vừa được tạo, chưa giao việc
+skinparam state {
+    BackgroundColor<<pending>> #FFF9E6
+    BorderColor<<pending>> #F1C40F
+    
+    BackgroundColor<<in_progress>> #E3F2FD
+    BorderColor<<in_progress>> #1976D2
+    
+    BackgroundColor<<submitted>> #F3E5F5
+    BorderColor<<submitted>> #8E24AA
+    
+    BackgroundColor<<rejected>> #FFEBEE
+    BorderColor<<rejected>> #EF5350
+    
+    BackgroundColor<<completed>> #E8F5E9
+    BorderColor<<completed>> #4CAF50
 }
 
-state in_progress {
-    description : Đã giao Task cho Assistant và đang vẽ
-}
+skinparam ArrowColor #2C3E50
+skinparam ArrowFontColor #2C3E50
+skinparam ArrowFontSize 10
 
-state submitted {
-    description : Trợ lý đã vẽ xong và gửi nộp bản thảo\n[SubmissionController::store()]
-}
+state pending <<pending>> : Chờ giao việc\n<size:9><color:#7F8C8D>(Vừa tạo phân vùng vẽ)</color></size>
+state in_progress <<in_progress>> : Đang vẽ\n<size:9><color:#7F8C8D>(Đã giao Task và đang vẽ)</color></size>
+state submitted <<submitted>> : Chờ duyệt\n<size:9><color:#7F8C8D>(Trợ lý đã gửi nộp bản vẽ)</color></size>
+state rejected <<rejected>> : Từ chối\n<size:9><color:#7F8C8D>(Bản thảo bị Mangaka từ chối)</color></size>
+state completed <<completed>> : Đã hoàn thành\n<size:9><color:#7F8C8D>(Mangaka phê duyệt bản vẽ)</color></size>
 
-state rejected {
-    description : Bản thảo trên phân vùng bị Mangaka từ chối\n[ReviewController::store()]
-}
+[*] --> pending : <color:#2980B9><b>Vẽ phân vùng mới</b></color>\n<size:9><color:#7F8C8D>[PageRegionController::store()]</color></size>
 
-state completed {
-    description : Bản thảo phân vùng được Mangaka phê duyệt\n[ReviewController::store()]
-}
+pending --> in_progress : <color:#2980B9><b>Giao Task vẽ</b></color>\n<size:9><color:#7F8C8D>[TaskController::store()]</color></size>
 
-pending -down-> in_progress : Mangaka tạo và giao Task mới\ngắn với vùng [TaskController::store()]
+in_progress --> submitted : <color:#2980B9><b>Trợ lý nộp bài</b></color>\n<size:9><color:#7F8C8D>[SubmissionController::store()]</color></size>
 
-in_progress -down-> submitted : Trợ lý nộp bản thảo\ngắn với vùng [SubmissionController::store()]
+submitted --> completed : <color:#388E3C><b>Phê duyệt</b></color>\n<size:9><color:#7F8C8D>[status='approved']</color></size>
 
-submitted -left-> completed : Mangaka phê duyệt bản thảo\n[ReviewController::store() status='approved']
-submitted -right-> rejected : Mangaka từ chối bản thảo\n[ReviewController::store() status='rejected']
+submitted --> rejected : <color:#D32F2F><b>Từ chối</b></color>\n<size:9><color:#7F8C8D>[status='rejected']</color></size>
 
-rejected -up-> in_progress : Trợ lý vẽ lại trên phân vùng này\n[TaskController::updateStatus()]
-rejected -up-> pending : Hủy giao việc hoặc giao lại task\ncho người khác [TaskController::update()]
+rejected --> in_progress : <color:#2980B9><b>Vẽ lại</b></color>\n<size:9><color:#7F8C8D>[TaskController::updateStatus()]</color></size>
 
-completed -down-> [*]
+rejected --> pending : <color:#E67E22><b>Hủy giao việc / Đổi người</b></color>\n<size:9><color:#7F8C8D>[TaskController::update()]</color></size>
+
+completed --> [*]
 
 @enduml

@@ -1,0 +1,715 @@
+Comparing report UML with code UML:
+Only in report UML: {'Context_Diagram.puml'}
+Files that differ: ['State_Machine_Series.puml', 'Class_Diagram.puml', 'State_Machine_Task.puml', 'State_Machine_Page.puml', 'State_Machine_Page_Region.puml', 'Use_Case_Diagram.puml', 'ERD.puml', 'Activity_Diagram_quy trình_Review_Chapter.puml']
+
+--- Diff for State_Machine_Series.puml ---
+--- report/State_Machine_Series.puml
++++ code/State_Machine_Series.puml
+@@ -3,7 +3,7 @@
+ 
+ skinparam backgroundColor white
+ skinparam shadowing false
+-' skinparam linetype ortho
++skinparam linetype ortho
+ 
+ [*] --> draft : Mangaka tạo Series mới\n[publish_type = 'draft', status = 'planning']
+ 
+@@ -13,25 +13,25 @@
+     description : Đang nằm trong hàng đợi chờ Editorial Board phê duyệt
+ }
+ 
+-submitted -down-> ongoing : Editorial Board phê duyệt\n[status = 'ongoing']\n[Bắt buộc gán BTV chuyên trách\n- Tantou Editor]
++submitted --> ongoing : Editorial Board phê duyệt\n[status = 'ongoing']\n[Bắt buộc gán BTV chuyên trách - Tantou Editor]
+ 
+-submitted -right-> canceled : Editorial Board từ chối đề xuất\n[status = 'canceled']
++submitted --> canceled : Editorial Board từ chối đề xuất\n[status = 'canceled']
+ 
+ state ongoing {
+     description : Bộ truyện đang trong quá trình sáng tác và xuất bản thương mại
+ }
+ 
+-ongoing -down-> suspended : Editorial Board tạm ngưng phát hành (treo bút)\n[status = 'suspended']
++ongoing --> suspended : Editorial Board tạm ngưng phát hành (treo bút)\n[status = 'suspended']
+ 
+-suspended -up-> ongoing : Editorial Board khôi phục trạng thái phát hành\n[status = 'ongoing']
++suspended --> ongoing : Editorial Board khôi phục trạng thái phát hành\n[status = 'ongoing']
+ 
+-ongoing -left-> completed : Editorial Board\nđánh dấu hoàn thành\n[status = 'completed']\n[Guard: Hết chapter chưa duyệt\nVÀ đã duyệt xong Chương cuối (is_final=1)]
++ongoing --> completed : Editorial Board đánh dấu hoàn thành bộ truyện\n[status = 'completed']\n[Guard: Hết chapter chưa duyệt VÀ đã duyệt xong Chương cuối (is_final=1)]
+ 
+-ongoing -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
++ongoing --> canceled : Editorial Board hủy phát hành bộ truyện\n[status = 'canceled']
+ 
+-suspended -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
++suspended --> canceled : Editorial Board hủy phát hành bộ truyện\n[status = 'canceled']
+ 
+-completed -down-> [*]
+-canceled -down-> [*]
++completed --> [*]
++canceled --> [*]
+ 
+ @enduml
+
+
+--- Diff for Class_Diagram.puml ---
+--- report/Class_Diagram.puml
++++ code/Class_Diagram.puml
+@@ -3,213 +3,173 @@
+ title Manga Creation and Publishing Management System
+ 
+ skinparam classAttributeIconSize 0
+-skinparam nodesep 60
+-skinparam ranksep 70
+ 
+ class Role {
+-  +roleId : int
+-  +roleName : string
++  +role_id : int
++  +role_name : string
+   +description : string
+-  +findByRoleName(roleName: string) : array
+   +getRolesWithUserCount() : array
+ }
+ 
+ class User {
+-  +userId : int
+-  +roleId : int
++  +user_id : int
++  +role_id : int
+   +username : string
+-  +fullName : string
++  +full_name : string
+   +email : string
+-  +passwordHash : string
+-  +status : string
+-  +findByEmail(email: string) : array
+-  +findByUsername(username: string) : array
+-  +getUserByIdWithRole(id: int) : array
+-  +findByRoleName(roleName: string) : array
++  +password_hash : string
++  +status : string
++  +is_head_board : int
+   +getRoleStatistics() : array
+ }
+ 
+ class Series {
+-  +seriesId : int
+-  +mangakaId : int
+-  +editorId : int
++  +series_id : int
++  +mangaka_id : int
++  +editor_id : int
+   +title : string
+   +description : string
+   +status : string
+-  +publishType : string
+-  +coverImage : string
+-  +proposalFile : string
+-  +dossierNotes : string
+-  +findByMangakaId(mangakaId: int) : array
+-  +findByStatus(status: string) : array
++  +publish_type : string
++  +cover_image : string
++  +proposal_file : string
++  +dossier_notes : string
+   +getSeriesForPublishing() : array
+-  +getSeriesByEditorId(editorId: int) : array
+-  +getDossiersByEditorId(editorId: int) : array
++  +getSeriesByEditorId(editor_id: int) : array
++  +getDossiersByEditorId(editor_id: int) : array
+   +countActiveSeries() : int
+ }
+ 
+ class Chapter {
+-  +chapterId : int
+-  +seriesId : int
+-  +chapterNumber : int
++  +chapter_id : int
++  +series_id : int
++  +chapter_number : int
+   +title : string
+   +status : string
+-  +dueDate : datetime
+-  +publishedAt : datetime
+-  +isFinal : tinyint
+-  +findBySeriesId(seriesId: int) : array
+-  +isChapterNumberExists(seriesId: int, chapterNumber: int) : bool
+-  +findByMangakaId(mangakaId: int) : array
+-  +findBySeriesIdWithStats(seriesId: int) : array
+-  +hasFinalChapter(seriesId: int) : bool
+-  +countUnfinishedChapters(seriesId: int) : int
+-  +hasFinalApprovedChapter(seriesId: int) : bool
+-  +countByMangakaId(mangakaId: int) : int
+-  +getUpcomingDeadlinesByEditor(editorId: int) : array
+-  +findPublishedChapters() : array
++  +due_date : datetime
++  +published_at : datetime
++  +is_final : tinyint
++  +hasFinalChapter(series_id: int) : bool
++  +countUnfinishedChapters(series_id: int) : int
++  +hasFinalApprovedChapter(series_id: int) : bool
++  +countByMangakaId(mangaka_id: int) : int
++  +getUpcomingDeadlinesByEditor(editor_id: int) : array
+ }
+ 
+ class Page {
+-  +pageId : int
+-  +chapterId : int
+-  +pageNumber : int
+-  +imageUrl : string
+-  +oldImageUrl : string
+-  +status : string
+-  +findByChapterId(chapterId: int) : array
+-  +isPageNumberExists(chapterId: int, pageNumber: int) : bool
+-  +findByChapterIdWithAnnotationCount(chapterId: int) : array
+-  +countByMangakaId(mangakaId: int) : int
+-  +getPageNumbersByChapterId(chapterId: int) : array
+-  +getOtherPageNumbers(chapterId: int, pageId: int) : array
+-  +updateStatusByChapterId(chapterId: int, status: string) : bool
++  +page_id : int
++  +chapter_id : int
++  +page_number : int
++  +image_url : string
++  +old_image_url : string
++  +status : string
++  +findByChapterIdWithAnnotationCount(chapter_id: int) : array
++  +countByMangakaId(mangaka_id: int) : int
++  +getPageNumbersByChapterId(chapter_id: int) : array
++  +getOtherPageNumbers(chapter_id: int, page_id: int) : array
+ }
+ 
+ class PageRegion {
+-  +regionId : int
+-  +pageId : int
+-  +regionType : string
++  +region_id : int
++  +page_id : int
++  +region_type : string
+   +x : int
+   +y : int
+   +width : int
+   +height : int
+   +status : string
+-  +findByPageId(pageId: int) : array
+ }
+ 
+ class Task {
+-  +taskId : int
+-  +pageId : int
+-  +pageRegionId : int
+-  +mangakaId : int
+-  +assistantId : int
++  +task_id : int
++  +page_id : int
++  +page_region_id : int
++  +grouped_region_ids : string
++  +mangaka_id : int
++  +assistant_id : int
+   +title : string
+-  +taskType : string
++  +task_type : string
+   +description : string
+-  +resourceUrl : string
++  +resource_url : string
+   +priority : string
+   +status : string
+-  +dueDate : datetime
+-  +findByPageId(pageId: int) : array
+-  +findByAssistantId(assistantId: int) : array
+-  +findActiveByAssistantId(assistantId: int) : array
+-  +findByMangakaId(mangakaId: int) : array
++  +due_date : datetime
+   +getStatusStatistics() : array
+-  +countByPageAndAssistant(pageId: int, assistantId: int) : int
+-  +getMonthlyIncomeStats(assistantId: int) : array
++  +countByPageAndAssistant(page_id: int, assistant_id: int) : int
++  +getMonthlyIncomeStats(assistant_id: int) : array
+ }
+ 
+ class Submission {
+-  +submissionId : int
+-  +userId : int
+-  +taskId : int
+-  +chapterId : int
+-  +fileUrl : string
++  +submission_id : int
++  +user_id : int
++  +task_id : int
++  +chapter_id : int
++  +file_url : string
+   +notes : string
+   +status : string
+-  +submittedAt : datetime
+-  +findByTaskId(taskId: int) : array
+-  +findByChapterId(chapterId: int) : array
+-  +findPendingSubmissions() : array
++  +submitted_at : datetime
+   +getStatusStatistics() : array
+-  +countByMangakaId(mangakaId: int) : int
+-  +countPendingByMangakaId(mangakaId: int) : int
+-  +countPendingChapterSubmissionsByEditor(editorId: int) : int
++  +countByMangakaId(mangaka_id: int) : int
++  +countPendingByMangakaId(mangaka_id: int) : int
++  +countPendingChapterSubmissionsByEditor(editor_id: int) : int
+ }
+ 
+ class Review {
+-  +reviewId : int
+-  +submissionId : int
+-  +reviewerId : int
++  +review_id : int
++  +submission_id : int
++  +reviewer_id : int
+   +comments : string
+   +rating : int
+-  +createdAt : datetime
+-  +findBySubmissionId(submissionId: int) : array
+-  +countReviewsByEditor(editorId: int, status: string) : int
++  +created_at : datetime
++  +countReviewsByEditor(editor_id: int, status: string) : int
+ }
+ 
+ class SeriesRanking {
+-  +rankingId : int
+-  +seriesId : int
+-  +boardMemberId : int
+-  +rankPosition : int
++  +ranking_id : int
++  +series_id : int
++  +board_member_id : int
++  +rank_position : int
+   +score : decimal
+-  +periodStartDate : date
+-  +findBySeriesId(seriesId: int) : array
+-  +getSeriesCountByPeriod(period: string) : int
+-  +getTopSeriesByPeriod(period: string, limit: int) : array
+-  +getBottomSeriesByPeriod(period: string, limit: int) : array
++  +votes : int
++  +period_start_date : date
+ }
+ 
+ class Notification {
+-  +notificationId : int
+-  +userId : int
+-  +relatedId : int
++  +notification_id : int
++  +user_id : int
++  +related_id : int
+   +type : string
+   +message : string
+-  +isRead : boolean
+-  +createNotification(userId: int, type: string, message: string, relatedId: int) : bool
+-  +findByUserId(userId: int) : array
+-  +findUnreadByUserId(userId: int) : array
+-  +getUnreadCount(userId: int) : int
+-  +getLatestNotifications(userId: int, limit: int) : array
+-  +markAsRead(notificationId: int, userId: int) : bool
+-  +markAllAsRead(userId: int) : bool
++  +is_read : boolean
+ }
+ 
+ class SystemLog {
+-  +logId : int
+-  +userId : int
++  +log_id : int
++  +user_id : int
+   +action : string
+   +details : string
+-  +ipAddress : string
+-  +logAction(userId: int, action: string, details: string) : bool
+-  +getPaginatedLogs(limit: int, offset: int) : array
++  +ip_address : string
+ }
+ 
+ class EditorAnnotation {
+-  +annotationId : int
+-  +pageId : int
+-  +editorId : int
++  +annotation_id : int
++  +page_id : int
++  +editor_id : int
+   +x : int
+   +y : int
+   +width : int
+   +height : int
+   +comments : string
+-  +createdAt : datetime
+-  +findByPageId(pageId: int) : array
+-  +deleteByPageId(pageId: int) : bool
++  +created_at : datetime
++  +deleteByPageId(page_id: int) : bool
+ }
+ 
+ class BoardVote {
+-  +voteId : int
+-  +seriesId : int
+-  +boardMemberId : int
++  +vote_id : int
++  +series_id : int
++  +board_member_id : int
+   +vote : string
+-  +createdAt : datetime
+-  +castVote(seriesId: int, memberId: int, vote: string) : bool
+-  +getMemberVote(seriesId: int, memberId: int) : string
+-  +getApprovalStats(seriesId: int) : array
++  +created_at : datetime
+ }
+ 
+ Role "1" -- "*" User : assigned
+
+
+--- Diff for State_Machine_Task.puml ---
+--- report/State_Machine_Task.puml
++++ code/State_Machine_Task.puml
+@@ -3,9 +3,9 @@
+ 
+ skinparam backgroundColor white
+ skinparam shadowing false
+-' skinparam linetype ortho
++skinparam linetype ortho
+ 
+-[*] --> pending : Mangaka tạo Task mới\n[TaskController::store()]
++[*] --> pending : Mangaka tạo Task mới [TaskController::store()]
+ 
+ state pending {
+     description : Công việc đang chờ Trợ lý tiếp nhận
+@@ -16,26 +16,26 @@
+ }
+ 
+ state submitted {
+-    description : Trợ lý đã tải lên bản thảo và gửi nộp\n[SubmissionController::store()]
++    description : Trợ lý đã tải lên bản thảo và gửi nộp [SubmissionController::store()]
+ }
+ 
+ state rejected {
+-    description : Bản thảo bị Mangaka từ chối, yêu cầu chỉnh sửa\n[ReviewController::store()]
++    description : Bản thảo bị Mangaka từ chối, yêu cầu chỉnh sửa [ReviewController::store()]
+ }
+ 
+ state completed {
+-    description : Công việc hoàn thành xuất sắc \& được Mangaka phê duyệt\n[ReviewController::store()]
++    description : Công việc hoàn thành xuất sắc & được Mangaka phê duyệt [ReviewController::store()]
+ }
+ 
+-pending -down-> in_progress : Assistant tiếp nhận / Bắt đầu làm\n[TaskController::updateStatus()]
+-in_progress -down-> submitted : Assistant nộp bản vẽ\n[SubmissionController::store()]
++pending --> in_progress : Assistant tiếp nhận / Bắt đầu làm [TaskController::updateStatus()]
++in_progress --> submitted : Assistant nộp bản vẽ [SubmissionController::store()]
+ 
+-submitted -left-> completed : Mangaka phê duyệt bản vẽ\n[ReviewController::store() status='approved']
+-submitted -right-> rejected : Mangaka từ chối bản vẽ\n[ReviewController::store() status='rejected']
++submitted --> completed : Mangaka phê duyệt bản vẽ [ReviewController::store() status='approved']
++submitted --> rejected : Mangaka từ chối bản vẽ [ReviewController::store() status='rejected']
+ 
+-rejected -up-> in_progress : Assistant bắt đầu sửa đổi / vẽ lại\n[TaskController::updateStatus()]
+-rejected -up-> pending : Mangaka giao lại task hoặc đổi người làm\n[TaskController::update()]
++rejected --> in_progress : Assistant bắt đầu sửa đổi / vẽ lại [TaskController::updateStatus()]
++rejected --> pending : Mangaka giao lại task hoặc đổi người làm [TaskController::update()]
+ 
+-completed -down-> [*]
++completed --> [*]
+ 
+ @enduml
+
+
+--- Diff for State_Machine_Page.puml ---
+--- report/State_Machine_Page.puml
++++ code/State_Machine_Page.puml
+@@ -3,7 +3,7 @@
+ 
+ skinparam backgroundColor white
+ skinparam shadowing false
+-' skinparam linetype ortho
++skinparam linetype ortho
+ 
+ [*] --> drafting : Mangaka tải lên trang vẽ mới
+ 
+@@ -23,18 +23,23 @@
+     description : Trang truyện đã xuất bản chính thức cùng Chapter
+ }
+ 
+-drafting -down-> drawing : Mangaka tạo và giao Task\ntrên phân vùng
+-drafting -right-> reviewing_draft : Chapter chứa trang\nchuyển sang reviewing_draft
+-reviewing_draft -left-> drafting : Chapter bị\ntừ chối duyệt nháp
+-reviewing_draft -down-> drawing : Chapter được duyệt nháp
+-drawing -right-> reviewing_final : Chapter chứa trang\nchuyển sang reviewing_final
+-reviewing_final -left-> drawing : Chapter bị từ chối\nduyệt hoàn chỉnh
++drafting --> drawing : Mangaka tạo và giao Task trên phân vùng
++drafting --> reviewing_draft : Chapter chứa trang chuyển sang reviewing_draft
++reviewing_draft --> drafting : Chapter bị từ chối duyệt nháp
++reviewing_draft --> drawing : Chapter được duyệt nháp
++drawing --> reviewing_final : Chapter chứa trang chuyển sang reviewing_final
++reviewing_final --> drawing : Chapter bị từ chối duyệt hoàn chỉnh
+ 
+-drawing -down-> approved : Tất cả phân vùng (PageRegions)\nchuyển sang 'completed'\nvà tất cả Task đã hoàn thành
+-reviewing_final -down-> approved : Chapter được duyệt hoàn chỉnh
++state waiting_genko <<choice>> {
++    description : Tất cả Task hoàn thành nhưng chưa có bản vẽ hoàn chỉnh (Genko)\n[Badge vàng: "Chờ nộp bản hoàn chỉnh"]
++}
+ 
+-approved -down-> published : Chapter chứa trang này\nđược duyệt xuất bản
++drawing --> waiting_genko : Tất cả phân vùng (PageRegions) chuyển sang 'completed'\nvà tất cả Task đã hoàn thành\n[Guard: old_image_url == 'no_genko']
++waiting_genko --> approved : Tác giả tải lên bản vẽ hoàn chỉnh (Genko)\n[PageController::update()]\n[Guard: old_image_url != 'no_genko']
++reviewing_final --> approved : Chapter được duyệt hoàn chỉnh
+ 
+-published -down-> [*]
++approved --> published : Chapter chứa trang này được duyệt xuất bản
++
++published --> [*]
+ 
+ @enduml
+
+
+--- Diff for State_Machine_Page_Region.puml ---
+--- report/State_Machine_Page_Region.puml
++++ code/State_Machine_Page_Region.puml
+@@ -3,9 +3,9 @@
+ 
+ skinparam backgroundColor white
+ skinparam shadowing false
+-' skinparam linetype ortho
++skinparam linetype ortho
+ 
+-[*] --> pending : Mangaka vẽ phân vùng mới\n[PageRegionController::store()]
++[*] --> pending : Mangaka vẽ phân vùng mới [PageRegionController::store()]
+ 
+ state pending {
+     description : Vùng vừa được tạo, chưa giao việc
+@@ -16,27 +16,27 @@
+ }
+ 
+ state submitted {
+-    description : Trợ lý đã vẽ xong và gửi nộp bản thảo\n[SubmissionController::store()]
++    description : Trợ lý đã vẽ xong và gửi nộp bản thảo [SubmissionController::store()]
+ }
+ 
+ state rejected {
+-    description : Bản thảo trên phân vùng bị Mangaka từ chối\n[ReviewController::store()]
++    description : Bản thảo trên phân vùng bị Mangaka từ chối [ReviewController::store()]
+ }
+ 
+ state completed {
+-    description : Bản thảo phân vùng được Mangaka phê duyệt\n[ReviewController::store()]
++    description : Bản thảo phân vùng được Mangaka phê duyệt [ReviewController::store()]
+ }
+ 
+-pending -down-> in_progress : Mangaka tạo và giao Task mới\ngắn với vùng [TaskController::store()]
++pending --> in_progress : Mangaka tạo và giao Task mới gắn với vùng [TaskController::store()]
+ 
+-in_progress -down-> submitted : Trợ lý nộp bản thảo\ngắn với vùng [SubmissionController::store()]
++in_progress --> submitted : Trợ lý nộp bản thảo gắn với vùng [SubmissionController::store()]
+ 
+-submitted -left-> completed : Mangaka phê duyệt bản thảo\n[ReviewController::store() status='approved']
+-submitted -right-> rejected : Mangaka từ chối bản thảo\n[ReviewController::store() status='rejected']
++submitted --> completed : Mangaka phê duyệt bản thảo [ReviewController::store() status='approved']
++submitted --> rejected : Mangaka từ chối bản thảo [ReviewController::store() status='rejected']
+ 
+-rejected -up-> in_progress : Trợ lý vẽ lại trên phân vùng này\n[TaskController::updateStatus()]
+-rejected -up-> pending : Hủy giao việc hoặc giao lại task\ncho người khác [TaskController::update()]
++rejected --> in_progress : Trợ lý vẽ lại trên phân vùng này [TaskController::updateStatus()]
++rejected --> pending : Hủy giao việc hoặc giao lại task cho người khác [TaskController::update()]
+ 
+-completed -down-> [*]
++completed --> [*]
+ 
+ @enduml
+
+
+--- Diff for Use_Case_Diagram.puml ---
+--- report/Use_Case_Diagram.puml
++++ code/Use_Case_Diagram.puml
+@@ -1,100 +1,59 @@
+ @startuml
+-title Use Case Diagram - Hệ thống Quản lý Quy trình Sáng tác và Xuất bản Manga
++title Use Case Diagram - Manga Creation and Publishing Management System
+ 
+ left to right direction
+ 
+-skinparam packageStyle rectangle
+-skinparam shadowing false
+-skinparam backgroundColor white
+-
++actor "Admin" as Admin
+ actor "Mangaka" as Mangaka
+ actor "Assistant" as Assistant
+-actor "Admin" as Admin
+ actor "Tantou Editor" as Editor
+ actor "Editorial Board" as Board
+ 
+-rectangle "HỆ THỐNG QUẢN LÝ QUY TRÌNH SÁNG TÁC VÀ XUẤT BẢN MANGA\n(Manga Creation Workflow and Publishing Management System)" {
+-  ' Central usecase
+-  usecase "Đăng nhập / Đăng xuất" as UC_Auth
++rectangle "Manga Creation & Publishing System" {
++  ' Admin Use Cases
++  usecase "Quản lý Tài khoản & Phân quyền" as UC_Admin_Users
++  usecase "Theo dõi Hoạt động Hệ thống" as UC_Admin_Logs
+ 
+-  ' Mangaka
+-  usecase "Tạo và quản lý Series" as UC_M1
+-  usecase "Nộp bản thảo sơ bộ" as UC_M2
+-  usecase "Quản lý Chapter Manga" as UC_M3
+-  usecase "Upload Trang Manga" as UC_M4
+-  usecase "Phân vùng công việc trên Trang Manga" as UC_M5
+-  usecase "Phân công Task cho Assistant" as UC_M6
+-  usecase "Kiểm duyệt kết quả công việc" as UC_M7
+-  usecase "Theo dõi tiến độ và xếp hạng" as UC_M8
++  ' Mangaka Use Cases
++  usecase "Quản lý Hồ sơ Series" as UC_Mangaka_Series
++  usecase "Quản lý Chương (Chapter)" as UC_Mangaka_Chapter
++  usecase "Phân công & Giao việc (Task)" as UC_Mangaka_Task
++  usecase "Kiểm duyệt kết quả của Trợ lý" as UC_Mangaka_Review_Task
++  usecase "Nộp Bản thảo Chương truyện" as UC_Mangaka_Submit_Chapter
++  usecase "Vẽ phân vùng bản vẽ thủ công" as UC_Mangaka_Region
+ 
+-  ' Assistant
+-  usecase "Xem công việc được giao" as UC_A1
+-  usecase "Tải trang Manga và tài nguyên" as UC_A2
+-  usecase "Thực hiện công việc Artwork" as UC_A3
+-  usecase "Nộp kết quả công việc" as UC_A4
+-  usecase "Theo dõi trạng thái công việc" as UC_A5
+-  usecase "Theo dõi số trang đã được duyệt" as UC_A6
++  ' Assistant Use Cases
++  usecase "Xem Công việc được giao" as UC_Assistant_Tasks
++  usecase "Nộp sản phẩm hoàn thiện (Submission)" as UC_Assistant_Submit
+ 
+-  ' Admin
+-  usecase "Quản lý người dùng" as UC_AD1
+-  usecase "Quản lý phân quyền" as UC_AD2
+-  usecase "Theo dõi hoạt động hệ thống" as UC_AD3
+-  usecase "Xem báo cáo thống kê" as UC_AD4
++  ' Editor Use Cases
++  usecase "Kiểm duyệt Bản thảo Chương" as UC_Editor_Review
++  usecase "Đưa ra Nhận xét & Đề xuất sửa đổi" as UC_Editor_Feedback
++  usecase "Đánh dấu lỗi trực quan trên trang" as UC_Editor_Annotate
+ 
+-  ' Tantou Editor
+-  usecase "Review bản thảo Series/Chapter" as UC_E1
+-  usecase "Ghi chú và yêu cầu chỉnh sửa" as UC_E2
+-  usecase "Theo dõi tiến độ và Deadline" as UC_E3
+-  usecase "Theo dõi hồ sơ Series" as UC_E4
+-  usecase "Tổng hợp báo cáo" as UC_E5
+-
+-  ' Editorial Board
+-  usecase "Xem thông tin Series" as UC_B1
+-  usecase "Nhập dữ liệu bình chọn" as UC_B2
+-  usecase "Bỏ phiếu xét duyệt Series" as UC_B3
+-  usecase "Xem bảng xếp hạng Series" as UC_B4
+-  usecase "Quản lý lịch phát hành" as UC_B5
+-  usecase "Quyết định xuất bản / hủy Series" as UC_B6
++  ' Board Use Cases
++  usecase "Duyệt xuất bản Series Manga" as UC_Board_Publish
++  usecase "Đánh giá & Xếp hạng Series" as UC_Board_Rank
+ }
+ 
+-' Links
+-Mangaka --> UC_Auth
+-Mangaka --> UC_M1
+-Mangaka --> UC_M2
+-Mangaka --> UC_M3
+-Mangaka --> UC_M4
+-Mangaka --> UC_M5
+-Mangaka --> UC_M6
+-Mangaka --> UC_M7
+-Mangaka --> UC_M8
++Admin --> UC_Admin_Users
++Admin --> UC_Admin_Logs
+ 
+-Assistant --> UC_Auth
+-Assistant --> UC_A1
+-Assistant --> UC_A2
+-Assistant --> UC_A3
+-Assistant --> UC_A4
+-Assistant --> UC_A5
+-Assistant --> UC_A6
++Mangaka --> UC_Mangaka_Series
++Mangaka --> UC_Mangaka_Chapter
++Mangaka --> UC_Mangaka_Task
++Mangaka --> UC_Mangaka_Review_Task
++Mangaka --> UC_Mangaka_Submit_Chapter
++Mangaka --> UC_Mangaka_Region
+ 
+-Admin --> UC_Auth
+-Admin --> UC_AD1
+-Admin --> UC_AD2
+-Admin --> UC_AD3
+-Admin --> UC_AD4
++Assistant --> UC_Assistant_Tasks
++Assistant --> UC_Assistant_Submit
+ 
+-Editor --> UC_Auth
+-Editor --> UC_E1
+-Editor --> UC_E2
+-Editor --> UC_E3
+-Editor --> UC_E4
+-Editor --> UC_E5
++Editor --> UC_Editor_Review
++Editor --> UC_Editor_Feedback
++Editor --> UC_Editor_Annotate
+ 
+-Board --> UC_Auth
+-Board --> UC_B1
+-Board --> UC_B2
+-Board --> UC_B3
+-Board --> UC_B4
+-Board --> UC_B5
+-Board --> UC_B6
++Board --> UC_Board_Publish
++Board --> UC_Board_Rank
+ 
+ @enduml
+
+
+--- Diff for ERD.puml ---
+--- report/ERD.puml
++++ code/ERD.puml
+@@ -1,7 +1,7 @@
+ @startuml
+ title ERD - Manga Creation Workflow and Publishing Management System
+ 
+-' skinparam linetype ortho
++skinparam linetype ortho
+ skinparam ranksep 60
+ skinparam nodesep 50
+ skinparam titleFontSize 24
+@@ -23,6 +23,7 @@
+   email : varchar
+   password_hash : varchar
+   status : enum
++  is_head_board : tinyint
+   created_at : timestamp
+   updated_at : timestamp
+ }
+@@ -87,6 +88,7 @@
+   --
+   page_id : int <<FK>>
+   page_region_id : int <<FK>> <<NULL>>
++  grouped_region_ids : varchar <<NULL>>
+   mangaka_id : int <<FK>>
+   assistant_id : int <<FK>>
+   title : varchar
+@@ -130,6 +132,7 @@
+   board_member_id : int <<FK>>
+   rank_position : int
+   score : decimal
++  votes : int
+   period_start_date : date
+   created_at : timestamp
+ }
+
+
+--- Diff for Activity_Diagram_quy trình_Review_Chapter.puml ---
+--- report/Activity_Diagram_quy trình_Review_Chapter.puml
++++ code/Activity_Diagram_quy trình_Review_Chapter.puml
+@@ -57,9 +57,8 @@
+     else (Không (Bản thảo hoàn thiện))
+       :Phê duyệt bản vẽ Chapter hoàn thiện (Approved);
+       :Chương chuyển sang trạng thái Đã duyệt (approved);
+-      partition "Editorial Board" {
+-        :Xuất bản chương truyện ra công chúng (Published);
+-      }
++      |Editorial Board|
++      :Xuất bản chương truyện ra công chúng (Published);
+     endif
+   }
+   stop
+

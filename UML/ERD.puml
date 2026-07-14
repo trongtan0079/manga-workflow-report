@@ -1,7 +1,7 @@
 @startuml
 title ERD - Manga Creation Workflow and Publishing Management System
 
-' skinparam linetype ortho
+skinparam linetype ortho
 skinparam ranksep 60
 skinparam nodesep 50
 skinparam titleFontSize 24
@@ -23,6 +23,7 @@ entity users {
   email : varchar
   password_hash : varchar
   status : enum
+  is_head_board : tinyint
   created_at : timestamp
   updated_at : timestamp
 }
@@ -87,6 +88,7 @@ entity tasks {
   --
   page_id : int <<FK>>
   page_region_id : int <<FK>> <<NULL>>
+  grouped_region_ids : varchar <<NULL>>
   mangaka_id : int <<FK>>
   assistant_id : int <<FK>>
   title : varchar
@@ -130,6 +132,7 @@ entity series_rankings {
   board_member_id : int <<FK>>
   rank_position : int
   score : decimal
+  votes : int
   period_start_date : date
   created_at : timestamp
 }
@@ -168,6 +171,19 @@ entity editor_annotations {
   created_at : timestamp
 }
 
+entity submission_annotations {
+  *annotation_id : int <<PK>>
+  --
+  submission_id : int <<FK>>
+  user_id : int <<FK>>
+  x : int
+  y : int
+  width : int
+  height : int
+  comments : text
+  created_at : timestamp
+}
+
 entity board_votes {
   *vote_id : int <<PK>>
   --
@@ -191,6 +207,7 @@ users ||--o{ reviews : writes
 users ||--o{ notifications : receives
 users ||--o{ series_rankings : evaluates
 users ||--o{ editor_annotations : annotates
+users ||--o{ submission_annotations : annotates
 users ||--o{ board_votes : votes
 
 series ||--o{ chapters : contains
@@ -207,5 +224,6 @@ page_regions ||--o{ tasks : targetedAt
 tasks ||--o{ submissions : generates
 
 submissions ||--o{ reviews : receives
+submissions ||--o{ submission_annotations : receives
 
 @enduml

@@ -3,213 +3,186 @@
 title Manga Creation and Publishing Management System
 
 skinparam classAttributeIconSize 0
-skinparam nodesep 60
-skinparam ranksep 70
 
 class Role {
-  +roleId : int
-  +roleName : string
+  +role_id : int
+  +role_name : string
   +description : string
-  +findByRoleName(roleName: string) : array
   +getRolesWithUserCount() : array
 }
 
 class User {
-  +userId : int
-  +roleId : int
+  +user_id : int
+  +role_id : int
   +username : string
-  +fullName : string
+  +full_name : string
   +email : string
-  +passwordHash : string
+  +password_hash : string
   +status : string
-  +findByEmail(email: string) : array
-  +findByUsername(username: string) : array
-  +getUserByIdWithRole(id: int) : array
-  +findByRoleName(roleName: string) : array
+  +is_head_board : int
   +getRoleStatistics() : array
 }
 
 class Series {
-  +seriesId : int
-  +mangakaId : int
-  +editorId : int
+  +series_id : int
+  +mangaka_id : int
+  +editor_id : int
   +title : string
   +description : string
   +status : string
-  +publishType : string
-  +coverImage : string
-  +proposalFile : string
-  +dossierNotes : string
-  +findByMangakaId(mangakaId: int) : array
-  +findByStatus(status: string) : array
+  +publish_type : string
+  +cover_image : string
+  +proposal_file : string
+  +dossier_notes : string
   +getSeriesForPublishing() : array
-  +getSeriesByEditorId(editorId: int) : array
-  +getDossiersByEditorId(editorId: int) : array
+  +getSeriesByEditorId(editor_id: int) : array
+  +getDossiersByEditorId(editor_id: int) : array
   +countActiveSeries() : int
 }
 
 class Chapter {
-  +chapterId : int
-  +seriesId : int
-  +chapterNumber : int
+  +chapter_id : int
+  +series_id : int
+  +chapter_number : int
   +title : string
   +status : string
-  +dueDate : datetime
-  +publishedAt : datetime
-  +isFinal : tinyint
-  +findBySeriesId(seriesId: int) : array
-  +isChapterNumberExists(seriesId: int, chapterNumber: int) : bool
-  +findByMangakaId(mangakaId: int) : array
-  +findBySeriesIdWithStats(seriesId: int) : array
-  +hasFinalChapter(seriesId: int) : bool
-  +countUnfinishedChapters(seriesId: int) : int
-  +hasFinalApprovedChapter(seriesId: int) : bool
-  +countByMangakaId(mangakaId: int) : int
-  +getUpcomingDeadlinesByEditor(editorId: int) : array
-  +findPublishedChapters() : array
+  +due_date : datetime
+  +published_at : datetime
+  +is_final : tinyint
+  +hasFinalChapter(series_id: int) : bool
+  +countUnfinishedChapters(series_id: int) : int
+  +hasFinalApprovedChapter(series_id: int) : bool
+  +countByMangakaId(mangaka_id: int) : int
+  +getUpcomingDeadlinesByEditor(editor_id: int) : array
 }
 
 class Page {
-  +pageId : int
-  +chapterId : int
-  +pageNumber : int
-  +imageUrl : string
-  +oldImageUrl : string
+  +page_id : int
+  +chapter_id : int
+  +page_number : int
+  +image_url : string
+  +old_image_url : string
   +status : string
-  +findByChapterId(chapterId: int) : array
-  +isPageNumberExists(chapterId: int, pageNumber: int) : bool
-  +findByChapterIdWithAnnotationCount(chapterId: int) : array
-  +countByMangakaId(mangakaId: int) : int
-  +getPageNumbersByChapterId(chapterId: int) : array
-  +getOtherPageNumbers(chapterId: int, pageId: int) : array
-  +updateStatusByChapterId(chapterId: int, status: string) : bool
+  +findByChapterIdWithAnnotationCount(chapter_id: int) : array
+  +countByMangakaId(mangaka_id: int) : int
+  +getPageNumbersByChapterId(chapter_id: int) : array
+  +getOtherPageNumbers(chapter_id: int, page_id: int) : array
 }
 
 class PageRegion {
-  +regionId : int
-  +pageId : int
-  +regionType : string
+  +region_id : int
+  +page_id : int
+  +region_type : string
   +x : int
   +y : int
   +width : int
   +height : int
   +status : string
-  +findByPageId(pageId: int) : array
 }
 
 class Task {
-  +taskId : int
-  +pageId : int
-  +pageRegionId : int
-  +mangakaId : int
-  +assistantId : int
+  +task_id : int
+  +page_id : int
+  +page_region_id : int
+  +grouped_region_ids : string
+  +mangaka_id : int
+  +assistant_id : int
   +title : string
-  +taskType : string
+  +task_type : string
   +description : string
-  +resourceUrl : string
+  +resource_url : string
   +priority : string
   +status : string
-  +dueDate : datetime
-  +findByPageId(pageId: int) : array
-  +findByAssistantId(assistantId: int) : array
-  +findActiveByAssistantId(assistantId: int) : array
-  +findByMangakaId(mangakaId: int) : array
+  +due_date : datetime
   +getStatusStatistics() : array
-  +countByPageAndAssistant(pageId: int, assistantId: int) : int
-  +getMonthlyIncomeStats(assistantId: int) : array
+  +countByPageAndAssistant(page_id: int, assistant_id: int) : int
+  +getMonthlyIncomeStats(assistant_id: int) : array
 }
 
 class Submission {
-  +submissionId : int
-  +userId : int
-  +taskId : int
-  +chapterId : int
-  +fileUrl : string
+  +submission_id : int
+  +user_id : int
+  +task_id : int
+  +chapter_id : int
+  +file_url : string
   +notes : string
   +status : string
-  +submittedAt : datetime
-  +findByTaskId(taskId: int) : array
-  +findByChapterId(chapterId: int) : array
-  +findPendingSubmissions() : array
+  +submitted_at : datetime
   +getStatusStatistics() : array
-  +countByMangakaId(mangakaId: int) : int
-  +countPendingByMangakaId(mangakaId: int) : int
-  +countPendingChapterSubmissionsByEditor(editorId: int) : int
+  +countByMangakaId(mangaka_id: int) : int
+  +countPendingByMangakaId(mangaka_id: int) : int
+  +countPendingChapterSubmissionsByEditor(editor_id: int) : int
 }
 
 class Review {
-  +reviewId : int
-  +submissionId : int
-  +reviewerId : int
+  +review_id : int
+  +submission_id : int
+  +reviewer_id : int
   +comments : string
   +rating : int
-  +createdAt : datetime
-  +findBySubmissionId(submissionId: int) : array
-  +countReviewsByEditor(editorId: int, status: string) : int
+  +created_at : datetime
+  +countReviewsByEditor(editor_id: int, status: string) : int
 }
 
 class SeriesRanking {
-  +rankingId : int
-  +seriesId : int
-  +boardMemberId : int
-  +rankPosition : int
+  +ranking_id : int
+  +series_id : int
+  +board_member_id : int
+  +rank_position : int
   +score : decimal
-  +periodStartDate : date
-  +findBySeriesId(seriesId: int) : array
-  +getSeriesCountByPeriod(period: string) : int
-  +getTopSeriesByPeriod(period: string, limit: int) : array
-  +getBottomSeriesByPeriod(period: string, limit: int) : array
+  +votes : int
+  +period_start_date : date
 }
 
 class Notification {
-  +notificationId : int
-  +userId : int
-  +relatedId : int
+  +notification_id : int
+  +user_id : int
+  +related_id : int
   +type : string
   +message : string
-  +isRead : boolean
-  +createNotification(userId: int, type: string, message: string, relatedId: int) : bool
-  +findByUserId(userId: int) : array
-  +findUnreadByUserId(userId: int) : array
-  +getUnreadCount(userId: int) : int
-  +getLatestNotifications(userId: int, limit: int) : array
-  +markAsRead(notificationId: int, userId: int) : bool
-  +markAllAsRead(userId: int) : bool
+  +is_read : boolean
 }
 
 class SystemLog {
-  +logId : int
-  +userId : int
+  +log_id : int
+  +user_id : int
   +action : string
   +details : string
-  +ipAddress : string
-  +logAction(userId: int, action: string, details: string) : bool
-  +getPaginatedLogs(limit: int, offset: int) : array
+  +ip_address : string
 }
 
 class EditorAnnotation {
-  +annotationId : int
-  +pageId : int
-  +editorId : int
+  +annotation_id : int
+  +page_id : int
+  +editor_id : int
   +x : int
   +y : int
   +width : int
   +height : int
   +comments : string
-  +createdAt : datetime
-  +findByPageId(pageId: int) : array
-  +deleteByPageId(pageId: int) : bool
+  +created_at : datetime
+  +deleteByPageId(page_id: int) : bool
+}
+
+class SubmissionAnnotation {
+  +annotation_id : int
+  +submission_id : int
+  +user_id : int
+  +x : int
+  +y : int
+  +width : int
+  +height : int
+  +comments : string
+  +created_at : datetime
+  +findBySubmissionId(submission_id: int) : array
 }
 
 class BoardVote {
-  +voteId : int
-  +seriesId : int
-  +boardMemberId : int
+  +vote_id : int
+  +series_id : int
+  +board_member_id : int
   +vote : string
-  +createdAt : datetime
-  +castVote(seriesId: int, memberId: int, vote: string) : bool
-  +getMemberVote(seriesId: int, memberId: int) : string
-  +getApprovalStats(seriesId: int) : array
+  +created_at : datetime
 }
 
 Role "1" -- "*" User : assigned
@@ -236,9 +209,11 @@ Chapter "1" -- "*" Submission : submitted
 User "1" -- "*" Submission : submits
 
 Submission "1" -- "*" Review : receives
+Submission "1" -- "*" SubmissionAnnotation : has
 
 User "1" -- "*" Review : writes
 User "1" -- "*" EditorAnnotation : annotates
+User "1" -- "*" SubmissionAnnotation : creates
 User "1" -- "*" BoardVote : votes
 
 Series "1" -- "*" SeriesRanking : ranked

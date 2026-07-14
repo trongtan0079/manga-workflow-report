@@ -3,39 +3,51 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Task (Công việ
 
 skinparam backgroundColor white
 skinparam shadowing false
-' skinparam linetype ortho
+skinparam roundcorner 8
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
 
-[*] --> pending : Mangaka tạo Task mới\n[TaskController::store()]
-
-state pending {
-    description : Công việc đang chờ Trợ lý tiếp nhận
+skinparam state {
+    BackgroundColor<<pending>> #FFF9E6
+    BorderColor<<pending>> #F1C40F
+    
+    BackgroundColor<<in_progress>> #E3F2FD
+    BorderColor<<in_progress>> #1976D2
+    
+    BackgroundColor<<submitted>> #F3E5F5
+    BorderColor<<submitted>> #8E24AA
+    
+    BackgroundColor<<rejected>> #FFEBEE
+    BorderColor<<rejected>> #EF5350
+    
+    BackgroundColor<<completed>> #E8F5E9
+    BorderColor<<completed>> #4CAF50
 }
 
-state in_progress {
-    description : Trợ lý đang thực hiện vẽ phác thảo / đi nét / lên màu...
-}
+skinparam ArrowColor #2C3E50
+skinparam ArrowFontColor #2C3E50
+skinparam ArrowFontSize 10
 
-state submitted {
-    description : Trợ lý đã tải lên bản thảo và gửi nộp\n[SubmissionController::store()]
-}
+state pending <<pending>> : Chờ tiếp nhận\n<size:9><color:#7F8C8D>(Đang chờ Trợ lý nhận việc)</color></size>
+state in_progress <<in_progress>> : Đang làm\n<size:9><color:#7F8C8D>(Đang vẽ phác thảo / đi nét / lên màu)</color></size>
+state submitted <<submitted>> : Đã nộp\n<size:9><color:#7F8C8D>(Đã tải lên sản phẩm vẽ)</color></size>
+state rejected <<rejected>> : Từ chối\n<size:9><color:#7F8C8D>(Bản vẽ lỗi, yêu cầu sửa đổi)</color></size>
+state completed <<completed>> : Đã hoàn thành\n<size:9><color:#7F8C8D>(Mangaka phê duyệt bản vẽ)</color></size>
 
-state rejected {
-    description : Bản thảo bị Mangaka từ chối, yêu cầu chỉnh sửa\n[ReviewController::store()]
-}
+[*] --> pending : <color:#2980B9><b>Giao Task mới</b></color>\n<size:9><color:#7F8C8D>[TaskController::store()]</color></size>
 
-state completed {
-    description : Công việc hoàn thành xuất sắc \& được Mangaka phê duyệt\n[ReviewController::store()]
-}
+pending --> in_progress : <color:#2980B9><b>Trợ lý nhận việc</b></color>\n<size:9><color:#7F8C8D>[TaskController::updateStatus()]</color></size>
 
-pending -down-> in_progress : Assistant tiếp nhận / Bắt đầu làm\n[TaskController::updateStatus()]
-in_progress -down-> submitted : Assistant nộp bản vẽ\n[SubmissionController::store()]
+in_progress --> submitted : <color:#2980B9><b>Nộp sản phẩm</b></color>\n<size:9><color:#7F8C8D>[SubmissionController::store()]</color></size>
 
-submitted -left-> completed : Mangaka phê duyệt bản vẽ\n[ReviewController::store() status='approved']
-submitted -right-> rejected : Mangaka từ chối bản vẽ\n[ReviewController::store() status='rejected']
+submitted --> completed : <color:#388E3C><b>Phê duyệt</b></color>\n<size:9><color:#7F8C8D>[status='approved']</color></size>
 
-rejected -up-> in_progress : Assistant bắt đầu sửa đổi / vẽ lại\n[TaskController::updateStatus()]
-rejected -up-> pending : Mangaka giao lại task hoặc đổi người làm\n[TaskController::update()]
+submitted --> rejected : <color:#D32F2F><b>Từ chối</b></color>\n<size:9><color:#7F8C8D>[status='rejected']</color></size>
 
-completed -down-> [*]
+rejected --> in_progress : <color:#2980B9><b>Sửa đổi / Vẽ lại</b></color>\n<size:9><color:#7F8C8D>[TaskController::updateStatus()]</color></size>
+
+rejected --> pending : <color:#E67E22><b>Giao lại Task / Đổi người</b></color>\n<size:9><color:#7F8C8D>[TaskController::update()]</color></size>
+
+completed --> [*]
 
 @enduml

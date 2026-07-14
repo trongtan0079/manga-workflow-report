@@ -52,6 +52,7 @@ full\_name & VARCHAR(100) & Họ tên \\ \hline
 email & VARCHAR(100) & Email \\ \hline
 password\_hash & VARCHAR(255) & Mật khẩu mã hóa \\ \hline
 status & ENUM & Trạng thái tài khoản (\texttt{'active'}, \texttt{'inactive'}, \texttt{'banned'}) \\ \hline
+is\_head\_board & TINYINT(1) & Đánh dấu thành viên là trưởng ban hội đồng (Head of Editorial Board) \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 \end{tabularx}
@@ -156,6 +157,7 @@ updated\_at & TIMESTAMP & Ngày cập nhật \\ \hline
 task\_id & INT (PK) & Mã công việc \\ \hline
 page\_id & INT (FK) & Trang liên quan \\ \hline
 page\_region\_id & INT (FK) (NULL) & Phân vùng liên quan \\ \hline
+grouped\_region\_ids & VARCHAR(255) (NULL) & Danh sách ID các phân vùng được gộp để làm chung công việc \\ \hline
 mangaka\_id & INT (FK) & Người giao việc \\ \hline
 assistant\_id & INT (FK) & Người nhận việc \\ \hline
 title & VARCHAR(255) & Tiêu đề công việc \\ \hline
@@ -241,6 +243,7 @@ series\_id & INT (FK) & Bộ truyện \\ \hline
 board\_member\_id & INT (FK) & Thành viên hội đồng \\ \hline
 rank\_position & INT & Vị trí xếp hạng \\ \hline
 score & DECIMAL(5,2) & Điểm đánh giá \\ \hline
+votes & INT & Số phiếu bầu/bình chọn nhận được trong kỳ xếp hạng \\ \hline
 period\_start\_date & DATE & Kỳ xếp hạng \\ \hline
 created\_at & TIMESTAMP & Ngày tạo \\ \hline
 \end{tabularx}
@@ -328,6 +331,34 @@ created\_at & TIMESTAMP & Ngày tạo ghi chú \\ \hline
 \end{table}
 \vspace{0.5cm}
 
+\subsubsection{Bảng Submission\_Annotations}
+\label{subsubsec:tbl_submission_annotations}
+\textit{Mô tả:} Lưu trữ thông tin ghi chú báo lỗi trực quan vẽ đè của Tác giả (Mangaka) lên từng phân vùng lỗi trên bản vẽ nộp của Trợ lý.
+
+\noindent
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+annotation\_id & INT (PK) & Mã ghi chú lỗi \\ \hline
+submission\_id & INT (FK) & Bản nộp của Trợ lý nhận ghi chú lỗi \\ \hline
+user\_id & INT (FK) & Tác giả (Mangaka) thực hiện ghi chú lỗi \\ \hline
+x & INT & Tọa độ x của vùng đánh dấu lỗi \\ \hline
+y & INT & Tọa độ y của vùng đánh dấu lỗi \\ \hline
+width & INT & Chiều rộng vùng đánh dấu lỗi \\ \hline
+height & INT & Chiều cao vùng đánh dấu lỗi \\ \hline
+comments & TEXT & Nội dung mô tả chi tiết lỗi và góp ý sửa đổi \\ \hline
+created\_at & TIMESTAMP & Ngày tạo ghi chú \\ \hline
+\end{tabularx}
+\caption{Cấu trúc chi tiết bảng dữ liệu Submission Annotations}
+\label{tab:db_submission_annotations}
+\end{table}
+\vspace{0.5cm}
+\vspace{0.5cm}
+
 \subsubsection{Bảng Board\_Votes}
 \label{subsubsec:tbl_board_votes}
 \textit{Mô tả:} Lưu phiếu biểu quyết của từng thành viên Hội đồng biên tập (Editorial Board) cho các đề xuất Series mới.
@@ -383,12 +414,16 @@ created\_at & TIMESTAMP & Thời gian ghi log \\ \hline
 \textbf{Bảng tổng hợp mối quan hệ giữa các thực thể:}
 \vspace{0.2cm}
 
-\noindent
 \renewcommand{\arraystretch}{1.3}
-\begin{tabularx}{\textwidth}{|p{3cm}|p{2cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\begin{longtable}{|p{2.1cm}|p{1.4cm}|p{4.3cm}|>{\raggedright\arraybackslash}p{5.8cm}|}
 \hline
 \rowcolor{tableheader}
 \textbf{Thực thể 1} & \textbf{Quan hệ} & \textbf{Thực thể 2} & \textbf{Ý nghĩa} \\ \hline
+\endfirsthead
+\hline
+\rowcolor{tableheader}
+\textbf{Thực thể 1} & \textbf{Quan hệ} & \textbf{Thực thể 2} & \textbf{Ý nghĩa} \\ \hline
+\endhead
 Role & 1-N & User & Một vai trò có thể được gán cho nhiều người dùng. \\ \hline
 User & 1-N & Series & Một người dùng có thể quản lý nhiều Series. \\ \hline
 Series & 1-N & Chapter & Một Series bao gồm nhiều Chapter. \\ \hline
@@ -405,5 +440,7 @@ Series & 1-N & BoardVote & Một Series đề xuất nhận phiếu bầu từ n
 Series & 1-N & Ranking & Một Series có thể có nhiều bản ghi xếp hạng theo từng thời kỳ. \\ \hline
 User & 1-N & Notification & Một người dùng có thể nhận nhiều thông báo. \\ \hline
 User & 1-N & SystemLog & Một người dùng có thể kích hoạt nhiều nhật ký hoạt động trên hệ thống. \\ \hline
-\end{tabularx}
+Submission & 1-N & SubmissionAnnotation & Một bản nộp (Submission) có thể nhận nhiều ghi chú lỗi trực quan từ Mangaka. \\ \hline
+User & 1-N & SubmissionAnnotation & Một người dùng (Mangaka) có thể tạo nhiều ghi chú lỗi trực quan trên các bản nộp. \\ \hline
+\end{longtable}
 \vspace{0.5cm}

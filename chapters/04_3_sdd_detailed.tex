@@ -132,8 +132,8 @@ Class Diagram mô tả cấu trúc tĩnh của hệ thống, bao gồm các lớ
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-roleId & int & Mã vai trò \\ \hline
-roleName & string & Tên vai trò \\ \hline
+role\_id & int & Mã vai trò \\ \hline
+role\_name & string & Tên vai trò \\ \hline
 description & string & Mô tả vai trò \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Role}
@@ -151,13 +151,14 @@ description & string & Mô tả vai trò \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-userId & int & Mã người dùng (Primary Key) \\ \hline
+user\_id & int & Mã người dùng (Primary Key) \\ \hline
 username & string & Tên đăng nhập \\ \hline
-fullName & string & Họ và tên \\ \hline
+full\_name & string & Họ và tên \\ \hline
 email & string & Địa chỉ email \\ \hline
-passwordHash & string & Mật khẩu đã mã hóa \\ \hline
+password\_hash & string & Mật khẩu đã mã hóa \\ \hline
 status & string & Trạng thái tài khoản \\ \hline
-roleId & int & Mã vai trò (Foreign Key liên kết lớp Role) \\ \hline
+is\_head\_board & int & Đánh dấu thành viên là trưởng ban hội đồng xét duyệt \\ \hline
+role\_id & int & Mã vai trò (Foreign Key liên kết lớp Role) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp User}
 \label{tab:class_user}
@@ -174,16 +175,16 @@ roleId & int & Mã vai trò (Foreign Key liên kết lớp Role) \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-seriesId & int & Mã bộ truyện (Primary Key) \\ \hline
+series\_id & int & Mã bộ truyện (Primary Key) \\ \hline
 title & string & Tên bộ truyện \\ \hline
 description & string & Mô tả nội dung \\ \hline
 status & string & Trạng thái bộ truyện (\texttt{'planning'}, \texttt{'ongoing'}...) \\ \hline
-publishType & string & Tần suất phát hành (weekly, monthly...) \\ \hline
-coverImage & string & Ảnh bìa bộ truyện \\ \hline
-proposalFile & string & Đường dẫn tệp đề xuất bộ truyện \\ \hline
-editorId & int & Mã Biên tập viên phụ trách (Foreign Key, cho phép NULL) \\ \hline
-dossierNotes & string & Ghi chú hồ sơ duyệt bộ truyện \\ \hline
-mangakaId & int & Mã tác giả sở hữu (Foreign Key liên kết lớp User) \\ \hline
+publish\_type & string & Tần suất phát hành (weekly, monthly...) \\ \hline
+cover\_image & string & Ảnh bìa bộ truyện \\ \hline
+proposal\_file & string & Đường dẫn tệp đề xuất bộ truyện \\ \hline
+editor\_id & int & Mã Biên tập viên phụ trách (Foreign Key, cho phép NULL) \\ \hline
+dossier\_notes & string & Ghi chú hồ sơ duyệt bộ truyện \\ \hline
+mangaka\_id & int & Mã tác giả sở hữu (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Series}
 \label{tab:class_series}
@@ -200,14 +201,14 @@ mangakaId & int & Mã tác giả sở hữu (Foreign Key liên kết lớp User)
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-chapterId & int & Mã chương (Primary Key) \\ \hline
-chapterNumber & int & Số thứ tự chương \\ \hline
+chapter\_id & int & Mã chương (Primary Key) \\ \hline
+chapter\_number & int & Số thứ tự chương \\ \hline
 title & string & Tên chương \\ \hline
 status & string & Trạng thái chương \\ \hline
-dueDate & datetime & Hạn hoàn thành chương truyện \\ \hline
-publishedAt & datetime & Ngày xuất bản \\ \hline
-isFinal & tinyint & Đánh dấu chương cuối cùng của bộ truyện \\ \hline
-seriesId & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hline
+due\_date & datetime & Hạn hoàn thành chương truyện \\ \hline
+published\_at & datetime & Ngày xuất bản \\ \hline
+is\_final & tinyint & Đánh dấu chương cuối cùng của bộ truyện \\ \hline
+series\_id & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Chapter}
 \label{tab:class_chapter}
@@ -224,12 +225,12 @@ seriesId & int & Mã bộ truyện (Foreign Key liên kết lớp Series) \\ \hl
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-pageId & int & Mã trang (Primary Key) \\ \hline
-pageNumber & int & Số thứ tự trang \\ \hline
-imageUrl & string & Đường dẫn ảnh \\ \hline
-oldImageUrl & string & Đường dẫn ảnh cũ trước khi sửa đổi \\ \hline
+page\_id & int & Mã trang (Primary Key) \\ \hline
+page\_number & int & Số thứ tự trang \\ \hline
+image\_url & string & Đường dẫn ảnh \\ \hline
+old\_image\_url & string & Đường dẫn ảnh cũ trước khi sửa đổi \\ \hline
 status & string & Trạng thái hoàn thành \\ \hline
-chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
+chapter\_id & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Page}
 \label{tab:class_page}
@@ -246,14 +247,14 @@ chapterId & int & Mã chương (Foreign Key liên kết lớp Chapter) \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-regionId & int & Mã phân vùng (Primary Key) \\ \hline
-regionType & string & Loại phân vùng (panel, bubble, background...) \\ \hline
+region\_id & int & Mã phân vùng (Primary Key) \\ \hline
+region\_type & string & Loại phân vùng (panel, bubble, background...) \\ \hline
 x & int & Tọa độ x trên trang truyện \\ \hline
 y & int & Tọa độ y trên trang truyện \\ \hline
 width & int & Chiều rộng phân vùng \\ \hline
 height & int & Chiều cao phân vùng \\ \hline
 status & string & Trạng thái hoàn thành phân vùng \\ \hline
-pageId & int & Mã trang truyện chứa phân vùng (Foreign Key liên kết lớp Page) \\ \hline
+page\_id & int & Mã trang truyện chứa phân vùng (Foreign Key liên kết lớp Page) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp PageRegion}
 \label{tab:class_pageregion}
@@ -270,18 +271,19 @@ pageId & int & Mã trang truyện chứa phân vùng (Foreign Key liên kết l�
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-taskId & int & Mã công việc (Primary Key) \\ \hline
+task\_id & int & Mã công việc (Primary Key) \\ \hline
 title & string & Tên công việc \\ \hline
-taskType & string & Loại công việc (background, inking, coloring...) \\ \hline
+task\_type & string & Loại công việc (background, inking, coloring...) \\ \hline
 description & string & Mô tả công việc \\ \hline
-resourceUrl & string & Đường dẫn tệp tài nguyên đính kèm \\ \hline
+resource\_url & string & Đường dẫn tệp tài nguyên đính kèm \\ \hline
 priority & string & Mức độ ưu tiên \\ \hline
 status & string & Trạng thái công việc \\ \hline
-dueDate & datetime & Hạn hoàn thành \\ \hline
-pageId & int & Mã trang truyện liên kết (Foreign Key liên kết lớp Page) \\ \hline
-pageRegionId & int & Mã phân vùng liên quan (Foreign Key, cho phép NULL) \\ \hline
-mangakaId & int & Mã tác giả giao việc (Foreign Key liên kết lớp User) \\ \hline
-assistantId & int & Mã trợ lý nhận việc (Foreign Key liên kết lớp User) \\ \hline
+due\_date & datetime & Hạn hoàn thành \\ \hline
+page\_id & int & Mã trang truyện liên kết (Foreign Key liên kết lớp Page) \\ \hline
+page\_region\_id & int & Mã phân vùng liên quan (Foreign Key, cho phép NULL) \\ \hline
+grouped\_region\_ids & string & Danh sách các phân vùng gộp liên quan (cho phép NULL) \\ \hline
+mangaka\_id & int & Mã tác giả giao việc (Foreign Key liên kết lớp User) \\ \hline
+assistant\_id & int & Mã trợ lý nhận việc (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Task}
 \label{tab:class_task}
@@ -298,14 +300,14 @@ assistantId & int & Mã trợ lý nhận việc (Foreign Key liên kết lớp U
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-submissionId & int & Mã bài nộp (Primary Key) \\ \hline
-fileUrl & string & Đường dẫn tập tin \\ \hline
+submission\_id & int & Mã bài nộp (Primary Key) \\ \hline
+file\_url & string & Đường dẫn tập tin \\ \hline
 notes & string & Ghi chú bổ sung \\ \hline
 status & string & Trạng thái bài nộp \\ \hline
-submittedAt & datetime & Thời gian nộp \\ \hline
-taskId & int & Mã công việc liên kết (Foreign Key liên kết lớp Task, cho phép NULL) \\ \hline
-chapterId & int & Mã chương liên kết (Foreign Key liên kết lớp Chapter, cho phép NULL) \\ \hline
-userId & int & Mã người nộp (Foreign Key liên kết lớp User) \\ \hline
+submitted\_at & datetime & Thời gian nộp \\ \hline
+task\_id & int & Mã công việc liên kết (Foreign Key liên kết lớp Task, cho phép NULL) \\ \hline
+chapter\_id & int & Mã chương liên kết (Foreign Key liên kết lớp Chapter, cho phép NULL) \\ \hline
+user\_id & int & Mã người nộp (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Submission}
 \label{tab:class_submission}
@@ -322,12 +324,12 @@ userId & int & Mã người nộp (Foreign Key liên kết lớp User) \\ \hline
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-reviewId & int & Mã đánh giá (Primary Key) \\ \hline
+review\_id & int & Mã đánh giá (Primary Key) \\ \hline
 comments & string & Nội dung nhận xét \\ \hline
 rating & int & Điểm đánh giá \\ \hline
-createdAt & datetime & Thời gian đánh giá \\ \hline
-submissionId & int & Mã bài nộp được đánh giá (Foreign Key liên kết lớp Submission) \\ \hline
-reviewerId & int & Mã người đánh giá (Foreign Key liên kết lớp User) \\ \hline
+created\_at & datetime & Thời gian đánh giá \\ \hline
+submission\_id & int & Mã bài nộp được đánh giá (Foreign Key liên kết lớp Submission) \\ \hline
+reviewer\_id & int & Mã người đánh giá (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Review}
 \label{tab:class_review}
@@ -344,18 +346,43 @@ reviewerId & int & Mã người đánh giá (Foreign Key liên kết lớp User)
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-annotationId & int & Mã ghi chú (Primary Key) \\ \hline
+annotation\_id & int & Mã ghi chú (Primary Key) \\ \hline
 x & int & Tọa độ x của vùng đánh dấu nét lỗi \\ \hline
 y & int & Tọa độ y của vùng đánh dấu nét lỗi \\ \hline
 width & int & Chiều rộng vùng lỗi \\ \hline
 height & int & Chiều cao vùng lỗi \\ \hline
 comments & string & Nhận xét, góp ý chi tiết \\ \hline
-createdAt & datetime & Thời gian tạo ghi chú \\ \hline
-pageId & int & Mã trang truyện liên quan (Foreign Key liên kết lớp Page) \\ \hline
-editorId & int & Mã Biên tập viên ghi chú (Foreign Key liên kết lớp User) \\ \hline
+created\_at & datetime & Thời gian tạo ghi chú \\ \hline
+page\_id & int & Mã trang truyện liên quan (Foreign Key liên kết lớp Page) \\ \hline
+editor\_id & int & Mã Biên tập viên ghi chú (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp EditorAnnotation}
 \label{tab:class_editorannotation}
+\end{table}
+
+
+\subsubsection{Lớp SubmissionAnnotation}
+\textit{Mô tả:} Lưu trữ thông tin ghi chú báo lỗi trực quan vẽ đè của Tác giả (Mangaka) trên các bản vẽ nộp của Trợ lý.
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{4cm}|p{3cm}|>{\raggedright\arraybackslash}X|}
+\hline
+\rowcolor{tableheader}
+\textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
+annotation\_id & int & Mã ghi chú lỗi (Primary Key) \\ \hline
+x & int & Tọa độ x của vùng báo lỗi trên hình ảnh nộp \\ \hline
+y & int & Tọa độ y của vùng báo lỗi trên hình ảnh nộp \\ \hline
+width & int & Chiều rộng vùng báo lỗi \\ \hline
+height & int & Chiều cao vùng báo lỗi \\ \hline
+comments & string & Ghi chú mô tả lỗi chi tiết \\ \hline
+created\_at & datetime & Thời gian tạo ghi chú \\ \hline
+submission\_id & int & Mã bản nộp của Trợ lý liên quan (Foreign Key liên kết lớp Submission) \\ \hline
+user\_id & int & Mã Tác giả thực hiện ghi chú (Foreign Key liên kết lớp User) \\ \hline
+\end{tabularx}
+\caption{Đặc tả chi tiết thuộc tính lớp SubmissionAnnotation}
+\label{tab:class_submissionannotation}
 \end{table}
 
 
@@ -369,11 +396,11 @@ editorId & int & Mã Biên tập viên ghi chú (Foreign Key liên kết lớp U
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-voteId & int & Mã phiếu bầu (Primary Key) \\ \hline
+vote\_id & int & Mã phiếu bầu (Primary Key) \\ \hline
 vote & string & Quyết định bầu chọn (approve/reject) \\ \hline
-createdAt & datetime & Thời gian bỏ phiếu \\ \hline
-seriesId & int & Mã bộ truyện liên quan (Foreign Key liên kết lớp Series) \\ \hline
-boardMemberId & int & Mã thành viên hội đồng bỏ phiếu (Foreign Key liên kết lớp User) \\ \hline
+created\_at & datetime & Thời gian bỏ phiếu \\ \hline
+series\_id & int & Mã bộ truyện liên quan (Foreign Key liên kết lớp Series) \\ \hline
+board\_member\_id & int & Mã thành viên hội đồng bỏ phiếu (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp BoardVote}
 \label{tab:class_boardvote}
@@ -390,12 +417,13 @@ boardMemberId & int & Mã thành viên hội đồng bỏ phiếu (Foreign Key l
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-rankingId & int & Mã xếp hạng (Primary Key) \\ \hline
-rankPosition & int & Thứ hạng \\ \hline
+ranking\_id & int & Mã xếp hạng (Primary Key) \\ \hline
+rank\_position & int & Thứ hạng \\ \hline
 score & decimal & Điểm đánh giá \\ \hline
-periodStartDate & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
-seriesId & int & Mã bộ truyện được xếp hạng (Foreign Key liên kết lớp Series) \\ \hline
-boardMemberId & int & Mã thành viên BBT chấm điểm (Foreign Key liên kết lớp User) \\ \hline
+votes & int & Số lượng phiếu bầu trong kỳ \\ \hline
+period\_start\_date & date & Thời điểm bắt đầu kỳ xếp hạng \\ \hline
+series\_id & int & Mã bộ truyện được xếp hạng (Foreign Key liên kết lớp Series) \\ \hline
+board\_member\_id & int & Mã thành viên BBT chấm điểm (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp SeriesRanking}
 \label{tab:class_seriesranking}
@@ -412,12 +440,12 @@ boardMemberId & int & Mã thành viên BBT chấm điểm (Foreign Key liên k�
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-notificationId & int & Mã thông báo (Primary Key) \\ \hline
+notification\_id & int & Mã thông báo (Primary Key) \\ \hline
 type & string & Loại thông báo \\ \hline
 message & string & Nội dung thông báo \\ \hline
-isRead & boolean & Trạng thái đã đọc \\ \hline
-relatedId & int & ID của thực thể liên quan (task, submission...) \\ \hline
-userId & int & Mã người dùng nhận (Foreign Key liên kết lớp User) \\ \hline
+is\_read & boolean & Trạng thái đã đọc \\ \hline
+related\_id & int & ID của thực thể liên quan (task, submission...) \\ \hline
+user\_id & int & Mã người dùng nhận (Foreign Key liên kết lớp User) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp Notification}
 \label{tab:class_notification}
@@ -434,12 +462,12 @@ userId & int & Mã người dùng nhận (Foreign Key liên kết lớp User) \\
 \hline
 \rowcolor{tableheader}
 \textbf{Thuộc tính} & \textbf{Kiểu dữ liệu} & \textbf{Ý nghĩa} \\ \hline
-logId & int & Mã log (Primary Key) \\ \hline
+log\_id & int & Mã log (Primary Key) \\ \hline
 action & string & Tên hành động thực hiện \\ \hline
 details & string & Mô tả chi tiết \\ \hline
-ipAddress & string & Địa chỉ IP truy cập \\ \hline
-createdAt & datetime & Thời gian ghi nhận log \\ \hline
-userId & int & Mã người dùng thực hiện (Foreign Key liên kết lớp User, có thể NULL) \\ \hline
+ip\_address & string & Địa chỉ IP truy cập \\ \hline
+created\_at & datetime & Thời gian ghi nhận log \\ \hline
+user\_id & int & Mã người dùng thực hiện (Foreign Key liên kết lớp User, có thể NULL) \\ \hline
 \end{tabularx}
 \caption{Đặc tả chi tiết thuộc tính lớp SystemLog}
 \label{tab:class_systemlog}
@@ -462,9 +490,9 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
     
     \item \textbf{Lớp User:}
     \begin{itemize}
-        \item \texttt{findByEmail(email: string): User}\\
+        \item \texttt{findByEmail(email: string): array}\\
             Tìm người dùng theo email đăng ký.
-        \item \texttt{findByUsername(username: string): User}\\
+        \item \texttt{findByUsername(username: string): array}\\
             Tìm người dùng theo tên đăng nhập.
         \item \texttt{getUserByIdWithRole(id: int): array}\\
             Lấy thông tin người dùng kèm theo tên vai trò tương ứng.
@@ -472,6 +500,12 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy danh sách người dùng đang active theo tên vai trò.
         \item \texttt{getRoleStatistics(): array}\\
             Lấy dữ liệu thống kê số lượng tài khoản theo từng vai trò.
+        \item \texttt{getAllUsersWithRole(): array}\\
+            Lấy danh sách tất cả người dùng trong hệ thống cùng vai trò của họ.
+        \item \texttt{getPaginatedUsers(limit: int, offset: int): array}\\
+            Lấy danh sách người dùng phân trang phục vụ trang quản trị Admin.
+        \item \texttt{demoteOtherHeads(exceptUserId: int): bool}\\
+            Bãi nhiệm vai trò Trưởng ban hội đồng của các thành viên khác khi có Trưởng ban mới được bổ nhiệm.
     \end{itemize}
 
     \item \textbf{Lớp Series:}
@@ -488,6 +522,8 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy danh sách hồ sơ truyện theo Biên tập viên phụ trách.
         \item \texttt{countActiveSeries(): int}\\
             Đếm số lượng bộ truyện đang hoạt động trong hệ thống.
+        \item \texttt{isTitleExists(title: string, excludeId: int = null): bool}\\
+            Kiểm tra xem tên truyện đã tồn tại trên hệ thống chưa để tránh trùng tên.
     \end{itemize}
 
     \item \textbf{Lớp Chapter:}
@@ -510,6 +546,12 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy danh sách các chương sắp đến hạn nộp thuộc BTV quản lý.
         \item \texttt{findPublishedChapters(): array}\\
             Lấy danh sách các chương đã xuất bản (published) thuộc các Series.
+        \item \texttt{findByMangakaIdWithStats(mangakaId: int): array}\\
+            Lấy danh sách chương truyện kèm thống kê số lượng Task hoàn thành và nộp bài cho Mangaka.
+        \item \texttt{countByMangakaId(mangakaId: int): int}\\
+            Đếm tổng số chương truyện do Mangaka quản lý/sở hữu.
+        \item \texttt{findApprovedChapters(): array}\\
+            Lấy tất cả các chương truyện đã ở trạng thái được phê duyệt hoàn thiện (approved).
     \end{itemize}
 
     \item \textbf{Lớp Page:}
@@ -526,6 +568,18 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy số thứ tự các trang khác trong chương để phục vụ thay đổi vị trí.
         \item \texttt{updateStatusByChapterId(chapterId: int, status: string): bool}\\
             Cập nhật trạng thái cho tất cả các trang thuộc một chương truyện cụ thể.
+        \item \texttt{findByMangakaId(mangakaId: int): array}\\
+            Lấy danh sách các trang vẽ do trợ lý nộp thuộc quyền quản lý của Mangaka.
+        \item \texttt{countByMangakaId(mangakaId: int): int}\\
+            Đếm số lượng trang vẽ do Mangaka tạo ra trên hệ thống.
+    \end{itemize}
+
+    \item \textbf{Lớp PageRegion:}
+    \begin{itemize}
+        \item \texttt{findByPageId(pageId: int): array}\\
+            Lấy tất cả các phân vùng của một trang truyện cụ thể.
+        \item \texttt{findByIds(ids: array): array}\\
+            Tìm các phân vùng trên trang dựa theo danh sách ID truyền vào.
     \end{itemize}
 
     \item \textbf{Lớp Task:}
@@ -542,6 +596,16 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy thống kê số lượng Task theo trạng thái (pending, in\_progress, completed).
         \item \texttt{getMonthlyIncomeStats(assistantId: int): array}\\
             Tính toán thống kê thu nhập dự kiến của trợ lý theo từng tháng dựa trên số Task hoàn thành.
+        \item \texttt{findTasksByChapterId(chapterId: int): array}\\
+            Tìm danh sách toàn bộ Task liên kết với các trang trong một Chapter.
+        \item \texttt{findByPageRegionIds(regionIds: array): array}\\
+            Tìm các Task liên quan đến danh sách ID phân vùng.
+        \item \texttt{deleteActiveTasksByRegionIds(regionIds: array): bool}\\
+            Xóa nhanh các Task đang hoạt động liên kết với danh sách phân vùng.
+        \item \texttt{countByPageAndAssistant(pageId: int, assistantId: int): int}\\
+            Đếm số Task được giao cho trợ lý cụ thể trên một trang truyện.
+        \item \texttt{countByAssistantIdWithGating(assistantId: int): int}\\
+            Đếm số Task trợ lý đang thực hiện để thực hiện giới hạn nhận việc tối đa (Gating).
     \end{itemize}
 
     \item \textbf{Lớp Submission:}
@@ -556,6 +620,22 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Đếm số lượng chương đang chờ duyệt thuộc Biên tập viên quản lý.
         \item \texttt{getStatusStatistics(): array}\\
             Lấy thống kê số lượng bài nộp theo trạng thái.
+        \item \texttt{countByMangakaId(mangakaId: int): int}\\
+            Đếm tổng số bài nộp do Trợ lý thực hiện dưới quyền của Mangaka.
+        \item \texttt{countPendingByMangakaId(mangakaId: int): int}\\
+            Đếm số bài nộp đang chờ duyệt thuộc quyền quản lý của Mangaka.
+        \item \texttt{findByUserId(userId: int): array}\\
+            Lấy danh sách các bản nộp dựa theo ID người nộp (User ID).
+        \item \texttt{findPendingSubmissionsByEditorId(editorId: int): array}\\
+            Lấy các bản nộp chương/task đang chờ Biên tập viên chuyên trách phê duyệt.
+        \item \texttt{findAllChapterSubmissionsByEditorId(editorId: int): array}\\
+            Lấy toàn bộ lịch sử bản nộp chương liên kết với Biên tập viên.
+        \item \texttt{findAllTaskSubmissionsByMangakaId(mangakaId: int): array}\\
+            Lấy toàn bộ lịch sử nộp bài vẽ phân vùng của Trợ lý cho Mangaka.
+        \item \texttt{findWithMetadataById(id: int): array}\\
+            Lấy chi tiết bản nộp kèm thông tin siêu dữ liệu (metadata) của Chapter và Task liên quan.
+        \item \texttt{findAllChapterSubmissions(): array}\\
+            Lấy toàn bộ danh sách nộp bản thảo Chapter trong hệ thống.
     \end{itemize}
 
     \item \textbf{Lớp Review:}
@@ -564,6 +644,22 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy danh sách nhận xét cho một lần nộp bài cụ thể.
         \item \texttt{countReviewsByEditor(editorId: int, status: string): int}\\
             Đếm số lượng đánh giá của Editor theo trạng thái bài nộp.
+        \item \texttt{findByReviewerId(reviewerId: int): array}\\
+            Lấy danh sách các phản hồi, đánh giá được thực hiện bởi người dùng.
+    \end{itemize}
+
+    \item \textbf{Lớp EditorAnnotation:}
+    \begin{itemize}
+        \item \texttt{findByPageId(pageId: int): array}\\
+            Lấy danh sách các ghi chú báo lỗi của Editor trên trang truyện kèm theo tên Editor.
+        \item \texttt{deleteByPageId(pageId: int): bool}\\
+            Xóa toàn bộ các ghi chú báo lỗi trên một trang truyện cụ thể.
+    \end{itemize}
+
+    \item \textbf{Lớp SubmissionAnnotation:}
+    \begin{itemize}
+        \item \texttt{findBySubmissionId(submissionId: int): array}\\
+            Lấy danh sách ghi chú lỗi trực quan trên bản nộp của trợ lý kèm tên đầy đủ người đánh giá.
     \end{itemize}
 
     \item \textbf{Lớp BoardVote:}
@@ -576,20 +672,6 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Tính toán động tỉ lệ phần trăm tán thành và số lượng phiếu bầu đạt được.
     \end{itemize}
 
-    \item \textbf{Lớp PageRegion:}
-    \begin{itemize}
-        \item \texttt{findByPageId(pageId: int): array}\\
-            Lấy tất cả các phân vùng của một trang truyện cụ thể.
-    \end{itemize}
-
-    \item \textbf{Lớp EditorAnnotation:}
-    \begin{itemize}
-        \item \texttt{findByPageId(pageId: int): array}\\
-            Lấy danh sách các ghi chú báo lỗi của Editor trên trang truyện kèm theo tên Editor.
-        \item \texttt{deleteByPageId(pageId: int): bool}\\
-            Xóa toàn bộ các ghi chú báo lỗi trên một trang truyện cụ thể.
-    \end{itemize}
-
     \item \textbf{Lớp SeriesRanking:}
     \begin{itemize}
         \item \texttt{findBySeriesId(seriesId: int): array}\\
@@ -600,6 +682,20 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Lấy danh sách các bộ truyện có điểm cao nhất trong kỳ đánh giá.
         \item \texttt{getBottomSeriesByPeriod(period: string, limit: int): array}\\
             Lấy danh sách các bộ truyện có điểm thấp nhất trong kỳ đánh giá.
+        \item \texttt{getLatestPeriod(): string}\\
+            Lấy kỳ xếp hạng gần nhất hiện có trên hệ thống.
+        \item \texttt{getPreviousRanking(seriesId: int, period: string): array}\\
+            Lấy thông tin thứ hạng và điểm số của bộ truyện trong kỳ đánh giá trước đó.
+        \item \texttt{checkDuplicateRanking(seriesId: int, period: string): bool}\\
+            Kiểm tra xem bộ truyện đã có bản ghi xếp hạng trong kỳ tương ứng chưa.
+        \item \texttt{findByMangakaId(mangakaId: int): array}\\
+            Lấy lịch sử xếp hạng của các bộ truyện thuộc Mangaka sở hữu.
+        \item \texttt{getLatestRanking(): array}\\
+            Lấy danh sách xếp hạng mới nhất của các bộ truyện.
+        \item \texttt{findWithDetails(id: int): array}\\
+            Lấy chi tiết bản xếp hạng kèm thông tin bộ truyện và ban biên tập liên quan.
+        \item \texttt{findAllWithSeries(): array}\\
+            Lấy toàn bộ lịch sử xếp hạng tất cả các bộ truyện trên hệ thống.
     \end{itemize}
 
     \item \textbf{Lớp Notification:}
@@ -618,6 +714,10 @@ Các phương thức (Methods) của từng lớp trong hệ thống mô tả ch
             Đánh dấu một thông báo cụ thể là đã đọc.
         \item \texttt{markAllAsRead(userId: int): bool}\\
             Đánh dấu toàn bộ thông báo của người dùng là đã đọc.
+        \item \texttt{findAllWithUser(): array}\\
+            Lấy danh sách toàn bộ thông báo của mọi người dùng kèm tên chi tiết.
+        \item \texttt{getTypeDetails(type: string): array}\\
+            Lấy thông tin chi tiết (badge màu, tên hiển thị) theo từng loại thông báo.
     \end{itemize}
 
     \item \textbf{Lớp SystemLog:}
@@ -709,7 +809,10 @@ Các mối quan hệ (Association/Multiplicity) giữa các lớp trong Class Di
     \item \textbf{User (1) - (*) Task:} Người dùng đóng vai trò giao việc (Manager/Mangaka) có thể phân công nhiều công việc (Task). Đồng thời, người dùng đóng vai trò nhận việc (Assistant) có thể tiếp nhận và thực hiện nhiều Task.
     \item \textbf{Task (1) - (*) Submission:} Một công việc được giao có thể tạo ra nhiều bản nộp (Submission) khác nhau nếu yêu cầu phải nộp lại nhiều lần.
     \item \textbf{Submission (1) - (*) Review:} Mỗi bản nộp của Assistant có thể nhận được nhiều lượt đánh giá, phản hồi (Review) từ cấp trên để chỉnh sửa cho hoàn thiện.
-    \item \textbf{Series (1) - (*) SeriesRanking:} Mỗi bộ truyện sẽ được đánh giá và lưu lịch sử qua nhiều kỳ xếp hạng (SeriesRanking) khác nhau dựa trên điểm số (score) thu thập được.
+    \item \textbf{Submission (1) - (*) SubmissionAnnotation:} Mỗi bản nộp (Submission) của Trợ lý có thể nhận được nhiều ghi chú lỗi trực quan (SubmissionAnnotation) từ Mangaka để phục vụ chỉnh sửa.
+    \item \textbf{User (1) - (*) SubmissionAnnotation:} Tác giả (Mangaka) có thể tạo nhiều ghi chú lỗi trực quan trên các bản nộp khác nhau.
+    \item \textbf{Series (1) - (*) SeriesRanking:} Mỗi bộ truyện sẽ được đánh giá và lưu lịch sử qua nhiều kỳ xếp hạng (SeriesRanking) khác nhau dựa trên điểm số (score) và phiếu bình chọn (votes) thu thập được.
     \item \textbf{User (1) - (*) SeriesRanking:} Ban biên tập (User) là những người thực hiện đánh giá và cập nhật xếp hạng cho các bộ truyện.
     \item \textbf{User (1) - (*) Notification:} Mỗi người dùng sẽ có hộp thư chứa nhiều thông báo (Notification) từ hệ thống để cập nhật tiến độ công việc hoặc kết quả duyệt bài.
 \end{itemize}
+

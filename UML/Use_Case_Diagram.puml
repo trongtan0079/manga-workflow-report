@@ -1,100 +1,59 @@
 @startuml
-title Use Case Diagram - Hệ thống Quản lý Quy trình Sáng tác và Xuất bản Manga
+title Use Case Diagram - Manga Creation and Publishing Management System
 
 left to right direction
 
-skinparam packageStyle rectangle
-skinparam shadowing false
-skinparam backgroundColor white
-
+actor "Admin" as Admin
 actor "Mangaka" as Mangaka
 actor "Assistant" as Assistant
-actor "Admin" as Admin
 actor "Tantou Editor" as Editor
 actor "Editorial Board" as Board
 
-rectangle "HỆ THỐNG QUẢN LÝ QUY TRÌNH SÁNG TÁC VÀ XUẤT BẢN MANGA\n(Manga Creation Workflow and Publishing Management System)" {
-  ' Central usecase
-  usecase "Đăng nhập / Đăng xuất" as UC_Auth
+rectangle "Manga Creation & Publishing System" {
+  ' Admin Use Cases
+  usecase "Quản lý Tài khoản & Phân quyền" as UC_Admin_Users
+  usecase "Theo dõi Hoạt động Hệ thống" as UC_Admin_Logs
 
-  ' Mangaka
-  usecase "Tạo và quản lý Series" as UC_M1
-  usecase "Nộp bản thảo sơ bộ" as UC_M2
-  usecase "Quản lý Chapter Manga" as UC_M3
-  usecase "Upload Trang Manga" as UC_M4
-  usecase "Phân vùng công việc trên Trang Manga" as UC_M5
-  usecase "Phân công Task cho Assistant" as UC_M6
-  usecase "Kiểm duyệt kết quả công việc" as UC_M7
-  usecase "Theo dõi tiến độ và xếp hạng" as UC_M8
+  ' Mangaka Use Cases
+  usecase "Quản lý Hồ sơ Series" as UC_Mangaka_Series
+  usecase "Quản lý Chương (Chapter)" as UC_Mangaka_Chapter
+  usecase "Phân công & Giao việc (Task)" as UC_Mangaka_Task
+  usecase "Kiểm duyệt kết quả của Trợ lý" as UC_Mangaka_Review_Task
+  usecase "Nộp Bản thảo Chương truyện" as UC_Mangaka_Submit_Chapter
+  usecase "Vẽ phân vùng bản vẽ thủ công" as UC_Mangaka_Region
 
-  ' Assistant
-  usecase "Xem công việc được giao" as UC_A1
-  usecase "Tải trang Manga và tài nguyên" as UC_A2
-  usecase "Thực hiện công việc Artwork" as UC_A3
-  usecase "Nộp kết quả công việc" as UC_A4
-  usecase "Theo dõi trạng thái công việc" as UC_A5
-  usecase "Theo dõi số trang đã được duyệt" as UC_A6
+  ' Assistant Use Cases
+  usecase "Xem Công việc được giao" as UC_Assistant_Tasks
+  usecase "Nộp sản phẩm hoàn thiện (Submission)" as UC_Assistant_Submit
 
-  ' Admin
-  usecase "Quản lý người dùng" as UC_AD1
-  usecase "Quản lý phân quyền" as UC_AD2
-  usecase "Theo dõi hoạt động hệ thống" as UC_AD3
-  usecase "Xem báo cáo thống kê" as UC_AD4
+  ' Editor Use Cases
+  usecase "Kiểm duyệt Bản thảo Chương" as UC_Editor_Review
+  usecase "Đưa ra Nhận xét & Đề xuất sửa đổi" as UC_Editor_Feedback
+  usecase "Đánh dấu lỗi trực quan trên trang" as UC_Editor_Annotate
 
-  ' Tantou Editor
-  usecase "Review bản thảo Series/Chapter" as UC_E1
-  usecase "Ghi chú và yêu cầu chỉnh sửa" as UC_E2
-  usecase "Theo dõi tiến độ và Deadline" as UC_E3
-  usecase "Theo dõi hồ sơ Series" as UC_E4
-  usecase "Tổng hợp báo cáo" as UC_E5
-
-  ' Editorial Board
-  usecase "Xem thông tin Series" as UC_B1
-  usecase "Nhập dữ liệu bình chọn" as UC_B2
-  usecase "Bỏ phiếu xét duyệt Series" as UC_B3
-  usecase "Xem bảng xếp hạng Series" as UC_B4
-  usecase "Quản lý lịch phát hành" as UC_B5
-  usecase "Quyết định xuất bản / hủy Series" as UC_B6
+  ' Board Use Cases
+  usecase "Duyệt xuất bản Series Manga" as UC_Board_Publish
+  usecase "Đánh giá & Xếp hạng Series" as UC_Board_Rank
 }
 
-' Links
-Mangaka --> UC_Auth
-Mangaka --> UC_M1
-Mangaka --> UC_M2
-Mangaka --> UC_M3
-Mangaka --> UC_M4
-Mangaka --> UC_M5
-Mangaka --> UC_M6
-Mangaka --> UC_M7
-Mangaka --> UC_M8
+Admin --> UC_Admin_Users
+Admin --> UC_Admin_Logs
 
-Assistant --> UC_Auth
-Assistant --> UC_A1
-Assistant --> UC_A2
-Assistant --> UC_A3
-Assistant --> UC_A4
-Assistant --> UC_A5
-Assistant --> UC_A6
+Mangaka --> UC_Mangaka_Series
+Mangaka --> UC_Mangaka_Chapter
+Mangaka --> UC_Mangaka_Task
+Mangaka --> UC_Mangaka_Review_Task
+Mangaka --> UC_Mangaka_Submit_Chapter
+Mangaka --> UC_Mangaka_Region
 
-Admin --> UC_Auth
-Admin --> UC_AD1
-Admin --> UC_AD2
-Admin --> UC_AD3
-Admin --> UC_AD4
+Assistant --> UC_Assistant_Tasks
+Assistant --> UC_Assistant_Submit
 
-Editor --> UC_Auth
-Editor --> UC_E1
-Editor --> UC_E2
-Editor --> UC_E3
-Editor --> UC_E4
-Editor --> UC_E5
+Editor --> UC_Editor_Review
+Editor --> UC_Editor_Feedback
+Editor --> UC_Editor_Annotate
 
-Board --> UC_Auth
-Board --> UC_B1
-Board --> UC_B2
-Board --> UC_B3
-Board --> UC_B4
-Board --> UC_B5
-Board --> UC_B6
+Board --> UC_Board_Publish
+Board --> UC_Board_Rank
 
 @enduml

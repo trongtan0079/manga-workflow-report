@@ -3,38 +3,59 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Trang Truyện (P
 
 skinparam backgroundColor white
 skinparam shadowing false
-' skinparam linetype ortho
+skinparam roundcorner 8
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
 
-[*] --> drafting : Mangaka tải lên trang vẽ mới
-
-state drafting {
-    description : Trang vẽ thô đang biên tập
+skinparam state {
+    BackgroundColor<<drafting>> #F5F6FA
+    BorderColor<<drafting>> #718093
+    
+    BackgroundColor<<reviewing>> #FFF9E6
+    BorderColor<<reviewing>> #F1C40F
+    
+    BackgroundColor<<drawing>> #E8F5E9
+    BorderColor<<drawing>> #4CAF50
+    
+    BackgroundColor<<approved>> #E3F2FD
+    BorderColor<<approved>> #1976D2
+    
+    BackgroundColor<<published>> #E0F2F1
+    BorderColor<<published>> #00897B
 }
 
-state drawing {
-    description : Đang thực hiện vẽ (đang có Task hoạt động)
-}
+skinparam ArrowColor #2C3E50
+skinparam ArrowFontColor #2C3E50
+skinparam ArrowFontSize 10
 
-state approved {
-    description : Toàn bộ phân vùng (PageRegions) đã hoàn thành và được duyệt
-}
+state drafting <<drafting>> : Biên tập nháp\n<size:9><color:#7F8C8D>(Trang vẽ thô đang biên tập)</color></size>
+state reviewing_draft <<reviewing>> : Chờ duyệt nháp\n<size:9><color:#7F8C8D>(Chờ duyệt Storyboard)</color></size>
+state drawing <<drawing>> : Đang vẽ chi tiết\n<size:9><color:#7F8C8D>(Đang có Task vẽ phân vùng)</color></size>
+state reviewing_final <<reviewing>> : Chờ duyệt hoàn chỉnh\n<size:9><color:#7F8C8D>(Chờ duyệt bản hoàn thiện)</color></size>
+state approved <<approved>> : Đã duyệt\n<size:9><color:#7F8C8D>(Bản vẽ hoàn chỉnh đã thông qua)</color></size>
+state published <<published>> : Đã xuất bản\n<size:9><color:#7F8C8D>(Đã xuất bản cùng Chapter)</color></size>
 
-state published {
-    description : Trang truyện đã xuất bản chính thức cùng Chapter
-}
+[*] --> drafting : <color:#2980B9><b>Tải lên trang mới</b></color>
 
-drafting -down-> drawing : Mangaka tạo và giao Task\ntrên phân vùng
-drafting -right-> reviewing_draft : Chapter chứa trang\nchuyển sang reviewing_draft
-reviewing_draft -left-> drafting : Chapter bị\ntừ chối duyệt nháp
-reviewing_draft -down-> drawing : Chapter được duyệt nháp
-drawing -right-> reviewing_final : Chapter chứa trang\nchuyển sang reviewing_final
-reviewing_final -left-> drawing : Chapter bị từ chối\nduyệt hoàn chỉnh
+drafting --> drawing : <color:#2980B9><b>Giao Task vẽ</b></color>
+drafting --> reviewing_draft : <color:#2980B9><b>Nộp duyệt nháp</b></color>
 
-drawing -down-> approved : Tất cả phân vùng (PageRegions)\nchuyển sang 'completed'\nvà tất cả Task đã hoàn thành
-reviewing_final -down-> approved : Chapter được duyệt hoàn chỉnh
+reviewing_draft --> drafting : <color:#D32F2F><b>Từ chối duyệt nháp</b></color>
+reviewing_draft --> drawing : <color:#388E3C><b>Duyệt Storyboard thành công</b></color>
 
-approved -down-> published : Chapter chứa trang này\nđược duyệt xuất bản
+drawing --> reviewing_final : <color:#2980B9><b>Nộp duyệt hoàn chỉnh</b></color>
+reviewing_final --> drawing : <color:#D32F2F><b>Từ chối bản hoàn chỉnh</b></color>
 
-published -down-> [*]
+state waiting_genko <<choice>>
+note right of waiting_genko : <size:10>Tất cả Task hoàn thành nhưng chưa có bản vẽ hoàn chỉnh (Genko)</size>\n<size:9><color:#E67E22>[Chờ tác giả nộp bản vẽ hoàn chỉnh]</color></size>
+
+drawing --> waiting_genko : <color:#7F8C8D>Task hoàn thành</color>\n<size:9><color:#7F8C8D>[Guard: old_image_url == 'no_genko']</color></size>
+waiting_genko --> approved : <color:#2980B9><b>Tác giả upload Genko</b></color>\n<size:9><color:#7F8C8D>[PageController::update()]\n[Guard: old_image_url != 'no_genko']</color></size>
+
+reviewing_final --> approved : <color:#388E3C><b>Duyệt hoàn chỉnh thành công</b></color>
+
+approved --> published : <color:#388E3C><b>Duyệt xuất bản Chapter</b></color>
+
+published --> [*]
 
 @enduml

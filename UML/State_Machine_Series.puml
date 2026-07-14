@@ -3,35 +3,58 @@ title State Machine Diagram - Vòng Đời Trạng Thái Của Bộ Truyện (Se
 
 skinparam backgroundColor white
 skinparam shadowing false
-' skinparam linetype ortho
+skinparam roundcorner 8
+skinparam defaultFontName "Segoe UI"
+skinparam defaultFontSize 11
 
-[*] --> draft : Mangaka tạo Series mới\n[publish_type = 'draft', status = 'planning']
-
-draft --> submitted : Mangaka bấm Nộp đề xuất\n[publish_type = 'submitted', status = 'planning']
-
-state submitted {
-    description : Đang nằm trong hàng đợi chờ Editorial Board phê duyệt
+skinparam state {
+    BackgroundColor<<draft>> #F5F6FA
+    BorderColor<<draft>> #718093
+    
+    BackgroundColor<<submitted>> #FFF9E6
+    BorderColor<<submitted>> #F1C40F
+    
+    BackgroundColor<<ongoing>> #E3F2FD
+    BorderColor<<ongoing>> #1976D2
+    
+    BackgroundColor<<suspended>> #FFF3E0
+    BorderColor<<suspended>> #FB8C00
+    
+    BackgroundColor<<completed>> #E8F5E9
+    BorderColor<<completed>> #4CAF50
+    
+    BackgroundColor<<canceled>> #FFEBEE
+    BorderColor<<canceled>> #EF5350
 }
 
-submitted -down-> ongoing : Editorial Board phê duyệt\n[status = 'ongoing']\n[Bắt buộc gán BTV chuyên trách\n- Tantou Editor]
+skinparam ArrowColor #2C3E50
+skinparam ArrowFontColor #2C3E50
+skinparam ArrowFontSize 10
 
-submitted -right-> canceled : Editorial Board từ chối đề xuất\n[status = 'canceled']
+state draft <<draft>> : Nháp chưa nộp\n<size:9><color:#7F8C8D>(Tác giả đang biên soạn)</color></size>
+state submitted <<submitted>> : Chờ phê duyệt\n<size:9><color:#7F8C8D>(Đang nằm trong hàng đợi duyệt)</color></size>
+state ongoing <<ongoing>> : Đang phát hành\n<size:9><color:#7F8C8D>(Đang sáng tác & xuất bản)</color></size>
+state suspended <<suspended>> : Tạm ngưng\n<size:9><color:#7F8C8D>(Tạm thời dừng phát hành)</color></size>
+state completed <<completed>> : Hoàn thành\n<size:9><color:#7F8C8D>(Duyệt xong Chương cuối)</color></size>
+state canceled <<canceled>> : Đã hủy bỏ\n<size:9><color:#7F8C8D>(Bị từ chối hoặc hủy phát hành)</color></size>
 
-state ongoing {
-    description : Bộ truyện đang trong quá trình sáng tác và xuất bản thương mại
-}
+[*] --> draft : <color:#2980B9><b>Tạo Series</b></color>\n<size:9><color:#7F8C8D>[status = 'planning']</color></size>
 
-ongoing -down-> suspended : Editorial Board tạm ngưng phát hành (treo bút)\n[status = 'suspended']
+draft --> submitted : <color:#2980B9><b>Nộp đề xuất</b></color>\n<size:9><color:#7F8C8D>[status = 'planning']</color></size>
 
-suspended -up-> ongoing : Editorial Board khôi phục trạng thái phát hành\n[status = 'ongoing']
+submitted --> ongoing : <color:#2980B9><b>Ban biên tập duyệt</b></color>\n<size:9><color:#7F8C8D>[status = 'ongoing']\n[Gán Tantou Editor]</color></size>
 
-ongoing -left-> completed : Editorial Board\nđánh dấu hoàn thành\n[status = 'completed']\n[Guard: Hết chapter chưa duyệt\nVÀ đã duyệt xong Chương cuối (is_final=1)]
+submitted -right-> canceled : <color:#D32F2F><b>Từ chối duyệt</b></color>\n<size:9><color:#7F8C8D>[status = 'canceled']</color></size>
 
-ongoing -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
+ongoing -right-> suspended : <color:#F57C00><b>Tạm ngưng</b></color>\n<size:9><color:#7F8C8D>[status = 'suspended']</color></size>
+suspended -left-> ongoing : <color:#2980B9><b>Khôi phục</b></color>\n<size:9><color:#7F8C8D>[status = 'ongoing']</color></size>
 
-suspended -right-> canceled : Editorial Board\nhủy phát hành bộ truyện\n[status = 'canceled']
+ongoing --> completed : <color:#388E3C><b>Hoàn thành bộ truyện</b></color>\n<size:9><color:#7F8C8D>[status = 'completed']\n[Guard: Đã duyệt Chương cuối]</color></size>
 
-completed -down-> [*]
-canceled -down-> [*]
+ongoing --> canceled : <color:#D32F2F><b>Hủy phát hành</b></color>\n<size:9><color:#7F8C8D>[status = 'canceled']</color></size>
+suspended --> canceled : <color:#D32F2F><b>Hủy phát hành</b></color>\n<size:9><color:#7F8C8D>[status = 'canceled']</color></size>
+
+completed --> [*]
+canceled --> [*]
 
 @enduml
